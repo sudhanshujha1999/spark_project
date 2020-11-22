@@ -1,0 +1,2 @@
+- Use `kubectl set env deployment/my-deployment ENV_VAR=somevalue` to set an env variable
+- Use `kubectl set env deployment/my-deployment --list` to see all the current env variables

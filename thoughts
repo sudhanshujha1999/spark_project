@@ -1,0 +1,9 @@
+1. Add nginx-ingress controller
+2. Create a deployment
+3. Create a service that exposes the deployment
+4. Create an ingress that points to the service and port
+5. Install the CustomResourceDefinition for cert-manager
+6. Install the cert-manager
+7. Create an Issuer
+8. Add the issuer to the ingress definition
+9. Add an annotation to the ingress definition to redirect to ssl

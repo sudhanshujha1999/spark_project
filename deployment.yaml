@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spark-esports-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spark-esports-deployment
+  template:
+    metadata:
+      labels:
+        app: spark-esports-deployment
+    spec:
+      containers:
+      - env:
+        - name: IS_PRODUCTION
+          value: "yes"
+        - name: FIREBASE_CREDENTIALS
+          valueFrom:
+            secretKeyRef:
+              name: firebase-admin-secret
+              key: service-account
+        image: "registry.hub.docker.com/shaunwa/spark-esports:0.12"
+        imagePullPolicy: Always
+        name: spark-esports
+        ports:
+          - containerPort: 8080

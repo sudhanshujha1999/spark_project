@@ -1,0 +1,16 @@
+{
+  "name": "spark-esports",
+  "version": "1.0.0",
+  "description": "1. Find out what the current docker image is on the Kubernetes cluster:",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run start --prefix=front-end\" \"npm run dev --prefix=back-end\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "5.3.0"
+  }
+}
