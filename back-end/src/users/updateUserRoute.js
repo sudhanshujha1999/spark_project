@@ -13,8 +13,7 @@ export const updateUserRoute = {
             const updatedUser = await updateUser(userId, updates);
             res.send(updatedUser);
         } else {
-            req.status(403).json({ message: 'User can only make changes to their own info' });
+            res.status(403).json({ message: 'User can only make changes to their own info' });
         }
-
     },
 };

@@ -10,14 +10,21 @@ import {
 } from '../ui';
 
 export const AddPlayers = () => {
-    const { teamId } = useParams();
     const [team, setTeam] = useState({});
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [isAddingPlayer, setIsAddingPlayer] = useState(false);
+
+    const { teamId } = useParams();
     const { players = [] } = team || {};
     const { user } = useUser();
     const history = useHistory();
     
-    const addPlayer = async () => {
+    const onAddPlayer = async () => {
         const response = await axios.post(`/teams/${teamId}/players`);
+        setTeam(response.data);
+        setIsAddingPlayer(false);
     }
 
     const backToTeams = async () => {
@@ -34,9 +41,52 @@ export const AddPlayers = () => {
             {players.map(player => (
                 <h3>{player.email}</h3>
             ))}
-            <Button
-                variant="contained"
-            >Add Player</Button>
+            <Box mb={2}>
+                {isAddingPlayer
+                    ? (
+                        <>
+                        <Box mb={2}>
+                            <TextField
+                                value={firstName}
+                                onChange={e => setFirstName(e.target.value)}
+                                label="First Name"
+                                fullWidth
+                                variant="outlined" />
+                        </Box>
+                        <Box mb={2}>
+                            <TextField
+                                value={lastName}
+                                onChange={e => setLastName(e.target.value)}
+                                label="Last Name"
+                                fullWidth
+                                variant="outlined" />
+                        </Box>
+                        <Box mb={2}>
+                            <TextField
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
+                                label="Email Address"
+                                fullWidth
+                                variant="outlined" />
+                        </Box>
+                        <Box mb={2}>
+                            <Button
+                                onClick={() => setIsAddingPlayer(false)}
+                                variant="contained"
+                            >Cancel</Button>
+                            <Button
+                                onClick={onAddPlayer}
+                                variant="contained"
+                            >Send Invite</Button>
+                        </Box>
+                        </>
+                    ) : (
+                        <Button
+                            onClick={() => setIsAddingPlayer(true)}
+                            variant="contained"
+                        >+ Add Player</Button>
+                    )}
+            </Box>
             <Button
                 variant="contained"
                 onClick={onPrevious}

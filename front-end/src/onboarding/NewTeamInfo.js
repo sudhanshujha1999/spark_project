@@ -3,8 +3,10 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useUser } from '../auth';
 import {
+    Alert,
     Box,
     Button,
+    CircularProgress,
     Container,
     TextField,
 } from '../ui';
@@ -13,19 +15,32 @@ export const NewTeamInfo = () => {
     const [name, setName] = useState('');
     const [game, setGame] = useState('');
     const [description, setDescription] = useState('');
-    const [profilePicture, setProfilePicture] = useState('');
+
     const { user } = useUser();
     const history = useHistory();
+
+    const [isUpdating, setIsUpdating] = useState(false);
+    const [error, setError] = useState('');
     
     const onNext = async () => {
-        // TODO: Send POST request to create a new school
-        const newTeamId = '123'; // = await axios.post(...);
-        history.push(`/onboarding/teams/${newTeamId}/players`);
+        setIsUpdating(true);
+        try {
+            const authtoken = await user.getIdToken();
+            const response = await axios.post('/api/team', { name, game, description }, { headers: { authtoken } });
+            const newTeamId = response.data;
+            history.push(`/onboarding/teams/${newTeamId}/players`);
+        } catch (e) {
+            setIsUpdating(false);
+            setError(e.message);
+        }
     }
 
     return (
         <Container maxWidth="sm">
             <h1>New Team Info</h1>
+            <Box mb={2}>
+                {error && <Alert severity="error">{error}</Alert>}
+            </Box>
             <Box mb={2}>
                 <TextField
                     value={name}
@@ -55,7 +70,11 @@ export const NewTeamInfo = () => {
             <Button
                 variant="contained"
                 onClick={onNext}
-            >Next</Button>
+            >
+                {isUpdating
+                    ? <CircularProgress size={24} />
+                    : 'Next'}
+            </Button>
         </Container>
     )
 }
