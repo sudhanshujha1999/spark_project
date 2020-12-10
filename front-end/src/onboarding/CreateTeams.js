@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useUser } from '../auth';
+import { useTeams } from '../teams';
 import {
     Box,
     Button,
@@ -11,8 +12,8 @@ import {
 
 export const CreateTeams = () => {
     const { schoolId } = useParams();
-    const [teams, setTeams] = useState([]);
     const { user } = useUser();
+    const teams = useTeams(user.uid, 'coach');
     const history = useHistory();
 
     const onDone = () => {
@@ -20,11 +21,11 @@ export const CreateTeams = () => {
     }
 
     const onClickAddTeam = async () => {
-        history.push(`/onboarding/school/${schoolId}/teams/new`);
+        history.push(`/onboarding/schools/${schoolId}/teams/new`);
     }
 
     const onPrevious = async () => {
-        history.push('/onboarding/school');
+        history.push('/onboarding/schools');
     }
     
     return (

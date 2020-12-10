@@ -22,7 +22,7 @@ export const CreateAccountForm = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
-    const [selectedRole, setSelectedRole] = useState(roleOptions[0]);
+    const [selectedRole, setSelectedRole] = useState(null);
     const history = useHistory();
 
     const onCreateAccount = async () => {
@@ -33,7 +33,7 @@ export const CreateAccountForm = () => {
             
             const data = {
                 email,
-                role: selectedRole.value,
+                membershipTypeId: selectedRole.value,
                 password,
             };
             const response = await axios.post('/api/users', data);

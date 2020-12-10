@@ -9,8 +9,8 @@ export const RoleSelector = ({ options, selectedOption, onChange }) => (
         <Grid item xs={6} onClick={() => onChange(option)} >
             <Box style={{
                 alignItems: 'center',
-                backgroundColor: selectedOption.value === option.value ? 'rgba(70, 70, 70, 1)' : 'inherit',
-                border: `1px solid ${selectedOption.value === option.value ? 'white' : 'rgba(255, 255, 255, 0.23)'}`,
+                backgroundColor: selectedOption && selectedOption.value === option.value ? 'rgba(70, 70, 70, 1)' : 'inherit',
+                border: `1px solid ${selectedOption && selectedOption.value === option.value ? 'white' : 'rgba(255, 255, 255, 0.23)'}`,
                 borderRadius: '4px',
                 cursor: 'pointer',
                 display: 'inline-flex',

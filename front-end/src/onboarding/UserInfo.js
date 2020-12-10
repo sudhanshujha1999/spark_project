@@ -9,6 +9,7 @@ import {
     CircularProgress,
     Container,
     Divider,
+    StateForm,
     TextField,
 } from '../ui';
 
@@ -32,7 +33,7 @@ export const UserInfo = () => {
         try {
             const authtoken = await user.getIdToken();
             await axios.post(`/api/users/${user.uid}`, { updates }, { headers: { authtoken } });
-            history.push('/onboarding/school');
+            history.push('/onboarding/schools');
         } catch (e) {
             setIsUpdating(false);
             setError(e.message);

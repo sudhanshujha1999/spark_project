@@ -31,7 +31,7 @@ export const SignInForm = () => {
             if (user.onboarded) {
                 history.push(dest);
             } else {
-                history.push('/onboarding/user-info');
+                history.push(`/onboarding/user-info?mtid=${user.membershipTypeId}`);
             }
         }
     }, [user, dest, history]);

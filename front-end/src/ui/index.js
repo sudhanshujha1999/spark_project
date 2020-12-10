@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 
 export { NavBar } from './NavBar';
 export { SideNav } from './SideNav';
+export { StateForm } from './StateForm';
 export { TabPanel } from './TabPanel';
 
 export {

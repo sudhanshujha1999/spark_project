@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useUser } from '../auth';
 import {
@@ -18,6 +18,7 @@ export const NewTeamInfo = () => {
 
     const { user } = useUser();
     const history = useHistory();
+    const { schoolId } = useParams();
 
     const [isUpdating, setIsUpdating] = useState(false);
     const [error, setError] = useState('');
@@ -26,9 +27,9 @@ export const NewTeamInfo = () => {
         setIsUpdating(true);
         try {
             const authtoken = await user.getIdToken();
-            const response = await axios.post('/api/team', { name, game, description }, { headers: { authtoken } });
+            const response = await axios.post('/api/teams', { name, game, description, schoolId }, { headers: { authtoken } });
             const newTeamId = response.data;
-            history.push(`/onboarding/teams/${newTeamId}/players`);
+            history.push(`/onboarding/schools/${schoolId}/teams/${newTeamId}/players`);
         } catch (e) {
             setIsUpdating(false);
             setError(e.message);

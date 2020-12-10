@@ -53,22 +53,22 @@ const routes = [{
     isOnboarding: true,
     hideNav: true,
 }, {
-    path: '/onboarding/school',
+    path: '/onboarding/schools',
     component: SchoolInfo,
     isOnboarding: true,
     hideNav: true,
 }, {
-    path: '/onboarding/school/:schoolId/teams',
+    path: '/onboarding/schools/:schoolId/teams',
     component: CreateTeams,
     isOnboarding: true,
     hideNav: true,
 }, {
-    path: '/onboarding/school/:schoolId/teams/new',
+    path: '/onboarding/schools/:schoolId/teams/new',
     component: NewTeamInfo,
     isOnboarding: true,
     hideNav: true,
 }, {
-    path: '/onboarding/teams/:teamId/players',
+    path: '/onboarding/schools/:schoolId/teams/:teamId/players',
     component: AddPlayers,
     isOnboarding: true,
     hideNav: true,

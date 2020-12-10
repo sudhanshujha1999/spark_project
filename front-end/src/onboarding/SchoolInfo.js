@@ -27,7 +27,7 @@ export const SchoolInfo = () => {
             const authtoken = await user.getIdToken();
             const response = await axios.post(`/api/schools`, { name, city }, { headers: { authtoken } });
             const schoolId = response.data;
-            history.push(`/onboarding/school/${schoolId}/teams`);
+            history.push(`/onboarding/schools/${schoolId}/teams`);
         } catch (e) {
             setIsUpdating(false);
             setError(e.message);
