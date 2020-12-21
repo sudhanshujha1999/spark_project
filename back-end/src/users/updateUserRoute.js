@@ -1,9 +1,18 @@
+import {
+    isLoggedInProtector,
+    isVerifiedProtector,
+    isOnboardedProtector,
+} from '../route-protectors';
 import { updateUser } from './updateUser';
 
 export const updateUserRoute = {
     method: 'post',
     path: '/users/:userId',
-    isProtected: true,
+    protectors: [
+        isLoggedInProtector,
+        isVerifiedProtector,
+        isOnboardedProtector,
+    ],
     handler: async (req, res) => {
         const { userId } = req.params;
         const { updates } = req.body;

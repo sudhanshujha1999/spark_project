@@ -1,16 +1,17 @@
 import * as admin from 'firebase-admin';
 
-export const createUserInDB = async ({ id, email, role, confirmationCode }) => {
+export const createUserInDB = async ({ id, email, membershipTypeId, confirmationCode }) => {
     const createdAt = Date.now();
 
     const newUser = {
+        authId: id,
         email,
-        role,
         createdAt,
         confirmationCode,
-        confirmed: false,
-        onboarded: false,
+        membershipTypeId,
+        isConfirmed: false,
+        isOnboarded: false,
     };
 
-    await admin.firestore().collection('users').doc(id).set(newUser);
+    await admin.firestore().collection('users').add(newUser);
 }

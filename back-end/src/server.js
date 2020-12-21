@@ -3,7 +3,7 @@ import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
 import * as firebaseAdmin from 'firebase-admin';
-import { protectRoute } from './middleware';
+import { addUserToRoute, protectRoute } from './middleware';
 import { routes } from './routes';
 
 const PORT = process.env.PORT || 8080;
@@ -19,6 +19,8 @@ if (!FIREBASE_CREDENTIALS) {
     firebaseAdmin.initializeApp({
         credential: firebaseAdmin.credential.cert(FIREBASE_CREDENTIALS),
     });
+    const store = firebaseAdmin.firestore();
+    store.settings({ ignoreUndefinedProperties: true });
 }
 
 const app = express();
@@ -31,9 +33,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 const apiRouter = express.Router();
 routes.forEach(route => {
-    route.isProtected
-        ? apiRouter[route.method](route.path, protectRoute, route.handler)
-        : apiRouter[route.method](route.path, route.handler);
+    apiRouter[route.method](route.path, addUserToRoute, protectRoute(route.protectors), route.handler)
 });
 app.use('/api', apiRouter);
 
@@ -43,4 +43,9 @@ app.get('*', (req, res) => {
 
 app.listen(PORT, () => {
     console.log('Server is listening on port ' + PORT);
+});
+
+process.on('SIGINT', () => {
+    console.log('Stopping server...');
+    process.exit();
 });

@@ -1,12 +1,21 @@
 import * as admin from 'firebase-admin';
 
-export const protectRoute = async (req, res, next) => {
-    try {
-        const token = req.headers.authtoken;
-        const user = await admin.auth().verifyIdToken(token);
-        req.user = user;
-        next();
-    } catch (e) {
-        res.status(401).json({ message: "You must be logged in to access these resources" });
+export const protectRoute = (routeProtectors = []) => async (req, res, next) => {
+    const failingProtectors = (await Promise.all(
+        routeProtectors.map(protector => {
+            if (!protector.test(req)) {
+                return protector;
+            }
+
+            return null;
+        })
+    )).filter(x => x);
+
+    if (failingProtectors.length === 0) {
+        return next();
     }
+
+    const { errorCode, errorMessage } = failingProtectors[0];
+
+    return res.status(errorCode).json({ message: errorMessage });
 };

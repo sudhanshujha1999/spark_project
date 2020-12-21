@@ -1,11 +1,18 @@
 import { createUserRoute } from './createUserRoute';
-import { resendVerificationEmailRoute } from './resendVerificationEmailRoute';
+import { getUserRoute } from './getUserRoute';
+import { getUserInfoRoute } from './getUserInfoRoute';
 import { updateUserRoute } from './updateUserRoute';
-import { verifyEmailRoute } from './verifyEmailRoute';
 
 export const routes = [
     createUserRoute,
-    resendVerificationEmailRoute,
+    getUserRoute,
+    getUserInfoRoute,
     updateUserRoute,
-    verifyEmailRoute,
 ];
+
+export { createUserInDB } from './createUserInDB';
+export { getUserByEmail } from './getUserByEmail';
+export { getUserById } from './getUserById';
+export { getUserByAuthId } from './getUserByAuthId';
+export { setUserToOnboarded } from './setUserToOnboarded';
+export { updateUser } from './updateUser';

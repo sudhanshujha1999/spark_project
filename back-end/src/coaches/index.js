@@ -1,0 +1,1 @@
+export { getCoachesForGroup } from './getCoachesForGroup';
