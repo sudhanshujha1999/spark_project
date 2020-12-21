@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import firebase from 'firebase/app';
 
-export const useUser = () => {
+export const useCurrentUser = () => {
     const [authInfo, setAuthInfo] = useState(() => {
         const user = firebase.auth().currentUser;
         const isLoading = !user;

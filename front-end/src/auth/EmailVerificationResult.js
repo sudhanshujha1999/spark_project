@@ -1,5 +1,11 @@
+import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button, Container } from '../ui';
+import firebase from 'firebase/app';
+import {
+    Box,
+    Button,
+    CenteredContainer,
+} from '../ui';
 import { useQueryParams } from '../routing';
 
 const resultCodesMap = {
@@ -38,6 +44,8 @@ const resultCodesMap = {
 export const EmailVerificationResult = () => {
     const { code } = useQueryParams();
     const history = useHistory();
+    
+    useEffect(() => firebase.auth().signOut());
 
     const displayData = resultCodesMap[code || 'no_code'];
     const {
@@ -48,14 +56,16 @@ export const EmailVerificationResult = () => {
     } = displayData;
 
     return (
-        <Container maxWidth="sm">
-            <h1>{heading}</h1>
-            <p>{message}</p>
-            <Button
-                onClick={() => history.push(linkUrl)}
-                variant="contained"
-                color="primary"
-            >{buttonText}</Button>
-        </Container>
+        <CenteredContainer>
+            <Box align="center">
+                <h1>{heading}</h1>
+                <p>{message}</p>
+                <Button
+                    onClick={() => history.push(linkUrl)}
+                    variant="contained"
+                    color="primary"
+                >{buttonText}</Button>
+            </Box>
+        </CenteredContainer>
     );
 }

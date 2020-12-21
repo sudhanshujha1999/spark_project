@@ -1,49 +1,76 @@
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
-import { useUser } from '../auth';
 import {
     Alert,
     Box,
     Button,
+    CenteredContainer,
     CircularProgress,
-    Container,
     Divider,
-    StateForm,
+    Grid,
     TextField,
 } from '../ui';
+import { onboardingState } from './onboardingState';
+
+const validations = [{
+    test: ({ firstName }) => firstName.length > 1,
+    errorMessage: 'First name must be 2 characters or longer',
+}, {
+    test: ({ lastName }) => lastName.length > 1,
+    errorMessage: 'Last name must be 2 characters or longer',
+}];
 
 export const UserInfo = () => {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [newEmail, setNewEmail] = useState('');
-    const [otherEmails, setOtherEmails] = useState([]);
-    const [bio, setBio] = useState('');
+    const [onboardingInfo, setOnboardingInfo] = useRecoilState(onboardingState);
+    const {
+        firstName: initialFirstName = '',
+        lastName: initialLastName = '',
+        bio: initialBio = '',
+    } = onboardingInfo.userInfo;
+    const [firstName, setFirstName] = useState(initialFirstName);
+    const [lastName, setLastName] = useState(initialLastName);
+    const [bio, setBio] = useState(initialBio);
 
-    const { user } = useUser();
     const history = useHistory();
 
-    const [isAddingEmail, setIsAddingEmail] = useState(false);
     const [isUpdating, setIsUpdating] = useState(false);
-    const [error, setError] = useState('');
+    const [validationErrors, setValidationErrors] = useState([]);
+    const [networkError, setNetworkError] = useState('');
+
+    const getValidationErrors = () => {
+        const fields = { firstName, lastName, bio };
+        const errors = validations
+            .filter(validation => !validation.test(fields))
+            .map(validation => validation.errorMessage);
+        return errors;
+    }
 
     const onNext = async () => {
+        const validationErrors = getValidationErrors();
+        setValidationErrors(validationErrors);
+        if (validationErrors.length > 0) return;
+
         setIsUpdating(true);
-        const updates = { firstName, lastName, bio, otherEmails };
+        const userInfo = { firstName, lastName, bio };
         try {
-            const authtoken = await user.getIdToken();
-            await axios.post(`/api/users/${user.uid}`, { updates }, { headers: { authtoken } });
+            setOnboardingInfo({ ...onboardingInfo, userInfo })
             history.push('/onboarding/schools');
         } catch (e) {
             setIsUpdating(false);
-            setError(e.message);
+            setNetworkError(e.message);
         }
     }
 
     return (
-        <Container maxWidth="sm">
+        <CenteredContainer>
             <h1>User Info</h1>
-            {error && <Alert severity="error">{error}</Alert>}
+            {networkError && <Alert severity="error">{networkError}</Alert>}
+            {validationErrors.map(error => (
+                <Box mb={2}>
+                    <Alert severity="error">{error}</Alert>
+                </Box>
+            ))}
             <Box mb={2}>
                 <h3>Basic Info:</h3>
             </Box>
@@ -76,62 +103,28 @@ export const UserInfo = () => {
                     variant="outlined" />
             </Box>
             <Divider />
-            <Box mb={2}>
-                <h3>Email Addresses:</h3>
-            </Box>
-            <Box mb={2}>
-                <p>{user.email}</p>
-                {otherEmails.map(email => (
-                    <p key={email}>{email}</p>
-                ))}
-            </Box>
-            <Box mb={2} style={{ display: 'flex '}}>
-                {isAddingEmail
-                    ? (
-                        <>
-                        <TextField
-                            value={newEmail}
-                            onChange={e => setNewEmail(e.target.value)}
-                            style={{ flex: 8 }}
-                            label="New Email Address"
-                            variant="outlined" />
-                        <Button
-                            style={{ flex: 1 }}
-                            onClick={() => setIsAddingEmail(false)}
-                            variant="contained"
-                        >Cancel</Button>
-                        <Button
-                            style={{ flex: 1 }}
-                            onClick={() => {
-                                setOtherEmails([...otherEmails, newEmail]);
-                                setIsAddingEmail(true);
-                                setNewEmail('');
-                            }}
-                            variant="contained"
-                        >Add</Button>
-                        </>
-                    ) : (
-                        <Button
-                            onClick={() => setIsAddingEmail(true)}
-                            variant="contained"
-                        >+ Add Email</Button>
-                    )}
-            </Box>
-            <Divider />
             <Box py={2}>
-                <Button
-                    variant="contained"
-                    disabled
-                >Back</Button>
-                <Button
-                    variant="contained"
-                    onClick={onNext}
-                >
-                    {isUpdating
-                        ? <CircularProgress size={24} />
-                        : 'Next'}
-                </Button>
+                <Grid container justify="space-between">
+                    <Grid item>
+                        <Button
+                            color="primary"
+                            variant="contained"
+                            disabled
+                        >Back</Button>
+                    </Grid>
+                    <Grid item>
+                        <Button
+                            onClick={onNext}
+                            color="primary"
+                            variant="contained"
+                        >
+                            {isUpdating
+                                ? <CircularProgress size={24} />
+                                : 'Next'}
+                        </Button>
+                    </Grid>
+                </Grid>
             </Box>
-        </Container>
-    )
+        </CenteredContainer>
+    );
 }

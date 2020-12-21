@@ -1,18 +1,21 @@
-import { Link, useParams } from 'react-router-dom';
-import Box from '@material-ui/core/Box';
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import Typography from '@material-ui/core/Typography';
-import { fakeTeams } from '../fake-data';
+import { useParams } from 'react-router-dom';
+import { AccountCircleIcon } from '../icons';
+import { useUser } from '../users';
+import {
+    Box,
+    Container,
+    Grid,
+    Typography,
+} from '../ui';
 
 export const MemberDetailPage = () => {
-    const { teamId, rosterId, memberId } = useParams();
-    const team = fakeTeams.find(team => team.id === teamId);
-    const roster = team.rosters.find(roster => roster.id === rosterId);
-    const member = roster.members.find(member => member.id === memberId);
+    const { memberId } = useParams();
+    console.log(memberId);
+    const { isLoading, user } = useUser(memberId);
 
-    return (
-        <Box>
-            <Breadcrumbs aria-label="breadcrumb">
+    return isLoading ? <p>Loading...</p> : (
+        <Container maxWidth="sm">
+            {/* <Breadcrumbs aria-label="breadcrumb">
                 <Link to="/">
                     Teams
                 </Link>
@@ -23,10 +26,23 @@ export const MemberDetailPage = () => {
                     {roster.name}
                 </Link>
                 <Typography color="textPrimary">{member.name}</Typography>
-            </Breadcrumbs>
-            <h1>{member.name}</h1>
-            <h3>{member.username}</h3>
-            <p>{member.role}</p>
-        </Box>
+            </Breadcrumbs> */}
+            <Box align="center" width="100%">
+                <AccountCircleIcon style={{ fontSize: 200 }} />
+            </Box>
+            <Typography variant="h2" align="center">
+                {user.fullName}
+            </Typography>
+            <Grid container>
+                <Grid item xs={6}>
+                    <h3>Gamer Name: {user.gamerName}</h3>
+                    <h3>Bio:</h3>
+                    <p>{user.bio}</p>
+                </Grid>
+                <Grid item xs={6}>
+                    <h3>Other Stuff</h3>
+                </Grid>
+            </Grid>
+        </Container>
     );
 }

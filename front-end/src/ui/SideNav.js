@@ -10,6 +10,7 @@ import {
     Toolbar,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -29,12 +30,12 @@ const navSections = [{
         icon: CalendarTodayIcon,
         link: '/scheduling',
     }, {
-        name: 'Goal Setting',
+        name: 'Goal Setting & Stats',
         icon: TrendingUpIcon,
         link: '/goals',
     }, {
-        name: 'Stats',
-        icon: InsertChartIcon,
+        name: 'Strategy',
+        icon: AssignmentIcon,
         link: '/stats',
     }, {
         name: 'Community',

@@ -1,14 +1,14 @@
 import { Redirect, Route } from 'react-router-dom';
-import { useUser } from '../auth';
+import { useCurrentUserInfo } from '../users';
 
 export const OnboardingRoute = (props) => {
-    const { isLoading, user } = useUser();
+    const { isLoading, userInfo } = useCurrentUserInfo();
 
     return isLoading
         ? <p>Loading...</p>
-        : !user 
+        : !userInfo
             ? <Redirect to="/sign-in" />
-            : user.onboarded
+            : userInfo.isOnboarded
                 ? <Redirect to="/" />
                 : <Route {...props} />
 }

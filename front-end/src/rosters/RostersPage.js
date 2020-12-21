@@ -1,42 +1,73 @@
 import { Link, useParams } from 'react-router-dom';
-import Box from '@material-ui/core/Box';
-import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import Card from '@material-ui/core/Card';
-import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
-import { fakeTeams } from '../fake-data';
+import { useTeam } from '../teams';
+import {
+    Box,
+    Breadcrumbs,
+    Button,
+    Card,
+    Divider,
+    Typography,
+} from '../ui';
+import { useCurrentUserInfo } from '../users';
 
 export const RostersPage = () => {
     const { teamId } = useParams();
-    const team = fakeTeams.find(team => team.id === teamId);
-    console.log(team);
+    const { isLoading: isLoadingTeam, team } = useTeam(teamId);
+    const { userInfo } = useCurrentUserInfo();
+    const { membershipTypeId = '' } = userInfo || {};
+    const isCoach = membershipTypeId === 'coach';
+    const { name: teamName = '', coaches = [], rosters = [] } = team;
 
-    return (
+    return isLoadingTeam ? <p>Loading...</p> : (
         <Box>
-            <Breadcrumbs aria-label="breadcrumb">
+            {/* <Breadcrumbs aria-label="breadcrumb">
                 <Link to="/">
                     Teams
                 </Link>
                 <Typography color="textPrimary">{team.name}</Typography>
-            </Breadcrumbs>
-            <h1>{team.name}</h1>
-            {team.rosters.map(roster => (
+            </Breadcrumbs> */}
+            <h1>{teamName}</h1>
+            <h1>Coaches</h1>
+            {coaches.map(({ fullName: coachName }) => (
+                <Box mb={2}>
+                    <Card>
+                        <Box p={2}>
+                            <p>{coachName}</p>
+                        </Box>
+                    </Card>
+                </Box>
+            ))}
+            <Divider />
+            <h1>Rosters &amp; Players</h1>
+            {rosters.map(({ id: rosterId, name: rosterName, players, invitations })=> (
                 <>
-                <h3>{roster.name}</h3>
-                {roster.members.map(member => (
+                <h3>{rosterName}</h3>
+                {players.map(({ id: playerId, fullName: playerName, gamerName })=> (
                     <Box mb={2}>
-                        <Link to={`/teams/${teamId}/rosters/${roster.id}/members/${member.id}`}>
+                        <Link to={`/teams/${teamId}/rosters/${rosterId}/members/${playerId}`}>
                             <Card><Box p={2}>
-                                <p>{member.name} - {member.username} - {member.role}</p>
+                                <p>{playerName} - {gamerName}</p>
                             </Box></Card>
                         </Link>
                     </Box>
                 ))}
+                {invitations.map(({ email }) => (
+                    <Box mb={2}>
+                        <Card>
+                            <Box p={2}>
+                                <p>{email} - Inivation Pending</p>
+                            </Box>
+                        </Card>
+                    </Box>
+                ))}
                 <Box mb={2}>
-                    <Link to={`/teams/${team.id}/rosters/${roster.id}/add`}>
-                        <Card><Box p={2}>
-                            <p>+ Add Member</p>
-                        </Box></Card>
+                    <Link to={`/teams/${teamId}/rosters/${rosterId}/add`}>
+                        {isCoach && (
+                            <Button
+                                color="primary"
+                                variant="contained"
+                            >+ Add Member</Button>
+                        )}
                     </Link>
                 </Box>
                 <Divider />

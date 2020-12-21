@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export const useTeam = teamId => {
+    const [isLoading, setIsLoading] = useState(true);
     const [team, setTeam] = useState({});
 
     useEffect(() => {
@@ -12,10 +13,11 @@ export const useTeam = teamId => {
             } catch (e) {
                 console.log("Error!");
             }
+            setIsLoading(false);
         }
 
         loadTeam();
-    });
+    }, [teamId]);
 
-    return team;
+    return { isLoading, team };
 }

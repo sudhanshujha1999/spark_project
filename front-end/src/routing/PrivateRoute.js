@@ -1,6 +1,6 @@
 import { Redirect, Route, useLocation } from 'react-router-dom';
 import pathMatch from 'path-match';
-import { useUser } from '../auth';
+import { useCurrentUserInfo } from '../users';
 
 const route = pathMatch({
     sensitive: false,
@@ -16,14 +16,18 @@ const shouldRedirectAfterAuth = pathname =>
     });
 
 export const PrivateRoute = (props) => {
-    const { isLoading, user } = useUser();
+    const { isLoading, userInfo } = useCurrentUserInfo();
     const location = useLocation();
     const { pathname } = location;
 
     return isLoading
         ? <p>Loading...</p>
-        : user
-            ? <Route {...props} />
+        : userInfo
+            ? userInfo.isOnboarded
+                ? <Route {...props} />
+                : <Redirect to={userInfo.membershipTypeId === 'coach'
+                    ? `/onboarding/user-info`
+                    : `/onboarding/player-info`} />
             : shouldRedirectAfterAuth(pathname)
                 ? <Redirect to={`/sign-in?dest=${encodeURI(pathname)}`} />
                 : <Redirect to="sign-in" />

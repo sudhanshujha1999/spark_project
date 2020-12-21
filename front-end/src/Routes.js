@@ -1,93 +1,27 @@
 import { Switch, Route } from 'react-router-dom';
-import { AuthPage, PleaseVerifyEmail, EmailVerificationResult } from './auth';
-import { DashboardPage } from './dashboard';
-import { InvitationLandingPage } from './invitations';
-import { AddMemberPage, MemberDetailPage } from './members';
 import {
-    AddPlayers,
-    CreateTeams,
-    NewTeamInfo,
-    OnboardingComplete,
-    SchoolInfo,
-    UserInfo,
-} from './onboarding';
-import { RostersPage } from './rosters';
-import { PrivateRoute, OnboardingRoute } from './routing';
+    CoachOnboardingRoute,
+    OnboardingRoute,
+    PlayerOnboardingRoute,
+    PrivateRoute,
+} from './routing';
 import { Box, NavBar, SideNav } from './ui';
+import * as routeDefinitions from './routeDefinitions';
 
-const routes = [{
-    path: '/',
-    component: DashboardPage,
-}, {
-    path: '/teams/:teamId',
-    component: RostersPage,
-}, {
-    path: '/teams/:teamId/rosters/:rosterId/members/:memberId',
-    component: MemberDetailPage,
-}, {
-    path: '/teams/:teamId/rosters/:rosterId/add',
-    component: AddMemberPage,
-}, {
-    path: '/sign-in',
-    component: AuthPage,
-    isPublic: true,
-    hideNav: true,
-}, {
-    path: '/please-verify-email/:userId',
-    component: PleaseVerifyEmail,
-    isPublic: true,
-    hideNav: true,
-}, {
-    path: '/invitations',
-    component: InvitationLandingPage,
-    isPublic: true,
-    hideNav: true,
-}, {
-    path: '/verification-result',
-    component: EmailVerificationResult,
-    isPublic: true,
-    hideNav: true,
-}, {
-    path: '/onboarding/user-info',
-    component: UserInfo,
-    isOnboarding: true,
-    hideNav: true,
-}, {
-    path: '/onboarding/schools',
-    component: SchoolInfo,
-    isOnboarding: true,
-    hideNav: true,
-}, {
-    path: '/onboarding/schools/:schoolId/teams',
-    component: CreateTeams,
-    isOnboarding: true,
-    hideNav: true,
-}, {
-    path: '/onboarding/schools/:schoolId/teams/new',
-    component: NewTeamInfo,
-    isOnboarding: true,
-    hideNav: true,
-}, {
-    path: '/onboarding/schools/:schoolId/teams/:teamId/players',
-    component: AddPlayers,
-    isOnboarding: true,
-    hideNav: true,
-}, {
-    path: '/onboarding/done',
-    component: OnboardingComplete,
-    isOnboarding: true,
-    hideNav: true,
-}];
+const routes = Object.values(routeDefinitions);
 
 export const Routes = () => (
     <Switch>
         {routes.map((route, i) => {
-            console.log(route);
             const RouteType = route.isPublic
                 ? Route
-                : route.isOnboarding
-                    ? OnboardingRoute
-                    : PrivateRoute;
+                : route.isCoachOnboarding
+                    ? CoachOnboardingRoute
+                    : route.isPlayerOnboarding
+                        ? PlayerOnboardingRoute
+                        : route.isOnboarding
+                            ? OnboardingRoute
+                            : PrivateRoute;
 
             return (
                 <RouteType key={i} path={route.path} exact>
@@ -96,7 +30,7 @@ export const Routes = () => (
                     <Box
                         ml={route.hideNav ? 0 : "240px"}
                         mt={route.hideNav ? 0 : "64px"}
-                        p={4}
+                        p={route.hideNav ? 0 : 4}
                     >
                         <route.component />
                     </Box>
