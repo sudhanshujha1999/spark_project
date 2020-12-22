@@ -5,28 +5,16 @@ import {
     Box,
     Container,
     Grid,
+    TextField,
     Typography,
 } from '../ui';
 
 export const MemberDetailPage = () => {
     const { memberId } = useParams();
-    console.log(memberId);
     const { isLoading, user } = useUser(memberId);
 
     return isLoading ? <p>Loading...</p> : (
         <Container maxWidth="sm">
-            {/* <Breadcrumbs aria-label="breadcrumb">
-                <Link to="/">
-                    Teams
-                </Link>
-                <Link to={`/teams/${team.id}`}>
-                    {team.name}
-                </Link>
-                <Link to={`/teams/${team.id}`}>
-                    {roster.name}
-                </Link>
-                <Typography color="textPrimary">{member.name}</Typography>
-            </Breadcrumbs> */}
             <Box align="center" width="100%">
                 <AccountCircleIcon style={{ fontSize: 200 }} />
             </Box>

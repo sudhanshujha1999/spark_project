@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import {
+    Box,
     Drawer,
     Divider,
     ListSubheader,
@@ -15,15 +16,14 @@ import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
-import InsertChartIcon from '@material-ui/icons/InsertChart';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import SettingsIcon from '@material-ui/icons/Settings';
-import PeopleIcon from '@material-ui/icons/People';
+import { SignOutButton } from '../auth';
 
 const navSections = [{
     items: [{
-        name: 'Players',
-        icon: PeopleIcon,
+        name: 'Dashboard',
+        icon: DashboardIcon,
         link: '/',
     }, {
         name: 'Scheduling',
@@ -83,6 +83,9 @@ export const SideNav = () => {
                         <Divider />
                         </>
                     ))}
+                    <Box mt={2}>
+                        <SignOutButton fullWidth size="large"/>
+                    </Box>
                 </List>
             </div>
         </Drawer>

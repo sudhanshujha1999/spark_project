@@ -24,7 +24,6 @@ export const NavBar = () => {
                 <Box>
                     {!isLoading && <p>Logged in as {currentUser.email}</p>}
                 </Box>
-                <Button onClick={signOut}>Sign Out</Button>
             </Toolbar>
         </AppBar>
     );
