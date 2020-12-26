@@ -16,6 +16,7 @@ import Typography from '@material-ui/core/Typography';
 
 export { CenteredContainer } from './CenteredContainer';
 export { DeletableListItem } from './DeletableListItem';
+export { Footer } from './Footer';
 export { NavBar } from './NavBar';
 export { SideNav } from './SideNav';
 export { StateForm } from './StateForm';

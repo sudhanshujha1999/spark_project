@@ -6,6 +6,7 @@ import {
 } from './auth';
 import { DashboardPage } from './dashboard';
 import { InvitationLandingPage } from './invitations';
+import { TermsAndPrivacy } from './legal';
 import { AddMemberPage, MemberDetailPage } from './members';
 import {
     AddPlayers,
@@ -121,3 +122,11 @@ export const signInRoute = {
     isPublic: true,
     hideNav: true,
 };
+
+export const termsAndPrivacyRoute = {
+    path: '/terms-and-privacy',
+    component: TermsAndPrivacy,
+    isPublic: true,
+    hideNav: true,
+    newTab: true,
+}

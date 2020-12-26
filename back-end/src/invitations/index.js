@@ -1,10 +1,8 @@
 import { acceptInvitationRoute } from './acceptInvitationRoute';
-import { confirmInvitationRoute } from './confirmInvitationRoute';
 import { createInvitationRoute } from './createInvitationRoute';
 
 export const routes = [
     acceptInvitationRoute,
-    confirmInvitationRoute,
     createInvitationRoute,
 ];
 

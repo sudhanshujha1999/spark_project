@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import { CircleXIcon } from '../icons';
 
-export const DeletableListItem = ({ children, index, onRequestDelete }) => (
+export const DeletableListItem = ({ children, index, onRequestDelete = () => {} }) => (
     <Grid container>
         <Grid item xs={10}>
             {children}

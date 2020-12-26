@@ -1,4 +1,5 @@
 import { v4 as uuid } from 'uuid';
+import { isCoachForTeam } from '../coaches';
 import { createGroup } from '../groups';
 import { createInvitation, sendInvitationEmail } from '../invitations';
 import { createMembership } from '../memberships';
@@ -10,7 +11,7 @@ import {
 } from '../route-protectors';
 import { getSchoolForGroup } from '../schools';
 import { getTeamForGroup } from '../teams';
-import { createUserInDB, getUserByEmail } from '../users';
+import { createUserInDB, getUserByEmail, getUserByAuthId } from '../users';
 
 export const addPlayerRoute = {
     path: '/rosters/:rosterId/players',
@@ -20,20 +21,27 @@ export const addPlayerRoute = {
         isVerifiedProtector,
     ],
     handler: async (req, res) => {
-        const authUser = req.user;
+        const coachAuthId = req.user.uid;
         const { rosterId } = req.params;
         const { email } = req.body;
-        const baseUrl = req.app.get('baseBackEndUrl');
+        const baseUrl = req.app.get('baseFrontEndUrl');
 
+        const roster = await getRosterById(rosterId);
+        const team = await getTeamForGroup(roster);
+        const coachUser = await getUserByAuthId(coachAuthId);
+        const coachId = coachUser.id;
+
+        const isCoach = await isCoachForTeam(coachId, team.id);
+        console.log({ rosterId, teamId: team.id, coachId, isCoach });
+        if (!isCoach) return res.status(403).json({ message: 'Only coaches can add players to teams' });
+
+        const school = await getSchoolForGroup(team);
         const user = await getUserByEmail(email);
 
         const playerId = user
             ? user.id
             : await createUserInDB({ email, membershipTypeId: 'player' });
 
-        const roster = await getRosterById(rosterId);
-        const school = await getTeamForGroup(roster);
-        const team = await getSchoolForGroup(school);
         const confirmationCode = uuid();
 
         await sendInvitationEmail({
@@ -49,7 +57,7 @@ export const addPlayerRoute = {
             groupId: rosterId,
             userId: playerId, 
             membershipTypeId: 'player',
-            invitedById: authUser.uid,
+            invitedById: coachId,
             confirmationCode,
         });
 

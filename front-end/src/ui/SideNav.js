@@ -11,14 +11,17 @@ import {
     Toolbar,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import AssignmentIcon from '@material-ui/icons/Assignment';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import TrendingUpIcon from '@material-ui/icons/TrendingUp';
-import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
-import SettingsIcon from '@material-ui/icons/Settings';
 import { SignOutButton } from '../auth';
+import {
+    AccountCircleIcon,
+    AssignmentIcon,
+    CalendarTodayIcon,
+    DashboardIcon,
+    ReorderIcon,
+    SettingsIcon,
+    SupervisedUserCircleIcon,
+    TrendingUpIcon,
+} from '../icons';
 
 const navSections = [{
     items: [{
@@ -28,28 +31,39 @@ const navSections = [{
     }, {
         name: 'Scheduling',
         icon: CalendarTodayIcon,
-        link: '/scheduling',
+        releaseDate: 'Jan 2021',
+        // link: '/scheduling',
     }, {
         name: 'Goal Setting & Stats',
         icon: TrendingUpIcon,
-        link: '/goals',
+        releaseDate: 'Feb 2021',
+        // link: '/goals',
     }, {
         name: 'Strategy',
         icon: AssignmentIcon,
-        link: '/stats',
+        releaseDate: 'Mar 2021',
+        // link: '/stats',
     }, {
         name: 'Community',
         icon: SupervisedUserCircleIcon,
-        link: '/community',
+        releaseDate: 'Mar 2021',
+        // link: '/community',
     }],
 }, {
     name: 'Account',
-    items: [{
-        name: 'Profile',
-        icon: AccountCircleIcon,
-    }, {
-        name: 'Settings',
-        icon: SettingsIcon,
+    items: [
+    //     {
+    //     name: 'Profile',
+    //     icon: AccountCircleIcon,
+    // }, {
+    //     name: 'Settings',
+    //     icon: SettingsIcon,
+    // },
+    {
+        name: 'Terms & Privacy',
+        icon: ReorderIcon,
+        link: '/terms-and-privacy',
+        newTab: true,
     }],
 }];
 
@@ -70,16 +84,32 @@ export const SideNav = () => {
                     {navSections.map(section => (
                         <>
                         <ListSubheader>{section.name}</ListSubheader>
-                        {section.items.map((item, index) => (
-                            <Link swid={`sidenav-link-${item.name}`} to={item.link} style={{ color: 'inherit', textDecoration: 'none' }}>
-                                <ListItem button key={item.name}>
-                                    <ListItemIcon>{item.icon && <item.icon />}</ListItemIcon>
-                                    <ListItemText
-                                        primary={item.name}
-                                        secondary={item.releaseDate && "Coming " + item.releaseDate} />
-                                </ListItem>
-                            </Link>
-                        ))}
+                        {section.items.map((item, index) => item.newTab
+                            ? (
+                                <a
+                                    href={item.link}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    style={{ color: 'inherit', textDecoration: 'none' }}
+                                >
+                                    <ListItem button key={item.name}>
+                                        <ListItemIcon>{item.icon && <item.icon />}</ListItemIcon>
+                                        <ListItemText
+                                            primary={item.name}
+                                            secondary={item.releaseDate && "Coming " + item.releaseDate} />
+                                    </ListItem>
+                                </a>
+                            ) : (
+                                <Link swid={`sidenav-link-${item.name}`} to={item.link} style={{ color: 'inherit', textDecoration: 'none' }}>
+                                    <ListItem button key={item.name}>
+                                        <ListItemIcon>{item.icon && <item.icon />}</ListItemIcon>
+                                        <ListItemText
+                                            primary={item.name}
+                                            secondary={item.releaseDate && "Coming " + item.releaseDate} />
+                                    </ListItem>
+                                </Link>
+                            )
+                        )}
                         <Divider />
                         </>
                     ))}

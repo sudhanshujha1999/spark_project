@@ -1,36 +1,93 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import { useCurrentUser } from '../auth';
 import { AccountCircleIcon } from '../icons';
+import { useNotes } from '../notes';
 import { useUser } from '../users';
 import {
     Box,
-    Container,
+    Button,
+    DeletableListItem,
+    Divider,
     Grid,
     TextField,
     Typography,
 } from '../ui';
 
 export const MemberDetailPage = () => {
+    const [newNoteText, setNewNoteText] = useState('');
     const { memberId } = useParams();
+    const { user: currentUser } = useCurrentUser();
     const { isLoading, user } = useUser(memberId);
+    const { isLoading: isLoadingNotes, notes, setNotes } = useNotes(memberId);
 
+    const addNote = async () => {
+        try {
+            const authtoken = await currentUser.getIdToken();
+            const response = await axios.post(`/api/players/${memberId}/notes`, { text: newNoteText }, { headers: { authtoken }});
+            const newNote = response.data;
+            setNotes([newNote, ...notes]);
+            setNewNoteText('');
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const deleteNote = async (noteId) => {
+        try {
+            const authtoken = await currentUser.getIdToken();
+            await axios.delete(`/api/players/${memberId}/notes/${noteId}`, { headers: { authtoken }});
+            setNotes(notes.filter(note => note.id !== noteId));
+        } catch (e) {
+            console.log(e);
+        }
+    }
     return isLoading ? <p>Loading...</p> : (
-        <Container maxWidth="sm">
-            <Box align="center" width="100%">
-                <AccountCircleIcon style={{ fontSize: 200 }} />
-            </Box>
-            <Typography variant="h2" align="center">
-                {user.fullName}
-            </Typography>
-            <Grid container>
-                <Grid item xs={6}>
-                    <h3>Gamer Name: {user.gamerName}</h3>
-                    <h3>Bio:</h3>
-                    <p>{user.bio}</p>
-                </Grid>
-                <Grid item xs={6}>
-                    <h3>Other Stuff</h3>
-                </Grid>
+        <Grid container spacing={2}>
+            <Grid item md={6} xs={12}>
+                <Box width="100%">
+                    <AccountCircleIcon style={{ fontSize: 200 }} />
+                </Box>
+                <Typography variant="h2">
+                    {user.fullName}
+                </Typography>
+                <h3>Gamer Name: {user.gamerName}</h3>
+                <h3>Bio:</h3>
+                <p>{user.bio}</p>
             </Grid>
-        </Container>
+            <Grid item md={6} xs={12}>
+                <h3>Notes</h3>
+                <Box>
+                    <TextField
+                        value={newNoteText}
+                        onChange={e => setNewNoteText(e.target.value)}
+                        label="New Note"
+                        multiline
+                        rows={4}
+                        fullWidth
+                        variant="outlined"
+                    />
+                </Box>
+                <Box mt={2}>
+                    <Button
+                        onClick={addNote}
+                        color="primary"
+                        fullWidth
+                        variant="contained"
+                    >Add Note</Button>
+                </Box>
+                <Divider />
+                {notes.map(note => (
+                    <Box key={note.id}>
+                        <DeletableListItem onRequestDelete={() => deleteNote(note.id)}>
+                            <h3>{new Date(note.createdAt).toDateString()}</h3>
+                            <p>{note.text}</p>
+                        </DeletableListItem>
+                        <Divider />
+                    </Box>
+                ))}
+            </Grid>
+        </Grid>
     );
 }

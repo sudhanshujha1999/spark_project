@@ -8,8 +8,6 @@ export const useCurrentUserInfo = () => {
     const [info, setInfo] = useState(null);
     const [error, setError] = useState('');
 
-    console.log({ user, isLoadingInfo, info, error });
-
     useEffect(() => {
         const loadInfo = async () => {
             try {
