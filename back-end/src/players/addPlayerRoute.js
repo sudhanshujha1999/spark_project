@@ -2,57 +2,57 @@ import { v4 as uuid } from 'uuid';
 import { createGroup } from '../groups';
 import { createInvitation, sendInvitationEmail } from '../invitations';
 import { createMembership } from '../memberships';
+import { getRosterById } from '../rosters';
 import {
     isLoggedInProtector,
     isVerifiedProtector,
     isOnboardedProtector,
 } from '../route-protectors';
+import { getSchoolForGroup } from '../schools';
+import { getTeamForGroup } from '../teams';
 import { createUserInDB, getUserByEmail } from '../users';
 
 export const addPlayerRoute = {
-    path: '/teams/:teamId/players',
+    path: '/rosters/:rosterId/players',
     method: 'post',
     protectors: [
         isLoggedInProtector,
         isVerifiedProtector,
-        isOnboardedProtector,
     ],
     handler: async (req, res) => {
-        const { teamId } = req.params;
-        const { email, groupId, position } = req.body;
-        const { user_id: invitedById } = req.user;
+        const authUser = req.user;
+        const { rosterId } = req.params;
+        const { email } = req.body;
         const baseUrl = req.app.get('baseBackEndUrl');
 
-        // Find out if player with email already exists
         const user = await getUserByEmail(email);
 
-        // If user doesn't exist with that email, create a new one
-        const userId = user
+        const playerId = user
             ? user.id
             : await createUserInDB({ email, membershipTypeId: 'player' });
 
-        // // Then create a new "membership" that assigns the user as a player to the specified team and roster
+        const roster = await getRosterById(rosterId);
+        const school = await getTeamForGroup(roster);
+        const team = await getSchoolForGroup(school);
         const confirmationCode = uuid();
+
+        await sendInvitationEmail({
+            email,
+            groupName: team.name,
+            schoolName: school.name,
+            confirmationCode,
+            baseUrl,
+        });
+
         const membershipId = await createInvitation({
             email,
-            groupId,
-            userId, 
+            groupId: rosterId,
+            userId: playerId, 
             membershipTypeId: 'player',
-            invitedById,
-            confirmationCode,
-            data: { position },
-        });
-
-        // // Send an invitation email to the new player's email address
-        const emailResult = await sendInvitationEmail({
-            userId,
-            groupId,
-            membershipId,
-            baseUrl,
+            invitedById: authUser.uid,
             confirmationCode,
         });
 
-        // TODO: Add error handling if something goes wrong
-        res.status(200).json(membershipId);
+        res.sendStatus(200);
     },
 }

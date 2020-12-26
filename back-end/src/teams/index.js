@@ -9,3 +9,4 @@ export const routes = [
 ];
 
 export { createTeam } from './createTeam';
+export { getTeamForGroup } from './getTeamForGroup';

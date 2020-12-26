@@ -6,10 +6,11 @@ export const confirmInvitationByCode = async confirmationCode => {
         .where('confirmationCode', '==', confirmationCode)
         .get();
     const invitationRef = invitationQuerySnapshot.docs[0];
-    const inivitation = invitationRef.data()
+    const invitation = invitationRef.data()
 
-    if (!invitationRef) throw new Error('Invitation not found');
+    if (!invitation) throw new Error('Invitation not found');
 
+    const users = admin.firestore().collection('users');
     const invitedUserQuerySnapshot = await users
         .where('email', '==', invitation.email)
         .get();
