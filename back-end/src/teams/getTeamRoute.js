@@ -7,7 +7,7 @@ export const getTeamRoute = {
     method: 'get',
     handler: async (req, res) => {
         const { teamId } = req.params;
-        const team = await getById('teams', teamId);
+        const team = await getById('groups', teamId);
 
         if (!team) {
             return res.sendStatus(404);

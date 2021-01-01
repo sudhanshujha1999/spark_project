@@ -1,10 +1,14 @@
 import { createGroup } from '../groups';
 import { createMembership } from '../memberships';
+import { createRoster } from '../rosters';
 import {
     isLoggedInProtector,
     isVerifiedProtector,
     isOnboardedProtector,
 } from '../route-protectors';
+import { isCoachForSchool } from '../schools';
+import { createTeam } from '../teams';
+import { getUserByAuthId } from '../users';
 
 export const createTeamRoute = {
     path: '/teams',
@@ -12,27 +16,33 @@ export const createTeamRoute = {
     protectors: [
         isLoggedInProtector,
         isVerifiedProtector,
-        isOnboardedProtector,
     ],
     handler: async (req, res) => {
-        const { name, game, description, schoolId } = req.body;
-        const { user_id: userId } = req.user;
-        const groupId = await createGroup('team', { name, game, description });
+        const { name, game, schoolId, rosters } = req.body;
+        const { user_id: coachAuthId } = req.user;
 
-        // TODO: Make sure user is the coach of the school
+        const coachUser = await getUserByAuthId(coachAuthId);
+        const coachId = coachUser.id;
 
-        await createMembership({
-            userId,
-            groupId,
-            membershipTypeId: 'coach',
-            data: {},
+        const isCoach = await isCoachForSchool(coachId, schoolId);
+        if (!isCoach) return res.status(403).json({ message: 'Only coaches can add teams to schools' });
+
+        const teamId = await createTeam({
+            name,
+            game,
+            schoolId,
+            coachId,
         });
-        await createMembership({
-            memberId: groupId,
-            groupId: schoolId,
-            membershipId: 'subgroup',
-            data: {},
-        });
-        res.status(200).send(groupId);
+
+        for (let roster of rosters) {
+            const { name: rosterName = '' } = roster;
+            const rosterId = await createRoster({
+                name: rosterName,
+                teamId,
+                coachId,
+            });
+        }
+
+        res.status(200).send(teamId);
     },
 }

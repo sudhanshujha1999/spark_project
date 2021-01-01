@@ -6,3 +6,4 @@ export const routes = [
 
 export { createSchool } from './createSchool';
 export { getSchoolForGroup } from './getSchoolForGroup';
+export { isCoachForSchool } from './isCoachForSchool';

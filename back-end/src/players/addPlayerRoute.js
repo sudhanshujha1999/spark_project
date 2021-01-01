@@ -32,7 +32,6 @@ export const addPlayerRoute = {
         const coachId = coachUser.id;
 
         const isCoach = await isCoachForTeam(coachId, team.id);
-        console.log({ rosterId, teamId: team.id, coachId, isCoach });
         if (!isCoach) return res.status(403).json({ message: 'Only coaches can add players to teams' });
 
         const school = await getSchoolForGroup(team);
