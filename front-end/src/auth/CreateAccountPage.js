@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import { post } from '../network';
 import { useQueryParams } from '../routing';
 import {
     Alert,
@@ -66,7 +66,7 @@ export const CreateAccountPage = () => {
                 membershipTypeId: selectedRole.value,
                 password,
             };
-            const response = await axios.post('/api/users', data);
+            const response = await post('/api/users', data);
             setIsProcessing(false);
             const { id } = response.data;
             history.push(`/please-verify-email/${id}`);

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useHistory, useParams } from 'react-router-dom';
-import axios from 'axios';
 import { useCurrentUser } from '../auth';
+import { post } from '../network';
 import {
     Alert,
     Box,
@@ -41,8 +41,7 @@ export const CreateTeams = () => {
 
         setIsUpdating(true);
         try {
-            const authtoken = await user.getIdToken();
-            await axios.post(`/api/users/${user.uid}/onboarding/coach`, onboardingInfo, { headers: { authtoken } });
+            await post(`/api/users/${user.uid}/onboarding/coach`, onboardingInfo);
             history.push('/onboarding/done');
         } catch (e){ 
             setNetworkError(e.message);

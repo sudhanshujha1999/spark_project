@@ -2,3 +2,5 @@
 2. Create a "getById" function on the back-end
 3. Break up pages into smaller pieces
 4. Create "onboarding flow" framework
+5. All "isCoachFor..." functions are essentially the same
+6. Load a user's school automatically

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import { post } from '../network';
 import { useQueryParams } from '../routing';
 import {
     Alert,
@@ -15,7 +15,7 @@ export const PleaseVerifyEmail = () => {
     const [resent, setResent] = useState(false);
 
     const resend = async () => {
-        await axios.post(`/api/resend-verification/${userId}`);
+        await post(`/api/resend-verification/${userId}`);
         setResent(true);
         setTimeout(() => {
             setResent(false);

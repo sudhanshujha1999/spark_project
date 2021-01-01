@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 import { useCurrentUser } from '../auth';
+import { post } from '../network';
 import {
     Alert,
     Box,
@@ -98,8 +98,7 @@ export const PlayerInfo = () => {
             bio,
         };
         try {
-            const authtoken = await user.getIdToken();
-            await axios.post(`/api/users/${user.uid}/onboarding/player`, userInfo, { headers: { authtoken } });
+            await post(`/api/users/${user.uid}/onboarding/player`, userInfo);
             history.push('/onboarding/done');
         } catch (e) {
             setIsUpdating(false);

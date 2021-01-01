@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import { useTeams } from '../teams';
 import { useCurrentUserInfo } from '../users';
 
@@ -28,7 +29,9 @@ export const DashboardPage = () => {
                 : teams.length > 0
                     ? (
                         <>
-                        <h1>{school.name || ''}</h1>
+                        <Typography variant="h2">
+                            {school.name || ''}
+                        </Typography>
                         <Grid container spacing={2}>
                             {teams.map(team => (
                                 <Grid item xs={3} key={team.id}>
@@ -41,9 +44,11 @@ export const DashboardPage = () => {
                             ))}
                             {isCoach && (
                                 <Grid item xs={3}>
-                                    <Card raised style={cardStyles}>
-                                        <h3>+ Add a new team</h3>
-                                    </Card>
+                                    <Link to={`/schools/${school.id}/new-team`}>
+                                        <Card raised style={cardStyles}>
+                                            <h3>+ Add a new team</h3>
+                                        </Card>
+                                    </Link>
                                 </Grid>
                             )}
                         </Grid>

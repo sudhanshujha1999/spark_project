@@ -18,6 +18,7 @@ import {
     UserInfo,
 } from './onboarding';
 import { RostersPage } from './rosters';
+import { TeamInfoForm } from './teams';
 
 export const addMemberRoute = {
     path: '/teams/:teamId/rosters/:rosterId/add',
@@ -30,6 +31,11 @@ export const createAccountRoute = {
     isPublic: true,
     hideNav: true,
 };
+
+export const createTeamRoute = {
+    path: '/schools/:schoolId/new-team',
+    component: TeamInfoForm,
+}
 
 export const dashboardRoute = {
     path: '/',

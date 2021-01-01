@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import { post } from '../network';
 import firebase from 'firebase/app';
 import { useQueryParams } from '../routing';
 import {
@@ -23,7 +23,7 @@ export const InvitationLandingPage = () => {
     useEffect(() => {
         const acceptInvitation = async () => {
             try {
-                const response = await axios.post(`/api/invitations/${code}/accept`);
+                const response = await post(`/api/invitations/${code}/accept`);
                 const { email, isConfirmed } = response.data;
                 setAlreadyHasAccount(isConfirmed);
                 setInvitationEmail(email);

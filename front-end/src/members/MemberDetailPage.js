@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import { useCurrentUser } from '../auth';
 import { AccountCircleIcon } from '../icons';
+import { post, del } from '../network';
 import { useNotes } from '../notes';
 import { useUser } from '../users';
 import {
@@ -18,14 +17,12 @@ import {
 export const MemberDetailPage = () => {
     const [newNoteText, setNewNoteText] = useState('');
     const { memberId } = useParams();
-    const { user: currentUser } = useCurrentUser();
     const { isLoading, user } = useUser(memberId);
     const { isLoading: isLoadingNotes, notes, setNotes } = useNotes(memberId);
 
     const addNote = async () => {
         try {
-            const authtoken = await currentUser.getIdToken();
-            const response = await axios.post(`/api/players/${memberId}/notes`, { text: newNoteText }, { headers: { authtoken }});
+            const response = await post(`/api/players/${memberId}/notes`, { text: newNoteText });
             const newNote = response.data;
             setNotes([newNote, ...notes]);
             setNewNoteText('');
@@ -36,13 +33,13 @@ export const MemberDetailPage = () => {
 
     const deleteNote = async (noteId) => {
         try {
-            const authtoken = await currentUser.getIdToken();
-            await axios.delete(`/api/players/${memberId}/notes/${noteId}`, { headers: { authtoken }});
+            await del(`/api/players/${memberId}/notes/${noteId}`);
             setNotes(notes.filter(note => note.id !== noteId));
         } catch (e) {
             console.log(e);
         }
     }
+
     return isLoading ? <p>Loading...</p> : (
         <Grid container spacing={2}>
             <Grid item md={6} xs={12}>

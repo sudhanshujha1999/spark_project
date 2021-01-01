@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
-import { useCurrentUser } from '../auth';
+import { post } from '../network';
 import { useTeam } from '../teams';
 import {
     Box,
@@ -9,12 +8,12 @@ import {
     Card,
     Divider,
     TextField,
+    Typography,
 } from '../ui';
 import { useCurrentUserInfo } from '../users';
 import { isEmail } from '../util';
 
 export const RostersPage = () => {
-    const { user } = useCurrentUser();
     const { teamId } = useParams();
     const { isLoading: isLoadingTeam, team } = useTeam(teamId);
     const { userInfo } = useCurrentUserInfo();
@@ -30,11 +29,9 @@ export const RostersPage = () => {
         if (!isEmail(newPlayerEmail)) return setNewPlayerEmailError('Not a valid email');
 
         try {
-            const authtoken = await user.getIdToken();
-            await axios.post(
+            await post(
                 `/api/rosters/${rosterId}/players`,
                 { email: newPlayerEmail },
-                { headers: { authtoken } },
             );
 
             setNewPlayerEmails({
@@ -54,7 +51,9 @@ export const RostersPage = () => {
 
     return isLoadingTeam ? <p>Loading...</p> : (
         <Box>
-            <h1>{teamName}</h1>
+            <Typography variant="h2">
+                {teamName}
+            </Typography>
             <h1>Coaches</h1>
             {coaches.map(({ fullName: coachName }) => (
                 <Box mb={2}>

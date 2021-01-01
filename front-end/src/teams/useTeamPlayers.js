@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { get } from '../network';
 
 export const useTeamPlayers = teamId => {
     const [players, setPlayers] = useState([]);
@@ -7,7 +7,7 @@ export const useTeamPlayers = teamId => {
     useEffect(() => {
         const loadPlayers = async () => {
             try {
-                const response = await axios.get(`/api/teams/${teamId}/players`);
+                const response = await get(`/api/teams/${teamId}/players`);
                 setPlayers(response.data);
             } catch (e) {
                 console.log("Error!");

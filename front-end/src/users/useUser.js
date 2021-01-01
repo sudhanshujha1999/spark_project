@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useCurrentUser } from '../auth';
+import { get } from '../network';
 
 export const useUser = userId => {
     const { user: currentUser, isLoading: isLoadingCurrentUser } = useCurrentUser();
@@ -10,8 +11,7 @@ export const useUser = userId => {
     useEffect(() => {
         const loadUser = async () => {
             try {
-                const authtoken = await currentUser.getIdToken();
-                const response = await axios.get(`/api/user-info/${userId}`, { headers: { authtoken } });
+                const response = await get(`/api/user-info/${userId}`);
                 const user = response.data;
                 setUser(user);
                 setIsLoading(false);
