@@ -13,12 +13,10 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import { SignOutButton } from '../auth';
 import {
-    AccountCircleIcon,
     AssignmentIcon,
     CalendarTodayIcon,
     DashboardIcon,
     ReorderIcon,
-    SettingsIcon,
     SupervisedUserCircleIcon,
     TrendingUpIcon,
 } from '../icons';
@@ -32,12 +30,12 @@ const navSections = [{
         name: 'Scheduling',
         icon: CalendarTodayIcon,
         releaseDate: 'Jan 2021',
-        // link: '/scheduling',
+        link: '/scheduling',
     }, {
         name: 'Goal Setting & Stats',
         icon: TrendingUpIcon,
         releaseDate: 'Feb 2021',
-        // link: '/goals',
+        link: '/goals',
     }, {
         name: 'Strategy',
         icon: AssignmentIcon,

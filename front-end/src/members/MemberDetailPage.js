@@ -78,7 +78,7 @@ export const MemberDetailPage = () => {
                 {notes.map(note => (
                     <Box key={note.id}>
                         <DeletableListItem onRequestDelete={() => deleteNote(note.id)}>
-                            <h3>{new Date(note.createdAt).toDateString()}</h3>
+                            {/* <h3>{new Date(note.createdAt).toDateString()}</h3> */}
                             <p>{note.text}</p>
                         </DeletableListItem>
                         <Divider />

@@ -1,6 +1,7 @@
-1. Create a wrapper around axios that automatically includes the user's authtoken with requests
+1. DONE Create a wrapper around axios that automatically includes the user's authtoken with requests
 2. Create a "getById" function on the back-end
 3. Break up pages into smaller pieces
 4. Create "onboarding flow" framework
 5. All "isCoachFor..." functions are essentially the same
 6. Load a user's school automatically
+7. Replace route paths with constants

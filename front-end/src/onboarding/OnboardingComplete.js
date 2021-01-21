@@ -11,7 +11,6 @@ export const OnboardingComplete = () => {
     const history = useHistory();
 
     const onGoToDashboard = () => {
-        // TODO: Send POST request that user is onboarding
         history.push('/');
     }
     

@@ -5,9 +5,10 @@ import {
     SignInPage,
 } from './auth';
 import { DashboardPage } from './dashboard';
+import { GoalSettingPage } from './goal-setting';
 import { InvitationLandingPage } from './invitations';
 import { TermsAndPrivacy } from './legal';
-import { AddMemberPage, MemberDetailPage } from './members';
+import { MemberDetailPage } from './members';
 import {
     AddPlayers,
     CreateTeams,
@@ -18,12 +19,8 @@ import {
     UserInfo,
 } from './onboarding';
 import { RostersPage } from './rosters';
+import { SchedulingPage } from './scheduling';
 import { TeamInfoForm } from './teams';
-
-export const addMemberRoute = {
-    path: '/teams/:teamId/rosters/:rosterId/add',
-    component: AddMemberPage,
-};
 
 export const createAccountRoute = {
     path: '/create-account',
@@ -47,6 +44,11 @@ export const emailVerificationResultRoute = {
     component: EmailVerificationResult,
     isPublic: true,
     hideNav: true,
+};
+
+export const goalSettingRoute = {
+    path: '/goals',
+    component: GoalSettingPage,
 };
 
 export const invitationLandingRoute = {
@@ -120,6 +122,11 @@ export const pleaseVerifyEmailRoute = {
 export const rostersRoute = {
     path: '/teams/:teamId',
     component: RostersPage,
+};
+
+export const schedulingRoute = {
+    path: '/scheduling',
+    component: SchedulingPage,
 };
 
 export const signInRoute = {

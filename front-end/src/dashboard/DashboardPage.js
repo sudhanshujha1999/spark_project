@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom';
-import Box from '@material-ui/core/Box';
-import Card from '@material-ui/core/Card';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import { useTeams } from '../teams';
+import {
+    Box,
+    Button,
+    Card,
+    Divider,
+    Grid,
+    Typography,
+} from '../ui';
 import { useCurrentUserInfo } from '../users';
 
 const cardStyles = {
@@ -18,7 +22,7 @@ export const DashboardPage = () => {
     const { userInfo } = useCurrentUserInfo();
     const { membershipTypeId = '' } = userInfo || {}
     const isCoach = membershipTypeId === 'coach';
-    const [teams, isLoadingTeams, teamsError] = useTeams();
+    const [teams, isLoadingTeams] = useTeams();
 
     const { school } = teams[0] || {};
 
@@ -26,36 +30,54 @@ export const DashboardPage = () => {
         <Box>
             {isLoadingTeams
                 ? <p>Loading...</p>
-                : teams.length > 0
-                    ? (
-                        <>
-                        <Typography variant="h2">
-                            {school.name || ''}
-                        </Typography>
-                        <Grid container spacing={2}>
-                            {teams.map(team => (
-                                <Grid item xs={3} key={team.id}>
-                                    <Link to={`/teams/${team.id}`}>
-                                        <Card raised style={cardStyles}>
-                                            <h3 key={team.id}>{team.name}</h3>
-                                        </Card>
-                                    </Link>
-                                </Grid>
-                            ))}
-                            {isCoach && (
-                                <Grid item xs={3}>
-                                    <Link to={`/schools/${school.id}/new-team`}>
-                                        <Card raised style={cardStyles}>
-                                            <h3>+ Add a new team</h3>
-                                        </Card>
-                                    </Link>
-                                </Grid>
-                            )}
-                        </Grid>
-                        </>
-                    ) : (
-                        <p>Looks like you haven't been added to any teams yet.</p>
-                    )}
+                : (
+                <>
+                    <Typography variant="h2">
+                        {school.name || ''}
+                    </Typography>
+                    <Box mb={2}>
+                        <Divider />
+                    </Box>
+                    {teams.length > 0
+                        ? (
+                            <Grid container spacing={2}>
+                                {teams.map(team => (
+                                    <Grid item xs={3} key={team.id}>
+                                        <Link to={`/teams/${team.id}`}>
+                                            <Card raised style={cardStyles}>
+                                                <h3 key={team.id}>{team.name}</h3>
+                                            </Card>
+                                        </Link>
+                                    </Grid>
+                                ))}
+                                {isCoach && (
+                                    <Grid item xs={3}>
+                                        <Link to={`/schools/${school.id}/new-team`}>
+                                            <Card raised style={cardStyles}>
+                                                <h3>+ Add a new team</h3>
+                                            </Card>
+                                        </Link>
+                                    </Grid>
+                                )}
+                            </Grid>
+                        ) : (
+                            <>
+                            <p>Looks like you haven't {!isCoach && 'been'} added {!isCoach && 'to'} any teams yet.</p>
+                            <Grid container>
+                                {isCoach && (
+                                    <Grid item xs={3}>
+                                        <Link to={`/schools/${school.id}/new-team`}>
+                                            <Card raised style={cardStyles}>
+                                                <h3>+ Add a new team</h3>
+                                            </Card>
+                                        </Link>
+                                    </Grid>
+                                )}
+                            </Grid>
+                            </>
+                        )}
+                    </>
+                )}
         </Box>
     );
 }

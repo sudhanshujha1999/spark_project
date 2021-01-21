@@ -1,4 +1,10 @@
+export { datesAreEqual } from './datesAreEqual';
+export { getDaysForMonth } from './getDaysForMonth';
+export { getWeeksForMonth } from './getWeeksForMonth';
 export { getValidationErrors } from './getValidationErrors';
+export { groupBy } from './groupBy';
 export { isEmail } from './isEmail';
+export { leftPadArray } from './leftPadArray';
+export { rightPadArray } from './rightPadArray';
 export { validateEmail } from './validateEmail';
 export { validateLength } from './validateLength';

@@ -14,9 +14,11 @@ import MaterialLink from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
+export { AddableList } from './AddableList';
 export { CenteredContainer } from './CenteredContainer';
 export { DeletableListItem } from './DeletableListItem';
 export { Footer } from './Footer';
+export { Modal } from './Modal';
 export { NavBar } from './NavBar';
 export { SideNav } from './SideNav';
 export { StateForm } from './StateForm';
