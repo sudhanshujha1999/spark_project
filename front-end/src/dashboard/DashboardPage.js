@@ -1,30 +1,38 @@
-import { Link } from 'react-router-dom';
+import axios from 'axios';
 import { useTeams } from '../teams';
 import {
     Box,
-    Button,
-    Card,
     Divider,
-    Grid,
     Typography,
 } from '../ui';
+import { TeamsList } from './TeamsList';
 import { useCurrentUserInfo } from '../users';
-
-const cardStyles = {
-    alignItems: 'center',
-    display: 'flex',
-    fontSize: '16px',
-    height: '200px',
-    justifyContent: 'center',
-};
 
 export const DashboardPage = () => {
     const { userInfo } = useCurrentUserInfo();
     const { membershipTypeId = '' } = userInfo || {}
     const isCoach = membershipTypeId === 'coach';
-    const [teams, isLoadingTeams] = useTeams();
+    const [teams, isLoadingTeams,, setTeams] = useTeams();
 
     const { school } = teams[0] || {};
+
+    const onDeleteTeam = async teamId => {
+        // eslint-disable-next-line no-restricted-globals
+        const userReallyWantsToDelete = confirm('Are you sure you want to delete this team and all its corresponding data? (You cannot undo this)');
+        if (teams.length <= 1) {
+            alert('That\'s your last team! You must have at least one team. Please create another before deleting this one');
+            return;
+        }
+
+        if (userReallyWantsToDelete) {
+            try {
+                await axios.delete(`/api/teams/${teamId}`);
+                setTeams(teams.filter(team => team.id !== teamId));
+            } catch (e) {
+                console.log(e);
+            }
+        }
+    }
 
     return (
         <Box>
@@ -33,49 +41,16 @@ export const DashboardPage = () => {
                 : (
                 <>
                     <Typography variant="h2">
-                        {school.name || ''}
+                        {school && (school.name || '')}
                     </Typography>
                     <Box mb={2}>
                         <Divider />
                     </Box>
-                    {teams.length > 0
-                        ? (
-                            <Grid container spacing={2}>
-                                {teams.map(team => (
-                                    <Grid item xs={3} key={team.id}>
-                                        <Link to={`/teams/${team.id}`}>
-                                            <Card raised style={cardStyles}>
-                                                <h3 key={team.id}>{team.name}</h3>
-                                            </Card>
-                                        </Link>
-                                    </Grid>
-                                ))}
-                                {isCoach && (
-                                    <Grid item xs={3}>
-                                        <Link to={`/schools/${school.id}/new-team`}>
-                                            <Card raised style={cardStyles}>
-                                                <h3>+ Add a new team</h3>
-                                            </Card>
-                                        </Link>
-                                    </Grid>
-                                )}
-                            </Grid>
-                        ) : (
-                            <>
-                            <p>Looks like you haven't {!isCoach && 'been'} added {!isCoach && 'to'} any teams yet.</p>
-                            <Grid container>
-                                {isCoach && (
-                                    <Grid item xs={3}>
-                                        <Link to={`/schools/${school.id}/new-team`}>
-                                            <Card raised style={cardStyles}>
-                                                <h3>+ Add a new team</h3>
-                                            </Card>
-                                        </Link>
-                                    </Grid>
-                                )}
-                            </Grid>
-                            </>
-                        )}
+                    <TeamsList
+                        school={school}
+                        teams={teams}
+                        isCoach={isCoach}
+                        onDeleteTeam={onDeleteTeam} />
                     </>
                 )}
         </Box>

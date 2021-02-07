@@ -26,5 +26,5 @@ export const useTeams = () => {
         }
     }, [authId]);
 
-    return [teams, isLoading, error];
+    return [teams, isLoading, error, setTeams];
 }

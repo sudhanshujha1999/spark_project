@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
+import { CircleXIcon } from '../icons';
 import { post } from '../network';
 import { useTeam } from '../teams';
 import {
@@ -7,6 +9,7 @@ import {
     Button,
     Card,
     Divider,
+    IconButton,
     TextField,
     Typography,
 } from '../ui';
@@ -19,11 +22,16 @@ export const RostersPage = () => {
     const { userInfo } = useCurrentUserInfo();
     const { id: currentUserId, membershipTypeId = '' } = userInfo || {};
     const isCoach = membershipTypeId === 'coach';
-    const { name: teamName = '', coaches = [], rosters = [] } = team;
+    const { name: teamName = '', coaches = [], rosters: initialRosters = [] } = team;
+    const [rosters, setRosters] = useState(initialRosters);
     const [newPlayerEmail, setNewPlayerEmail] = useState('');
     const [addingPlayerToIndex, setAddingPlayerToIndex] = useState(-1);
     const [newPlayerEmailError, setNewPlayerEmailError] = useState('');
     const [newPlayerEmails, setNewPlayerEmails] = useState({});
+
+    useEffect(() => {
+        setRosters(team.rosters);
+    }, [team.rosters]);
 
     const onAddPlayer = async rosterId => {
         if (!isEmail(newPlayerEmail)) return setNewPlayerEmailError('Not a valid email');
@@ -44,6 +52,19 @@ export const RostersPage = () => {
         } catch (e) {
             console.log(e);
             setNewPlayerEmailError('Something went wrong with the server...');
+        }
+    }
+
+    const onDeleteRoster = async rosterId => {
+        // eslint-disable-next-line no-restricted-globals
+        const userReallyWantsToDeleteRoster = confirm('Are you sure you want to delete this roster and all its corresponding info? (You cannot undo this)');
+        if (userReallyWantsToDeleteRoster) {
+            try {
+                await axios.delete(`/api/rosters/${rosterId}`);
+                setRosters(rosters.filter(roster => roster.id !== rosterId));
+            } catch (e) {
+                console.log(e);
+            }
         }
     }
 
@@ -71,7 +92,13 @@ export const RostersPage = () => {
 
                 return (
                     <>
-                    <h3>{rosterName}</h3>
+                    <h3 style={{ display: 'inline' }}>{rosterName}</h3>
+                    <IconButton
+                        onClick={() => onDeleteRoster(rosterId)}
+                        style={{ display: 'inline' }}
+                    >
+                        <CircleXIcon />
+                    </IconButton>
                     {players.map(({ id: playerId, fullName: playerName, gamerName })=> (
                         <Box mb={2}>
                             <Link

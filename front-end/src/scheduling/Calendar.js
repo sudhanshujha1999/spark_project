@@ -5,7 +5,7 @@ import {
 import { datesAreEqual, getWeeksForMonth, leftPadArray, rightPadArray } from '../util';
 import { CalendarCell } from './CalendarCell';
 
-export const Calendar = ({ year, month, events, onClickCell }) => {
+export const Calendar = ({ year, month, events, onClickCell, onClickEvent = () => {} }) => {
     const weeks = getWeeksForMonth(year, month);
     const filledWeeks = weeks.map((weekDays, i) => {
         if (i === 0) {
@@ -33,7 +33,11 @@ export const Calendar = ({ year, month, events, onClickCell }) => {
                     });
                     return (
                         <Box style={{ flex: 1 }} p={1}>
-                            <CalendarCell date={date} events={dateEvents} onClick={onClickCell} />
+                            <CalendarCell
+                                date={date}
+                                events={dateEvents}
+                                onClick={onClickCell}
+                                onClickEvent={onClickEvent} />
                         </Box>
                     );
                 })}

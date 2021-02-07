@@ -7,6 +7,7 @@ import {
     Typography,
 } from '../ui';
 import { Calendar } from './Calendar';
+import { EventDetailForm } from './EventDetailForm';
 import { NewEventForm } from './NewEventForm';
 import { useEvents } from './useEvents';
 
@@ -17,8 +18,11 @@ export const SchedulingPage = () => {
     const [selectedYear, setSelectedYear] = useState(today.getYear() + 1900);
     const [selectedMonth, setSelectedMonth] = useState(today.getMonth());
     const [showNewEventModal, setShowNewEventModal] = useState(false);
+    const [showEventDetailModal, setShowEventDetailModal] = useState(false);
     const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedEvent, setSelectedEvent] = useState(null);
     const { events, setEvents, isLoading: isLoadingEvents } = useEvents(selectedYear, selectedMonth);
+    console.log(events);
 
     const nextMonth = () => {
         const nextMonth = selectedMonth + 1;
@@ -35,8 +39,8 @@ export const SchedulingPage = () => {
     const addNewEvent = async eventDetails => {
         try {
             await post('/api/events', eventDetails);
-            const { name, description, date } = eventDetails;
-            setEvents([...events, { name, description, date }]);
+            const { name, description, date, time, invitees } = eventDetails;
+            setEvents([...events, { name, description, date, time, invitees }]);
 
             setShowNewEventModal(false);
         } catch (e) {
@@ -55,6 +59,15 @@ export const SchedulingPage = () => {
         >
             <NewEventForm selectedDate={selectedDate} onSubmitEvent={addNewEvent} />
         </Modal>
+        <Modal
+            open={showEventDetailModal}
+            onClose={() => {
+                setSelectedEvent(null);
+                setShowEventDetailModal(false)
+            }}
+        >
+            <EventDetailForm selectedEvent={selectedEvent} />
+        </Modal>
         <Box>
             <Typography variant="h3" align="center">
                 {monthNames[selectedMonth]} {selectedYear}
@@ -72,6 +85,10 @@ export const SchedulingPage = () => {
                     onClickCell={date => {
                         setSelectedDate(date);
                         setShowNewEventModal(true);
+                    }}
+                    onClickEvent={event => {
+                        setSelectedEvent(event);
+                        setShowEventDetailModal(true);
                     }}
                 />
             </Box>

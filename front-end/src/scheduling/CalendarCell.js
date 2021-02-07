@@ -2,7 +2,7 @@ import {
     Box,
 } from '../ui';
 
-export const CalendarCell = ({ date, events = [], onClick }) => {
+export const CalendarCell = ({ date, events = [], onClick, onClickEvent = () => {} }) => {
     return date ? (
         <Box
             p={1}
@@ -16,6 +16,11 @@ export const CalendarCell = ({ date, events = [], onClick }) => {
             {date.getDate()}
             {events.map(event => (
                 <Box
+                    onClick={e => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        onClickEvent(event);
+                    }}
                     p={1}
                     mb={1}
                     style={{
