@@ -18,11 +18,12 @@ export const SchedulingPage = () => {
     const [selectedYear, setSelectedYear] = useState(today.getYear() + 1900);
     const [selectedMonth, setSelectedMonth] = useState(today.getMonth());
     const [showNewEventModal, setShowNewEventModal] = useState(false);
+    const [sending, setSending] = useState(false);
     const [showEventDetailModal, setShowEventDetailModal] = useState(false);
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedEvent, setSelectedEvent] = useState(null);
     const { events, setEvents, isLoading: isLoadingEvents } = useEvents(selectedYear, selectedMonth);
-    console.log(events);
+    // console.log(events);
 
     const nextMonth = () => {
         const nextMonth = selectedMonth + 1;
@@ -38,18 +39,21 @@ export const SchedulingPage = () => {
 
     const addNewEvent = async eventDetails => {
         try {
+            setSending(true);
             await post('/api/events', eventDetails);
-            const { name, description, date, time, invitees } = eventDetails;
-            setEvents([...events, { name, description, date, time, invitees }]);
-
+            const { name, description, date, time, invitees, backgroundColor } = eventDetails;
+            setEvents([...events, { name, description, date, time, invitees, backgroundColor }]);
             setShowNewEventModal(false);
+            setSending(false);
         } catch (e) {
             console.log(e);
+            setSending(false);
         }
     }
 
     return (
         <>
+        {/* WE CAN USE MUI DIALOG HERE INSTED OF MODAL */}
         <Modal
             open={showNewEventModal}
             onClose={() => {
@@ -57,7 +61,7 @@ export const SchedulingPage = () => {
                 setShowNewEventModal(false)
             }}
         >
-            <NewEventForm selectedDate={selectedDate} onSubmitEvent={addNewEvent} />
+            <NewEventForm selectedDate={selectedDate} onSubmitEvent={addNewEvent} sending={sending} />
         </Modal>
         <Modal
             open={showEventDetailModal}
@@ -81,7 +85,7 @@ export const SchedulingPage = () => {
                     year={selectedYear}
                     month={selectedMonth}
                     events={events}
-                    currentDate={today}
+                    currentDate={today.setHours(0,0,0,0)/10000}
                     onClickCell={date => {
                         setSelectedDate(date);
                         setShowNewEventModal(true);

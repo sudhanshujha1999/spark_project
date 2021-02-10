@@ -1,8 +1,10 @@
 import {
-    Box,
+    Box, Typography,
 } from '../ui';
+import { makeStyles } from '@material-ui/core/styles';
 
-export const CalendarCell = ({ date, events = [], onClick, onClickEvent = () => {} }) => {
+export const CalendarCell = ({ date, events = [], onClick, activeDate, onClickEvent = () => {} }) => {
+    const classes = useStyles();
     return date ? (
         <Box
             p={1}
@@ -13,7 +15,9 @@ export const CalendarCell = ({ date, events = [], onClick, onClickEvent = () => 
             }}
             onClick={() => onClick(date)}
         >
-            {date.getDate()}
+            <Typography variant='subtitle2' className={ activeDate ? classes.active : ''}>
+                {date.getDate()}
+            </Typography>
             {events.map(event => (
                 <Box
                     onClick={e => {
@@ -24,7 +28,7 @@ export const CalendarCell = ({ date, events = [], onClick, onClickEvent = () => 
                     p={1}
                     mb={1}
                     style={{
-                        backgroundColor: '#7289da',
+                        background: event.hasOwnProperty('backgroundColor') ? `${event.backgroundColor.colorCode.background}` :'#7289da',
                         borderRadius: 4,
                         overflow: 'hidden',
                     }}>
@@ -42,3 +46,13 @@ export const CalendarCell = ({ date, events = [], onClick, onClickEvent = () => 
         />
     );
 }
+
+const useStyles = makeStyles((theme) => ({
+    active:{
+        fontSize:'1.2em',
+        borderRadius:'50%',
+        width:'fit-content',
+        padding:'3px 10px',
+        backgroundColor:theme.palette.primary.main,
+    }
+}));

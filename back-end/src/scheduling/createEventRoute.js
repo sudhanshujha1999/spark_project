@@ -6,14 +6,13 @@ export const createEventRoute = {
     path: '/events',
     method: 'post',
     handler: async (req, res) => {
-        const { name, description, date: dateRaw, time, invitees = [] } = req.body;
+        const { name, description, date: dateRaw, time, invitees = [], backgroundColor } = req.body;
         const date = new Date(dateRaw);
         const authUser = req.user;
         const user = await getUserByAuthId(authUser.user_id);
         const createdById = user.id;
 
-        await createEvent({ name, description, date, time, invitees: [...invitees, user.email], createdById });
-
+        await createEvent({ name, description, date, time, backgroundColor, invitees: [...invitees, user.email], createdById });
         for (let invitee of invitees) {
             console.log(invitee);
             sendEventEmail({

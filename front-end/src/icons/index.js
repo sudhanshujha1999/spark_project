@@ -5,6 +5,7 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CircleXIcon from '@material-ui/icons/HighlightOff';
 import ClearIcon from '@material-ui/icons/Clear';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import EditIcon from '@material-ui/icons/Edit';
 import ReorderIcon from '@material-ui/icons/Reorder';
 import SettingsIcon from '@material-ui/icons/Settings';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
@@ -18,6 +19,7 @@ export {
     CircleXIcon,
     ClearIcon,
     DashboardIcon,
+    EditIcon,
     ReorderIcon,
     SettingsIcon,
     SupervisedUserCircleIcon,

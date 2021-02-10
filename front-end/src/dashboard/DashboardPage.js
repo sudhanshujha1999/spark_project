@@ -15,7 +15,7 @@ export const DashboardPage = () => {
     const [teams, isLoadingTeams,, setTeams] = useTeams();
 
     const { school } = teams[0] || {};
-
+    
     const onDeleteTeam = async teamId => {
         // eslint-disable-next-line no-restricted-globals
         const userReallyWantsToDelete = confirm('Are you sure you want to delete this team and all its corresponding data? (You cannot undo this)');
@@ -34,6 +34,18 @@ export const DashboardPage = () => {
         }
     }
 
+    const onEditTeam = async (teamId) => {
+        console.log(teamId);
+        // console.log(teams);
+        setTeams(teams.map(team => {
+            if(team.id === teamId){
+                return ({...team, name:'changed'}); 
+            }
+            return team;
+        }))
+        // console.log(newTeam);
+    }
+
     return (
         <Box>
             {isLoadingTeams
@@ -50,7 +62,8 @@ export const DashboardPage = () => {
                         school={school}
                         teams={teams}
                         isCoach={isCoach}
-                        onDeleteTeam={onDeleteTeam} />
+                        onDeleteTeam={onDeleteTeam} 
+                        onEditTeam={onEditTeam} />
                     </>
                 )}
         </Box>
