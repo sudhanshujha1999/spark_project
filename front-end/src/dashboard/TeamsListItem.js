@@ -1,54 +1,82 @@
-import { Link } from "react-router-dom";
-import { ClearIcon, EditIcon } from "../icons";
-import { Box, Card, Grid, IconButton, TextField } from "../ui";
-import { useRef, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { ClearIcon, EditIcon, CheckIcon } from "../icons";
+import { Card, Grid, IconButton, CardActions, EditableTextField } from "../ui";
+import { useState } from "react";
 import { useStyles } from "./Styles";
 
 export const TeamsListItem = ({ team, onClickDelete, onClickEdit }) => {
-  const classes = useStyles();
-  const inputRef = useRef();
-  const [name, setName] = useState(team.name);
-  const [edit, setEdit] = useState(false);
+   const classes = useStyles();
+   const history = useHistory();
+   const [name, setName] = useState(team.name);
+   const [edit, setEdit] = useState(false);
 
-  return (
-    <Grid item xs={12} sm={6} md={4} lg={3} key={team.id}>
-      <Link to={`/teams/${team.id}`}>
-        <Card raised className={classes.cardStyles}>
-          {/* <TextField 
-                        disabled={!edit} 
-                        value={name} 
-                        inputRef={inputRef}
-                        onChange={(e) => setName(e.target.value)}
-                        inputProps={{
-                            className: classes.input,
-                        }}
-                        InputProps={{ disableUnderline: !edit }}
-                    /> */}
-          <h3 key={team.id}>{team.name}</h3>
-          <Box className={classes.cardActions}>
-            {/* <IconButton
-                            onClick={e => {
-                                if(!edit){
-                                    inputRef.current.focus();
-                                }
-                                setEdit(!edit);
-                                // onClickEdit(team.id);
-                                e.preventDefault();
-                            }}
-                        >
-                            <EditIcon />
-                        </IconButton> */}
-            <IconButton
-              onClick={(e) => {
-                onClickDelete(team.id);
-                e.preventDefault();
-              }}
-            >
-              <ClearIcon />
-            </IconButton>
-          </Box>
-        </Card>
-      </Link>
-    </Grid>
-  );
+   const handleClick = (e) => {
+      if (edit) {
+         console.log("saveFirst");
+      } else {
+         history.push(`/teams/${team.id}`);
+      }
+   };
+
+   const handleEdit = (e) => {
+      if (!edit) {
+         setEdit(!edit);
+         return;
+      }
+      // IF NAME IS EMPTY
+      if (name === "") {
+         console.log("set name First");
+         return;
+      }
+      // if the name is not changed return
+      if (name === team.name) {
+         setEdit(!edit);
+         return;
+      }
+      setEdit(!edit);
+      onClickEdit({ name, id: team.id });
+      e.preventDefault();
+   };
+
+   return (
+      <Grid
+         item
+         xs={12}
+         sm={6}
+         md={4}
+         lg={3}
+         key={team.id}
+         onClick={handleClick}
+      >
+         <Card raised className={classes.cardStyles}>
+            <EditableTextField
+               value={name}
+               setValue={setName}
+               onPressEnter={handleEdit}
+               editable={edit}
+            />
+            <CardActions className={classes.cardActions}>
+               <IconButton
+                  className={classes.btn}
+                  onClick={(e) => {
+                     e.stopPropagation();
+                     handleEdit(e);
+                  }}
+               >
+                  {edit ? <CheckIcon /> : <EditIcon />}
+               </IconButton>
+               <IconButton
+                  className={classes.btn}
+                  onClick={(e) => {
+                     e.preventDefault();
+                     e.stopPropagation();
+                     onClickDelete(team.id);
+                  }}
+               >
+                  <ClearIcon />
+               </IconButton>
+            </CardActions>
+         </Card>
+      </Grid>
+   );
 };
