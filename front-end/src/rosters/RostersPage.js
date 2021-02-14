@@ -19,10 +19,10 @@ import {
 import { AddRosterDialog } from "./AddRosterDialog";
 import { useCurrentUserInfo } from "../users";
 import { DisplayRosterItem } from "./DisplayRosterItem";
-import { isEmail } from "../util";
+// import { isEmail } from "../util";
 
 export const RostersPage = () => {
-   const classes = useStyles();
+   // const classes = useStyles();
    const { teamId } = useParams();
    const { isLoading: isLoadingTeam, team } = useTeam(teamId);
    const { userInfo } = useCurrentUserInfo();
@@ -38,7 +38,7 @@ export const RostersPage = () => {
    // const [addingPlayerToIndex, setAddingPlayerToIndex] = useState(-1);
    // const [newPlayerEmailError, setNewPlayerEmailError] = useState("");
    const [newPlayerEmails, setNewPlayerEmails] = useState({});
-   const [showAddRosterDialog, setShowAddRosterDialog] = useState(true);
+   const [showAddRosterDialog, setShowAddRosterDialog] = useState(false);
    const [progress, setProgress] = useState(false);
 
    useEffect(() => {
@@ -85,38 +85,36 @@ export const RostersPage = () => {
          }
       }
    };
-   console.log(coaches);
 
    const createRoster = async (name) => {
       setProgress(true);
       const newRosterObject = {
          name,
          teamId: teamId,
-         coarchId: currentUserId,
+         coachId: currentUserId,
       };
       // SEND THIS OBJECT AND CREATE A NEW OBJECT
       try {
-         const result = axios.post("/api/rosters/add", newRosterObject);
-         // console.log(newRosterObject);
+         const result = await axios.post("/api/rosters/add", newRosterObject);
          // --------------------
          // console.log(rosters);
-         const rost = {
+         console.log(result.data);
+         const addedRoster = {
             groupType: "roster",
-            id: "124314",
+            id: result.data.id,
             name,
             players: [],
             invitations: [],
          };
-         setRosters([...rosters, rost]);
-         setTimeout(() => {
-            setProgress(false);
-            setShowAddRosterDialog(false);
-         }, 2000);
+         setRosters([...rosters, addedRoster]);
+         setProgress(false);
+         setShowAddRosterDialog(false);
       } catch (error) {
          console.log(error);
          setProgress(false);
       }
    };
+   console.log(rosters);
    // const onCancelAddingPlayer = () => setAddingPlayerToIndex(-1);
 
    return isLoadingTeam ? (
@@ -135,7 +133,7 @@ export const RostersPage = () => {
             </Box>
          ))}
          <Divider />
-         <h1>Rosters &amp; Players</h1>
+         <h1>Rosters</h1>
          {isCoach && (
             <>
                <Button

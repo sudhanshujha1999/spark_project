@@ -6,9 +6,7 @@ export const addRosterRoute = {
    handler: async (req, res) => {
       const { name, teamId, coachId } = req.body;
       try {
-         console.log(name, teamId, coachId);
-         const newRosterId = "123";
-         // const newRosterId = createRoster({name, teamId, coachId});
+         const newRosterId = await createRoster({ name, teamId, coachId });
          res.status(200).send({ id: newRosterId });
       } catch (e) {
          console.log(e);

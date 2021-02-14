@@ -11,6 +11,13 @@ export const useStyles = makeStyles((theme) => ({
    rosterNameItems: {
       marginRight: "10px",
    },
+   accordianConatiner: {
+      backgroundColor: "transparent",
+      boxShadow: "0px 0px 15px 2px rgb(162 24 207 / 25%)",
+   },
+   accordianSummary: {
+      flexFlow: "column",
+   },
    addRosterContainer: {
       width: "min(600px, 90vw)",
       height: "50vh",

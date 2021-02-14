@@ -18,10 +18,11 @@ export const AddRosterDialog = ({
    const classes = useStyles();
    const [name, setName] = useState("");
 
-   const handleSubmit = () => {
+   const handleSubmit = async () => {
       if (name !== "") {
          console.log(1);
-         createRoster(name);
+         await createRoster(name);
+         setName("");
       }
    };
 
