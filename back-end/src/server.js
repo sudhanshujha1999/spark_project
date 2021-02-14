@@ -10,8 +10,17 @@ const PORT = process.env.PORT || 8080;
 const FIREBASE_CREDENTIALS = 
     (process.env.FIREBASE_CREDENTIALS && JSON.parse(process.env.FIREBASE_CREDENTIALS))
     || require('../../credentials.json');
-const BASE_FRONT_END_URL = process.env.IS_PRODUCTION ? 'https://sparkesports.gg' : 'http://localhost:3000';
-const BASE_BACK_END_URL = process.env.IS_PRODUCTION ? 'https://sparkesports.gg/api' : 'http://localhost:8080/api';
+
+const BASE_FRONT_END_URL = process.env.IS_PRODUCTION
+    ? 'https://sparkesports.gg'
+    : process.env.IS_QA
+        ? 'http://https://spark-esport.uc.r.appspot.com'
+        : 'http://localhost:3000';
+const BASE_BACK_END_URL = process.env.IS_PRODUCTION
+    ? 'https://sparkesports.gg/api'
+    : process.env.IS_QA
+        ? 'http://https://spark-esport.uc.r.appspot.com/api'
+        : 'http://localhost:3000/api';
 
 if (!FIREBASE_CREDENTIALS) {
     console.log('ERROR: No firebase credentials found');
