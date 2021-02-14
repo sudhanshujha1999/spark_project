@@ -1,21 +1,24 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import { ClearIcon, CheckIcon, EditIcon } from "../icons";
-import { EditableTextField } from "../ui";
+import { GroupAddIcon } from "../icons";
+// import { EditableTextField } from "../ui";
 import { useStyles } from "./styles";
 import { post } from "../network";
 import { useTeam } from "../teams";
 import {
    Box,
    Button,
+   // Button,
    Card,
    Divider,
-   IconButton,
-   TextField,
+   // IconButton,
+   // TextField,
    Typography,
 } from "../ui";
+import { AddRosterDialog } from "./AddRosterDialog";
 import { useCurrentUserInfo } from "../users";
+import { DisplayRosterItem } from "./DisplayRosterItem";
 import { isEmail } from "../util";
 
 export const RostersPage = () => {
@@ -31,35 +34,40 @@ export const RostersPage = () => {
       rosters: initialRosters = [],
    } = team;
    const [rosters, setRosters] = useState(initialRosters);
-   const [newPlayerEmail, setNewPlayerEmail] = useState("");
-   const [addingPlayerToIndex, setAddingPlayerToIndex] = useState(-1);
-   const [newPlayerEmailError, setNewPlayerEmailError] = useState("");
+   // const [newPlayerEmail, setNewPlayerEmail] = useState("");
+   // const [addingPlayerToIndex, setAddingPlayerToIndex] = useState(-1);
+   // const [newPlayerEmailError, setNewPlayerEmailError] = useState("");
    const [newPlayerEmails, setNewPlayerEmails] = useState({});
+   const [showAddRosterDialog, setShowAddRosterDialog] = useState(true);
+   const [progress, setProgress] = useState(false);
 
    useEffect(() => {
       setRosters(team.rosters);
       console.log(team.rosters);
    }, [team.rosters]);
 
-   const onAddPlayer = async (rosterId) => {
-      if (!isEmail(newPlayerEmail))
-         return setNewPlayerEmailError("Not a valid email");
+   const onAddPlayer = async (rosterId, email, _callback) => {
+      // if (!isEmail(newPlayerEmail))
+      // if (!isEmail(email)) return setNewPlayerEmailError("Not a valid email");
 
       try {
          await post(`/api/rosters/${rosterId}/players`, {
-            email: newPlayerEmail,
+            email: email,
+            // email: newPlayerEmail,
          });
-
          setNewPlayerEmails({
             ...newPlayerEmails,
-            [rosterId]: [...(newPlayerEmails[rosterId] || []), newPlayerEmail],
+            // [rosterId]: [...(newPlayerEmails[rosterId] || []), newPlayerEmail],
+            [rosterId]: [...(newPlayerEmails[rosterId] || []), email],
          });
-         setNewPlayerEmail("");
-         setAddingPlayerToIndex(-1);
-         setNewPlayerEmailError("");
+         _callback("");
+         // setNewPlayerEmail("");
+         // setAddingPlayerToIndex(-1);
+         // setNewPlayerEmailError("");
       } catch (e) {
          console.log(e);
-         setNewPlayerEmailError("Something went wrong with the server...");
+         // setNewPlayerEmailError("Something went wrong with the server...");
+         _callback("Something went wrong with the server...");
       }
    };
 
@@ -77,8 +85,39 @@ export const RostersPage = () => {
          }
       }
    };
+   console.log(coaches);
 
-   const onCancelAddingPlayer = () => setAddingPlayerToIndex(-1);
+   const createRoster = async (name) => {
+      setProgress(true);
+      const newRosterObject = {
+         name,
+         teamId: teamId,
+         coarchId: currentUserId,
+      };
+      // SEND THIS OBJECT AND CREATE A NEW OBJECT
+      try {
+         const result = axios.post("/api/rosters/add", newRosterObject);
+         // console.log(newRosterObject);
+         // --------------------
+         // console.log(rosters);
+         const rost = {
+            groupType: "roster",
+            id: "124314",
+            name,
+            players: [],
+            invitations: [],
+         };
+         setRosters([...rosters, rost]);
+         setTimeout(() => {
+            setProgress(false);
+            setShowAddRosterDialog(false);
+         }, 2000);
+      } catch (error) {
+         console.log(error);
+         setProgress(false);
+      }
+   };
+   // const onCancelAddingPlayer = () => setAddingPlayerToIndex(-1);
 
    return isLoadingTeam ? (
       <p>Loading...</p>
@@ -97,6 +136,26 @@ export const RostersPage = () => {
          ))}
          <Divider />
          <h1>Rosters &amp; Players</h1>
+         {isCoach && (
+            <>
+               <Button
+                  startIcon={<GroupAddIcon />}
+                  color="primary"
+                  onClick={() => {
+                     setShowAddRosterDialog(true);
+                  }}
+                  variant="contained"
+               >
+                  Add Roster
+               </Button>
+               <AddRosterDialog
+                  open={showAddRosterDialog}
+                  setOpen={setShowAddRosterDialog}
+                  createRoster={createRoster}
+                  progress={progress}
+               />
+            </>
+         )}
          {rosters.map(
             (
                { id: rosterId, name: rosterName, players, invitations },
@@ -105,12 +164,26 @@ export const RostersPage = () => {
                const newPlayerEmailsForRoster = newPlayerEmails[rosterId] || [];
                return (
                   <>
-                     <Box py={2} className={classes.rosterName}>
+                     {rosterName && (
+                        <DisplayRosterItem
+                           rosterId={rosterId}
+                           rosterName={rosterName}
+                           players={players}
+                           isCoach={isCoach}
+                           newPlayerEmailsForRoster={newPlayerEmailsForRoster}
+                           onAddPlayer={onAddPlayer}
+                           currentUserId={currentUserId}
+                           invitations={invitations}
+                           onDeleteRoster={onDeleteRoster}
+                           teamId={teamId}
+                        />
+                     )}
+                     {/* <Box py={2} className={classes.rosterName}>
                         <h3 className={classes.rosterNameItems}>
                            {rosterName}
-                        </h3>
-                        {/* <EditableTextField value={name} setValue={setName} editable={edit} */}
-                        {rosterName && (
+                        </h3> */}
+                     {/* <EditableTextField value={name} setValue={setName} editable={edit} */}
+                     {/* {rosterName && (
                            <>
                               <IconButton
                                  // onClick={() => onDeleteRoster(rosterId)}
@@ -125,8 +198,8 @@ export const RostersPage = () => {
                                  <ClearIcon size="small" />
                               </IconButton>
                            </>
-                        )}
-                     </Box>
+                        )} */}
+                     {/* </Box>
                      {players.map(
                         ({ id: playerId, fullName: playerName, gamerName }) => (
                            <Box mb={2}>
@@ -236,7 +309,7 @@ export const RostersPage = () => {
                            </Box>
                         </form>
                      )}
-                     <Divider />
+                     <Divider /> */}
                   </>
                );
             }
