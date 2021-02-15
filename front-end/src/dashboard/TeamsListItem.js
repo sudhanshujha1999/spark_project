@@ -4,7 +4,12 @@ import { Card, Grid, IconButton, CardActions, EditableTextField } from "../ui";
 import { useState } from "react";
 import { useStyles } from "./Styles";
 
-export const TeamsListItem = ({ team, onClickDelete, onClickEdit }) => {
+export const TeamsListItem = ({
+   team,
+   onClickDelete,
+   onClickEdit,
+   isCoach,
+}) => {
    const classes = useStyles();
    const history = useHistory();
    const [name, setName] = useState(team.name);
@@ -55,27 +60,29 @@ export const TeamsListItem = ({ team, onClickDelete, onClickEdit }) => {
                onPressEnter={handleEdit}
                editable={edit}
             />
-            <CardActions className={classes.cardActions}>
-               <IconButton
-                  className={classes.btn}
-                  onClick={(e) => {
-                     e.stopPropagation();
-                     handleEdit(e);
-                  }}
-               >
-                  {edit ? <CheckIcon /> : <EditIcon />}
-               </IconButton>
-               <IconButton
-                  className={classes.btn}
-                  onClick={(e) => {
-                     e.preventDefault();
-                     e.stopPropagation();
-                     onClickDelete(team.id);
-                  }}
-               >
-                  <ClearIcon />
-               </IconButton>
-            </CardActions>
+            {isCoach && (
+               <CardActions className={classes.cardActions}>
+                  <IconButton
+                     className={classes.btn}
+                     onClick={(e) => {
+                        e.stopPropagation();
+                        handleEdit(e);
+                     }}
+                  >
+                     {edit ? <CheckIcon /> : <EditIcon />}
+                  </IconButton>
+                  <IconButton
+                     className={classes.btn}
+                     onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        onClickDelete(team.id);
+                     }}
+                  >
+                     <ClearIcon />
+                  </IconButton>
+               </CardActions>
+            )}
          </Card>
       </Grid>
    );

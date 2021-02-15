@@ -1,6 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 import addRosterContainerBackground from "../img/tornadoBg.svg";
 import purple from "@material-ui/core/colors/purple";
+import teamPic from "../img/teamPic.jpg";
 
 export const useStyles = makeStyles((theme) => ({
    rosterName: {
@@ -13,10 +14,13 @@ export const useStyles = makeStyles((theme) => ({
    },
    accordianConatiner: {
       backgroundColor: "transparent",
-      boxShadow: "0px 0px 15px 2px rgb(162 24 207 / 25%)",
+      boxShadow: "0px 0px 15px 2px rgb(255 255 255 / 10%)",
+   },
+   accordianDetails: {
+      flexFlow: "column",
    },
    accordianSummary: {
-      flexFlow: "column",
+      margin: 0,
    },
    addRosterContainer: {
       width: "min(600px, 90vw)",
@@ -50,5 +54,50 @@ export const useStyles = makeStyles((theme) => ({
       "&:hover": {
          backgroundColor: purple[800],
       },
+   },
+   // PLAYER CARD
+   playerCard: {
+      maxWidth: "280px",
+      display: "flex",
+      flexFlow: "column",
+      position: "relative",
+      height: "320px",
+      zIndex: "3",
+      backgroundColor: "#303030",
+      padding: "20px 10px",
+      borderRadius: "5px",
+      boxShadow: "0px 0px 10px 2px rgba(0,0,0,0.4)",
+      // "&::before": {
+      // },
+   },
+   gradient: {
+      position: "absolute",
+      content: '""',
+      top: "50%",
+      borderRadius: "5px",
+      left: "50%",
+      transform: "translate(-50%,-50%)",
+      width: "102%",
+      height: "102%",
+      zIndex: "-100",
+      background:
+         "linear-gradient(138deg, rgba(174,33,205,1) 0%, rgba(43,67,239,1) 100%)",
+   },
+   teamImage: {
+      position: "absolute",
+      top: "-35px",
+      left: "-20px",
+      // transform: "translateX(-50%)",
+      width: "70px",
+      height: "70px",
+      zIndex: "200",
+      borderRadius: "50%",
+      backgroundImage: `url(${teamPic})`,
+      backgroundPosition: "center",
+      backgroundSize: "cover",
+      boxShadow: "0px 5px 10px 2px rgba(0,0,0,0.2)",
+   },
+   playerName: {
+      marginTop: "50px",
    },
 }));

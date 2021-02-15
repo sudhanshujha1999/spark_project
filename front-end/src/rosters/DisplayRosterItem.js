@@ -7,7 +7,7 @@ import {
    Box,
    Button,
    Card,
-   Divider,
+   Grid,
    IconButton,
    TextField,
    EditableTextField,
@@ -16,6 +16,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { ClearIcon, CheckIcon, EditIcon, ExpandMoreIcon } from "../icons";
 import { isEmail } from "../util";
+import { PlayerCard } from "./PlayerCard";
 
 export const DisplayRosterItem = ({
    rosterId,
@@ -29,6 +30,7 @@ export const DisplayRosterItem = ({
    teamId,
    onAddPlayer = () => {},
 }) => {
+   const [expanded, setExpanded] = useState(false);
    const [addPlayer, setAddPlayer] = useState(false);
    const [editable, setEditable] = useState(false);
    const [name, setName] = useState(rosterName);
@@ -88,8 +90,15 @@ export const DisplayRosterItem = ({
    return (
       <Box my={3}>
          {/* <h3 className={classes.rosterNameItems}>{rosterName}</h3> */}
-         <Accordion defaultExpanded className={classes.accordianConatiner}>
-            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+         <Accordion
+            expanded={expanded}
+            className={classes.accordianConatiner}
+            onChange={(e, expand) => setExpanded(expand)}
+         >
+            <AccordionSummary
+               expandIcon={<ExpandMoreIcon />}
+               className={classes.accordianSummary}
+            >
                <Box py={1} className={classes.rosterName}>
                   <EditableTextField
                      value={name}
@@ -98,7 +107,7 @@ export const DisplayRosterItem = ({
                      onPressEnter={editRosterName}
                      align="left"
                   />
-                  {rosterName && (
+                  {rosterName && isCoach && (
                      <>
                         <IconButton
                            onClick={(e) => {
@@ -126,60 +135,86 @@ export const DisplayRosterItem = ({
                   )}
                </Box>
             </AccordionSummary>
-            <AccordionDetails>
-               {players.map(
-                  ({ id: playerId, fullName: playerName, gamerName }) => (
+            <AccordionDetails className={classes.accordianDetails}>
+               <Grid container spacing={4} justify="center" alignItems="center">
+                  {players.map(
+                     (
+                        {
+                           id: playerId,
+                           fullName: playerName,
+                           gamerName,
+                           bio,
+                           email,
+                        },
+                        index
+                     ) => (
+                        <>
+                           <Grid item sm={6} md={4} lg={3}>
+                              <PlayerCard
+                                 teamId={teamId}
+                                 rosterId={rosterId}
+                                 playerId={playerId}
+                                 bio={bio}
+                                 playerName={playerName}
+                                 gamerName={gamerName}
+                                 email={email}
+                                 show={expanded}
+                                 index={index}
+                              />
+                           </Grid>
+                           {/* <Box mb={2}>
+                              <Link
+                                 to={`/teams/${teamId}/rosters/${rosterId}/members/${playerId}`}
+                                 onClick={
+                                    isCoach || playerId === currentUserId
+                                       ? () => {}
+                                       : (e) => {
+                                            e.preventDefault();
+                                         }
+                                 }
+                                 style={
+                                    isCoach || playerId === currentUserId
+                                       ? { cursor: "pointer" }
+                                       : { cursor: "default" }
+                                 }
+                              >
+                                 <Card
+                                    style={
+                                       playerId === currentUserId
+                                          ? { border: "4px solid #7289da" }
+                                          : {}
+                                    }
+                                 >
+                                    <Box p={2}>
+                                       <p>
+                                          {playerName} - {gamerName}
+                                       </p>
+                                    </Box>
+                                 </Card>
+                              </Link>
+                           </Box> */}
+                        </>
+                     )
+                  )}
+                  {invitations.map(({ email }) => (
                      <Box mb={2}>
-                        <Link
-                           to={`/teams/${teamId}/rosters/${rosterId}/members/${playerId}`}
-                           onClick={
-                              isCoach || playerId === currentUserId
-                                 ? () => {}
-                                 : (e) => {
-                                      e.preventDefault();
-                                   }
-                           }
-                           style={
-                              isCoach || playerId === currentUserId
-                                 ? { cursor: "pointer" }
-                                 : { cursor: "default" }
-                           }
-                        >
-                           <Card
-                              style={
-                                 playerId === currentUserId
-                                    ? { border: "4px solid #7289da" }
-                                    : {}
-                              }
-                           >
-                              <Box p={2}>
-                                 <p>
-                                    {playerName} - {gamerName}
-                                 </p>
-                              </Box>
-                           </Card>
-                        </Link>
+                        <Card>
+                           <Box p={2}>
+                              <p>{email} - Invitation Pending</p>
+                           </Box>
+                        </Card>
                      </Box>
-                  )
-               )}
-               {invitations.map(({ email }) => (
-                  <Box mb={2}>
-                     <Card>
-                        <Box p={2}>
-                           <p>{email} - Invitation Pending</p>
-                        </Box>
-                     </Card>
-                  </Box>
-               ))}
-               {newPlayerEmailsForRoster.map((email) => (
-                  <Box mb={2}>
-                     <Card>
-                        <Box p={2}>
-                           <p>{email} - Invitation Pending</p>
-                        </Box>
-                     </Card>
-                  </Box>
-               ))}
+                  ))}
+                  {newPlayerEmailsForRoster.map((email) => (
+                     <Box mb={2}>
+                        <Card>
+                           <Box p={2}>
+                              <p>{email} - Invitation Pending</p>
+                           </Box>
+                        </Card>
+                     </Box>
+                  ))}
+               </Grid>
                {isCoach && (
                   <form
                      onSubmit={(e) => {
@@ -187,7 +222,7 @@ export const DisplayRosterItem = ({
                         e.preventDefault();
                      }}
                   >
-                     <Box mb={2} style={{ display: "flex" }}>
+                     <Box mt={3} mb={2} style={{ display: "flex" }}>
                         {addPlayer ? (
                            <>
                               <TextField
