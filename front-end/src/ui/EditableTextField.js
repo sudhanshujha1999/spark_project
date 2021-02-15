@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 export const EditableTextField = ({
    value,
    setValue,
+   align = "center",
    //    value that define the field is editable or not
    editable = true,
    onPressEnter = () => {},
@@ -23,6 +24,9 @@ export const EditableTextField = ({
          onChange={(e) => setValue(e.target.value)}
          inputProps={{
             className: classes.input,
+            style: {
+               textAlign: align,
+            },
          }}
          InputProps={{ disableUnderline: !editable }}
       />
@@ -37,7 +41,6 @@ const useStyles = makeStyles((theme) => ({
    input: {
       fontSize: "min(4vw,1.4em)",
       color: "white",
-      textAlign: "center",
       fontWeight: "bold",
    },
 }));
