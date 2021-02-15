@@ -149,12 +149,15 @@ export const DisplayRosterItem = ({
                         index
                      ) => (
                         <>
-                           <Grid item sm={6} md={4} lg={3}>
+                           <Grid item xs={12} md={4} lg={3}>
                               <PlayerCard
                                  teamId={teamId}
                                  rosterId={rosterId}
                                  playerId={playerId}
                                  bio={bio}
+                                 clickable={
+                                    isCoach || playerId === currentUserId
+                                 }
                                  playerName={playerName}
                                  gamerName={gamerName}
                                  email={email}
@@ -196,25 +199,25 @@ export const DisplayRosterItem = ({
                         </>
                      )
                   )}
-                  {invitations.map(({ email }) => (
-                     <Box mb={2}>
-                        <Card>
-                           <Box p={2}>
-                              <p>{email} - Invitation Pending</p>
-                           </Box>
-                        </Card>
-                     </Box>
-                  ))}
-                  {newPlayerEmailsForRoster.map((email) => (
-                     <Box mb={2}>
-                        <Card>
-                           <Box p={2}>
-                              <p>{email} - Invitation Pending</p>
-                           </Box>
-                        </Card>
-                     </Box>
-                  ))}
                </Grid>
+               {invitations.map(({ email }) => (
+                  <Box mt={3} mb={2}>
+                     <Card>
+                        <Box p={2}>
+                           <p>{email} - Invitation Pending</p>
+                        </Box>
+                     </Card>
+                  </Box>
+               ))}
+               {newPlayerEmailsForRoster.map((email) => (
+                  <Box mt={3} mb={2}>
+                     <Card>
+                        <Box p={2}>
+                           <p>{email} - Invitation Pending</p>
+                        </Box>
+                     </Card>
+                  </Box>
+               ))}
                {isCoach && (
                   <form
                      onSubmit={(e) => {

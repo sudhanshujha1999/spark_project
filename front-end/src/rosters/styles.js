@@ -55,6 +55,14 @@ export const useStyles = makeStyles((theme) => ({
          backgroundColor: purple[800],
       },
    },
+   playerCardConatiner: {
+      position: "relative",
+      "&:hover": {
+         "& $playerCard": {
+            boxShadow: "0px 5px 15px 2px rgba(255,255,255,0.2)",
+         },
+      },
+   },
    // PLAYER CARD
    playerCard: {
       maxWidth: "280px",
@@ -63,15 +71,17 @@ export const useStyles = makeStyles((theme) => ({
       position: "relative",
       height: "320px",
       zIndex: "3",
+      margin: "10px auto",
       backgroundColor: "#303030",
       padding: "20px 10px",
       borderRadius: "5px",
       boxShadow: "0px 0px 10px 2px rgba(0,0,0,0.4)",
-      // "&::before": {
-      // },
+      cursor: "pointer",
    },
    gradient: {
       position: "absolute",
+      maxWidth: "290px",
+      height: "320px",
       content: '""',
       top: "50%",
       borderRadius: "5px",
@@ -80,8 +90,25 @@ export const useStyles = makeStyles((theme) => ({
       width: "102%",
       height: "102%",
       zIndex: "-100",
-      background:
-         "linear-gradient(138deg, rgba(174,33,205,1) 0%, rgba(43,67,239,1) 100%)",
+      backgroundImage:
+         "linear-gradient(460deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)",
+      backgroundSize: "300%",
+      backgroundPosition: "right",
+      animation: "$animate 20s infinite alternate",
+   },
+   "@keyframes animate": {
+      "0%": {
+         backgroundPosition: "right",
+      },
+      "25%": {
+         backgroundPosition: "bottom",
+      },
+      "50%": {
+         backgroundPosition: "left",
+      },
+      "100%": {
+         backgroundPosition: "top",
+      },
    },
    teamImage: {
       position: "absolute",
@@ -99,5 +126,11 @@ export const useStyles = makeStyles((theme) => ({
    },
    playerName: {
       marginTop: "50px",
+   },
+   email: {
+      position: "absolute",
+      bottom: "10px",
+      left: "10px",
+      color: "#5d5d5d",
    },
 }));

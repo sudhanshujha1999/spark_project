@@ -1,11 +1,12 @@
 import { Box, Typography } from "../ui";
 import { useStyles } from "./styles";
-import Fade from "@material-ui/core/Fade";
 import { Zoom } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 export const PlayerCard = ({
    index = 1,
    teamId,
+   clickable,
    rosterId,
    playerId,
    bio,
@@ -14,6 +15,14 @@ export const PlayerCard = ({
    gamerName,
    show = true,
 }) => {
+   const history = useHistory();
+   const handleClick = () => {
+      if (clickable) {
+         history.push(
+            `/teams/${teamId}/rosters/${rosterId}/members/${playerId}`
+         );
+      }
+   };
    const classes = useStyles();
    return (
       <Zoom
@@ -22,13 +31,12 @@ export const PlayerCard = ({
             transitionDelay: show ? `${(index + 2) * 50}ms` : "0ms",
          }}
       >
-         <Box
-            style={{
-               position: "relative",
-            }}
-         >
-            <Box className={classes.gradient} />
-            <Box className={classes.playerCard}>
+         <Box className={classes.playerCardConatiner}>
+            <Box
+               className={classes.gradient}
+               style={{ animationDelay: `${index * 5}s` }}
+            />
+            <Box className={classes.playerCard} onClick={handleClick}>
                <Box className={classes.teamImage} />
                <Typography
                   variant="h6"
@@ -41,6 +49,9 @@ export const PlayerCard = ({
                   {gamerName}
                </Typography>
                <Typography variant="subtitle2">{bio}</Typography>
+               <Typography variant="caption" className={classes.email}>
+                  {email}
+               </Typography>
             </Box>
          </Box>
       </Zoom>
