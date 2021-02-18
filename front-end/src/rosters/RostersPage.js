@@ -98,7 +98,6 @@ export const RostersPage = () => {
          const result = await axios.post("/api/rosters/add", newRosterObject);
          // --------------------
          // console.log(rosters);
-         console.log(result.data);
          const addedRoster = {
             groupType: "roster",
             id: result.data.id,
@@ -114,7 +113,6 @@ export const RostersPage = () => {
          setProgress(false);
       }
    };
-   console.log(rosters);
    // const onCancelAddingPlayer = () => setAddingPlayerToIndex(-1);
 
    return isLoadingTeam ? (

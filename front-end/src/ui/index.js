@@ -19,6 +19,7 @@ import MaterialLink from "@material-ui/core/Link";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Fade from "@material-ui/core/Fade";
+import Fab from "@material-ui/core/Fab";
 
 export { AddableList } from "./AddableList";
 export { CenteredContainer } from "./CenteredContainer";
@@ -45,6 +46,7 @@ export {
    Container,
    Dialog,
    Divider,
+   Fab,
    Grid,
    IconButton,
    Link,

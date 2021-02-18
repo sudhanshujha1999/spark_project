@@ -1,3 +1,4 @@
+import AddIcon from "@material-ui/icons/Add";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
@@ -15,6 +16,7 @@ import SupervisedUserCircleIcon from "@material-ui/icons/SupervisedUserCircle";
 import TrendingUpIcon from "@material-ui/icons/TrendingUp";
 
 export {
+   AddIcon,
    AccountCircleIcon,
    AssignmentIcon,
    CalendarTodayIcon,
