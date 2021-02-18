@@ -77,6 +77,7 @@ export const useStyles = makeStyles((theme) => ({
       borderRadius: "5px",
       boxShadow: "0px 0px 10px 2px rgba(0,0,0,0.4)",
       cursor: "pointer",
+      transition: "all .2s ease-in",
    },
    gradient: {
       position: "absolute",

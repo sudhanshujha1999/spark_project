@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useState } from "react";
 import { useTeams } from "../teams";
 import { Box, Divider, Typography } from "../ui";
 import { TeamsList } from "./TeamsList";
@@ -6,6 +7,7 @@ import { useCurrentUserInfo } from "../users";
 
 export const DashboardPage = () => {
    const { userInfo } = useCurrentUserInfo();
+   const { teamToEdit, setTeamToEdit } = useState(null);
    const { membershipTypeId = "" } = userInfo || {};
    const isCoach = membershipTypeId === "coach";
    const [teams, isLoadingTeams, , setTeams] = useTeams();
@@ -51,8 +53,12 @@ export const DashboardPage = () => {
       }
    };
 
+   const editTeam = (team) => {
+      console.log(team);
+   };
+
    return (
-      <Box>
+      <Box style={{ position: "relative", height: "83vh" }}>
          {isLoadingTeams ? (
             <p>Loading...</p>
          ) : (
@@ -67,8 +73,7 @@ export const DashboardPage = () => {
                   school={school}
                   teams={teams}
                   isCoach={isCoach}
-                  onDeleteTeam={onDeleteTeam}
-                  onEditTeam={onEditTeam}
+                  editTeam={editTeam}
                />
             </>
          )}

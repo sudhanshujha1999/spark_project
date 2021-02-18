@@ -1,34 +1,40 @@
 import { Link } from "react-router-dom";
-import { Card, Grid } from "../ui";
+import { Card, Grid, Fab } from "../ui";
+import { AddIcon } from "../icons";
 import { TeamsListItem } from "./TeamsListItem";
+import { TeamItemCard } from "./TeamItemCard";
 import { useStyles } from "./Styles";
 
-export const TeamsList = ({
-   school,
-   teams,
-   isCoach,
-   onDeleteTeam,
-   onEditTeam,
-}) => {
+export const TeamsList = ({ school, teams, isCoach, editTeam }) => {
    const classes = useStyles();
    return school && teams && teams.length > 0 ? (
       <Grid container spacing={2}>
-         {teams.map((team) => (
-            <TeamsListItem
-               team={team}
-               onClickDelete={onDeleteTeam}
-               onClickEdit={onEditTeam}
-               isCoach={isCoach}
-            />
-         ))}
+         {teams.map((team, index) => {
+            return (
+               <>
+                  {/* <TeamsListItem
+                     team={team}
+                     onClickDelete={onDeleteTeam}
+                     onClickEdit={onEditTeam}
+                     isCoach={isCoach}
+                  /> */}
+                  <TeamItemCard
+                     key={index}
+                     team={team}
+                     editTeam={editTeam}
+                     isCoach={isCoach}
+                     index={index + 1}
+                  />
+               </>
+            );
+         })}
          {isCoach && (
-            <Grid item xs={12} sm={6} md={4} lg={3}>
-               <Link to={`/schools/${school.id}/new-team`}>
-                  <Card raised className={classes.cardStyles}>
-                     <h3>+ Add a new team</h3>
-                  </Card>
-               </Link>
-            </Grid>
+            <Link to={`/schools/${school.id}/new-team`}>
+               <Fab variant="extended" color="primary" className={classes.fab}>
+                  <AddIcon />
+                  Add Team
+               </Fab>
+            </Link>
          )}
       </Grid>
    ) : (
