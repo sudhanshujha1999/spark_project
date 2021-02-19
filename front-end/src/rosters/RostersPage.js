@@ -1,18 +1,28 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import { GroupAddIcon, ClearIcon } from "../icons";
+import { GroupAddIcon } from "../icons";
 // import { EditableTextField } from "../ui";
 import { useStyles } from "./styles";
 import { post } from "../network";
 import { useTeam } from "../teams";
-import { Box, Button, Card, Divider, Fab, Typography } from "../ui";
+import {
+   Box,
+   Button,
+   // Button,
+   Card,
+   Divider,
+   // IconButton,
+   // TextField,
+   Typography,
+} from "../ui";
 import { AddRosterDialog } from "./AddRosterDialog";
 import { useCurrentUserInfo } from "../users";
 import { DisplayRosterItem } from "./DisplayRosterItem";
+// import { isEmail } from "../util";
 
 export const RostersPage = () => {
-   const classes = useStyles();
+   // const classes = useStyles();
    const { teamId } = useParams();
    const { isLoading: isLoadingTeam, team } = useTeam(teamId);
    const { userInfo } = useCurrentUserInfo();
@@ -24,26 +34,39 @@ export const RostersPage = () => {
       rosters: initialRosters = [],
    } = team;
    const [rosters, setRosters] = useState(initialRosters);
+   // const [newPlayerEmail, setNewPlayerEmail] = useState("");
+   // const [addingPlayerToIndex, setAddingPlayerToIndex] = useState(-1);
+   // const [newPlayerEmailError, setNewPlayerEmailError] = useState("");
    const [newPlayerEmails, setNewPlayerEmails] = useState({});
    const [showAddRosterDialog, setShowAddRosterDialog] = useState(false);
    const [progress, setProgress] = useState(false);
 
    useEffect(() => {
       setRosters(team.rosters);
+      console.log(team.rosters);
    }, [team.rosters]);
 
    const onAddPlayer = async (rosterId, email, _callback) => {
+      // if (!isEmail(newPlayerEmail))
+      // if (!isEmail(email)) return setNewPlayerEmailError("Not a valid email");
+
       try {
          await post(`/api/rosters/${rosterId}/players`, {
             email: email,
+            // email: newPlayerEmail,
          });
          setNewPlayerEmails({
             ...newPlayerEmails,
+            // [rosterId]: [...(newPlayerEmails[rosterId] || []), newPlayerEmail],
             [rosterId]: [...(newPlayerEmails[rosterId] || []), email],
          });
          _callback("");
+         // setNewPlayerEmail("");
+         // setAddingPlayerToIndex(-1);
+         // setNewPlayerEmailError("");
       } catch (e) {
          console.log(e);
+         // setNewPlayerEmailError("Something went wrong with the server...");
          _callback("Something went wrong with the server...");
       }
    };
@@ -90,17 +113,12 @@ export const RostersPage = () => {
          setProgress(false);
       }
    };
+   // const onCancelAddingPlayer = () => setAddingPlayerToIndex(-1);
 
    return isLoadingTeam ? (
       <p>Loading...</p>
    ) : (
-      <Box
-         style={{
-            position: "relative",
-            minHeight: "83vh",
-            paddingBottom: "50px",
-         }}
-      >
+      <Box>
          <Typography variant="h2">{teamName}</Typography>
          <h1>Coaches</h1>
          {coaches.map(({ fullName: coachName }) => (
@@ -132,16 +150,6 @@ export const RostersPage = () => {
                   createRoster={createRoster}
                   progress={progress}
                />
-               {/* DELETE FUNCTIONALITY TO BE DISSCUSSED */}
-               {/* <Fab
-                  variant="extended"
-                  size="small"
-                  aria-label="add"
-                  className={classes.fabDelete}
-               >
-                  <ClearIcon />
-                  Delete
-               </Fab> */}
             </>
          )}
          {rosters.map(

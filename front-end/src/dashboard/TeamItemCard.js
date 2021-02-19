@@ -2,7 +2,7 @@ import { Box, Grid, Typography, Button, IconButton } from "../ui";
 import { SettingsIcon } from "../icons";
 import { useHistory } from "react-router-dom";
 import { useStyles } from "./Styles";
-import banner from "../img/default-image.jpg";
+import banner from "../img/banner.jpg";
 
 export const TeamItemCard = ({ team, isCoach, index, editTeam = () => {} }) => {
    const classes = useStyles();
