@@ -13,7 +13,7 @@ import {
    TextField,
    Typography,
 } from "../ui";
-import banner from "../img/test.jpg";
+import banner from "../img/default-image.jpg";
 import controller from "../img/controller.png";
 
 const validations = [
@@ -31,11 +31,27 @@ const validations = [
    },
 ];
 
+const games = [
+   {
+      name: "Valorent",
+   },
+   {
+      name: "League Of Legends",
+   },
+   {
+      name: "Overwatch",
+   },
+   {
+      name: "Rocket League",
+   },
+];
+
 export const TeamInfoForm = () => {
    const [isAddingRoster, setIsAddingRoster] = useState(false);
    const [newRosterName, setNewRosterName] = useState("");
    const [name, setName] = useState("");
    const [game, setGame] = useState("");
+   const [active, setActive] = useState("");
    const [rosters, setRosters] = useState([]);
    const [validationErrors, setValidationErrors] = useState([]);
    const classes = useStyles();
@@ -75,11 +91,19 @@ export const TeamInfoForm = () => {
       history.push("/");
    };
 
+   const onSelectGame = (name) => {
+      setGame(name);
+      setActive(name);
+   };
+
    return (
       <Container maxWidth="lg">
          <Grid container>
-            <Grid xs={12} sm={6}>
+            <Grid item xs={12} sm={6}>
                <Box className={classes.contentContainer}>
+                  <Typography className={classes.org}>
+                     Sparky-Esports
+                  </Typography>
                   <Typography className={classes.teamName}>
                      {name ? name : "Enter a team name"}
                   </Typography>
@@ -96,7 +120,7 @@ export const TeamInfoForm = () => {
                   />
                </Box>
             </Grid>
-            <Grid xs={12} sm={6}>
+            <Grid item xs={12} sm={6}>
                <h1>New Team Info</h1>
                {validationErrors.map((error) => (
                   <Box mb={2}>
@@ -115,11 +139,30 @@ export const TeamInfoForm = () => {
                <Box mb={2}>
                   <TextField
                      value={game}
-                     onChange={(e) => setGame(e.target.value)}
+                     onChange={(e) => {
+                        if (active) {
+                           setActive("");
+                        }
+                        setGame(e.target.value);
+                     }}
                      fullWidth
                      label="Game"
                      variant="outlined"
                   />
+               </Box>
+               <Box mb={2} className={classes.gamesContainer}>
+                  {games.map((game) => (
+                     <Box
+                        className={
+                           active === game.name
+                              ? `${classes.game} ${classes.active}`
+                              : `${classes.game}`
+                        }
+                        onClick={() => onSelectGame(game.name)}
+                     >
+                        {game.name}
+                     </Box>
+                  ))}
                </Box>
                <Divider />
                <Box mb={2}>
