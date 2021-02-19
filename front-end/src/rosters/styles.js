@@ -2,6 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import addRosterContainerBackground from "../img/tornadoBg.svg";
 import purple from "@material-ui/core/colors/purple";
 import teamPic from "../img/teamPic.jpg";
+import red from "@material-ui/core/colors/red";
 
 export const useStyles = makeStyles((theme) => ({
    rosterName: {
@@ -11,6 +12,25 @@ export const useStyles = makeStyles((theme) => ({
    },
    rosterNameItems: {
       marginRight: "10px",
+   },
+   fabDelete: {
+      position: "absolute",
+      left: "10px",
+      bottom: "10px",
+      color: "#eaeaea",
+      backgroundColor: red[400],
+      "&:hover": {
+         backgroundColor: red[600],
+      },
+   },
+   rosterEdit: {
+      marginRight: 20,
+   },
+   rosterCancel: {
+      backgroundColor: red[400],
+      "&:hover": {
+         backgroundColor: red[600],
+      },
    },
    accordianConatiner: {
       backgroundColor: "transparent",
