@@ -107,6 +107,32 @@ export const DisplayRosterItem = ({
                      onPressEnter={editRosterName}
                      align="left"
                   />
+                  {rosterName && isCoach && (
+                     <>
+                        <IconButton
+                           onClick={(e) => {
+                              e.stopPropagation();
+                              handleClickEdit();
+                           }}
+                           className={classes.rosterNameItems}
+                        >
+                           {editable ? (
+                              <CheckIcon size="small" />
+                           ) : (
+                              <EditIcon size="small" />
+                           )}
+                        </IconButton>
+                        <IconButton
+                           onClick={(e) => {
+                              e.stopPropagation();
+                              onDeleteRoster(rosterId);
+                           }}
+                           className={classes.rosterNameItems}
+                        >
+                           <ClearIcon size="small" />
+                        </IconButton>
+                     </>
+                  )}
                </Box>
             </AccordionSummary>
             <AccordionDetails className={classes.accordianDetails}>
@@ -243,32 +269,6 @@ export const DisplayRosterItem = ({
                         )}
                      </Box>
                   </form>
-               )}
-               {rosterName && isCoach && (
-                  <Box my={1}>
-                     <Button
-                        startIcon={editable ? <CheckIcon /> : <EditIcon />}
-                        onClick={(e) => {
-                           e.stopPropagation();
-                           handleClickEdit();
-                        }}
-                        color="primary"
-                        variant="contained"
-                        className={classes.rosterEdit}
-                     >
-                        {editable ? "Save" : "Edit"}
-                     </Button>
-                     <Button
-                        startIcon={<ClearIcon />}
-                        onClick={(e) => {
-                           e.stopPropagation();
-                           onDeleteRoster(rosterId);
-                        }}
-                        className={classes.rosterCancel}
-                     >
-                        Delete
-                     </Button>
-                  </Box>
                )}
             </AccordionDetails>
          </Accordion>
