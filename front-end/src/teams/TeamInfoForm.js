@@ -153,12 +153,14 @@ export const TeamInfoForm = () => {
 
    return (
       <Container maxWidth="lg">
-         <Grid container>
+         <Grid
+            container
+            style={{
+               minHeight: "80vh",
+            }}
+         >
             <Grid item xs={12} sm={6}>
                <Box className={classes.contentContainer}>
-                  <Typography className={classes.org}>
-                     Sparky-Esports
-                  </Typography>
                   <Typography className={classes.teamName}>
                      {name ? name : "Enter a team name"}
                   </Typography>
