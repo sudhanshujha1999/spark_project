@@ -11,7 +11,6 @@ export const TeamItemCard = ({ team, isCoach, index, editTeam = () => {} }) => {
    const handleClick = () => {
       history.push(`/teams/${team.id}`);
    };
-
    return (
       <Grid item xs={12} sm={6} md={4} lg={3} key={team.id}>
          <Box className={classes.teamCard} onClick={handleClick}>
@@ -21,10 +20,11 @@ export const TeamItemCard = ({ team, isCoach, index, editTeam = () => {} }) => {
                <Box
                   className={classes.teamImg}
                   style={{
-                     backgroundImage: `url(${banner})`,
+                     backgroundImage: team.url
+                        ? `url(${team.url})`
+                        : `url(${banner})`,
                   }}
                />
-               {/* <img src={banner} alt="teamImng" className={classes.teamImg} /> */}
                <Typography className={classes.teamName}>
                   {team.name}
                   {isCoach && (
@@ -56,6 +56,7 @@ export const TeamItemCard = ({ team, isCoach, index, editTeam = () => {} }) => {
                   onClick={(e) => {
                      {
                         e.stopPropagation();
+                        handleClick();
                         console.log("btn");
                      }
                   }}

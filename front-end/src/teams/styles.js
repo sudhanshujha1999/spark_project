@@ -53,21 +53,10 @@ export const useStyles = makeStyles((theme) => ({
       transition: "1s all ease-in",
       backgroundPosition: "left",
    },
-   img: {
+   imageContainer: {
       width: "320px",
       height: "410px",
-      backgroundColor: "#333",
       position: "relative",
-      backgroundSize: "cover",
-      backgroundPosition: "top",
-      borderRadius: "10px",
-      boxShadow: "0px 0px 10px rgba(0,0,0,0.2)",
-      "&:hover": {
-         "&~$controller": {
-            animation:
-               "$vibrate 3s cubic-bezier(0.46, 0.8, 0.43, 1.03) forwards infinite",
-         },
-      },
       "&::before": {
          content: '""',
          position: "absolute",
@@ -75,10 +64,20 @@ export const useStyles = makeStyles((theme) => ({
          right: "-18%",
          width: "70%",
          height: "70%",
-         zIndex: "-1",
+         zIndex: "-5",
          backgroundImage:
             "linear-gradient(126deg, rgba(69,44,141,1) 0%, rgba(18,26,48,1) 100%)",
       },
+   },
+   img: {
+      width: "100%",
+      zIndex: "5",
+      height: "100%",
+      backgroundColor: "#333",
+      backgroundSize: "cover",
+      backgroundPosition: "top",
+      borderRadius: "10px",
+      boxShadow: "0px 0px 10px rgba(0,0,0,0.2)",
    },
    controller: {
       position: "absolute",
@@ -87,32 +86,5 @@ export const useStyles = makeStyles((theme) => ({
       left: 250,
       transform: "rotate(-20deg)",
       filter: "drop-shadow(0 15px 10px rgba(0,0,0,0.5))",
-      // animation: "$vibrate 3s cubic-bezier(0.46, 0.8, 0.43, 1.03) forwards infinite",
-   },
-   "@keyframes vibrate": {
-      "0%": {
-         transform: "rotate(-20deg)",
-      },
-      "40%": {
-         transform: "rotate(20deg)",
-      },
-      "50%": {
-         transform: "rotate(-10deg)",
-      },
-      "55%": {
-         transform: "rotate(10deg)",
-      },
-      "60%": {
-         transform: "rotate(-10deg)",
-      },
-      "65%": {
-         transform: "rotate(10deg)",
-      },
-      "70%": {
-         transform: "rotate(0deg)",
-      },
-      "100%": {
-         transform: "rotate(-20deg)",
-      },
    },
 }));

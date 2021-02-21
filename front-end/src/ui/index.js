@@ -16,6 +16,7 @@ import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import MaterialLink from "@material-ui/core/Link";
+import Slide from "@material-ui/core/Slide";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Fade from "@material-ui/core/Fade";
@@ -51,6 +52,7 @@ export {
    IconButton,
    Link,
    MaterialLink,
+   Slide,
    TextField,
    Typography,
    Fade,

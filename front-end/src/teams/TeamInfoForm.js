@@ -1,19 +1,24 @@
 import { useStyles } from "./styles";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { post } from "../network";
+import firebase from "firebase";
+import "firebase/storage";
 import {
    Alert,
    Box,
    Button,
    Container,
+   CircularProgress,
    DeletableListItem,
    Divider,
    Grid,
+   Slide,
    TextField,
    Typography,
 } from "../ui";
-import banner from "../img/default-image.jpg";
+import { defaultImage } from "./defaultGames";
+import { GAMES as games } from "./defaultGames";
 import controller from "../img/controller.png";
 
 const validations = [
@@ -31,28 +36,21 @@ const validations = [
    },
 ];
 
-const games = [
-   {
-      name: "Valorent",
-   },
-   {
-      name: "League Of Legends",
-   },
-   {
-      name: "Overwatch",
-   },
-   {
-      name: "Rocket League",
-   },
-];
+const TYPES = ["image/jgp", "image/jpeg", "image/png"];
 
 export const TeamInfoForm = () => {
    const [isAddingRoster, setIsAddingRoster] = useState(false);
    const [newRosterName, setNewRosterName] = useState("");
    const [name, setName] = useState("");
    const [game, setGame] = useState("");
-   const [active, setActive] = useState("");
    const [rosters, setRosters] = useState([]);
+   const [loading, setLoading] = useState(false);
+   const [img, setImg] = useState(null);
+
+   // FOR DISPLAY PURPOSE
+   const [active, setActive] = useState({});
+   const [show, setShow] = useState(true);
+   const previewRef = useRef(null);
    const [validationErrors, setValidationErrors] = useState([]);
    const classes = useStyles();
 
@@ -72,15 +70,59 @@ export const TeamInfoForm = () => {
       setValidationErrors(validationErrors);
       if (validationErrors.length > 0) return;
 
-      const newTeamInfo = {
-         name,
-         game,
-         schoolId,
-         rosters,
-      };
-      const response = await post("/api/teams", newTeamInfo);
-      const newTeamId = response.data;
-      history.push(`/teams/${newTeamId}`);
+      setLoading(true);
+      if (img) {
+         // THEN UPLOAD
+         const storageRef = firebase
+            .storage()
+            .ref(`/teamImage/${schoolId}+${name}+${img.name}`);
+         storageRef.put(img).on(
+            "state_changed",
+            (snapshot) => {
+               console.log(
+                  (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+               );
+            },
+            (err) => {
+               console.log(err);
+            },
+            () =>
+               storageRef
+                  .getDownloadURL()
+                  .then(async (url) => {
+                     const newTeamInfo = {
+                        name,
+                        game,
+                        schoolId,
+                        rosters,
+                        url,
+                     };
+                     const response = await post("/api/teams", newTeamInfo);
+                     const newTeamId = response.data;
+                     history.push(`/teams/${newTeamId}`);
+                  })
+                  .catch((error) => {
+                     setLoading(false);
+                     console.log(error);
+                  })
+         );
+      } else {
+         const newTeamInfo = {
+            name,
+            game,
+            schoolId,
+            rosters,
+            url: Object.keys(active).length !== 0 ? active.img : defaultImage,
+         };
+         try {
+            const response = await post("/api/teams", newTeamInfo);
+            const newTeamId = response.data;
+            history.push(`/teams/${newTeamId}`);
+         } catch (error) {
+            setLoading(false);
+            console.log(error);
+         }
+      }
    };
 
    const onDeleteRoster = (index) => {
@@ -91,28 +133,51 @@ export const TeamInfoForm = () => {
       history.push("/");
    };
 
-   const onSelectGame = (name) => {
-      setGame(name);
-      setActive(name);
+   const imgfunction = (e) => {
+      let selectedFile = e.target.files[0];
+      if (selectedFile && TYPES.includes(selectedFile.type)) {
+         setShow(false);
+         setImg(selectedFile);
+         previewRef.current = URL.createObjectURL(selectedFile);
+         setTimeout(() => setShow(true), 500);
+      }
+   };
+
+   const onSelectGame = (game) => {
+      setShow(false);
+      setImg(null);
+      setTimeout(() => setShow(true), 500);
+      setGame(game.name);
+      setActive(game);
    };
 
    return (
       <Container maxWidth="lg">
-         <Grid container>
+         <Grid
+            container
+            style={{
+               minHeight: "80vh",
+            }}
+         >
             <Grid item xs={12} sm={6}>
                <Box className={classes.contentContainer}>
-                  <Typography className={classes.org}>
-                     Sparky-Esports
-                  </Typography>
                   <Typography className={classes.teamName}>
                      {name ? name : "Enter a team name"}
                   </Typography>
-                  <Box
-                     style={{
-                        backgroundImage: `url(${banner})`,
-                     }}
-                     className={classes.img}
-                  />
+                  <Box className={classes.imageContainer}>
+                     <Slide in={show} direction="right">
+                        <Box
+                           style={{
+                              backgroundImage: img
+                                 ? `url(${previewRef.current})`
+                                 : Object.keys(active).length !== 0
+                                 ? `url(${active.img})`
+                                 : `url(${defaultImage})`,
+                           }}
+                           className={classes.img}
+                        />
+                     </Slide>
+                  </Box>
                   <img
                      className={classes.controller}
                      src={controller}
@@ -140,8 +205,8 @@ export const TeamInfoForm = () => {
                   <TextField
                      value={game}
                      onChange={(e) => {
-                        if (active) {
-                           setActive("");
+                        if (Object.keys(active).length !== 0) {
+                           setActive({});
                         }
                         setGame(e.target.value);
                      }}
@@ -153,16 +218,29 @@ export const TeamInfoForm = () => {
                <Box mb={2} className={classes.gamesContainer}>
                   {games.map((game) => (
                      <Box
+                        key={game.name}
                         className={
-                           active === game.name
+                           active.name === game.name
                               ? `${classes.game} ${classes.active}`
                               : `${classes.game}`
                         }
-                        onClick={() => onSelectGame(game.name)}
+                        onClick={() => {
+                           onSelectGame(game);
+                        }}
                      >
                         {game.name}
                      </Box>
                   ))}
+               </Box>
+               <Divider />
+               <Box my={2}>
+                  <Typography variant="h6" gutterBottom>
+                     Upload your game picture
+                  </Typography>
+                  <Button variant="contained" color="primary" component="label">
+                     {img ? "Change" : "Upload"}
+                     <input type="file" hidden onChange={imgfunction} />
+                  </Button>
                </Box>
                <Divider />
                <Box mb={2}>
@@ -225,18 +303,26 @@ export const TeamInfoForm = () => {
                <Divider />
                <Box py={2}>
                   <Grid container justify="space-between">
-                     <Grid item>
-                        <Button variant="contained" onClick={onCancel}>
-                           Cancel
-                        </Button>
-                     </Grid>
-                     <Grid item>
+                     {!loading && (
+                        <Grid item>
+                           <Button variant="contained" onClick={onCancel}>
+                              Cancel
+                           </Button>
+                        </Grid>
+                     )}
+                     <Grid item xs={loading && 12}>
                         <Button
                            color="primary"
                            variant="contained"
                            onClick={onNext}
+                           disabled={loading}
+                           fullWidth={loading}
                         >
-                           Create Team
+                           {loading ? (
+                              <CircularProgress size="2em" color="primary" />
+                           ) : (
+                              "Create Team"
+                           )}
                         </Button>
                      </Grid>
                   </Grid>
