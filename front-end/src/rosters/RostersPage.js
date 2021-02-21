@@ -1,19 +1,29 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import axios from "axios";
 import { GroupAddIcon, ClearIcon } from "../icons";
 // import { EditableTextField } from "../ui";
 import { useStyles } from "./styles";
 import { post } from "../network";
-import { useTeam } from "../teams";
-import { Box, Button, Card, Divider, Fab, Typography } from "../ui";
+import { useTeam, useTeams } from "../teams";
+import {
+   Box,
+   Button,
+   Card,
+   CircularProgress,
+   Divider,
+   Fab,
+   Typography,
+} from "../ui";
 import { AddRosterDialog } from "./AddRosterDialog";
 import { useCurrentUserInfo } from "../users";
 import { DisplayRosterItem } from "./DisplayRosterItem";
 
 export const RostersPage = () => {
    const classes = useStyles();
+   const history = useHistory();
    const { teamId } = useParams();
+   const [teams] = useTeams();
    const { isLoading: isLoadingTeam, team } = useTeam(teamId);
    const { userInfo } = useCurrentUserInfo();
    const { id: currentUserId, membershipTypeId = "" } = userInfo || {};
@@ -27,6 +37,7 @@ export const RostersPage = () => {
    const [newPlayerEmails, setNewPlayerEmails] = useState({});
    const [showAddRosterDialog, setShowAddRosterDialog] = useState(false);
    const [progress, setProgress] = useState(false);
+   const [deleteProgress, setDeleteProgress] = useState(false);
 
    useEffect(() => {
       setRosters(team.rosters);
@@ -55,9 +66,12 @@ export const RostersPage = () => {
       );
       if (userReallyWantsToDeleteRoster) {
          try {
+            setDeleteProgress(true);
             await axios.delete(`/api/rosters/${rosterId}`);
             setRosters(rosters.filter((roster) => roster.id !== rosterId));
+            history.push("/");
          } catch (e) {
+            setDeleteProgress(false);
             console.log(e);
          }
       }
@@ -88,6 +102,27 @@ export const RostersPage = () => {
       } catch (error) {
          console.log(error);
          setProgress(false);
+      }
+   };
+
+   const handleDeleteTeam = async () => {
+      // eslint-disable-next-line no-restricted-globals
+      const userReallyWantsToDelete = confirm(
+         "Are you sure you want to delete this team and all its corresponding data? (You cannot undo this)"
+      );
+      if (teams.length <= 1) {
+         alert(
+            "That's your last team! You must have at least one team. Please create another before deleting this one"
+         );
+         return;
+      }
+      if (userReallyWantsToDelete) {
+         try {
+            await axios.delete(`/api/teams/${teamId}`);
+            history.push("/");
+         } catch (e) {
+            console.log(e);
+         }
       }
    };
 
@@ -133,15 +168,22 @@ export const RostersPage = () => {
                   progress={progress}
                />
                {/* DELETE FUNCTIONALITY TO BE DISSCUSSED */}
-               {/* <Fab
+               <Fab
                   variant="extended"
                   size="small"
                   aria-label="add"
                   className={classes.fabDelete}
+                  onClick={handleDeleteTeam}
                >
-                  <ClearIcon />
-                  Delete
-               </Fab> */}
+                  {deleteProgress ? (
+                     <CircularProgress color="primary" size="1.8em" />
+                  ) : (
+                     <>
+                        <ClearIcon />
+                        Delete Team
+                     </>
+                  )}
+               </Fab>
             </>
          )}
          {rosters.map(

@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Card, Grid, Fab } from "../ui";
 import { AddIcon } from "../icons";
-import { TeamsListItem } from "./TeamsListItem";
 import { TeamItemCard } from "./TeamItemCard";
 import { useStyles } from "./Styles";
 
