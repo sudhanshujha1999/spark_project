@@ -49,6 +49,7 @@ export const useStyles = makeStyles((theme) => ({
       width: "230px",
       cursor: "pointer",
       "&:hover": {
+         zIndex: "15",
          "& $background": {
             transition: `all 250ms ${bezierValue}`,
             transform: "scale(1.3)",

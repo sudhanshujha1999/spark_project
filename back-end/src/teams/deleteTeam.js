@@ -2,6 +2,7 @@ import * as admin from "firebase-admin";
 import { deleteTeamImage } from "./deleteTeamImage";
 
 export const deleteTeam = async (teamId) => {
+   console.log("delete ID:" + teamId);
    const team = admin.firestore().collection("groups").doc(teamId);
    // GET TEAMS DATA WITH TO GET URL
    const data = (await team.get()).data();
