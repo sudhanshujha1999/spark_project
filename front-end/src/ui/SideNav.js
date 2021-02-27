@@ -8,8 +8,9 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
-    Toolbar,
+    Typography,
 } from "@material-ui/core";
+import WhatshotIcon from "@material-ui/icons/Whatshot";
 import { makeStyles } from "@material-ui/core/styles";
 import { SignOutButton } from "../auth";
 import {
@@ -28,7 +29,7 @@ const navSections = [
             {
                 name: "Dashboard",
                 icon: DashboardIcon,
-                link: "/",
+                link: "/dashboard",
             },
             {
                 name: "Scheduling",
@@ -85,21 +86,27 @@ export const SideNav = () => {
     };
     return (
         <Drawer
-            className={classes.drawer}
+            className={open ? classes.drawer : classes.drawerClose}
             variant="permanent"
             open={true}
             onClose={handleClose}
             onMouseEnter={() => setOpen(true)}
             onMouseLeave={() => setOpen(false)}
             classes={{
-                paper: open ? classes.drawerPaper : classes.drawerClose,
+                paper: open ? classes.drawerPaper : classes.drawerPaperClose,
             }}>
-            <Toolbar />
             <div className={classes.drawerContainer}>
+                <Box className={classes.logo}>
+                    <WhatshotIcon fontSize="large" color="primary" />
+                    <Typography className={classes.logoName}>Spark Esports</Typography>
+                </Box>
                 <List>
+                    <Divider />
                     {navSections.map((section) => (
                         <>
-                            <ListSubheader>{section.name}</ListSubheader>
+                            <ListSubheader className={!open ? classes.close : ""}>
+                                {section.name}
+                            </ListSubheader>
                             {section.items.map((item, index) =>
                                 item.newTab ? (
                                     <a
@@ -144,7 +151,7 @@ export const SideNav = () => {
                             <Divider />
                         </>
                     ))}
-                    <Box mt={2}>
+                    <Box mt={2} className={!open ? classes.close : ""}>
                         <SignOutButton fullWidth size="large" />
                     </Box>
                 </List>
@@ -159,39 +166,58 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: "flex",
     },
-    appBar: {
-        zIndex: theme.zIndex.drawer + 1,
+    logoName: {
+        marginLeft: "22px",
+        fontSize: "1.6em",
+        fontWeight: 700,
+        color: theme.palette.primary.main,
+    },
+    logo: {
+        margin: "16px 0 4px 12px",
+        width: drawerWidth,
+        display: "flex",
+        flexFlow: "row nowrap",
+        justifyContent: "flex-start",
+        alignItems: "center",
     },
     link: {
-        height: "70px",
+        width: drawerWidth,
         display: "flex",
-        flexFlow: "row",
+        flexFlow: "row nowrap",
         justifyContent: "center",
         alignItems: "center",
     },
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
+        zIndex: "1000",
     },
     close: {
+        // display: "none",
         opacity: 0,
-        transition: "all 0.2s ease-in",
+        // opacity:1,
+        // transition: "all 0.2s ease-in",
+    },
+    drawerClose: {
+        zIndex: "1000",
+        overflowX: "hidden",
     },
     drawerPaper: {
-        overflowX: "hidden",
         width: drawerWidth,
         transition: "all 0.2s ease-in",
     },
-    drawerClose: {
-        overflowX: "hidden",
-        width: drawerWidth - 140,
+    drawerPaperClose: {
+        width: drawerWidth - 170,
+        overflowX: "hidden !important",
         transition: "all 0.2s ease-in",
-    },
-    drawerContainer: {
-        overflow: "auto",
     },
     content: {
         flexGrow: 1,
         padding: theme.spacing(3),
+    },
+    drawerContainer: {
+        display: "flex",
+        flexFlow: "column",
+        alignItems: "flex-start",
     },
 }));
