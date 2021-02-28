@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
     Box,
     Drawer,
@@ -80,6 +80,8 @@ const navSections = [
 export const SideNav = () => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
+    const history = useHistory();
+    console.log(history);
 
     const handleClose = () => {
         setOpen(false);
@@ -96,12 +98,15 @@ export const SideNav = () => {
                 paper: open ? classes.drawerPaper : classes.drawerPaperClose,
             }}>
             <div className={classes.drawerContainer}>
-                <Box className={classes.logo}>
-                    <WhatshotIcon fontSize="large" color="primary" />
-                    <Typography className={classes.logoName}>Spark Esports</Typography>
-                </Box>
+                <Link to="/">
+                    <Box className={classes.logo}>
+                        <WhatshotIcon fontSize="large" color="primary" />
+                        <Typography className={classes.logoName}>Spark Esports</Typography>
+                    </Box>
+                </Link>
                 <List>
                     <Divider />
+                    <Box my={2} />
                     {navSections.map((section) => (
                         <>
                             <ListSubheader className={!open ? classes.close : ""}>
@@ -133,9 +138,24 @@ export const SideNav = () => {
                                         swid={`sidenav-link-${item.name}`}
                                         to={item.link}
                                         style={{ color: "inherit", textDecoration: "none" }}>
-                                        <ListItem button key={item.name}>
+                                        <ListItem
+                                            button
+                                            key={item.name}
+                                            className={
+                                                history.location.pathname === item.link
+                                                    ? classes.active
+                                                    : ""
+                                            }>
                                             <ListItemIcon>
-                                                {item.icon && <item.icon />}
+                                                {item.icon && (
+                                                    <item.icon
+                                                        color={
+                                                            history.location.pathname === item.link
+                                                                ? "secondary"
+                                                                : ""
+                                                        }
+                                                    />
+                                                )}
                                             </ListItemIcon>
                                             <ListItemText
                                                 className={open ? classes.open : classes.close}
@@ -173,6 +193,7 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.primary.main,
     },
     logo: {
+        cursor: "pointer",
         margin: "16px 0 4px 12px",
         width: drawerWidth,
         display: "flex",
@@ -192,11 +213,12 @@ const useStyles = makeStyles((theme) => ({
         flexShrink: 0,
         zIndex: "1000",
     },
+    active: {
+        backgroundColor: theme.palette.background.default,
+        borderRadius: "30px 0 0 30px",
+    },
     close: {
-        // display: "none",
         opacity: 0,
-        // opacity:1,
-        // transition: "all 0.2s ease-in",
     },
     drawerClose: {
         zIndex: "1000",
@@ -205,8 +227,11 @@ const useStyles = makeStyles((theme) => ({
     drawerPaper: {
         width: drawerWidth,
         transition: "all 0.2s ease-in",
+        overflowX: "hidden",
+        borderRight: "none",
     },
     drawerPaperClose: {
+        borderRight: "none",
         width: drawerWidth - 170,
         overflowX: "hidden !important",
         transition: "all 0.2s ease-in",

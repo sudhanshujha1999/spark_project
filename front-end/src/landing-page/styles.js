@@ -189,7 +189,9 @@ export const useStyles = makeStyles((theme) => ({
             "& $cardHeading": {
                 clipPath: "polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 100%, 0 0)",
             },
-            "& $cardBg": {},
+            "& $cardBg": {
+                transform: "scale(1.05)",
+            },
         },
     },
     cardBorder: {
@@ -199,6 +201,9 @@ export const useStyles = makeStyles((theme) => ({
         width: "124%",
         height: "150%",
         zIndex: "-1000",
+        filter: "drop-shadow(2px 4px 6px black)",
+        transform: "scale(1)",
+        transition: "all 0.2s ease-out",
     },
     cardBg: {
         position: "absolute",
@@ -210,6 +215,7 @@ export const useStyles = makeStyles((theme) => ({
         // backgroundPosition: "center",
         // backgroundSize: "cover",
         transform: "scale(1)",
+        filter: "drop-shadow(3px 5px 10px rgb(0 0 0 / 90%))",
         zIndex: "-100",
         transition: "all 0.2s ease-out",
     },

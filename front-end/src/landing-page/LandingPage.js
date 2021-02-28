@@ -7,14 +7,15 @@ import { HeadingContent } from "./HeadingContent";
 import { HeadingForm } from "./HeadingForm";
 import { EmailSentSuccess } from "./EmailSentSuccess";
 import { feature } from "./FeaturesData";
-import char from "../img/char-2.png";
-import img from "../img/border.png";
+import img1 from "../img/border-1.png";
+import img2 from "../img/border.png";
+import img3 from "../img/border-2.png";
 
 export const LandingPage = () => {
     const classes = useStyles();
     const [visible, setVisible] = useState(true);
     const [step, setStep] = useState(0);
-
+    const border = [img1, img2, img3];
     const nextStep = () => {
         setVisible(false);
         setTimeout(() => {
@@ -50,7 +51,11 @@ export const LandingPage = () => {
                                 }
                             />
                             {index % 2 === 0 && (
-                                <img src={img} alt="testImag" className={classes.cardBorder} />
+                                <img
+                                    src={border[index / 2]}
+                                    alt="testImag"
+                                    className={classes.cardBorder}
+                                />
                             )}
                             <Box
                                 className={
