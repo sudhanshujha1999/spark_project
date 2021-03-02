@@ -4,6 +4,7 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Alert from "@material-ui/lab/Alert";
+import Badge from "@material-ui/core/Badge";
 import Box from "@material-ui/core/Box";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Button from "@material-ui/core/Button";
@@ -25,6 +26,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Slide from "@material-ui/core/Slide";
 import Select from "@material-ui/core/Select";
+import Snackbar from "@material-ui/core/Snackbar";
 
 export { AddableList } from "./AddableList";
 export { CenteredContainer } from "./CenteredContainer";
@@ -36,12 +38,14 @@ export { SideNav } from "./SideNav";
 export { StateForm } from "./StateForm";
 export { TabPanel } from "./TabPanel";
 export { EditableTextField } from "./EditableTextField";
+export { CustomSnackbar } from "./CustomSnackbar";
 
 export {
     Accordion,
     AccordionSummary,
     AccordionDetails,
     Alert,
+    Badge,
     Box,
     Breadcrumbs,
     Button,
@@ -64,4 +68,5 @@ export {
     TextField,
     Typography,
     Fade,
+    Snackbar,
 };

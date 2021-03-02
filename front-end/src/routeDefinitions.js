@@ -16,7 +16,7 @@ import {
 import { LandingPage } from "./landing-page";
 import { RostersPage } from "./rosters";
 import { SchedulingPage } from "./scheduling";
-import { TeamInfoForm } from "./teams";
+import { TeamInfoForm, EditTeamInfo } from "./teams";
 
 export const createAccountRoute = {
     path: "/create-account",
@@ -57,6 +57,11 @@ export const invitationLandingRoute = {
     component: InvitationLandingPage,
     isPublic: true,
     hideNav: true,
+};
+
+export const editTeamPageRoute = {
+    path: "/teams/:teamId/edit",
+    component: EditTeamInfo,
 };
 
 export const memberDetailRoute = {

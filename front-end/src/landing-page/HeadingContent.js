@@ -6,11 +6,11 @@ export const HeadingContent = ({ nextStep }) => {
     return (
         <Box className={classes.headingContainer}>
             <Typography component="h1" className={classes.bannerHeading}>
-                Make it official
+                Esports Team Management
             </Typography>
             <Typography className={classes.body} variant="body2" gutterBottom>
                 Bring your esports organization to the next level with{" "}
-                <strong className={classes.nameOrg}>Spark’s team hub.</strong>
+                <strong className={classes.nameOrg}>Spark Sport.</strong>
             </Typography>
             <Button
                 disableElevation

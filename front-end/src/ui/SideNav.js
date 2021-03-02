@@ -81,7 +81,6 @@ export const SideNav = () => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const history = useHistory();
-    console.log(history);
 
     const handleClose = () => {
         setOpen(false);
