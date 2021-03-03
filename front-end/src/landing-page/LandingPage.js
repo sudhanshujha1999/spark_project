@@ -36,7 +36,6 @@ export const LandingPage = () => {
             <Zoom in={visible}>
                 <Box>{steps[step]}</Box>
             </Zoom>
-            <Box my={18} />
             <Grid container spacing={10}>
                 {feature.map((item, index) => (
                     <Grid item xs={12} xl={6}>

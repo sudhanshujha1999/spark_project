@@ -1,8 +1,8 @@
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Box from "@material-ui/core/Box";
+import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import WhatshotIcon from "@material-ui/icons/Whatshot";
 import { makeStyles } from "@material-ui/core/styles";
 import { useCurrentUser, signOut } from "../auth";
 
@@ -18,15 +18,16 @@ export const NavBar = () => {
             className={classes.appBar}
             p={2}>
             <Toolbar>
-                <Box style={{ flex: 10 }}>
-                    {/* <Box pr={2} style={{ display: "inline-block" }}>
-                        <WhatshotIcon />
-                    </Box>
-                    <Box pr={2} style={{ display: "inline-block" }}>
-                        <h1 style={{ margin: 0 }}>Spark Esports</h1>
-                    </Box> */}
+                <Box style={{ flex: 10 }}></Box>
+                <Box>
+                    {!isLoading && currentUser ? (
+                        <p>Logged in as {currentUser.email}</p>
+                    ) : (
+                        <Link to="/sign-in">
+                            <Button variant="outlined">Sign In</Button>
+                        </Link>
+                    )}{" "}
                 </Box>
-                <Box>{!isLoading && <p>Logged in as {currentUser.email}</p>}</Box>
             </Toolbar>
         </AppBar>
     );

@@ -31,28 +31,28 @@ export const useStyles = makeStyles((theme) => ({
                 "linear-gradient(180deg, rgba(34,40,49,0.70) 20%, rgba(255,255,255,0) 100%)",
         },
     },
-    wave: {
-        position: "absolute",
-        top: 10,
-        left: 0,
-        width: "270%",
+    // wave: {
+    //     position: "absolute",
+    //     top: 10,
+    //     left: 0,
+    //     width: "270%",
 
-        // transform: "translateX(0%)",
-        animation: " $wavey linear 30s infinite",
-    },
-    "@keyframes wavey": {
-        "0%": {
-            transform: "translateX(-30%)",
-        },
-        "100%": {
-            transform: "translateX(-70%)",
-        },
-    },
+    //     // transform: "translateX(0%)",
+    //     animation: " $wavey linear 30s infinite",
+    // },
+    // "@keyframes wavey": {
+    //     "0%": {
+    //         transform: "translateX(-30%)",
+    //     },
+    //     "100%": {
+    //         transform: "translateX(-70%)",
+    //     },
+    // },
 
     // HEADING
     headingContainer: {
         width: "min(95vw, 700px)",
-        minHeight: "55vh",
+        minHeight: "90vh",
         margin: "0 auto",
         display: "flex",
         flexFlow: "column",
@@ -65,9 +65,12 @@ export const useStyles = makeStyles((theme) => ({
     },
     bannerHeading: {
         fontWeight: 700,
+        lineHeight: "1em",
+        marginBottom: "15px",
         fontSize: "min(4em, 14vw)",
     },
     body: {
+        marginBottom: "15px",
         fontSize: "min(1.4em,8vw)",
         color: "#dedede",
     },
@@ -97,7 +100,7 @@ export const useStyles = makeStyles((theme) => ({
     textfield: {
         margin: "10px 0",
         borderRadius: 2,
-        minWidth: 300,
+        minWidth: 340,
         // clipPath: "polygon(10% 0, 100% 0%, 90% 100%, 0% 100%)",
         background: "rgb(57 62 70 / 60%)",
         filter: "drop-shadow(10px 10px 15px black)",
@@ -106,11 +109,11 @@ export const useStyles = makeStyles((theme) => ({
     selectContainer: {
         display: "flex",
         flexFlow: "row",
-        minWidth: 300,
+        minWidth: 340,
         justifyContent: "space-between",
     },
     select: {
-        minWidth: 140,
+        minWidth: 160,
     },
     label: {
         color: "#fff",

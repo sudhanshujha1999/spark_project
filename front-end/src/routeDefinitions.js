@@ -38,6 +38,8 @@ export const dashboardRoute = {
 export const landingPageRoute = {
     path: "/",
     component: LandingPage,
+    isPublic: true,
+    hideNav: true,
 };
 
 export const emailVerificationResultRoute = {

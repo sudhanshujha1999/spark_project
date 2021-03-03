@@ -25,7 +25,7 @@ export const EmailSentSuccess = () => {
                     </Box>
                 </Box>
                 <Typography className={classes.body} variant="body2" gutterBottom>
-                    Thank you for showing your intrest we will get back to you soon.
+                    Thank you for showing your interest we will get back to you soon.
                 </Typography>
             </Box>
         </Box>
