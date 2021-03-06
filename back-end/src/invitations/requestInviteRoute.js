@@ -14,7 +14,7 @@ export const requestInviteRoute = {
         const subject = "Requested Invite";
         try {
             await sendEmail({
-                to: "abhi.shukla0047@gmail.com",
+                to: FROM_TAYLOR,
                 from: FROM_TAYLOR,
                 subject,
                 body: text,
