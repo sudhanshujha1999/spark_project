@@ -23,6 +23,9 @@ import IconButton from "@material-ui/core/IconButton";
 import InputLabel from "@material-ui/core/InputLabel";
 import MaterialLink from "@material-ui/core/Link";
 import MenuItem from "@material-ui/core/MenuItem";
+import SpeedDial from "@material-ui/lab/SpeedDial";
+import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
+import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
 import Slide from "@material-ui/core/Slide";
 import Select from "@material-ui/core/Select";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -70,6 +73,9 @@ export {
     MaterialLink,
     Select,
     Slide,
+    SpeedDial,
+    SpeedDialIcon,
+    SpeedDialAction,
     TextField,
     Typography,
     Tab,

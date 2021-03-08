@@ -1,12 +1,14 @@
 import AddIcon from "@material-ui/icons/Add";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import AssignmentIcon from "@material-ui/icons/Assignment";
+import BackupIcon from "@material-ui/icons/Backup";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CheckIcon from "@material-ui/icons/Check";
 import CircleXIcon from "@material-ui/icons/HighlightOff";
 import ClearIcon from "@material-ui/icons/Clear";
 import ClearAllIcon from "@material-ui/icons/ClearAll";
+import DeleteIcon from "@material-ui/icons/Delete";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import EditIcon from "@material-ui/icons/Edit";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -26,12 +28,14 @@ export {
     AddIcon,
     AccountCircleIcon,
     AssignmentIcon,
+    BackupIcon,
     CalendarTodayIcon,
     CheckCircleIcon,
     CheckIcon,
     CircleXIcon,
     ClearAllIcon,
     ClearIcon,
+    DeleteIcon,
     DashboardIcon,
     EditIcon,
     ExpandMoreIcon,

@@ -98,6 +98,19 @@ export const useStyles = makeStyles((theme) => ({
         display: "grid",
         placeItems: "center",
     },
+    savingImage: {
+        height: 200,
+        width: 200,
+        display: "grid",
+        placeItems: "center",
+    },
+    speedDial: {
+        transform: "translateX(70px)",
+    },
+    fab: {
+        height: 45,
+        width: 45,
+    },
     // NOTES
     note: {
         padding: "10px 20px",

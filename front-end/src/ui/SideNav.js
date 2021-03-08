@@ -14,6 +14,7 @@ import WhatshotIcon from "@material-ui/icons/Whatshot";
 import { makeStyles } from "@material-ui/core/styles";
 import { SignOutButton } from "../auth";
 import {
+    AccountCircleIcon,
     AssignmentIcon,
     CalendarTodayIcon,
     DashboardIcon,
@@ -67,6 +68,12 @@ const navSections = [
             //     name: 'Settings',
             //     icon: SettingsIcon,
             // },
+            {
+                name: "My Profile",
+                icon: AccountCircleIcon,
+                link: "/profile",
+                newTab: false,
+            },
             {
                 name: "Terms & Privacy",
                 icon: ReorderIcon,

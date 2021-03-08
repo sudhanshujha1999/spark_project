@@ -2,7 +2,7 @@ import { Grid, Typography, Box } from "../ui";
 import { ClearAllIcon, GroupIcon, RecentActorsIcon, SportsEsportsIcon } from "../icons";
 import { useStyles } from "./styles";
 
-export const Overview = ({ teamInfo, user }) => {
+export const Overview = ({ user, teams }) => {
     const classes = useStyles();
     return (
         <Grid container>
@@ -20,7 +20,11 @@ export const Overview = ({ teamInfo, user }) => {
                         <Typography>Teams</Typography>
                     </Box>
                     <Box>
-                        <Typography className={classes.textCenter}>{teamInfo.name}</Typography>
+                        {teams.map((teamInfo) => (
+                            <Typography key={teamInfo.id} className={classes.textCenter}>
+                                {teamInfo.name}
+                            </Typography>
+                        ))}
                     </Box>
                 </Grid>
                 <Grid item xs={12} md={6} className={classes.gridItem}>
@@ -31,7 +35,8 @@ export const Overview = ({ teamInfo, user }) => {
                     <Box>
                         <Typography>
                             {user.gamesAndRoles && user.gamesAndRoles.length > 0 ? (
-                                teamInfo.name
+                                // teamInfo.name
+                                "GAMES"
                             ) : (
                                 <Box className={classes.noGames}>
                                     <ClearAllIcon />
