@@ -1,9 +1,14 @@
 import { makeStyles } from "@material-ui/core/styles";
 import banner from "../img/1624.jpg";
-import testBg from "../img/testImage.jpg";
-import char from "../img/char-1.png";
+import addRosterContainerBackground from "../img/tornadoBg.svg";
+import purple from "@material-ui/core/colors/purple";
 
 export const useStyles = makeStyles((theme) => ({
+    pageLoad: {
+        height: "90vh",
+        display: "grid",
+        placeItems: "center",
+    },
     // ALL BANNER STYLES WITHE HEADING
     container: {
         position: "absolute",
@@ -176,6 +181,45 @@ export const useStyles = makeStyles((theme) => ({
         },
         "100%": {
             strokeDashoffset: "0px",
+        },
+    },
+
+    // HEADING FOR A LOGGED IN USER
+    btnGrp: {
+        display: "flex",
+        flexFlow: "row",
+        backgroundColor: "rgba(0,0,0,0.1)",
+    },
+    normalBtn: {
+        marginRight: "10px",
+    },
+
+    // FORM DIALOG
+    addRosterContainer: {
+        padding: "50px",
+        display: "flex",
+        flexFlow: "column",
+        alignItems: "flex-start",
+        backgroundImage: `url(${addRosterContainerBackground})`,
+        backgroundColor: "#7b7b7b",
+        backgroundSize: "cover",
+        backgroundPosition: "bottom",
+        backgroundBlendMode: "multiply",
+        border: "1px solid rgba(255,255,255,0.1)",
+    },
+    inputConatiner: {
+        boxShadow: "0px 0px 10px 3px rgba(0,0,0,0.3)",
+        backgroundColor: "rgba(0,0,0,0.1)",
+        backdropFilter: "blur(10px)",
+    },
+    submitBtn: {
+        width: "100px",
+        margin: "15px 0",
+        fontWeight: "600",
+        color: "#eaeaea",
+        backgroundColor: purple[600],
+        "&:hover": {
+            backgroundColor: purple[800],
         },
     },
 
