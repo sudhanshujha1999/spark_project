@@ -7,10 +7,12 @@ import {
     InputLabel,
     Select,
     MenuItem,
+    CircularProgress,
 } from "../ui";
 import { useStyles } from "./styles";
 import { useState } from "react";
 import { isEmail } from "../util";
+import axios from "axios";
 
 export const HeadingForm = ({ nextStep }) => {
     const classes = useStyles();
@@ -20,8 +22,9 @@ export const HeadingForm = ({ nextStep }) => {
     const [userType, setUserType] = useState("");
     const [userLevel, setUserLevel] = useState("");
     const [error, setError] = useState("");
+    const [sending, setSending] = useState(false);
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         setError("");
         if (!email || !organisation || !userType || !userLevel) {
             setError("Please fill all the fields!");
@@ -31,14 +34,21 @@ export const HeadingForm = ({ nextStep }) => {
             setError("Incorrect Email!");
             return;
         }
-
+        setSending(true);
         const sendObject = {
             email,
             organisation,
+            refer,
             type: userType,
             level: userLevel,
         };
-        console.log(sendObject);
+        try {
+            await axios.post("/api/request-invite", sendObject);
+            console.log("Request Sent");
+        } catch (error) {
+            console.log(error);
+        }
+        setSending(false);
         nextStep();
     };
 
@@ -124,8 +134,9 @@ export const HeadingForm = ({ nextStep }) => {
                 disableElevation
                 className={classes.btn}
                 variant="contained"
+                disabled={sending}
                 onClick={handleSubmit}>
-                Submit
+                {sending ? <CircularProgress size="2em" /> : "Submit"}
             </Button>
             {error && <Box className={classes.error}>{error}</Box>}
         </Box>
