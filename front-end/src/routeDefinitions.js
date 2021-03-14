@@ -17,6 +17,7 @@ import { LandingPage } from "./landing-page";
 import { RostersPage } from "./rosters";
 import { SchedulingPage } from "./scheduling";
 import { TeamInfoForm, EditTeamInfo } from "./teams";
+import { WarRoom } from "./war-room";
 
 export const createAccountRoute = {
     path: "/create-account",
@@ -150,4 +151,9 @@ export const termsAndPrivacyRoute = {
     isPublic: true,
     hideNav: true,
     newTab: true,
+};
+
+export const warRoomRoute = {
+    path: "/war-room",
+    component: WarRoom,
 };
