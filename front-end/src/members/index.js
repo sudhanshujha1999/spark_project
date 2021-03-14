@@ -1,1 +1,2 @@
-export { MemberDetailPage } from './MemberDetailPage';
+export { MemberDetailPage } from "./MemberDetailPage";
+export { ProfilePage } from "./ProfilePage";

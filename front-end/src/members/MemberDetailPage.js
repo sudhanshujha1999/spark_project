@@ -1,90 +1,95 @@
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { AccountCircleIcon } from '../icons';
-import { post, del } from '../network';
-import { useNotes } from '../notes';
-import { useUser } from '../users';
-import {
-    Box,
-    Button,
-    DeletableListItem,
-    Divider,
-    Grid,
-    TextField,
-    Typography,
-} from '../ui';
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import gamerIcon from "../img/GamerIcon.svg";
+import { ProfilePic } from "./ProfilePic";
+import { post, del } from "../network";
+import { useNotes } from "../notes";
+import { useUser, useCurrentUserInfo } from "../users";
+import { useGetTeamsForUser } from "../teams";
+import { Overview } from "./Overview";
+import { Notes } from "./Notes";
+import { Box, CircularProgress, Divider, Grid, Tabs, Tab, Typography } from "../ui";
+import { useStyles } from "./styles";
 
-export const MemberDetailPage = () => {
-    const [newNoteText, setNewNoteText] = useState('');
+export const MemberDetailPage = ({ currentUserId }) => {
     const { memberId } = useParams();
-    const { isLoading, user } = useUser(memberId);
+    const { isLoading, user } = useUser(memberId ? memberId : currentUserId ? currentUserId : null);
+    const { userInfo: currentUser, isLoading: loadingCurrentUser } = useCurrentUserInfo();
     const { isLoading: isLoadingNotes, notes, setNotes } = useNotes(memberId);
+    const teams = useGetTeamsForUser(user);
+    const [value, setValue] = useState(0);
+    const tabLabel = ["Overview", "Notes"];
 
-    const addNote = async () => {
+    const handleChange = (event, newValue) => {
+        // console.log(teams);
+        setValue(newValue);
+        // console.log(currentUser);
+        // console.log(user);
+    };
+    // NEED TO REMOVE AFTER EVERTINH IS DONE
+    const addNote = async (text) => {
         try {
-            const response = await post(`/api/players/${memberId}/notes`, { text: newNoteText });
+            const response = await post(`/api/players/${memberId}/notes`, { text: text });
             const newNote = response.data;
             setNotes([newNote, ...notes]);
-            setNewNoteText('');
         } catch (e) {
             console.log(e);
         }
-    }
+    };
 
     const deleteNote = async (noteId) => {
         try {
             await del(`/api/players/${memberId}/notes/${noteId}`);
-            setNotes(notes.filter(note => note.id !== noteId));
+            setNotes(notes.filter((note) => note.id !== noteId));
         } catch (e) {
             console.log(e);
         }
-    }
+    };
 
-    return isLoading ? <p>Loading...</p> : (
+    const classes = useStyles();
+
+    const TABS = [
+        teams ? (
+            <Overview user={user} teams={teams} />
+        ) : (
+            <Box className={classes.load}>
+                <CircularProgress color="secondary" />
+            </Box>
+        ),
+        <Notes notes={notes} addNote={addNote} deleteNote={deleteNote} />,
+    ];
+
+    return isLoading ? (
+        <p>Loading...</p>
+    ) : (
         <Grid container spacing={2}>
-            <Grid item md={6} xs={12}>
-                <Box width="100%">
-                    <AccountCircleIcon style={{ fontSize: 200 }} />
-                </Box>
-                <Typography variant="h2">
-                    {user.fullName}
-                </Typography>
-                <h3>Gamer Name: {user.gamerName}</h3>
-                <h3>Bio:</h3>
-                <p>{user.bio}</p>
-            </Grid>
-            <Grid item md={6} xs={12}>
-                <h3>Notes</h3>
-                <Box>
-                    <TextField
-                        value={newNoteText}
-                        onChange={e => setNewNoteText(e.target.value)}
-                        label="New Note"
-                        multiline
-                        rows={4}
-                        fullWidth
-                        variant="outlined"
-                    />
-                </Box>
-                <Box mt={2}>
-                    <Button
-                        onClick={addNote}
-                        color="primary"
-                        fullWidth
-                        variant="contained"
-                    >Add Note</Button>
-                </Box>
-                <Divider />
-                {notes.map(note => (
-                    <Box key={note.id}>
-                        <DeletableListItem onRequestDelete={() => deleteNote(note.id)}>
-                            {/* <h3>{new Date(note.createdAt).toDateString()}</h3> */}
-                            <p>{note.text}</p>
-                        </DeletableListItem>
-                        <Divider />
+            <Grid item xs={12}>
+                <Box className={classes.profileDetails}>
+                    {user && currentUser && (
+                        <ProfilePic user={user.id === currentUser.id ? user : null} />
+                    )}
+                    <Box className={classes.detailsContent}>
+                        <Typography className={classes.name} gutterBottom variant="h2">
+                            {user.fullName}
+                        </Typography>
+                        <Box className={classes.gamerName}>
+                            <img style={{ width: 20 }} src={gamerIcon} alt={gamerIcon} />
+                            <Typography variant="h3">{user.gamerName}</Typography>
+                        </Box>
                     </Box>
-                ))}
+                </Box>
+            </Grid>
+            <Grid item xs={12}>
+                <Tabs value={value} onChange={handleChange}>
+                    {tabLabel.map((item) => (
+                        <Tab label={item} />
+                    ))}
+                </Tabs>
+                <Divider />
+            </Grid>
+            <Grid item xs={12}>
+                {TABS[value]}
             </Grid>
         </Grid>
     );
-}
+};

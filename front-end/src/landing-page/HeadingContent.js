@@ -10,7 +10,7 @@ export const HeadingContent = ({ nextStep }) => {
             </Typography>
             <Typography className={classes.body} variant="body2" gutterBottom>
                 Bring your esports organization to the next level with{" "}
-                <strong className={classes.nameOrg}>Spark Sport.</strong>
+                <strong className={classes.nameOrg}>Spark.</strong>
             </Typography>
             <Button
                 disableElevation

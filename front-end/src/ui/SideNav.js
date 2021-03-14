@@ -14,6 +14,7 @@ import WhatshotIcon from "@material-ui/icons/Whatshot";
 import { makeStyles } from "@material-ui/core/styles";
 import { SignOutButton } from "../auth";
 import {
+    AccountCircleIcon,
     AssignmentIcon,
     CalendarTodayIcon,
     DashboardIcon,
@@ -68,6 +69,12 @@ const navSections = [
             //     icon: SettingsIcon,
             // },
             {
+                name: "My Profile",
+                icon: AccountCircleIcon,
+                link: "/profile",
+                newTab: false,
+            },
+            {
                 name: "Terms & Privacy",
                 icon: ReorderIcon,
                 link: "/terms-and-privacy",
@@ -88,7 +95,7 @@ export const SideNav = () => {
     return (
         <Drawer
             className={open ? classes.drawer : classes.drawerClose}
-            variant="permanent"
+            variant='permanent'
             open={true}
             onClose={handleClose}
             onMouseEnter={() => setOpen(true)}
@@ -97,9 +104,9 @@ export const SideNav = () => {
                 paper: open ? classes.drawerPaper : classes.drawerPaperClose,
             }}>
             <div className={classes.drawerContainer}>
-                <Link to="/">
+                <Link to='/'>
                     <Box className={classes.logo}>
-                        <WhatshotIcon fontSize="large" color="primary" />
+                        <WhatshotIcon fontSize='large' color='primary' />
                         <Typography className={classes.logoName}>Spark Esports</Typography>
                     </Box>
                 </Link>
@@ -115,8 +122,8 @@ export const SideNav = () => {
                                 item.newTab ? (
                                     <a
                                         href={item.link}
-                                        target="_blank"
-                                        rel="noreferrer"
+                                        target='_blank'
+                                        rel='noreferrer'
                                         style={{ color: "inherit", textDecoration: "none" }}>
                                         <ListItem button key={item.name}>
                                             <ListItemIcon>
@@ -171,7 +178,7 @@ export const SideNav = () => {
                         </>
                     ))}
                     <Box mt={2} className={!open ? classes.close : ""}>
-                        <SignOutButton fullWidth size="large" />
+                        <SignOutButton fullWidth size='large' />
                     </Box>
                 </List>
             </div>
@@ -231,7 +238,7 @@ const useStyles = makeStyles((theme) => ({
     },
     drawerPaperClose: {
         borderRight: "none",
-        width: drawerWidth - 170,
+        width: drawerWidth - 175,
         overflowX: "hidden !important",
         transition: "all 0.2s ease-in",
     },

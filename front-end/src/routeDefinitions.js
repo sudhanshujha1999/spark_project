@@ -3,7 +3,7 @@ import { DashboardPage } from "./dashboard";
 import { GoalSettingPage } from "./goal-setting";
 import { InvitationLandingPage } from "./invitations";
 import { TermsAndPrivacy } from "./legal";
-import { MemberDetailPage } from "./members";
+import { MemberDetailPage, ProfilePage } from "./members";
 import {
     AddPlayers,
     CreateTeams,
@@ -70,6 +70,11 @@ export const editTeamPageRoute = {
 export const memberDetailRoute = {
     path: "/teams/:teamId/rosters/:rosterId/members/:memberId",
     component: MemberDetailPage,
+};
+
+export const profileRoute = {
+    path: "/profile/",
+    component: ProfilePage,
 };
 
 export const onboardingAddPlayersRoute = {

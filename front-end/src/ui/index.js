@@ -4,6 +4,7 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Alert from "@material-ui/lab/Alert";
+import Avatar from "@material-ui/core/Avatar";
 import Badge from "@material-ui/core/Badge";
 import Box from "@material-ui/core/Box";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
@@ -22,11 +23,16 @@ import IconButton from "@material-ui/core/IconButton";
 import InputLabel from "@material-ui/core/InputLabel";
 import MaterialLink from "@material-ui/core/Link";
 import MenuItem from "@material-ui/core/MenuItem";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
+import SpeedDial from "@material-ui/lab/SpeedDial";
+import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
+import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
 import Slide from "@material-ui/core/Slide";
 import Select from "@material-ui/core/Select";
 import Snackbar from "@material-ui/core/Snackbar";
+import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
 
 export { AddableList } from "./AddableList";
 export { CenteredContainer } from "./CenteredContainer";
@@ -45,6 +51,7 @@ export {
     AccordionSummary,
     AccordionDetails,
     Alert,
+    Avatar,
     Badge,
     Box,
     Breadcrumbs,
@@ -56,6 +63,7 @@ export {
     Dialog,
     Divider,
     FormControl,
+    Fade,
     Fab,
     Grid,
     IconButton,
@@ -65,8 +73,12 @@ export {
     MaterialLink,
     Select,
     Slide,
+    SpeedDial,
+    SpeedDialIcon,
+    SpeedDialAction,
     TextField,
     Typography,
-    Fade,
+    Tab,
+    Tabs,
     Snackbar,
 };
