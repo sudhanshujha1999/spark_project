@@ -30,9 +30,9 @@ export const ShareDialog = ({ open, handleClose, user }) => {
         <Dialog open={open} onClose={handleClose} disableScrollLock>
             <Box className={classes.addRosterContainer}>
                 <Typography className={classes.formHeading}>
-                    Share sparks with your friend.
+                    Know someone else who would love Spark?
                     <br />
-                    Enter your friend email.
+                    Enter their email:
                 </Typography>
                 <TextField
                     className={classes.inputConatiner}
@@ -89,7 +89,7 @@ export const FormDialog = ({ open, handleClose, user }) => {
         <Dialog open={open} onClose={handleClose} disableScrollLock>
             <Box className={classes.addRosterContainer}>
                 <Typography className={classes.formHeading}>
-                    Share your view with us about Sparksports
+                    How else can we help your teams succeed?
                 </Typography>
                 <TextField
                     className={classes.inputConatiner}

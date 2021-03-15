@@ -22,9 +22,9 @@ export const HeadingForLoggedInUser = ({ user }) => {
                 Esports Team Management
             </Typography>
             <Typography className={classes.body} variant='body2' gutterBottom>
-                Great to have you at <strong className={classes.nameOrg}>Spark.</strong>
+                We hope you're enjoying <strong className={classes.nameOrg}>Spark.</strong>
                 <br />
-                Do You have any suggestions for us please let us know!
+                Give us some feedback or refer another coach!
             </Typography>
             <Box my={3} className={classes.btnGrp}>
                 <Button
