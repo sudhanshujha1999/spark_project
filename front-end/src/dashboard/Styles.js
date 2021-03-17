@@ -149,7 +149,7 @@ export const useStyles = makeStyles((theme) => ({
             backgroundColor: "transparent",
             transform: "scale(1.1) translateY(-49%)",
             "& $btnIcon": {
-                color: purple[300],
+                color: theme.palette.secondary.main,
                 transform: "rotate(175deg)",
             },
         },
