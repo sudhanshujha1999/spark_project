@@ -126,7 +126,7 @@ export const TeamInfoForm = () => {
     };
 
     const onCancel = () => {
-        history.push("/");
+        history.goBack();
     };
 
     const imgfunction = (e) => {
@@ -148,7 +148,7 @@ export const TeamInfoForm = () => {
     };
 
     return (
-        <Container maxWidth="lg">
+        <Container maxWidth='lg'>
             <Grid
                 container
                 style={{
@@ -160,7 +160,7 @@ export const TeamInfoForm = () => {
                             {name ? name : "Enter a team name"}
                         </Typography>
                         <Box className={classes.imageContainer}>
-                            <Slide in={show} direction="right">
+                            <Slide in={show} direction='right'>
                                 <Box
                                     style={{
                                         backgroundImage: img
@@ -173,14 +173,14 @@ export const TeamInfoForm = () => {
                                 />
                             </Slide>
                         </Box>
-                        <img className={classes.controller} src={controller} alt="Controller-ps5" />
+                        <img className={classes.controller} src={controller} alt='Controller-ps5' />
                     </Box>
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <h1>New Team Info</h1>
                     {validationErrors.map((error) => (
                         <Box mb={2}>
-                            <Alert severity="error">{error}</Alert>
+                            <Alert severity='error'>{error}</Alert>
                         </Box>
                     ))}
                     <Box mb={2}>
@@ -188,8 +188,8 @@ export const TeamInfoForm = () => {
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             fullWidth
-                            label="Team Name"
-                            variant="outlined"
+                            label='Team Name'
+                            variant='outlined'
                         />
                     </Box>
                     <Box mb={2}>
@@ -202,8 +202,8 @@ export const TeamInfoForm = () => {
                                 setGame(e.target.value);
                             }}
                             fullWidth
-                            label="Game"
-                            variant="outlined"
+                            label='Game'
+                            variant='outlined'
                         />
                     </Box>
                     <Box mb={2} className={classes.gamesContainer}>
@@ -224,12 +224,12 @@ export const TeamInfoForm = () => {
                     </Box>
                     <Divider />
                     <Box my={2}>
-                        <Typography variant="h6" gutterBottom>
+                        <Typography variant='h6' gutterBottom>
                             Upload your game picture
                         </Typography>
-                        <Button variant="contained" color="primary" component="label">
+                        <Button variant='contained' color='primary' component='label'>
                             {img ? "Change" : "Upload"}
-                            <input type="file" hidden onChange={imgfunction} />
+                            <input type='file' hidden onChange={imgfunction} />
                         </Button>
                     </Box>
                     <Divider />
@@ -253,56 +253,56 @@ export const TeamInfoForm = () => {
                                     value={newRosterName}
                                     onChange={(e) => setNewRosterName(e.target.value)}
                                     style={{ flex: 8, marginRight: 8 }}
-                                    label="Roster Name"
-                                    variant="outlined"
+                                    label='Roster Name'
+                                    variant='outlined'
                                 />
                                 <Button
                                     style={{ flex: 1, marginRight: 8 }}
                                     onClick={() => setIsAddingRoster(false)}
-                                    color="primary"
-                                    variant="contained">
+                                    color='primary'
+                                    variant='contained'>
                                     Cancel
                                 </Button>
                                 <Button
-                                    color="primary"
+                                    color='primary'
                                     style={{ flex: 1 }}
                                     onClick={() => {
                                         setRosters([...rosters, { name: newRosterName }]);
                                         setIsAddingRoster(true);
                                         setNewRosterName("");
                                     }}
-                                    variant="contained">
+                                    variant='contained'>
                                     Add
                                 </Button>
                             </>
                         ) : (
                             <Button
                                 onClick={() => setIsAddingRoster(true)}
-                                color="primary"
-                                variant="contained">
+                                color='primary'
+                                variant='contained'>
                                 + Add Roster
                             </Button>
                         )}
                     </Box>
                     <Divider />
                     <Box py={2}>
-                        <Grid container justify="space-between">
+                        <Grid container justify='space-between'>
                             {!loading && (
                                 <Grid item>
-                                    <Button variant="contained" onClick={onCancel}>
+                                    <Button variant='contained' onClick={onCancel}>
                                         Cancel
                                     </Button>
                                 </Grid>
                             )}
                             <Grid item xs={loading && 12}>
                                 <Button
-                                    color="primary"
-                                    variant="contained"
+                                    color='primary'
+                                    variant='contained'
                                     onClick={onNext}
                                     disabled={loading}
                                     fullWidth={loading}>
                                     {loading ? (
-                                        <CircularProgress size="2em" color="primary" />
+                                        <CircularProgress size='2em' color='primary' />
                                     ) : (
                                         "Create Team"
                                     )}

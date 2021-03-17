@@ -1,48 +1,16 @@
 import { Box, Button } from "../ui";
+import { grey } from "@material-ui/core/colors";
 import { useState, useRef, useEffect } from "react";
-import { red, blue, purple, yellow, orange, green, grey, brown } from "@material-ui/core/colors";
-import { useStyles } from "./styles";
+import { useStyles, colors } from "./styles";
 import bg from "../img/lol-map.png";
-
-const colors = [
-    {
-        name: "White",
-        color: grey[100],
-    },
-    {
-        name: "Red",
-        color: red[500],
-    },
-    {
-        name: "Blue",
-        color: blue[500],
-    },
-    {
-        name: "Yellow",
-        color: yellow[500],
-    },
-    {
-        name: "Green",
-        color: green[500],
-    },
-    {
-        name: "Orange",
-        color: orange[500],
-    },
-    {
-        name: "Purple",
-        color: purple[500],
-    },
-    {
-        name: "Brown",
-        color: brown[500],
-    },
-];
 
 export const WarRoom = () => {
     const [isDrawing, setIsDrawing] = useState(false);
     const [paths, setPaths] = useState([]);
+    const [redoPaths, setRedoPaths] = useState([]);
     const [color, setColor] = useState(grey[100]);
+
+    const drawnAfterUndo = useRef(0);
     const canvasRef = useRef(null);
     const backgroundRef = useRef(null);
     const contextRef = useRef(null);
@@ -51,12 +19,15 @@ export const WarRoom = () => {
     const classes = useStyles();
 
     const startDrawing = (e) => {
+        if (drawnAfterUndo.current === 1) {
+            setRedoPaths([]);
+            drawnAfterUndo.current = 0;
+        }
         const { nativeEvent } = e;
         const { offsetX, offsetY } = nativeEvent;
         contextRef.current.beginPath();
-        contextRef.current.moveTo(offsetX, offsetY);
-        pointsRef.current.push({ x: offsetX, y: offsetY, color: color });
-        console.log("start");
+        contextRef.current.moveTo(offsetX * 2, offsetY * 2);
+        pointsRef.current.push({ x: offsetX * 2, y: offsetY * 2, color: color });
         setIsDrawing(true);
     };
     const stopDrawing = (e) => {
@@ -72,21 +43,35 @@ export const WarRoom = () => {
         if (isDrawing) {
             const { nativeEvent } = e;
             const { offsetX, offsetY } = nativeEvent;
-            pointsRef.current.push({ x: offsetX, y: offsetY, color: color });
-            contextRef.current.lineTo(offsetX, offsetY);
+            contextRef.current.lineTo(offsetX * 2, offsetY * 2);
+            pointsRef.current.push({ x: offsetX * 2, y: offsetY * 2, color: color });
             contextRef.current.stroke();
         }
     };
 
     const handleUndo = () => {
+        drawnAfterUndo.current = 1;
+        const lastPath = paths[paths.length - 1];
+        setRedoPaths([lastPath, ...redoPaths]);
         const lastPathRemoved = paths.splice(0, paths.length - 1);
         drawPaths(lastPathRemoved);
         setPaths(lastPathRemoved);
     };
 
+    const handleRedo = () => {
+        if (redoPaths.length >= 1) {
+            const pathAddedArray = [...paths, redoPaths[0]];
+            // console.log(redoPaths.splice(1, redoPaths.length));
+            setRedoPaths(redoPaths.splice(1, redoPaths.length));
+            drawPaths(pathAddedArray);
+            setPaths(pathAddedArray);
+        }
+    };
+
     const handleClear = () => {
         contextRef.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
         setPaths([]);
+        setRedoPaths([]);
     };
 
     const drawPaths = (pathArray) => {
@@ -111,8 +96,8 @@ export const WarRoom = () => {
 
     useEffect(() => {
         const canvas = canvasRef.current;
-        canvas.width = containerRef.current.offsetWidth * 2;
-        canvas.height = containerRef.current.offsetHeight * 2;
+        canvas.width = containerRef.current.offsetWidth * 4;
+        canvas.height = containerRef.current.offsetHeight * 4;
         canvas.style.height = "100%";
         canvas.style.width = "100%";
 
@@ -167,6 +152,7 @@ export const WarRoom = () => {
             <Box className={classes.rowContainer}>
                 <Button onClick={handleUndo}>Undo</Button>
                 <Button onClick={handleClear}>Clear All</Button>
+                <Button onClick={handleRedo}>Redo</Button>
             </Box>
         </Box>
     );
