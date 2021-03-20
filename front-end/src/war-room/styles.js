@@ -2,6 +2,22 @@ import { makeStyles } from "@material-ui/core/styles";
 import { red, blue, purple, yellow, orange, green, grey } from "@material-ui/core/colors";
 
 export const useStyles = makeStyles((theme) => ({
+    // ALL STAGES LIST
+    stagesContainer: {
+        marginTop: 20,
+    },
+    listItem: {
+        borderRadius: "5px",
+        fontSize: "1.5em",
+        marginBottom: "20px",
+    },
+    stageTitle: {
+        cursor: "pointer",
+        padding: "12px 25px",
+        backgroundColor: theme.palette.background.paper,
+    },
+
+    // DRAWING BOARD
     drawingComponent: {
         position: "relative",
         display: "flex",
