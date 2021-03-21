@@ -35,7 +35,7 @@ export const TeamItemCard = ({ team, isCoach, index, editTeam = () => {} }) => {
                                             editTeam(team);
                                         }
                                     }}>
-                                    <SettingsIcon size="small" className={classes.btnIcon} />
+                                    <SettingsIcon size='small' className={classes.btnIcon} />
                                 </IconButton>
                             </Link>
                         )}
@@ -46,9 +46,10 @@ export const TeamItemCard = ({ team, isCoach, index, editTeam = () => {} }) => {
                         {team.game}
                     </Typography>
                     <Button
-                        variant="contained"
+                        variant='contained'
                         className={classes.teamCardBtn}
                         disableElevation
+                        color='primary'
                         onClick={(e) => {
                             {
                                 e.stopPropagation();
