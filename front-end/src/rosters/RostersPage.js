@@ -123,7 +123,7 @@ export const RostersPage = () => {
                 minHeight: "83vh",
                 paddingBottom: "50px",
             }}>
-            <Typography variant="h2">{teamName}</Typography>
+            <Typography variant='h2'>{teamName}</Typography>
             <h1>Coaches</h1>
             {coaches.map(({ fullName: coachName }) => (
                 <Box mb={2}>
@@ -140,11 +140,11 @@ export const RostersPage = () => {
                 <>
                     <Button
                         startIcon={<GroupAddIcon />}
-                        color="primary"
+                        color='primary'
                         onClick={() => {
                             setShowAddRosterDialog(true);
                         }}
-                        variant="contained">
+                        variant='contained'>
                         Add Roster
                     </Button>
                     <AddRosterDialog
@@ -155,13 +155,13 @@ export const RostersPage = () => {
                     />
                     {/* DELETE FUNCTIONALITY TO BE DISSCUSSED */}
                     <Fab
-                        variant="extended"
-                        size="small"
-                        aria-label="add"
+                        variant='extended'
+                        size='small'
+                        aria-label='add'
                         className={classes.fabDelete}
                         onClick={handleDeleteTeam}>
                         {deleteProgress ? (
-                            <CircularProgress color="primary" size="1.8em" />
+                            <CircularProgress color='primary' size='1.8em' />
                         ) : (
                             <>
                                 <ClearIcon />

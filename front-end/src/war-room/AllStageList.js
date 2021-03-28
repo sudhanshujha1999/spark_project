@@ -1,4 +1,4 @@
-import { Button, Grid, TextField, Typography, CustomSnackbar } from "../ui";
+import { Button, Divider, Grid, TextField, Typography, CustomSnackbar, Box } from "../ui";
 import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
 import {
     pathsState,
@@ -7,6 +7,7 @@ import {
     addNewPathToState,
     newStageState,
     editStageState,
+    deleteStageStage,
     stageDescriptionState,
 } from "./recoilState";
 import { useStyles } from "./styles";
@@ -21,12 +22,15 @@ export const AllStageList = () => {
     const [description, setDescription] = useRecoilState(stageDescriptionState);
     const addPath = useSetRecoilState(addNewPathToState);
     const editPath = useSetRecoilState(editStageState);
+    const deleteStage = useSetRecoilState(deleteStageStage);
     const [active, setActive] = useState(null);
     const [message, setMessage] = useState("");
 
     const handleClick = () => {
-        addPath();
-        setNewStage(true);
+        if (stageName !== "") {
+            addPath();
+            setNewStage(true);
+        }
     };
 
     const setStage = (stage, index) => {
@@ -43,6 +47,12 @@ export const AllStageList = () => {
 
     const handleSave = () => {
         editPath(active);
+        setNewStage(true);
+        setActive(null);
+    };
+
+    const handleDelete = () => {
+        deleteStage(active);
         setNewStage(true);
         setActive(null);
     };
@@ -76,16 +86,24 @@ export const AllStageList = () => {
                         );
                     } else {
                         return (
-                            <Typography
-                                key={index}
-                                onClick={() => setStage(item, index)}
-                                className={`${classes.stageTitle} ${classes.listItem}`}>
-                                {item.name}
-                            </Typography>
+                            <Box key={index} className={classes.stageNameContainer}>
+                                <Typography className={classes.indexNumber}>{index}</Typography>
+                                <Typography
+                                    className={`${classes.stageTitle} ${classes.listItem}`}
+                                    onClick={() => setStage(item, index)}>
+                                    {item.name}
+                                </Typography>
+                            </Box>
                         );
                     }
                 })}
             </Grid>
+            {allStages.length > 0 && (
+                <Grid item xs={12}>
+                    <Divider />
+                    <Box my={2} />
+                </Grid>
+            )}
             {active === null && (
                 <>
                     <Grid item xs={12}>
@@ -115,10 +133,21 @@ export const AllStageList = () => {
                 </>
             )}
             {active !== null && (
-                <Grid item xs={12}>
-                    <Button variant='contained' color='primary' onClick={handleSave}>
-                        Save
-                    </Button>
+                <Grid item xs={12} className={classes.row}>
+                    <Box mr={2}>
+                        <Button variant='contained' color='primary' onClick={handleSave}>
+                            Save
+                        </Button>
+                    </Box>
+                    <Box mr={2}>
+                        <Button
+                            className={classes.deleteBtn}
+                            variant='contained'
+                            color='primary'
+                            onClick={handleDelete}>
+                            Delete
+                        </Button>
+                    </Box>
                 </Grid>
             )}
             <CustomSnackbar message={message} setMessage={setMessage} type='error' />

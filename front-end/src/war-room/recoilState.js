@@ -69,3 +69,15 @@ export const editStageState = selector({
         set(stageDescriptionState, "");
     },
 });
+
+export const deleteStageStage = selector({
+    key: "deleteStageStage",
+    set: ({ get, set }, index) => {
+        const paths = get(pathsState);
+        const stage = paths.filter((item, i) => i !== index);
+        set(pathsState, stage);
+        set(nameState, "");
+        set(pathState, []);
+        set(stageDescriptionState, "");
+    },
+});

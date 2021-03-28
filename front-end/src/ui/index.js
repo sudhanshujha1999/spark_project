@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 import Accordion from "@material-ui/core/Accordion";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Alert from "@material-ui/lab/Alert";
@@ -23,6 +24,7 @@ import IconButton from "@material-ui/core/IconButton";
 import InputLabel from "@material-ui/core/InputLabel";
 import MaterialLink from "@material-ui/core/Link";
 import MenuItem from "@material-ui/core/MenuItem";
+import Paper from "@material-ui/core/Paper";
 import SpeedDial from "@material-ui/lab/SpeedDial";
 import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
 import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
@@ -45,6 +47,7 @@ export { StateForm } from "./StateForm";
 export { TabPanel } from "./TabPanel";
 export { EditableTextField } from "./EditableTextField";
 export { CustomSnackbar } from "./CustomSnackbar";
+export { DatePicker } from "./DatePicker";
 
 export {
     Accordion,
@@ -52,6 +55,7 @@ export {
     AccordionDetails,
     Alert,
     Avatar,
+    Autocomplete,
     Badge,
     Box,
     Breadcrumbs,
@@ -71,6 +75,7 @@ export {
     Link,
     MenuItem,
     MaterialLink,
+    Paper,
     Select,
     Slide,
     SpeedDial,
