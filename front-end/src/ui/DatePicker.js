@@ -29,6 +29,11 @@ export const DatePicker = ({ value, setValue }) => {
             setYear(yymmdd[0]);
             setMonth(monthOption[parseInt(yymmdd[1]) - 1]);
             setDate(yymmdd[2]);
+        } else {
+            const newDate = `${year}-${monthOption.indexOf(month) + 1 < 10 ? "0" : ""}${
+                monthOption.indexOf(month) + 1
+            }-${date < 10 ? "0" : ""}${date}`;
+            setValue(newDate);
         }
     }, []);
 

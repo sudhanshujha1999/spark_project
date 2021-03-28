@@ -25,6 +25,11 @@ export const pathState = atom({
     default: [],
 });
 
+export const downloadState = atom({
+    key: "downloadState",
+    default: false,
+});
+
 export const addNewPathToState = selector({
     key: "addNewPathToState",
     set: ({ get, set }) => {
@@ -79,5 +84,12 @@ export const deleteStageStage = selector({
         set(nameState, "");
         set(pathState, []);
         set(stageDescriptionState, "");
+    },
+});
+
+export const setDownload = selector({
+    key: "setDownload",
+    set: ({ set }) => {
+        set(downloadState, true);
     },
 });

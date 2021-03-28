@@ -9,12 +9,14 @@ import {
     editStageState,
     deleteStageStage,
     stageDescriptionState,
+    setDownload,
 } from "./recoilState";
 import { useStyles } from "./styles";
 import { useState } from "react";
 
 export const AllStageList = () => {
     const allStages = useRecoilValue(pathsState);
+    const setDownloadTrue = useSetRecoilState(setDownload);
     const classes = useStyles();
     const [path, setPath] = useRecoilState(pathState);
     const [stageName, setStageName] = useRecoilState(nameState);
@@ -30,6 +32,8 @@ export const AllStageList = () => {
         if (stageName !== "") {
             addPath();
             setNewStage(true);
+        } else {
+            setMessage("Please Enter a Name");
         }
     };
 
@@ -55,6 +59,10 @@ export const AllStageList = () => {
         deleteStage(active);
         setNewStage(true);
         setActive(null);
+    };
+
+    const handleDownload = () => {
+        setDownloadTrue();
     };
 
     return (
@@ -87,7 +95,7 @@ export const AllStageList = () => {
                     } else {
                         return (
                             <Box key={index} className={classes.stageNameContainer}>
-                                <Typography className={classes.indexNumber}>{index}</Typography>
+                                <Typography className={classes.indexNumber}>{index + 1}</Typography>
                                 <Typography
                                     className={`${classes.stageTitle} ${classes.listItem}`}
                                     onClick={() => setStage(item, index)}>
@@ -137,6 +145,11 @@ export const AllStageList = () => {
                     <Box mr={2}>
                         <Button variant='contained' color='primary' onClick={handleSave}>
                             Save
+                        </Button>
+                    </Box>
+                    <Box mr={2}>
+                        <Button variant='outlined' color='primary' onClick={handleDownload}>
+                            Download
                         </Button>
                     </Box>
                     <Box mr={2}>
