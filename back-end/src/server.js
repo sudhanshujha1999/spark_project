@@ -14,13 +14,13 @@ const FIREBASE_CREDENTIALS =
 const BASE_FRONT_END_URL = process.env.IS_PRODUCTION
     ? 'https://sparkesports.gg'
     : process.env.IS_QA
-        ? 'https://spark-esport.uc.r.appspot.com'
+        ? 'https://dev.sparkesports.gg'
         : 'http://localhost:3000';
 const BASE_BACK_END_URL = process.env.IS_PRODUCTION
     ? 'https://sparkesports.gg/api'
     : process.env.IS_QA
-        ? 'https://spark-esport.uc.r.appspot.com/api'
-        : 'http://localhost:3000/api';
+        ? 'https://dev.sparkesports.gg/api'
+        : 'http://localhost:8080/api';
 
 if (!FIREBASE_CREDENTIALS) {
     console.log('ERROR: No firebase credentials found');

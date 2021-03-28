@@ -61,7 +61,7 @@ export const SchoolInfo = () => {
 
     return (
         <CenteredContainer>
-            <h1>Add Oraganization Info</h1>
+            <h1>Add Organization Info</h1>
             <Box mb={2}>{networkError && <Alert severity='error'>{networkError}</Alert>}</Box>
             {validationErrors.map((error) => (
                 <Box mb={2}>

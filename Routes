@@ -1,0 +1,75 @@
+AUTHED USER
+
+Emails:
+
+- Resend Verification Email Route - ANYONE
+- Verify Email Route - ANYONE
+
+Invitations:
+
+- Accept Team Invitation Route - AUTHED USER
+- Decline Team Invitation Route - AUTHED USER
+- Request Spark Invitation Route - ANYONE
+- Invite User to Spark Route - ?? (NOT IMPLEMENTED YET)
+
+Feedback:
+
+- Send Feedback Route - AUTHED USER
+
+Referrals:
+
+- Send Referral Route - AUTHED USER
+
+Onboarding:
+
+- Onboard Player Route - AUTHED USER
+- Onboard Coach Route - AUTHED USER
+
+Notes:
+
+- Add Note to Player Route - PERMISSIONS DEPENDENT
+- Delete Note for Player Route - PERMISSIONS DEPENDENT
+
+Players:
+
+- Add Player Route - PERMISSIONS DEPENDENT
+- Delete Player Route - PERMISSIONS DEPENDENT
+
+Permissions:
+
+- Get Permissions Route - TEAM MEMBER
+
+Teams:
+
+- Get Players for Team Route - PERMISSIONS DEPENDENT - (VIEW)
+- Get Rosters for Team Route - PERMISSIONS DEPENDENT - (VIEW) 
+- Create Team Route - PERMISSIONS DEPENDENT - (ADMIN)
+- Delete Team Route - PERMISSIONS DEPENDENT - (ADMIN)
+- Edit Team Info Route (doesn't exist yet) - PERMISSIONS DEPENDENT (EDIT)
+- Get Team Route - PERMISSIONS DEPENDENT - (VIEW)
+
+Rosters:
+
+- Create Roster Route - (ADMIN)
+- Delete Roster Route - (ADMIN)
+- Edit Roster Route - (EDIT)
+
+Events (Calendar):
+
+- Get Events for Month Route - (VIEW)
+- Get Event Route
+- Create Event Route - (EDIT)
+- Edit Event Route
+- Delete Event Route
+
+Schools (Organizations):
+
+- Create School Route
+
+Users:
+
+- Get Teams for User Route
+- Create User Route
+- Get User Info Route
+- Get User Route
+- Update User Route

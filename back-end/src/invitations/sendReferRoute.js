@@ -1,4 +1,4 @@
-import { sendEmail, FROM_TAYLOR } from "../emails";
+import { sendEmail, FROM_CUSTOMER_SERVICE } from "../emails";
 
 export const sendReferRoute = {
     path: "/refer",
@@ -13,7 +13,7 @@ export const sendReferRoute = {
             `;
             await sendEmail({
                 to: referedEmail,
-                from: FROM_TAYLOR,
+                from: FROM_CUSTOMER_SERVICE,
                 subject: `Hey! Check out Spark Esports`,
                 body: emailText,
             });

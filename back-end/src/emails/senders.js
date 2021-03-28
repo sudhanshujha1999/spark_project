@@ -1,1 +1,1 @@
-export const FROM_TAYLOR = 'Taylor <tc@sparkesports.gg>'
+export const FROM_CUSTOMER_SERVICE = 'Spark Customer Service <customerservice@sparkesports.gg>';
