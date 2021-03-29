@@ -48,7 +48,7 @@ const navSections = [
                 name: "Strategy",
                 icon: AssignmentIcon,
                 releaseDate: "Mar 2021",
-                // link: '/stats',
+                link: "/war-room",
             },
             {
                 name: "Community",
