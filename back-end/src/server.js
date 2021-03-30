@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import * as firebaseAdmin from 'firebase-admin';
 import { addUserToRoute, protectRoute } from './middleware';
 import { routes } from './routes';
+import { initializeDbConnection } from './util';
 
 const PORT = process.env.PORT || 8080;
 const FIREBASE_CREDENTIALS = 
@@ -50,9 +51,15 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.listen(PORT, () => {
-    console.log('Server is listening on port ' + PORT);
-});
+const start = async () => {
+    await initializeDbConnection();
+
+    app.listen(PORT, () => {
+        console.log('Server is listening on port ' + PORT);
+    });
+}
+
+start();
 
 process.on('SIGINT', () => {
     console.log('Stopping server...');
