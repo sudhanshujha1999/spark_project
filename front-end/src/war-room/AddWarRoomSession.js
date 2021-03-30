@@ -6,14 +6,17 @@ import {
     DatePicker,
     Divider,
     Grid,
+    IconButton,
     TextField,
     Typography,
 } from "../ui";
+import { ClearIcon } from "../icons";
 import { useState, useEffect } from "react";
 import { useTeam } from "../teams";
 import { useStyles } from "./styles";
 import { isEmail } from "../util";
 import { mapsData as maps } from "./mapsData";
+import { useHistory } from "react-router-dom";
 
 export const AddWarRoomSession = ({ handleCancel, teams }) => {
     const [sessionName, setSessionName] = useState("");
@@ -28,16 +31,25 @@ export const AddWarRoomSession = ({ handleCancel, teams }) => {
     const [player, setPlayer] = useState("");
     const [players, setPlayers] = useState([]);
     const [teamId, setTeamId] = useState("123");
-    const { isLoading: isLoadingTeam, team } = useTeam(teamId);
+    const { team } = useTeam(teamId);
+    const history = useHistory();
     const classes = useStyles();
 
     const handleAdd = () => {
-        if (!teamName || !players || !gameName || !opponentTeam || !sessionName || !date || map) {
+        if (!teamName || !gameName || !opponentTeam || !sessionName || !date || !map) {
             console.log("fill All fields");
+            console.log(teamName);
+            console.log(players);
+            console.log(gameName);
+            console.log(opponentTeam);
+            console.log(date);
+            console.log(map);
+            console.log(sessionName);
             return;
         }
         console.log(date);
-        console.log("PRoceed");
+        // REGISTER THE WAR ROOM SESSION AND MAKE INVITES FOR ALL THE PLAYERS
+        history.push("/war-room/123123/session");
     };
 
     useEffect(() => {
@@ -91,6 +103,10 @@ export const AddWarRoomSession = ({ handleCancel, teams }) => {
         setMap(map);
     };
 
+    const handleRemove = (playerToRemove) => {
+        setPlayers(players.filter((playerItem) => playerItem !== playerToRemove));
+    };
+
     return (
         <Box className={classes.addSessionContainer}>
             <Grid container spacing={4}>
@@ -109,24 +125,6 @@ export const AddWarRoomSession = ({ handleCancel, teams }) => {
                     />
                     <Autocomplete
                         freeSolo
-                        value={gameName}
-                        options={teams.map((option) => option.game)}
-                        onChange={(e, option) => {
-                            option && setGameName(option);
-                        }}
-                        renderInput={(params) => (
-                            <TextField
-                                onChange={(e) => setGameName(e.target.value)}
-                                variant='outlined'
-                                className={classes.sessionTextfield}
-                                {...params}
-                                label='Game Name'
-                                margin='normal'
-                            />
-                        )}
-                    />
-                    <Autocomplete
-                        freeSolo
                         value={teamName}
                         options={teams.map((option) => option.name)}
                         onChange={(e, option) => {
@@ -142,6 +140,24 @@ export const AddWarRoomSession = ({ handleCancel, teams }) => {
                                 className={classes.sessionTextfield}
                                 {...params}
                                 label='Team Name'
+                                margin='normal'
+                            />
+                        )}
+                    />
+                    <Autocomplete
+                        freeSolo
+                        value={gameName}
+                        options={teams.map((option) => option.game)}
+                        onChange={(e, option) => {
+                            option && setGameName(option);
+                        }}
+                        renderInput={(params) => (
+                            <TextField
+                                onChange={(e) => setGameName(e.target.value)}
+                                variant='outlined'
+                                className={classes.sessionTextfield}
+                                {...params}
+                                label='Game Name'
                                 margin='normal'
                             />
                         )}
@@ -167,7 +183,12 @@ export const AddWarRoomSession = ({ handleCancel, teams }) => {
                     </Box>
                     {players.length > 0 &&
                         players.map((player) => (
-                            <Typography className={classes.players}>{player}</Typography>
+                            <Box className={classes.players}>
+                                <Typography>{player}</Typography>
+                                <IconButton size='small' onClick={() => handleRemove(player)}>
+                                    <ClearIcon fontSize='small' />
+                                </IconButton>
+                            </Box>
                         ))}
                     {teamId && (
                         <Box>

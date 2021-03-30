@@ -47,6 +47,9 @@ export const useStyles = makeStyles((theme) => ({
         padding: "10px 20px",
         border: "1px solid rgba(200,200,200,0.3)",
         margin: "10px 0",
+        display: "flex",
+        flexFlow: "row",
+        justifyContent: "space-between",
     },
     addPlayerBox: {
         display: "flex",
@@ -221,6 +224,14 @@ export const useStyles = makeStyles((theme) => ({
         height: "600px",
         left: 0,
         zIndex: "-2",
+    },
+    downloadCanvas: {
+        position: "absolute",
+        top: 0,
+        width: "625px",
+        height: "600px",
+        left: 0,
+        zIndex: "-100",
     },
 }));
 
