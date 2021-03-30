@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import * as firebaseAdmin from 'firebase-admin';
 import { addUserToRoute, protectRoute } from './middleware';
 import { routes } from './routes';
+import { initializeDbConnection } from './util';
 
 const PORT = process.env.PORT || 8080;
 const FIREBASE_CREDENTIALS = 
@@ -14,13 +15,13 @@ const FIREBASE_CREDENTIALS =
 const BASE_FRONT_END_URL = process.env.IS_PRODUCTION
     ? 'https://sparkesports.gg'
     : process.env.IS_QA
-        ? 'https://spark-esport.uc.r.appspot.com'
+        ? 'https://dev.sparkesports.gg'
         : 'http://localhost:3000';
 const BASE_BACK_END_URL = process.env.IS_PRODUCTION
     ? 'https://sparkesports.gg/api'
     : process.env.IS_QA
-        ? 'https://spark-esport.uc.r.appspot.com/api'
-        : 'http://localhost:3000/api';
+        ? 'https://dev.sparkesports.gg/api'
+        : 'http://localhost:8080/api';
 
 if (!FIREBASE_CREDENTIALS) {
     console.log('ERROR: No firebase credentials found');
@@ -50,9 +51,15 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.listen(PORT, () => {
-    console.log('Server is listening on port ' + PORT);
-});
+const start = async () => {
+    await initializeDbConnection();
+
+    app.listen(PORT, () => {
+        console.log('Server is listening on port ' + PORT);
+    });
+}
+
+start();
 
 process.on('SIGINT', () => {
     console.log('Stopping server...');

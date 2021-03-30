@@ -1,4 +1,4 @@
-import { sendEmail, FROM_TAYLOR } from "../emails";
+import { sendEmail, FROM_CUSTOMER_SERVICE } from "../emails";
 
 export const sendFeedbackRoute = {
     path: "/feedback",
@@ -12,8 +12,8 @@ export const sendFeedbackRoute = {
             Feedback: ${feedback},
             `;
             await sendEmail({
-                to: FROM_TAYLOR,
-                from: FROM_TAYLOR,
+                to: FROM_CUSTOMER_SERVICE,
+                from: FROM_CUSTOMER_SERVICE,
                 subject: `Feedback from ${email}`,
                 body: emailText,
             });

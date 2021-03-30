@@ -1,4 +1,4 @@
-import { sendEmail, FROM_TAYLOR } from '../emails';
+import { sendEmail, FROM_CUSTOMER_SERVICE } from '../emails';
 import { getById } from '../util';
 
 export const sendEventEmail = async ({
