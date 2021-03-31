@@ -20,9 +20,10 @@ export const useStyles = makeStyles((theme) => ({
     img: {
         height: "85vh",
         width: "100%",
-        backgroundImage: `url(${banner})`,
+        background: `url(${banner})`,
         backgroundSize: "cover",
         backgroundPosition: "top",
+        backgroundAttachment: "fixed",
         position: "relative",
         "&::before": {
             position: "absolute",
