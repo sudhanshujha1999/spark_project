@@ -14,9 +14,12 @@ import { getTeamForGroup } from "../teams";
 import { createUserInDB, getUserByEmail, getUserByAuthId } from "../users";
 
 export const addPlayerRoute = {
-   path: "/rosters/:rosterId/players",
-   method: "post",
-   protectors: [isLoggedInProtector, isVerifiedProtector],
+    path: "/rosters/:rosterId/players",
+    method: "post",
+    protectors: [
+        isLoggedInProtector,
+        isVerifiedProtector,
+    ],
    handler: async (req, res) => {
       try {
          const coachAuthId = req.user.uid;

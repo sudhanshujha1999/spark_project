@@ -1,7 +1,7 @@
 import { Box, Button } from "../ui";
 import { grey } from "@material-ui/core/colors";
-import { useRecoilState } from "recoil";
-import { pathState, newStageState } from "./recoilState";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { pathState, newStageState, downloadState, nameState } from "./recoilState";
 import { useState, useRef, useEffect } from "react";
 import { useStyles, colors } from "./styles";
 import bg from "../img/lol-map.png";
@@ -9,6 +9,8 @@ import bg from "../img/lol-map.png";
 export const DrawingBoard = () => {
     const [isDrawing, setIsDrawing] = useState(false);
     const [paths, setPaths] = useRecoilState(pathState);
+    const stageName = useRecoilValue(nameState);
+    const [downloadImageTrigger, setDownloadImageTrigger] = useRecoilState(downloadState);
     const [newStage, setNewStage] = useRecoilState(newStageState);
     const [redoPaths, setRedoPaths] = useState([]);
     const [color, setColor] = useState(grey[100]);
@@ -16,6 +18,7 @@ export const DrawingBoard = () => {
     const drawnAfterUndo = useRef(0);
     const canvasRef = useRef(null);
     const backgroundRef = useRef(null);
+    const downloadCanvasRef = useRef(null);
     const contextRef = useRef(null);
     const containerRef = useRef(null);
     const pointsRef = useRef([]);
@@ -127,6 +130,10 @@ export const DrawingBoard = () => {
         context.lineWidth = 5;
         contextRef.current = context;
 
+        const downloadCanvas = downloadCanvasRef.current;
+        downloadCanvas.width = containerRef.current.offsetWidth;
+        downloadCanvas.height = containerRef.current.offsetHeight;
+
         const backgroundCanvas = backgroundRef.current;
         backgroundCanvas.width = containerRef.current.offsetWidth;
         backgroundCanvas.height = containerRef.current.offsetHeight;
@@ -134,14 +141,38 @@ export const DrawingBoard = () => {
         const background = new Image();
         background.src = bg;
         background.onload = () => {
-            const ratioX = canvas.width / background.naturalWidth;
-            const ratioY = canvas.height / background.naturalHeight;
-            const ratio = Math.min(ratioX, ratioY);
+            // const ratioX = canvas.width / background.naturalWidth;
+            // const ratioY = canvas.height / background.naturalHeight;
+            // const ratio = Math.min(ratioX, ratioY);
             backgroundContext.drawImage(background, 0, 0);
         };
 
         // eslint-disable-next-line
     }, []);
+
+    const downloadImage = () => {
+        const downloadCanvas = downloadCanvasRef.current;
+        const downloadContext = downloadCanvas.getContext("2d");
+        downloadCanvas.width = containerRef.current.offsetWidth * 4;
+        downloadCanvas.height = containerRef.current.offsetHeight * 4;
+        downloadCanvas.style.height = "100%";
+        downloadCanvas.style.width = "100%";
+        downloadContext.drawImage(
+            backgroundRef.current,
+            0,
+            0,
+            backgroundRef.current.width * 4,
+            backgroundRef.current.height * 4
+        );
+        downloadContext.drawImage(canvasRef.current, 0, 0);
+        const image = downloadCanvas
+            .toDataURL("image/png")
+            .replace("image/png", "image/octet-stream");
+        let a = document.createElement("a");
+        a.href = image;
+        a.download = `${stageName}.png`;
+        a.click();
+    };
 
     useEffect(() => {
         if (newStage) {
@@ -150,6 +181,17 @@ export const DrawingBoard = () => {
         }
         // eslint-disable-next-line
     }, [newStage]);
+
+    useEffect(() => {
+        // I HAVE MADE THIS TRIGGER CAUSE IF WE WANTED TO DOWNLOAD THIS WE NEED TO MAKE A GLOBAL CAN AND
+        // IT'S ELEMENT NEEDS TO BE GLOBAL TO BE ACCESSIBLE
+        // THATS WHY JUST MADE A SMALL FLAG THAT TURN THE DOWNLOAD THIS ON
+        if (downloadImageTrigger) {
+            downloadImage();
+            setDownloadImageTrigger(false);
+        }
+        // eslint-disable-next-line
+    }, [downloadImageTrigger, setDownloadImageTrigger]);
 
     return (
         <Box className={classes.drawingComponent}>
@@ -178,6 +220,7 @@ export const DrawingBoard = () => {
                     onMouseMove={draw}
                 />
                 <canvas className={classes.backgroundCanvas} ref={backgroundRef} />
+                <canvas className={classes.downloadCanvas} ref={downloadCanvasRef} />
             </Box>
             <Box my={3} className={classes.rowContainer}>
                 <Button onClick={handleUndo}>Undo</Button>

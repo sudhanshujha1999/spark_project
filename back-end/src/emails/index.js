@@ -1,2 +1,2 @@
 export { sendEmail } from './sendEmail';
-export { FROM_TAYLOR } from './senders';
+export { FROM_CUSTOMER_SERVICE } from './senders';

@@ -1,6 +1,4 @@
 import { Container, Grid, Button, Box, CircularProgress, Slide, Fade } from "../ui";
-import { DrawingBoard } from "./DrawingBoard";
-import { AllStageList } from "./AllStageList";
 import { useTeams } from "../teams";
 import { useCurrentUserInfo } from "../users";
 import { PreviousSessions } from "./PreviousSessions";
@@ -52,12 +50,6 @@ export const WarRoom = () => {
                                 </Fade>
                             </Grid>
                         )}
-                        {/* <Grid item xs={12} md={8}>
-                    <DrawingBoard />
-                </Grid>
-                <Grid item xs={12} md={4}>
-                    <AllStageList />
-                </Grid> */}
                     </Grid>
                     <Slide in={addSession} direction='right'>
                         <Box>

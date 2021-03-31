@@ -1,4 +1,4 @@
-import { sendEmail, FROM_TAYLOR } from '../emails';
+import { sendEmail, FROM_CUSTOMER_SERVICE } from '../emails';
 import { getById } from '../util';
 
 export const sendInvitationEmail = async ({
@@ -23,7 +23,7 @@ export const sendInvitationEmail = async ({
 
     return await sendEmail({
         to: email,
-        from: FROM_TAYLOR,
+        from: FROM_CUSTOMER_SERVICE,
         subject,
         body: emailText,
     });
