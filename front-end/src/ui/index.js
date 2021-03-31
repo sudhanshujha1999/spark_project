@@ -11,6 +11,7 @@ import Box from "@material-ui/core/Box";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
+import Checkbox from "@material-ui/core/Checkbox";
 import CardActions from "@material-ui/core/CardActions";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Container from "@material-ui/core/Container";
@@ -19,7 +20,11 @@ import Divider from "@material-ui/core/Divider";
 import Fade from "@material-ui/core/Fade";
 import Fab from "@material-ui/core/Fab";
 import FormControl from "@material-ui/core/FormControl";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormLabel from "@material-ui/core/FormLabel";
+import FormGroup from "@material-ui/core/FormGroup";
 import Grid from "@material-ui/core/Grid";
+import Grow from "@material-ui/core/Grow";
 import IconButton from "@material-ui/core/IconButton";
 import InputLabel from "@material-ui/core/InputLabel";
 import MaterialLink from "@material-ui/core/Link";
@@ -63,13 +68,18 @@ export {
     Card,
     CardActions,
     CircularProgress,
+    Checkbox,
     Container,
     Dialog,
     Divider,
     FormControl,
+    FormControlLabel,
+    FormLabel,
+    FormGroup,
     Fade,
     Fab,
     Grid,
+    Grow,
     IconButton,
     InputLabel,
     Link,

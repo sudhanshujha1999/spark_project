@@ -1,5 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 import purple from "@material-ui/core/colors/purple";
+import red from "@material-ui/core/colors/red";
 
 export const useStyles = makeStyles((theme) => ({
     load: {
@@ -103,5 +104,33 @@ export const useStyles = makeStyles((theme) => ({
         left: 250,
         transform: "rotate(-20deg)",
         filter: "drop-shadow(0 15px 10px rgba(0,0,0,0.5))",
+    },
+    // PERMISSIONS CHECKBOX
+    permissions: {
+        padding: 10,
+        marginTop: "20px",
+        border: "1px solid rgba(250,250,250,0.2)",
+        borderRadius: "5px",
+        position: "relative",
+        "&:before": {
+            position: "absolute",
+            content: "'Permission'",
+            top: "-10px",
+            left: 10,
+            padding: "0 5px",
+            backgroundColor: theme.palette.background.default,
+            color: theme.palette.secondary.main,
+        },
+    },
+    deleteBtn: {
+        marginRight: 20,
+        color: "#fafafa",
+        backgroundColor: red[400],
+        "&:hover": {
+            backgroundColor: red[600],
+        },
+    },
+    checkbox: {
+        flexBasis: "47%",
     },
 }));

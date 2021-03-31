@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useGetOneTeam } from "./useGetOneTeam";
+import { useTeam } from "./useTeam";
 import { useState, useEffect } from "react";
 import { put } from "../network";
 import firebase from "firebase";
@@ -14,7 +14,9 @@ import {
     IconButton,
     TextField,
     Typography,
+    Divider,
 } from "../ui";
+import { PlayerPermissionSettings } from "./PlayerPermissionSettings";
 import { useStyles } from "./styles";
 import { EditIcon } from "../icons";
 
@@ -23,8 +25,7 @@ const TYPES = ["image/jgp", "image/jpeg", "image/png"];
 export const EditTeamInfo = () => {
     const classes = useStyles();
     const { teamId } = useParams();
-    const team = useGetOneTeam(teamId);
-    const [loading, setLoading] = useState(true);
+    const { team, isLoading } = useTeam(teamId);
     const [saving, setSaving] = useState(false);
     const [name, setName] = useState("");
     const [game, setGame] = useState("");
@@ -39,7 +40,6 @@ export const EditTeamInfo = () => {
             setName(team.name);
             setGame(team.game);
             setImg(team.url);
-            setLoading(false);
         }
     }, [team]);
 
@@ -145,12 +145,12 @@ export const EditTeamInfo = () => {
 
     return (
         <div>
-            {loading ? (
+            {isLoading ? (
                 <Box className={classes.load}>
-                    <CircularProgress color="secondary" />
+                    <CircularProgress color='secondary' />
                 </Box>
             ) : (
-                <Container maxWidth="lg">
+                <Container maxWidth='lg'>
                     <Grid
                         container
                         style={{
@@ -164,10 +164,10 @@ export const EditTeamInfo = () => {
                                 </Typography>
                                 <Box className={classes.imageContainer}>
                                     <IconButton
-                                        component="label"
+                                        component='label'
                                         className={classes.imgChangeButton}>
                                         <EditIcon />
-                                        <input type="file" hidden onChange={imgfunction} />
+                                        <input type='file' hidden onChange={imgfunction} />
                                     </IconButton>
                                     <Box
                                         style={{
@@ -185,8 +185,8 @@ export const EditTeamInfo = () => {
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                     fullWidth
-                                    label="Team Name"
-                                    variant="outlined"
+                                    label='Team Name'
+                                    variant='outlined'
                                 />
                             </Box>
                             <Box mb={2}>
@@ -196,28 +196,32 @@ export const EditTeamInfo = () => {
                                         setGame(e.target.value);
                                     }}
                                     fullWidth
-                                    label="Game"
-                                    variant="outlined"
+                                    label='Game'
+                                    variant='outlined'
                                 />
                             </Box>
                             <Box my={3} />
                             <Box py={2}>
-                                <Grid container justify="space-between">
+                                <Grid container justify='space-between'>
                                     <Grid item xs={12}>
                                         <Button
-                                            color="primary"
-                                            variant="contained"
+                                            color='primary'
+                                            variant='contained'
                                             disabled={saving}
                                             fullWidth
                                             onClick={handleSave}>
                                             {saving ? (
-                                                <CircularProgress size="2em" color="primary" />
+                                                <CircularProgress size='2em' color='primary' />
                                             ) : (
                                                 "Save"
                                             )}
                                         </Button>
                                     </Grid>
                                 </Grid>
+                            </Box>
+                            <Box my={2}>
+                                <Divider />
+                                <PlayerPermissionSettings rosters={team.rosters} />
                             </Box>
                         </Grid>
                     </Grid>
