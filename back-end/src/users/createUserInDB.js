@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin';
 
-export const createUserInDB = async ({ id, email, membershipTypeId, confirmationCode }) => {
+export const createUserInDB = async ({ id, email, membershipTypeId, confirmationCode, isConfirmed = false }) => {
     const createdAt = Date.now();
 
     const newUser = {
@@ -9,7 +9,7 @@ export const createUserInDB = async ({ id, email, membershipTypeId, confirmation
         createdAt,
         confirmationCode,
         membershipTypeId,
-        isConfirmed: false,
+        isConfirmed,
         isOnboarded: false,
     };
 
