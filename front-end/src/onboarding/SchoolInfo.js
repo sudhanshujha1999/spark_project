@@ -73,7 +73,7 @@ export const SchoolInfo = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     fullWidth
-                    label='Institution Name'
+                    label='Organization Name'
                     variant='outlined'
                 />
             </Box>
