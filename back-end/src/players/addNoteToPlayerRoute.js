@@ -18,6 +18,7 @@ export const addNoteToPlayerRoute = {
         const { text } = req.body;
         const { playerId } = req.params;
 
+        // PERMISSIONS: need to change this thing to use permissions instead
         if (!isCoachForPlayer(coachId, playerId)) {
             return res.status(403).send({ message: 'Coaches can only add notes for their own players' });
         }

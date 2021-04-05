@@ -1,15 +1,158 @@
-import { Box } from '../ui';
+import { Box, CircularProgress, Grid } from "../ui";
+import { useGetPlayerStats } from "./useGetPlayerStats";
+import { useEffect, useState } from "react";
+import { NormaliseData } from "./NormaliseData";
+import { KDAChart } from "./KDAChart";
+// RANDOMIZE COLOR LATER
 
 export const GoalSettingPage = () => {
+    const { matches, loadingMatches } = useGetPlayerStats("123");
+    const [statsForaPlayer, setStatsForaPlayer] = useState(null);
+    const [statsToWork, setStatsToWork] = useState([
+        "physicalDamageDealt",
+        "physicalDamageDealtToChampions",
+        "physicalDamageTaken",
+        "goldEarned",
+        "kills",
+        "deaths",
+        "assists",
+        "damageDealtToTurrets",
+        "magicDamageDealt",
+        "magicDamageDealtToChampions",
+        "magicalDamageTaken",
+        "trueDamageDealt",
+        "trueDamageDealtToChampions",
+        "truealDamageTaken",
+        "wardsKilled",
+        "turretKills",
+    ]);
+    const [data, setData] = useState([]);
+    const [labels, setLabels] = useState([]);
+
+    useEffect(() => {
+        if (matches && !loadingMatches) {
+            // GET THE LABEL FOR THE EACH POINT, CURRENTLY THE DATE OF THE MATCH
+            let label = [];
+            // GET THE PLAYER STATS FIELD FROM THE DETAILS FOR THE CURRENT PLAYER
+            let playerStatsToMap = [];
+            matches.forEach((match) => {
+                // GET THE LABELS
+                // label.push(`${new Date(match.timestamp).toUTCString()}`);
+                const champion = match.champion;
+                label.push(`${champion}`);
+                // USE CHAMPION TO DISTINGUISH BETWEEN ALL THE PLAYERS
+                // CAN TAKE CHAMPION AS THE LABEL RATHER THAN DATES
+                // label.push(champion);
+                const playerMatchStats = match.details.participants.filter(
+                    (participant) => participant.championId === champion
+                )[0].stats;
+                // GET ALL THE PLAYER STATS AND PUSH THEM TO ALL STATS
+                playerStatsToMap = [...playerStatsToMap, playerMatchStats];
+            });
+            // SET THE STATS TO STATE
+            setStatsForaPlayer(playerStatsToMap);
+            setLabels(label);
+        }
+    }, [matches, loadingMatches]);
+
+    const getLabelForaStat = (statName) => {
+        let label = "";
+        // SEPRATE ALL THE LETTERS
+        const allLetterArray = statName.split("");
+        // LOOP THORUGH ONE LESS THAND LENGTH
+        for (let i = 0; i < allLetterArray.length - 1; i++) {
+            // IF FIRST LETTER OTHERWISE ADD TO THE LABEL
+            if (i === 0) {
+                label = label + allLetterArray[i].toUpperCase();
+            } else {
+                label = label + allLetterArray[i];
+            }
+            // IF NEXT LETTER IS A CAPITAL AS FOR CAMEL CASE
+            if (allLetterArray[i + 1].toUpperCase() === allLetterArray[i + 1]) {
+                label = label + " ";
+            }
+        }
+        label = label + allLetterArray[allLetterArray.length - 1];
+        return label;
+    };
+
+    const getRandomColor = () => {
+        return `${360 * Math.random()}, 90%, 65%`;
+    };
+
+    useEffect(() => {
+        if (statsForaPlayer) {
+            // WILL MAKE IT A STATE AND WEHNEVER THIS CHANGES WE CALL THE SET NEW DATA
+            const newDataSet = statsToWork.map((statName, index) => {
+                const color = getRandomColor();
+                let statObject = {
+                    label: getLabelForaStat(statName),
+                    borderColor: `hsla(${color}, 1)`,
+                    backgroundColor: `hsla(${color}, 0.4)`,
+                    normalizeValue: {
+                        max: 0,
+                        min: 10000000000000,
+                    },
+                    sum: 0,
+                    data: [],
+                    fill: index === 10,
+                };
+                statsForaPlayer.forEach((singleMatchStats) => {
+                    const value = singleMatchStats[statName];
+                    statObject.sum = statObject.sum + value;
+                    statObject.normalizeValue.max =
+                        statObject.normalizeValue.max < value
+                            ? value
+                            : statObject.normalizeValue.max;
+                    statObject.normalizeValue.min =
+                        statObject.normalizeValue.min > value
+                            ? value
+                            : statObject.normalizeValue.min;
+                    statObject.data = [...statObject.data, value];
+                });
+                return statObject;
+            });
+            setData(newDataSet);
+        }
+    }, [statsForaPlayer, statsToWork]);
+
     return (
-        <Box style={{
-            width: '75vw',
-            height: '75vh',
-            backgroundImage: 'url(./goal-setting-mockup.png)',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'contain',
-            overflow: 'hidden',
-        }} />
+        <Box>
+            <Grid container spacing={2}>
+                {data.length > 0 ? (
+                    <>
+                        <Grid item xs={12} lg={6}>
+                            <NormaliseData
+                                data={[
+                                    data[statsToWork.indexOf("kills")],
+                                    data[statsToWork.indexOf("assists")],
+                                    data[statsToWork.indexOf("deaths")],
+                                ]}
+                                normalizeData={false}
+                                labels={labels}
+                            />
+                        </Grid>
+                        <Grid item xs={12} lg={6}>
+                            <KDAChart data={data} />
+                        </Grid>
+                    </>
+                ) : (
+                    <Grid item xs={12}>
+                        <CircularProgress color='secondary' style={{ height: "70vh" }} />
+                    </Grid>
+                )}
+            </Grid>
+            {/* <Box
+                style={{
+                    width: "75vw",
+                    height: "75vh",
+                    backgroundImage: "url(./goal-setting-mockup.png)",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "contain",
+                    overflow: "hidden",
+                }}
+            /> */}
+        </Box>
     );
-}
+};

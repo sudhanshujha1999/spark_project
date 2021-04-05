@@ -15,6 +15,7 @@ export const getNotesForPlayerRoute = {
         const { user_id: coachId } = req.user;
         const { playerId } = req.params;
 
+        // PERMISSIONS: Players should only be able to see their own notes
         const notes = (await getNotesForPlayer({ coachId, playerId }))
             .slice()
             .sort((a, b) => b.createdAt - a.createdAt);
