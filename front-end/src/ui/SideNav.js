@@ -3,6 +3,7 @@ import {
     Box,
     Drawer,
     Divider,
+    Icon,
     ListSubheader,
     List,
     ListItem,
@@ -10,7 +11,8 @@ import {
     ListItemText,
     Typography,
 } from "@material-ui/core";
-import WhatshotIcon from "@material-ui/icons/Whatshot";
+import "./sidenav.css";
+import SparkLogo from "../img/logo.svg";
 import { makeStyles } from "@material-ui/core/styles";
 import { SignOutButton } from "../auth";
 import {
@@ -106,8 +108,20 @@ export const SideNav = () => {
             <div className={classes.drawerContainer}>
                 <Link to='/'>
                     <Box className={classes.logo}>
-                        <WhatshotIcon fontSize='large' color='primary' />
-                        <Typography className={classes.logoName}>Spark Esports</Typography>
+                        <Icon fontSize='large'>
+                            <img
+                                style={{
+                                    width: "100%",
+                                    height: "100%",
+                                }}
+                                alt='Spark Logo'
+                                src={SparkLogo}
+                            />
+                        </Icon>
+                        {/* <WhatshotIcon fontSize='large' color='primary' /> */}
+                        <Typography id='orgName' className={classes.logoName}>
+                            Spark Esports
+                        </Typography>
                     </Box>
                 </Link>
                 <List>
