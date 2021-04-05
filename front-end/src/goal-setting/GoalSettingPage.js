@@ -1,19 +1,30 @@
-import { Box, Grid } from "../ui";
+import { Box, CircularProgress, Grid } from "../ui";
 import { useGetPlayerStats } from "./useGetPlayerStats";
 import { useEffect, useState } from "react";
 import { NormaliseData } from "./NormaliseData";
-
+import { KDAChart } from "./KDAChart";
 // RANDOMIZE COLOR LATER
 
 export const GoalSettingPage = () => {
     const { matches, loadingMatches } = useGetPlayerStats("123");
     const [statsForaPlayer, setStatsForaPlayer] = useState(null);
     const [statsToWork, setStatsToWork] = useState([
-        "totalDamageDealt",
+        "physicalDamageDealt",
+        "physicalDamageDealtToChampions",
+        "physicalDamageTaken",
         "goldEarned",
         "kills",
         "deaths",
         "assists",
+        "damageDealtToTurrets",
+        "magicDamageDealt",
+        "magicDamageDealtToChampions",
+        "magicalDamageTaken",
+        "trueDamageDealt",
+        "trueDamageDealtToChampions",
+        "truealDamageTaken",
+        "wardsKilled",
+        "turretKills",
     ]);
     const [data, setData] = useState([]);
     const [labels, setLabels] = useState([]);
@@ -26,9 +37,10 @@ export const GoalSettingPage = () => {
             let playerStatsToMap = [];
             matches.forEach((match) => {
                 // GET THE LABELS
-                label.push(`${new Date(match.timestamp).toUTCString()}`);
-                // USE CHAMPION TO DISTINGUISH BETWEEN ALL THE PLAYERS
+                // label.push(`${new Date(match.timestamp).toUTCString()}`);
                 const champion = match.champion;
+                label.push(`${champion}`);
+                // USE CHAMPION TO DISTINGUISH BETWEEN ALL THE PLAYERS
                 // CAN TAKE CHAMPION AS THE LABEL RATHER THAN DATES
                 // label.push(champion);
                 const playerMatchStats = match.details.participants.filter(
@@ -76,16 +88,18 @@ export const GoalSettingPage = () => {
                 let statObject = {
                     label: getLabelForaStat(statName),
                     borderColor: `hsla(${color}, 1)`,
-                    backgroundColor: `hsla(${color}, 0.2)`,
+                    backgroundColor: `hsla(${color}, 0.4)`,
                     normalizeValue: {
                         max: 0,
                         min: 10000000000000,
                     },
+                    sum: 0,
                     data: [],
-                    fill: index === 1,
+                    fill: index === 10,
                 };
                 statsForaPlayer.forEach((singleMatchStats) => {
                     const value = singleMatchStats[statName];
+                    statObject.sum = statObject.sum + value;
                     statObject.normalizeValue.max =
                         statObject.normalizeValue.max < value
                             ? value
@@ -104,16 +118,29 @@ export const GoalSettingPage = () => {
 
     return (
         <Box>
-            <Grid container>
-                <Grid item xs={12} lg={6}>
-                    <NormaliseData data={data} normalizeData={true} labels={labels} />
-                </Grid>
-                <Grid item xs={12} lg={6}>
-                    <NormaliseData
-                        data={data.length > 0 ? [data[0], data[1]] : null}
-                        labels={labels}
-                    />
-                </Grid>
+            <Grid container spacing={2}>
+                {data.length > 0 ? (
+                    <>
+                        <Grid item xs={12} lg={6}>
+                            <NormaliseData
+                                data={[
+                                    data[statsToWork.indexOf("kills")],
+                                    data[statsToWork.indexOf("assists")],
+                                    data[statsToWork.indexOf("deaths")],
+                                ]}
+                                normalizeData={false}
+                                labels={labels}
+                            />
+                        </Grid>
+                        <Grid item xs={12} lg={6}>
+                            <KDAChart data={data} />
+                        </Grid>
+                    </>
+                ) : (
+                    <Grid item xs={12}>
+                        <CircularProgress color='secondary' style={{ height: "70vh" }} />
+                    </Grid>
+                )}
             </Grid>
             {/* <Box
                 style={{

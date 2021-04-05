@@ -5,28 +5,6 @@ export const NormaliseData = ({ data, normalizeData = false, labels }) => {
     const [chartData, setChartData] = useState({});
     useEffect(() => {
         if (data) {
-            // console.log(data);
-            let datasets = [
-                // {
-                //     label: "Participated in CC",
-                //     borderColor: "rgba(255,212,102,1)",
-                // },
-                {
-                    label: "Damage Delt",
-                    fill: false,
-                    borderColor: "#B812E2",
-                },
-                {
-                    label: "Gold Earned",
-                    fill: true,
-                    backgroundColor: "rgba(255,212,102,0.2)",
-                    borderColor: "rgba(255,212,102,1)",
-                },
-                {
-                    label: "Kills",
-                    borderColor: "#C11F1F",
-                },
-            ];
             const newData = data.map((eachFiled) => {
                 if (normalizeData) {
                     const newDataset = eachFiled.data.map((dataItem) => {
@@ -52,7 +30,6 @@ export const NormaliseData = ({ data, normalizeData = false, labels }) => {
                     };
                 }
             });
-            datasets.forEach((dataset, index) => (dataset.data = newData[index]));
             setChartData({
                 labels: labels,
                 datasets: newData,
