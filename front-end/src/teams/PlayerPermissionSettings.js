@@ -18,8 +18,7 @@ import {
 
 export const PlayerPermissionSettings = ({
     rosters,
-    savePermission = () =>
-        console.log("Save The Permissions for the selected Player and the pemissions"),
+    savePermission = () => console.log("Save The Permissions for the selected Player and the pemissions"),
 }) => {
     const classes = useStyles();
     const [selected, setSelected] = useState("");

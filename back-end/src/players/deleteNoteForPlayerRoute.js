@@ -16,6 +16,7 @@ export const deleteNoteForPlayerRoute = {
         const { user_id: coachId } = req.user;
         const { playerId, noteId } = req.params;
 
+        // PERMISSIONS: Change this
         if (!(await canDeleteNote(coachId, noteId))) {
             return res.status(403).send({ message: 'Coaches can only delete notes for their own players' });
         }

@@ -36,7 +36,6 @@ export const UserInfo = () => {
 
     const [isUpdating, setIsUpdating] = useState(false);
     const [validationErrors, setValidationErrors] = useState([]);
-    const [networkError, setNetworkError] = useState('');
 
     const getValidationErrors = () => {
         const fields = { firstName, lastName, bio };
@@ -52,20 +51,17 @@ export const UserInfo = () => {
         if (validationErrors.length > 0) return;
 
         setIsUpdating(true);
+
         const userInfo = { firstName, lastName, bio };
-        try {
-            setOnboardingInfo({ ...onboardingInfo, userInfo })
-            history.push('/onboarding/schools');
-        } catch (e) {
-            setIsUpdating(false);
-            setNetworkError(e.message);
-        }
+        setOnboardingInfo({ ...onboardingInfo, userInfo })
+        history.push('/onboarding/schools');
     }
 
     return (
         <CenteredContainer>
             <h1>User Info</h1>
-            {networkError && <Alert severity="error">{networkError}</Alert>}
+            <p>To get started, we just need a little bit of info from you about yourself, your organization, etc.</p>
+            <hr />
             {validationErrors.map(error => (
                 <Box mb={2}>
                     <Alert severity="error">{error}</Alert>

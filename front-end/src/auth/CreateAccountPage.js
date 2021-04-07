@@ -71,7 +71,7 @@ export const CreateAccountPage = () => {
             const { id } = response.data;
             history.push(`/please-verify-email/${id}`);
         } catch (e) {
-            setNetworkError(e.message);
+            setNetworkError(e.response.data.message);
             setIsProcessing(false);
         }
     }
