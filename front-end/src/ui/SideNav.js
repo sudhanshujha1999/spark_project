@@ -37,25 +37,21 @@ const navSections = [
             {
                 name: "Scheduling",
                 icon: CalendarTodayIcon,
-                releaseDate: "Jan 2021",
                 link: "/scheduling",
             },
             {
                 name: "Goal Setting & Stats",
                 icon: TrendingUpIcon,
-                releaseDate: "Feb 2021",
                 link: "/goals",
             },
             {
-                name: "Strategy",
+                name: "War Room",
                 icon: AssignmentIcon,
-                releaseDate: "Mar 2021",
                 link: "/war-room",
             },
             {
                 name: "Community",
                 icon: SupervisedUserCircleIcon,
-                releaseDate: "Mar 2021",
                 // link: '/community',
             },
         ],
