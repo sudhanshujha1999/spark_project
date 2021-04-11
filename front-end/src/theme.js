@@ -14,4 +14,7 @@ export const theme = createMuiTheme({
             default: "#222831",
         },
     },
+    typography: {
+        fontFamily: ["Roboto", "Helvetica", "Arial", "Josefin Sans", "sans-serif"].join(","),
+    },
 });

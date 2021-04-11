@@ -18,6 +18,7 @@ export const HeadingForLoggedInUser = ({ user }) => {
 
     return (
         <Box className={classes.headingContainer}>
+            <Typography className={classes.orgName}>SPARK</Typography>
             <Typography component='h1' className={classes.bannerHeading}>
                 Esports Team Management
             </Typography>
