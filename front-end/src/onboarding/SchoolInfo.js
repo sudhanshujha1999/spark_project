@@ -9,10 +9,6 @@ import {
     CircularProgress,
     Divider,
     Grid,
-    FormControl,
-    InputLabel,
-    Select,
-    MenuItem,
     TextField,
 } from "../ui";
 import { onboardingState } from "./onboardingState";
@@ -22,17 +18,13 @@ const validations = [
         test: ({ name }) => name.length > 1,
         errorMessage: "School name must be 2 characters or longer",
     },
-    {
-        test: ({ orgType }) => orgType !== "",
-        errorMessage: "Please select a organization type",
-    },
 ];
 
 export const SchoolInfo = () => {
     const [onboardingInfo, setOnboardingInfo] = useRecoilState(onboardingState);
-    const { name: initialName = "", orgType: initialOrgType = "" } = onboardingInfo.schoolInfo;
+    const { name: initialName = "" } = onboardingInfo.schoolInfo;
     const [name, setName] = useState(initialName);
-    const [orgType, setOrgType] = useState(initialOrgType);
+
     const history = useHistory();
 
     const [isUpdating, setIsUpdating] = useState(false);
@@ -40,7 +32,7 @@ export const SchoolInfo = () => {
     const [networkError, setNetworkError] = useState("");
 
     const getValidationErrors = () => {
-        const fields = { name, orgType };
+        const fields = { name };
         const errors = validations
             .filter((validation) => !validation.test(fields))
             .map((validation) => validation.errorMessage);
@@ -54,7 +46,7 @@ export const SchoolInfo = () => {
 
         setIsUpdating(true);
         try {
-            const schoolInfo = { name, orgType };
+            const schoolInfo = { name };
             setOnboardingInfo({ ...onboardingInfo, schoolInfo });
             history.push(`/onboarding/schools/123/teams`);
         } catch (e) {
@@ -84,31 +76,6 @@ export const SchoolInfo = () => {
                     label='Organization Name'
                     variant='outlined'
                 />
-                <Box my={2} />
-                <FormControl variant='outlined' fullWidth>
-                    <InputLabel
-                        id='-select-filled-label'
-                        style={{
-                            padding: "2px 5px",
-                            backgroundColor: "#222831",
-                        }}>
-                        Organization Type
-                    </InputLabel>
-                    <Select
-                        disableUnderline
-                        MenuProps={{ disableScrollLock: true }}
-                        labelId='select-filled-label'
-                        value={orgType}
-                        onChange={(e) => setOrgType(e.target.value)}>
-                        <MenuItem value=''>
-                            <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={"  SCHOOL"}>High School</MenuItem>
-                        <MenuItem value={"UNIVERSITY"}>University</MenuItem>
-                        <MenuItem value={"PRO"}>Pro Organization</MenuItem>
-                        <MenuItem value={"SEMI_PRO"}>Semi-Pro / Amateur Organization</MenuItem>
-                    </Select>
-                </FormControl>
             </Box>
             <Divider />
             <Box py={2}>

@@ -2,7 +2,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Box from "@material-ui/core/Box";
 import { Link } from "react-router-dom";
-// import Button from "@material-ui/core/Button";
+import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { useCurrentUser, SignOutButton } from "../auth";
 
@@ -33,8 +33,9 @@ export const NavBar = () => {
                             </Box>
                         </Box>
                     ) : (
-                        // We can make it request invite
-                        <Link>{/* <Button variant='outlined'>Sign In</Button> */}</Link>
+                        <Link to='/sign-in'>
+                            <Button variant='outlined'>Sign In</Button>
+                        </Link>
                     )}{" "}
                 </Box>
             </Toolbar>

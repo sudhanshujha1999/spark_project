@@ -17,7 +17,6 @@ export const RostersPage = () => {
     const { teamId } = useParams();
     const [teams] = useTeams();
     const { isLoading: isLoadingTeam, team } = useTeam(teamId);
-    // console.log(team);
     const { userInfo } = useCurrentUserInfo();
     const { id: currentUserId, membershipTypeId = "" } = userInfo || {};
     const isCoach = membershipTypeId === "coach";
@@ -116,96 +115,85 @@ export const RostersPage = () => {
     };
 
     return isLoadingTeam ? (
-        <Box className={classes.load}>
-            <CircularProgress color='secondary' />
-        </Box>
+        <p>Loading...</p>
     ) : (
-        <>
-            {/* Might have some elements in this component */}
-            <Box
-                style={{
-                    backgroundImage: `url(${team.url})`,
-                }}
-                className={classes.teamBanner}
-            />
-            <Box
-                style={{
-                    position: "relative",
-                    minHeight: "83vh",
-                    paddingBottom: "50px",
-                }}>
-                <Typography variant='h2'>{teamName}</Typography>
-                <h1>Coaches</h1>
-                {coaches.map(({ fullName: coachName }) => (
-                    <Box mb={2}>
-                        <Card>
-                            <Box p={2}>
-                                <p>{coachName}</p>
-                            </Box>
-                        </Card>
-                    </Box>
-                ))}
-                <Divider />
-                <h1>Rosters</h1>
-                {isCoach && (
-                    <>
-                        <Button
-                            startIcon={<GroupAddIcon />}
-                            color='primary'
-                            onClick={() => {
-                                setShowAddRosterDialog(true);
-                            }}
-                            variant='contained'>
-                            Add Roster
-                        </Button>
-                        <AddRosterDialog
-                            open={showAddRosterDialog}
-                            setOpen={setShowAddRosterDialog}
-                            createRoster={createRoster}
-                            progress={progress}
-                        />
-                        {/* DELETE FUNCTIONALITY TO BE DISSCUSSED */}
-                        <Fab
-                            variant='extended'
-                            size='small'
-                            aria-label='add'
-                            className={classes.fabDelete}
-                            onClick={handleDeleteTeam}>
-                            {deleteProgress ? (
-                                <CircularProgress color='primary' size='1.8em' />
-                            ) : (
-                                <>
-                                    <ClearIcon />
-                                    Delete Team
-                                </>
-                            )}
-                        </Fab>
-                    </>
-                )}
-                {rosters.map(
-                    ({ id: rosterId, name: rosterName, players, invitations }, rosterIndex) => {
-                        const newPlayerEmailsForRoster = newPlayerEmails[rosterId] || [];
-                        return (
+        <Box
+            style={{
+                position: "relative",
+                minHeight: "83vh",
+                paddingBottom: "50px",
+            }}>
+            <Typography variant='h2'>{teamName}</Typography>
+            <h1>Coaches</h1>
+            {coaches.map(({ fullName: coachName }) => (
+                <Box mb={2}>
+                    <Card>
+                        <Box p={2}>
+                            <p>{coachName}</p>
+                        </Box>
+                    </Card>
+                </Box>
+            ))}
+            <Divider />
+            <h1>Rosters</h1>
+            {isCoach && (
+                <>
+                    <Button
+                        startIcon={<GroupAddIcon />}
+                        color='primary'
+                        onClick={() => {
+                            setShowAddRosterDialog(true);
+                        }}
+                        variant='contained'>
+                        Add Roster
+                    </Button>
+                    <AddRosterDialog
+                        open={showAddRosterDialog}
+                        setOpen={setShowAddRosterDialog}
+                        createRoster={createRoster}
+                        progress={progress}
+                    />
+                    {/* DELETE FUNCTIONALITY TO BE DISSCUSSED */}
+                    <Fab
+                        variant='extended'
+                        size='small'
+                        aria-label='add'
+                        className={classes.fabDelete}
+                        onClick={handleDeleteTeam}>
+                        {deleteProgress ? (
+                            <CircularProgress color='primary' size='1.8em' />
+                        ) : (
                             <>
-                                {rosterName && (
-                                    <DisplayRosterItem
-                                        rosterId={rosterId}
-                                        rosterName={rosterName}
-                                        players={players}
-                                        isCoach={isCoach}
-                                        newPlayerEmailsForRoster={newPlayerEmailsForRoster}
-                                        onAddPlayer={onAddPlayer}
-                                        currentUserId={currentUserId}
-                                        invitations={invitations}
-                                        onDeleteRoster={onDeleteRoster}
-                                        teamId={teamId}
-                                    />
-                                )}
+                                <ClearIcon />
+                                Delete Team
                             </>
-                        );
-                    }
-                )}
-            </Box>
-        </>
+                        )}
+                    </Fab>
+                </>
+            )}
+            {rosters.map(
+                ({ id: rosterId, name: rosterName, players, invitations }, rosterIndex) => {
+                    const newPlayerEmailsForRoster = newPlayerEmails[rosterId] || [];
+                    return (
+                        <>
+                            {rosterName && (
+                                <DisplayRosterItem
+                                    rosterId={rosterId}
+                                    rosterName={rosterName}
+                                    players={players}
+                                    isCoach={isCoach}
+                                    newPlayerEmailsForRoster={newPlayerEmailsForRoster}
+                                    onAddPlayer={onAddPlayer}
+                                    currentUserId={currentUserId}
+                                    invitations={invitations}
+                                    onDeleteRoster={onDeleteRoster}
+                                    teamId={teamId}
+                                />
+                            )}
+                        </>
+                    );
+                }
+            )}
+        </Box>
     );
 };

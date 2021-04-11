@@ -1,3 +1,5 @@
+import axios from "axios";
+import { useState } from "react";
 import { useTeams } from "../teams";
 import { Box, Divider, Typography } from "../ui";
 import { TeamsList } from "./TeamsList";
@@ -5,56 +7,54 @@ import { useCurrentUserInfo } from "../users";
 
 export const DashboardPage = () => {
     const { userInfo } = useCurrentUserInfo();
+    const { teamToEdit, setTeamToEdit } = useState(null);
     const { membershipTypeId = "" } = userInfo || {};
     const isCoach = membershipTypeId === "coach";
-    const [teams, isLoadingTeams] = useTeams();
+    const [teams, isLoadingTeams, , setTeams] = useTeams();
 
     const { school } = teams[0] || {};
+    const onDeleteTeam = async (teamId) => {
+        // eslint-disable-next-line no-restricted-globals
+        const userReallyWantsToDelete = confirm(
+            "Are you sure you want to delete this team and all its corresponding data? (You cannot undo this)"
+        );
+        if (teams.length <= 1) {
+            alert(
+                "That's your last team! You must have at least one team. Please create another before deleting this one"
+            );
+            return;
+        }
 
-    // Delete team is in when player click on a team then the option is available
-    // const onDeleteTeam = async (teamId) => {
-    //     // eslint-disable-next-line no-restricted-globals
-    //     const userReallyWantsToDelete = confirm(
-    //         "Are you sure you want to delete this team and all its corresponding data? (You cannot undo this)"
-    //     );
-    //     if (teams.length <= 1) {
-    //         alert(
-    //             "That's your last team! You must have at least one team. Please create another before deleting this one"
-    //         );
-    //         return;
-    //     }
+        if (userReallyWantsToDelete) {
+            try {
+                await axios.delete(`/api/teams/${teamId}`);
+                setTeams(teams.filter((team) => team.id !== teamId));
+            } catch (e) {
+                console.log(e);
+            }
+        }
+    };
 
-    //     if (userReallyWantsToDelete) {
-    //         try {
-    //             await axios.delete(`/api/teams/${teamId}`);
-    //             setTeams(teams.filter((team) => team.id !== teamId));
-    //         } catch (e) {
-    //             console.log(e);
-    //         }
-    //     }
-    // };
+    const onEditTeam = async ({ name, id }) => {
+        try {
+            await axios.put(`/api/team/${id}/update`, { name });
+            setTeams(
+                teams.map((team) => {
+                    if (team.id === id) {
+                        return { ...team, name: name };
+                    }
+                    return team;
+                })
+            );
+            console.log("saved");
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-    // Edit team is now in the teams folder with name EditTeamInfo
-    // const onEditTeam = async ({ name, id }) => {
-    //     try {
-    //         await axios.put(`/api/team/${id}/update`, { name });
-    //         setTeams(
-    //             teams.map((team) => {
-    //                 if (team.id === id) {
-    //                     return { ...team, name: name };
-    //                 }
-    //                 return team;
-    //             })
-    //         );
-    //         console.log("saved");
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
-
-    // const editTeam = (team) => {
-    //     console.log(team);
-    // };
+    const editTeam = (team) => {
+        console.log(team);
+    };
 
     return (
         <Box style={{ position: "relative", height: "83vh" }}>
@@ -62,11 +62,16 @@ export const DashboardPage = () => {
                 <p>Loading...</p>
             ) : (
                 <>
-                    <Typography variant='h2'>{school && (school.name || "")}</Typography>
-                    <Box mt={2} mb={7}>
+                    <Typography variant="h2">{school && (school.name || "")}</Typography>
+                    <Box mb={2}>
                         <Divider />
                     </Box>
-                    <TeamsList school={school} teams={teams} isCoach={isCoach} />
+                    <TeamsList
+                        school={school}
+                        teams={teams}
+                        isCoach={isCoach}
+                        editTeam={editTeam}
+                    />
                 </>
             )}
         </Box>
