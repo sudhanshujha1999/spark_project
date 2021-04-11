@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useRecoilState } from "recoil";
-import { useHistory } from "react-router-dom";
+import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { useHistory } from 'react-router-dom';
 import {
     Alert,
     Box,
@@ -10,26 +10,23 @@ import {
     Divider,
     Grid,
     TextField,
-} from "../ui";
-import { onboardingState } from "./onboardingState";
+} from '../ui';
+import { onboardingState } from './onboardingState';
 
-const validations = [
-    {
-        test: ({ firstName }) => firstName.length > 1,
-        errorMessage: "First name must be 2 characters or longer",
-    },
-    {
-        test: ({ lastName }) => lastName.length > 1,
-        errorMessage: "Last name must be 2 characters or longer",
-    },
-];
+const validations = [{
+    test: ({ firstName }) => firstName.length > 1,
+    errorMessage: 'First name must be 2 characters or longer',
+}, {
+    test: ({ lastName }) => lastName.length > 1,
+    errorMessage: 'Last name must be 2 characters or longer',
+}];
 
 export const UserInfo = () => {
     const [onboardingInfo, setOnboardingInfo] = useRecoilState(onboardingState);
     const {
-        firstName: initialFirstName = "",
-        lastName: initialLastName = "",
-        bio: initialBio = "",
+        firstName: initialFirstName = '',
+        lastName: initialLastName = '',
+        bio: initialBio = '',
     } = onboardingInfo.userInfo;
     const [firstName, setFirstName] = useState(initialFirstName);
     const [lastName, setLastName] = useState(initialLastName);
@@ -43,10 +40,10 @@ export const UserInfo = () => {
     const getValidationErrors = () => {
         const fields = { firstName, lastName, bio };
         const errors = validations
-            .filter((validation) => !validation.test(fields))
-            .map((validation) => validation.errorMessage);
+            .filter(validation => !validation.test(fields))
+            .map(validation => validation.errorMessage);
         return errors;
-    };
+    }
 
     const onNext = async () => {
         const validationErrors = getValidationErrors();
@@ -56,21 +53,18 @@ export const UserInfo = () => {
         setIsUpdating(true);
 
         const userInfo = { firstName, lastName, bio };
-        setOnboardingInfo({ ...onboardingInfo, userInfo });
-        history.push("/onboarding/schools");
-    };
+        setOnboardingInfo({ ...onboardingInfo, userInfo })
+        history.push('/onboarding/schools');
+    }
 
     return (
         <CenteredContainer>
             <h1>User Info</h1>
-            <p>
-                To get started, we just need a little bit of info from you about yourself, your
-                organization, etc.
-            </p>
+            <p>To get started, we just need a little bit of info from you about yourself, your organization, etc.</p>
             <hr />
-            {validationErrors.map((error) => (
+            {validationErrors.map(error => (
                 <Box mb={2}>
-                    <Alert severity='error'>{error}</Alert>
+                    <Alert severity="error">{error}</Alert>
                 </Box>
             ))}
             <Box mb={2}>
@@ -79,49 +73,54 @@ export const UserInfo = () => {
             <Box mb={2}>
                 <TextField
                     value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
+                    onChange={e => setFirstName(e.target.value)}
                     fullWidth
-                    label='First Name'
-                    variant='outlined'
-                />
+                    label="First Name"
+                    variant="outlined" />
             </Box>
             <Box mb={2}>
                 <TextField
                     value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
+                    onChange={e => setLastName(e.target.value)}
                     fullWidth
-                    label='Last Name'
-                    variant='outlined'
-                />
+                    label="Last Name"
+                    variant="outlined" />
             </Box>
             <Box mb={2} mt={2}>
                 <TextField
                     value={bio}
-                    onChange={(e) => setBio(e.target.value)}
-                    label='Bio'
+                    onChange={e => setBio(e.target.value)}
+                    label="Bio"
                     multiline
-                    placeholder='Tell others a little about yourself'
-                    defaultValue=''
+                    placeholder="Tell others a little about yourself"
+                    defaultValue=""
                     fullWidth
                     rows={4}
-                    variant='outlined'
-                />
+                    variant="outlined" />
             </Box>
             <Divider />
             <Box py={2}>
-                <Grid container justify='space-between'>
+                <Grid container justify="space-between">
                     <Grid item>
-                        <Button color='primary' variant='contained' disabled>
-                            Back
-                        </Button>
+                        <Button
+                            color="primary"
+                            variant="contained"
+                            disabled
+                        >Back</Button>
                     </Grid>
                     <Grid item>
-                        <Button onClick={onNext} color='primary' variant='contained'>
-                            {isUpdating ? <CircularProgress size={24} /> : "Next"}
+                        <Button
+                            onClick={onNext}
+                            color="primary"
+                            variant="contained"
+                        >
+                            {isUpdating
+                                ? <CircularProgress size={24} />
+                                : 'Next'}
                         </Button>
                     </Grid>
                 </Grid>
             </Box>
         </CenteredContainer>
     );
-};
+}
