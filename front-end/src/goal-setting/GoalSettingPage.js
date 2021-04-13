@@ -1,13 +1,13 @@
-import { Box, CircularProgress, Grid } from "../ui";
+import { Box, CircularProgress, Grid, Typography } from "../ui";
 import { useGetPlayerStats } from "./useGetPlayerStats";
 import { useEffect, useState } from "react";
-import { NormaliseData } from "./NormaliseData";
-import { KDAChart } from "./KDAChart";
+import { KdaCharts } from "./KdaCharts";
 // RANDOMIZE COLOR LATER
 
 export const GoalSettingPage = () => {
     const { matches, loadingMatches } = useGetPlayerStats("123");
     const [statsForaPlayer, setStatsForaPlayer] = useState(null);
+    // NEED TO CHANGE FOR EVERY GAME HAVE TO SEND IT WITH THE DATA FOR THE OTHER THIINGS
     const [statsToWork, setStatsToWork] = useState([
         "physicalDamageDealt",
         "physicalDamageDealtToChampions",
@@ -121,19 +121,15 @@ export const GoalSettingPage = () => {
             <Grid container spacing={2}>
                 {data.length > 0 ? (
                     <>
-                        <Grid item xs={12} lg={6}>
-                            <NormaliseData
-                                data={[
+                        <Grid xs={12}>
+                            <KdaCharts
+                                dataToWork={[
                                     data[statsToWork.indexOf("kills")],
                                     data[statsToWork.indexOf("assists")],
                                     data[statsToWork.indexOf("deaths")],
                                 ]}
-                                normalizeData={false}
                                 labels={labels}
                             />
-                        </Grid>
-                        <Grid item xs={12} lg={6}>
-                            <KDAChart data={data} />
                         </Grid>
                     </>
                 ) : (
@@ -142,17 +138,6 @@ export const GoalSettingPage = () => {
                     </Grid>
                 )}
             </Grid>
-            {/* <Box
-                style={{
-                    width: "75vw",
-                    height: "75vh",
-                    backgroundImage: "url(./goal-setting-mockup.png)",
-                    backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "contain",
-                    overflow: "hidden",
-                }}
-            /> */}
         </Box>
     );
 };
