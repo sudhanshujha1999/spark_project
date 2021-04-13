@@ -1,7 +1,7 @@
 import { v4 as uuid } from "uuid";
 import { createGroup } from "../groups";
 import { createInvitation, sendInvitationEmail } from "../invitations";
-import { addPermission, ADMIN } from '../permissions';
+import { addPermission, ADMIN } from "../permissions";
 import { isLoggedInProtector, isVerifiedProtector } from "../route-protectors";
 import { createRoster } from "../rosters";
 import { createSchool } from "../schools";
@@ -30,13 +30,13 @@ export const onboardCoachRoute = {
         const { userId: authId } = req.params; // authId is the automatically assigned id from Firebase Auth
         const { userInfo = {}, schoolInfo = {}, teams = [] } = req.body;
         const { fullName, bio } = userInfo;
-        const { name: schoolName = "" } = schoolInfo;
+        const { name: schoolName = "", orgType: OrganiszationType = "" } = schoolInfo;
         const baseUrl = req.app.get("baseFrontEndUrl"); // This changes depending on whether we're in prod/dev/local
         const authUser = req.user; // This is the firebase user info, added by the 'addUserToRoute' middleware in server.js
 
         // 2. Make sure whoever sent this request is actually that user
         if (authId !== authUser.user_id) {
-            return res.status(403).json({ message: 'Users can only update their own data' });
+            return res.status(403).json({ message: "Users can only update their own data" });
         }
 
         // 3. If they are, load the full user info from the database
@@ -52,7 +52,11 @@ export const onboardCoachRoute = {
         };
 
         // 5. Create a school in the DB with the provided name from onboarding
-        const schoolId = await createSchool({ name: schoolName, coachId: userId });
+        const schoolId = await createSchool({
+            name: schoolName,
+            coachId: userId,
+            groupType: OrganiszationType,
+        });
 
         // 6. Give the coach ADMIN-level permission for the school
         await addPermission({ userId, groupId: schoolId, permissionType: ADMIN });
@@ -62,7 +66,6 @@ export const onboardCoachRoute = {
         //    We also need to invite (and create, if they don't yet exist) the users from the emails
         //    provided for each roster.
         for (let team of teams) {
-
             // 7a. Get the team info provided in the onboarding flow
             const { name: teamName, game, rosters, url } = team;
 
@@ -77,13 +80,11 @@ export const onboardCoachRoute = {
                 url,
             });
 
-
             // 7c. Give the coach ADMIN-level permission for the new team
             await addPermission({ userId, groupId: teamId, permissionType: ADMIN });
 
             // 7d. Here's where we loop through all the rosters
             for (let roster of rosters) {
-
                 // 7e. Get the roster info
                 const { name: rosterName = "", playerEmails = [] } = roster;
 
@@ -100,7 +101,6 @@ export const onboardCoachRoute = {
                 // 7g. And here's where we loop through all the player emails that
                 //     the coach entered and invite them.
                 for (let email of playerEmails) {
-
                     // 7h. Load the user to see if they already have an account
                     const user = await getUserByEmail(email);
 
