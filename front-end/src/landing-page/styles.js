@@ -55,6 +55,16 @@ export const useStyles = makeStyles((theme) => ({
     //     },
     // },
 
+    // ORG NAME
+
+    orgName: {
+        fontSize: "min(3em, 11vw)",
+        fontWeight: 700,
+        fontFamily: "'Josefin Sans'",
+        color: theme.palette.secondary.main,
+        filter: "drop-shadow(2px 4px 6px rgba(0,0,0,0.5))",
+    },
+
     // HEADING
     headingContainer: {
         width: "min(95vw, 700px)",
@@ -70,8 +80,9 @@ export const useStyles = makeStyles((theme) => ({
         fontSize: "min(2em, 8vw)",
     },
     bannerHeading: {
-        fontWeight: 700,
+        fontWeight: 500,
         lineHeight: "1em",
+        maxWidth: "700px",
         marginBottom: "15px",
         fontSize: "min(4em, 14vw)",
     },
@@ -82,6 +93,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     nameOrg: {
         position: "relative",
+        fontFamily: "'Josefin Sans'",
         "&::before": {
             position: "absolute",
             content: '""',

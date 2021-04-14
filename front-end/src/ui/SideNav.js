@@ -11,7 +11,6 @@ import {
     ListItemText,
     Typography,
 } from "@material-ui/core";
-import "./sidenav.css";
 import SparkLogo from "../img/logo.svg";
 import { makeStyles } from "@material-ui/core/styles";
 import { SignOutButton } from "../auth";
@@ -37,25 +36,21 @@ const navSections = [
             {
                 name: "Scheduling",
                 icon: CalendarTodayIcon,
-                releaseDate: "Jan 2021",
                 link: "/scheduling",
             },
             {
                 name: "Goal Setting & Stats",
                 icon: TrendingUpIcon,
-                releaseDate: "Feb 2021",
                 link: "/goals",
             },
             {
-                name: "Strategy",
+                name: "War Room",
                 icon: AssignmentIcon,
-                releaseDate: "Mar 2021",
                 link: "/war-room",
             },
             {
                 name: "Community",
                 icon: SupervisedUserCircleIcon,
-                releaseDate: "Mar 2021",
                 // link: '/community',
             },
         ],
@@ -119,9 +114,7 @@ export const SideNav = () => {
                             />
                         </Icon>
                         {/* <WhatshotIcon fontSize='large' color='primary' /> */}
-                        <Typography id='orgName' className={classes.logoName}>
-                            Spark Esports
-                        </Typography>
+                        <Typography className={classes.logoName}>Spark Esports</Typography>
                     </Box>
                 </Link>
                 <List>
@@ -210,7 +203,8 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: "22px",
         fontSize: "1.6em",
         fontWeight: 700,
-        color: theme.palette.primary.main,
+        fontFamily: "'Josefin Sans'",
+        color: "#fafafa",
     },
     logo: {
         cursor: "pointer",
