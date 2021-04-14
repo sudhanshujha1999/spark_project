@@ -1,4 +1,4 @@
-import { EmailVerificationResult, CreateAccountPage, PleaseVerifyEmail } from "./auth";
+import { EmailVerificationResult, PleaseVerifyEmail, SignInPage } from "./auth";
 import { DashboardPage } from "./dashboard";
 import { GoalSettingPage } from "./goal-setting";
 import { InvitationLandingPage } from "./invitations";
@@ -18,13 +18,6 @@ import { RostersPage } from "./rosters";
 import { SchedulingPage } from "./scheduling";
 import { TeamInfoForm, EditTeamInfo } from "./teams";
 import { WarRoom, Session } from "./war-room";
-
-export const createAccountRoute = {
-    path: "/create-account",
-    component: CreateAccountPage,
-    isPublic: true,
-    hideNav: true,
-};
 
 export const createTeamRoute = {
     path: "/schools/:schoolId/new-team",
@@ -143,12 +136,12 @@ export const schedulingRoute = {
     component: SchedulingPage,
 };
 
-// export const signInRoute = {
-//     path: "/sign-in",
-//     component: SignInPage,
-//     isPublic: true,
-//     hideNav: true,
-// };
+export const signInRoute = {
+    path: "/sign-in",
+    component: SignInPage,
+    isPublic: true,
+    hideNav: true,
+};
 
 export const termsAndPrivacyRoute = {
     path: "/terms-and-privacy",

@@ -7,7 +7,6 @@ import {
     Box,
     Button,
     CenteredContainer,
-    Link,
     TextField,
     Typography,
 } from '../ui';
@@ -101,11 +100,6 @@ export const SignInPage = () => {
                     color="primary"
                 >Sign In</Button>
             </Box>
-            <Typography align="center">
-                <Link to="/create-account" style={{ textDecoration: 'underline' }}>
-                    Don't have an account? Create one here
-                </Link>
-            </Typography>
         </CenteredContainer>
     );
 }
