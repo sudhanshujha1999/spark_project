@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import purple from "@material-ui/core/colors/purple";
+// import purple from "@material-ui/core/colors/purple";
 import blue from "@material-ui/core/colors/blue";
 const bezierValue = "cubic-bezier(0.26, 1, 0.43, 0.93)";
 
@@ -46,7 +46,7 @@ export const useStyles = makeStyles((theme) => ({
         margin: "0 auto",
         position: "relative",
         zIndex: "10",
-        width: "230px",
+        width: "200px",
         cursor: "pointer",
         "&:hover": {
             zIndex: "15",
@@ -60,7 +60,7 @@ export const useStyles = makeStyles((theme) => ({
             },
             "& $rank": {
                 top: "-15%",
-                right: "-5%",
+                right: "-7%",
                 backgroundColor: "rgba(0,0,0,0.6)",
             },
             "& $front": {
@@ -101,7 +101,7 @@ export const useStyles = makeStyles((theme) => ({
     teamImg: {
         zIndex: "5",
         width: "100%",
-        height: "280px",
+        height: "250px",
         backgroundSize: "cover",
         backgroundPosition: "top",
         borderRadius: "10px",
