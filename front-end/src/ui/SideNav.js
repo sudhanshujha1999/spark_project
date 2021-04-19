@@ -58,13 +58,6 @@ const navSections = [
     {
         name: "Account",
         items: [
-            //     {
-            //     name: 'Profile',
-            //     icon: AccountCircleIcon,
-            // }, {
-            //     name: 'Settings',
-            //     icon: SettingsIcon,
-            // },
             {
                 name: "My Profile",
                 icon: AccountCircleIcon,

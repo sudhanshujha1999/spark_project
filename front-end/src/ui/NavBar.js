@@ -33,11 +33,8 @@ export const NavBar = () => {
                             </Box>
                         </Box>
                     ) : (
-                        // We can make it request invite
-                        <Link to='/sign-in'>
-                            {" "}
-                            <Button variant='outlined'>Sign In</Button>{" "}
-                        </Link>
+       
+                        <Link to="/sign-in"><Button variant='outlined'>Sign In</Button></Link>
                     )}{" "}
                 </Box>
             </Toolbar>

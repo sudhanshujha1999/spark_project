@@ -30,7 +30,7 @@ export const onboardCoachRoute = {
         const { userId: authId } = req.params; // authId is the automatically assigned id from Firebase Auth
         const { userInfo = {}, schoolInfo = {}, teams = [] } = req.body;
         const { fullName, bio } = userInfo;
-        const { name: schoolName = "", orgType: OrganiszationType = "" } = schoolInfo;
+        const { name: schoolName = "", orgType: OrganizationType = "" } = schoolInfo;
         const baseUrl = req.app.get("baseFrontEndUrl"); // This changes depending on whether we're in prod/dev/local
         const authUser = req.user; // This is the firebase user info, added by the 'addUserToRoute' middleware in server.js
 
@@ -55,7 +55,7 @@ export const onboardCoachRoute = {
         const schoolId = await createSchool({
             name: schoolName,
             coachId: userId,
-            groupType: OrganiszationType,
+            groupType: OrganizationType,
         });
 
         // 6. Give the coach ADMIN-level permission for the school

@@ -1,10 +1,17 @@
-import { useState, useEffect } from "react";
-import { useHistory, Redirect } from "react-router-dom";
-import firebase from "firebase/app";
-import { useQueryParams } from "../routing";
-import { Alert, Box, Button, CenteredContainer, TextField, Typography } from "../ui";
-import { signIn } from "./signIn";
-import { useCurrentUserInfo } from "../users";
+import { useState, useEffect } from 'react';
+import { useHistory, Redirect } from 'react-router-dom';
+import firebase from 'firebase/app';
+import { useQueryParams } from '../routing';
+import {
+    Alert,
+    Box,
+    Button,
+    CenteredContainer,
+    TextField,
+    Typography,
+} from '../ui';
+import { signIn } from './signIn';
+import { useCurrentUserInfo } from '../users';
 
 export const SignInPage = () => {
     const { dest, email: emailFromInvitation } = useQueryParams();
@@ -96,11 +103,6 @@ export const SignInPage = () => {
                     Sign In
                 </Button>
             </Box>
-            {/* <Typography align="center">
-                <Link to="/create-account" style={{ textDecoration: 'underline' }}>
-                    Don't have an account? Create one here
-                </Link>
-            </Typography> */}
         </CenteredContainer>
     );
 };

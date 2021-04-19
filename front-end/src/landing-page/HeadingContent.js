@@ -4,7 +4,8 @@ import { useStyles } from "./styles";
 export const HeadingContent = ({ nextStep }) => {
     const classes = useStyles();
     return (
-        <Box className={classes.headingContainer}>
+         <Box className={classes.headingContainer}>
+            <Typography className={classes.orgName}>SPARK</Typography>
             <Typography component="h1" className={classes.bannerHeading}>
                 Esports Team Management
             </Typography>
