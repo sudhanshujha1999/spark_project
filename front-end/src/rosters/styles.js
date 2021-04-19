@@ -5,6 +5,18 @@ import teamPic from "../img/teamPic.jpg";
 import red from "@material-ui/core/colors/red";
 
 export const useStyles = makeStyles((theme) => ({
+    // orgName: {
+    //     position: "relative",
+    //     "&:before": {
+    //         position: "absolute",
+    //         content: '""',
+    //         width: "47%",
+    //         height: "90%",
+    //         top: "-10%",
+    //         left: "-30%",
+    //         backgroundColor: theme.palette.secondary.main,
+    //     },
+    // },
     teamBanner: {
         height: "600px",
         marginTop: "-95px",
@@ -12,7 +24,8 @@ export const useStyles = makeStyles((theme) => ({
         width: "95vw",
         marginBottom: "50px",
         backgroundSize: "cover",
-        position: "relative",
+        position: "absolute",
+        zIndex: "-1000",
         "&::before": {
             position: "absolute",
             content: '""',
@@ -20,8 +33,8 @@ export const useStyles = makeStyles((theme) => ({
             height: "100%",
             top: 0,
             left: 0,
-            zIndex: 2,
-            background: "linear-gradient(0deg, rgba(34,40,49,1) 0%, rgba(255,255,255,0) 100%)",
+            zIndex: "-998",
+            background: "linear-gradient(0deg, rgba(34,40,49,1) 30%, rgba(255,255,255,0) 100%)",
         },
         [theme.breakpoints.down("sm")]: {
             width: "120%",

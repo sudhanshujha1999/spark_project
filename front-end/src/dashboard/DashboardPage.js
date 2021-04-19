@@ -1,9 +1,13 @@
 import { useTeams } from "../teams";
-import { Box, Divider, Typography } from "../ui";
+import { Box, Divider, Typography, Grid } from "../ui";
 import { TeamsList } from "./TeamsList";
+import { LeagueRecords } from "./LeagueRecords";
 import { useCurrentUserInfo } from "../users";
+import { useStyles } from "./Styles";
+import { Member } from "./Member";
 
 export const DashboardPage = () => {
+    const classes = useStyles();
     const { userInfo } = useCurrentUserInfo();
     const { membershipTypeId = "" } = userInfo || {};
     const isCoach = membershipTypeId === "coach";
@@ -57,16 +61,30 @@ export const DashboardPage = () => {
     // };
 
     return (
-        <Box style={{ position: "relative", height: "83vh" }}>
+        <Box style={{ position: "relative", minHeight: "83vh" }}>
             {isLoadingTeams ? (
                 <p>Loading...</p>
             ) : (
                 <>
-                    <Typography variant='h2'>{school && (school.name || "")}</Typography>
+                    <Typography variant='h2' className={classes.orgName}>
+                        {school && (school.name || "")}
+                    </Typography>
                     <Box mt={2} mb={7}>
                         <Divider />
                     </Box>
-                    <TeamsList school={school} teams={teams} isCoach={isCoach} />
+                    <Grid container>
+                        <Grid item xs={12} sm={5} container>
+                            <Grid item xs={12}>
+                                <LeagueRecords teams={teams} />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Member />
+                            </Grid>
+                        </Grid>
+                        <Grid item xs={12} sm={7}>
+                            <TeamsList school={school} teams={teams} isCoach={isCoach} />
+                        </Grid>
+                    </Grid>
                 </>
             )}
         </Box>

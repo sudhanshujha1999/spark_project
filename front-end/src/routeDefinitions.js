@@ -1,4 +1,4 @@
-import { EmailVerificationResult, CreateAccountPage, PleaseVerifyEmail } from "./auth";
+import { EmailVerificationResult, CreateAccountPage, PleaseVerifyEmail, SignInPage } from "./auth";
 import { DashboardPage } from "./dashboard";
 import { GoalSettingPage } from "./goal-setting";
 import { InvitationLandingPage } from "./invitations";
@@ -143,12 +143,12 @@ export const schedulingRoute = {
     component: SchedulingPage,
 };
 
-// export const signInRoute = {
-//     path: "/sign-in",
-//     component: SignInPage,
-//     isPublic: true,
-//     hideNav: true,
-// };
+export const signInRoute = {
+    path: "/sign-in",
+    component: SignInPage,
+    isPublic: true,
+    hideNav: true,
+};
 
 export const termsAndPrivacyRoute = {
     path: "/terms-and-privacy",
