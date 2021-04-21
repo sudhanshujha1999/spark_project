@@ -1,7 +1,7 @@
 import { Doughnut } from "react-chartjs-2";
 import { useState, useEffect } from "react";
 
-export const DoughnutChartForSameUnits = ({ data, neededDataLabels: neededData }) => {
+export const DoughnutChart = ({ data, neededDataLabels: neededData }) => {
     const [chartData, setChartData] = useState();
     useEffect(() => {
         if (data) {

@@ -4,6 +4,38 @@ import blue from "@material-ui/core/colors/blue";
 const bezierValue = "cubic-bezier(0.26, 1, 0.43, 0.93)";
 
 export const useStyles = makeStyles((theme) => ({
+    orgName: {
+        position: "relative",
+        width: "fit-content",
+        "&:before": {
+            position: "absolute",
+            content: '""',
+            width: "110%",
+            height: "110%",
+            top: "-5%",
+            left: "-5%",
+            borderRadius: "1px",
+            border: "2px solid",
+            borderColor: theme.palette.secondary.main,
+            clipPath:
+                "polygon(20% 0%, 100% 0, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0 100%, 0% 20%)",
+            animation: "$animateClipPath 5s linear infinite alternate",
+        },
+    },
+    "@keyframes animateClipPath": {
+        "0%": {
+            borderRadius: "1px",
+            filter: "hue-rotate(0deg)",
+            clipPath:
+                "polygon(100% 0%, 100% 0, 100% 0%, 100% 0%, 0% 100%, 0% 100%, 0 100%, 0% 100%)",
+        },
+        "100%": {
+            filter: "hue-rotate(180deg)",
+            borderRadius: "10px",
+            clipPath:
+                "polygon(20% 0%, 100% 0, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0 100%, 0% 20%)",
+        },
+    },
     // CARD STYLES
     cardStyles: {
         display: "flex",
@@ -43,7 +75,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     // NEW TEAM CARD
     teamCard: {
-        margin: "0 auto",
+        // margin: "0 auto",
         position: "relative",
         zIndex: "10",
         width: "200px",
@@ -191,5 +223,71 @@ export const useStyles = makeStyles((theme) => ({
         "&:hover": {
             boxShadow: "0px 5px 10px rgba(0,0,0,0.4)",
         },
+    },
+
+    // NEWS BOX
+    newsContainer: {
+        maxHeight: "250px",
+        overflowY: "scroll",
+        marginRight: "20px",
+        position: "relative",
+    },
+
+    dialog: {
+        display: "flex",
+        flexFlow: "column",
+        padding: "20px",
+        alignItems: "flex-start",
+    },
+
+    selectField: {
+        width: "300px",
+        margin: "20px 0",
+    },
+
+    label: {
+        padding: "0 5px",
+        backgroundColor: theme.palette.background.paper,
+    },
+    // Custom Scrollbar
+
+    customScroll: {
+        "&::-webkit-scrollbar": {
+            width: "8px",
+            backgroundColor: "rgba(0,0,0,0.5)",
+            borderRadius: 10,
+        },
+        "&::-webkit-scrollbar-thumb": {
+            borderRadius: 10,
+            opacity: "0.8",
+            backgroundColor: theme.palette.secondary.main,
+        },
+    },
+
+    // Overlay
+    overlay: {
+        height: 20,
+        position: "relative",
+        "&:before": {
+            position: "absolute",
+            content: '""',
+            width: "100%",
+            height: "300%",
+            top: "-60px",
+            left: 0,
+            zIndex: "2",
+            pointerEvents: "none",
+            background: "linear-gradient(0deg, rgba(34,40,49,1) 0%, rgba(255,255,255,0) 100%)",
+        },
+    },
+
+    newsBox: {
+        width: "90%",
+        minHeight: "100px",
+        padding: "20px",
+        backgroundColor: "rgba(0,0,0,0.4)",
+        borderRadius: "5px",
+        boxShadow: "0px 10px 15px 0px rgba(50,50,50,0.1)",
+        margin: "20px 0",
     },
 }));

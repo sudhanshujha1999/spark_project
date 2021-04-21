@@ -1,6 +1,6 @@
-import { Divider, Grid, Typography } from "../ui";
+import { Divider, Grid, Typography, Box } from "../ui";
 import { NormaliseData } from "./NormaliseData";
-import { DoughnutChartForSameUnits } from "./DoughnutChartForSameUnits";
+import { DoughnutChart } from "./DoughnutChart";
 import { useEffect, useState } from "react";
 
 export const KdaCharts = ({ dataToWork, labels }) => {
@@ -35,16 +35,15 @@ export const KdaCharts = ({ dataToWork, labels }) => {
                 <Typography variant='h5' gutterBottom>
                     KDA charts for last five matches
                 </Typography>
-                <Divider />
+                <Box my={3}>
+                    <Divider />
+                </Box>
             </Grid>
             <Grid item xs={12} md={6}>
                 <NormaliseData data={data} normalizeData={false} labels={labels} />
             </Grid>
             <Grid item xs={12} md={6}>
-                <DoughnutChartForSameUnits
-                    data={data}
-                    neededDataLabels={["kills", "deaths", "assists"]}
-                />
+                <DoughnutChart data={data} neededDataLabels={["kills", "deaths", "assists"]} />
             </Grid>
         </Grid>
     );

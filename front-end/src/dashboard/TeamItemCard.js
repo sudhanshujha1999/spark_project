@@ -12,7 +12,7 @@ export const TeamItemCard = ({ team, isCoach, index, editTeam = () => {} }) => {
         history.push(`/teams/${team.id}`);
     };
     return (
-        <Grid item xs={12} sm={6} md={4} lg={3} key={team.id}>
+        <Grid item xs={12} sm={6} lg={4} key={team.id}>
             <Box className={classes.teamCard} onClick={handleClick}>
                 <Box className={classes.rank}>{index}</Box>
                 <Box className={classes.background} />

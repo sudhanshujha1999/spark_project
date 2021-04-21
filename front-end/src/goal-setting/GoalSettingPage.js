@@ -2,6 +2,7 @@ import { Box, CircularProgress, Grid, Typography } from "../ui";
 import { useGetPlayerStats } from "./useGetPlayerStats";
 import { useEffect, useState } from "react";
 import { KdaCharts } from "./KdaCharts";
+import { AddCustomCharts } from "./AddCustomCharts";
 // RANDOMIZE COLOR LATER
 
 export const GoalSettingPage = () => {
@@ -130,6 +131,9 @@ export const GoalSettingPage = () => {
                                 ]}
                                 labels={labels}
                             />
+                        </Grid>
+                        <Grid xs={12}>
+                            <AddCustomCharts data={data} />
                         </Grid>
                     </>
                 ) : (
