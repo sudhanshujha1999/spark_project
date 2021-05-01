@@ -183,29 +183,30 @@ export const RostersPage = () => {
                         </Fab>
                     </>
                 )}
-                {rosters.map(
-                    ({ id: rosterId, name: rosterName, players, invitations }, rosterIndex) => {
-                        const newPlayerEmailsForRoster = newPlayerEmails[rosterId] || [];
-                        return (
-                            <>
-                                {rosterName && (
-                                    <DisplayRosterItem
-                                        rosterId={rosterId}
-                                        rosterName={rosterName}
-                                        players={players}
-                                        isCoach={isCoach}
-                                        newPlayerEmailsForRoster={newPlayerEmailsForRoster}
-                                        onAddPlayer={onAddPlayer}
-                                        currentUserId={currentUserId}
-                                        invitations={invitations}
-                                        onDeleteRoster={onDeleteRoster}
-                                        teamId={teamId}
-                                    />
-                                )}
-                            </>
-                        );
-                    }
-                )}
+                {rosters &&
+                    rosters.map(
+                        ({ id: rosterId, name: rosterName, players, invitations }, rosterIndex) => {
+                            const newPlayerEmailsForRoster = newPlayerEmails[rosterId] || [];
+                            return (
+                                <>
+                                    {rosterName && (
+                                        <DisplayRosterItem
+                                            rosterId={rosterId}
+                                            rosterName={rosterName}
+                                            players={players}
+                                            isCoach={isCoach}
+                                            newPlayerEmailsForRoster={newPlayerEmailsForRoster}
+                                            onAddPlayer={onAddPlayer}
+                                            currentUserId={currentUserId}
+                                            invitations={invitations}
+                                            onDeleteRoster={onDeleteRoster}
+                                            teamId={teamId}
+                                        />
+                                    )}
+                                </>
+                            );
+                        }
+                    )}
             </Box>
         </>
     );

@@ -55,11 +55,21 @@ export const CalendarCell = ({
 const useStyles = makeStyles((theme) => ({
     active: {
         fontSize: "1.2em",
+        position: "relative",
         color: theme.palette.background.default,
         fontWeight: 600,
-        borderRadius: "50%",
         width: "fit-content",
-        padding: "5px 10px",
-        backgroundColor: theme.palette.secondary.main,
+        padding: "10px",
+        zIndex: 200,
+        "&:before": {
+            position: "absolute",
+            content: '""',
+            width: "100%",
+            height: "70%",
+            transform: "translate(-28%, -8%)",
+            borderRadius: "50%",
+            zIndex: "-1",
+            background: theme.palette.secondary.main,
+        },
     },
 }));

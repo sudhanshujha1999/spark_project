@@ -114,7 +114,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     playerCardConatiner: {
         maxWidth: "200px",
-        height: "280px",
+        height: "250px",
         position: "relative",
         "&:hover": {
             "& $playerCard": {
@@ -170,11 +170,11 @@ export const useStyles = makeStyles((theme) => ({
     },
     teamImage: {
         position: "absolute",
-        top: "-35px",
-        left: "-20px",
-        // transform: "translateX(-50%)",
-        width: "70px",
-        height: "70px",
+        top: "-30px",
+        left: "50%",
+        transform: "translateX(-50%)",
+        width: "50px",
+        height: "50px",
         zIndex: "200",
         borderRadius: "50%",
         backgroundImage: `url(${teamPic})`,

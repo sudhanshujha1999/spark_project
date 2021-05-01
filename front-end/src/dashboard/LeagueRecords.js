@@ -19,6 +19,7 @@ export const LeagueRecords = ({ teams }) => {
     const [open, setOpen] = useState(false);
     const [selected, setSelected] = useState("");
     const [info, setInfo] = useState("");
+    const [league, setLeague] = useState("");
 
     const handleClick = () => {
         setOpen(true);
@@ -33,7 +34,8 @@ export const LeagueRecords = ({ teams }) => {
             ...leagues,
             {
                 team: selected,
-                leagueInfo: info,
+                league,
+                record: info,
             },
         ]);
         onClose();
@@ -43,19 +45,29 @@ export const LeagueRecords = ({ teams }) => {
         <>
             <Grid container spcing={4}>
                 <Grid item xs={12}>
-                    <Typography variant='h5' gutterBottom>
+                    <Typography className={classes.headingSection} variant='h5' gutterBottom>
                         League Records
                     </Typography>
                     <Box className={`${classes.newsContainer} ${classes.customScroll}`}>
                         {leagues.length > 0 ? (
-                            leagues.map(({ team, leagueInfo }, index) => {
+                            leagues.map(({ team, record }, index) => {
                                 return (
                                     <Grid item xs={12}>
                                         <Box className={classes.newsBox}>
-                                            <Typography variant='subtitle2' gutterBottom>
-                                                {team}
-                                            </Typography>
-                                            <Typography variant='body1'>{leagueInfo}</Typography>
+                                            <Box className={classes.leagueName}>
+                                                <Typography
+                                                    className={classes.leagueTitle}
+                                                    variant='subtitle2'
+                                                    gutterBottom>
+                                                    {league}
+                                                </Typography>
+                                                <Typography
+                                                    className={classes.leagueTitle}
+                                                    variant='subtitle1'>
+                                                    {`(${team})`}
+                                                </Typography>
+                                            </Box>
+                                            <Typography variant='body1'>{record}</Typography>
                                         </Box>
                                     </Grid>
                                 );
@@ -96,8 +108,17 @@ export const LeagueRecords = ({ teams }) => {
                         </Select>
                     </FormControl>
                     <TextField
+                        value={league}
+                        label='League/Tournament'
+                        fullWidth
+                        onChange={(e) => setLeague(e.target.value)}
+                        variant='outlined'
+                        color='primary'
+                    />
+                    <TextField
+                        style={{ margin: "20px 0" }}
                         value={info}
-                        label='Leaguse Data'
+                        label='Record'
                         fullWidth
                         onChange={(e) => setInfo(e.target.value)}
                         variant='outlined'

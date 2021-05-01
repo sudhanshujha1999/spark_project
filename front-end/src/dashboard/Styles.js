@@ -290,4 +290,68 @@ export const useStyles = makeStyles((theme) => ({
         boxShadow: "0px 10px 15px 0px rgba(50,50,50,0.1)",
         margin: "20px 0",
     },
+    leagueName: {
+        display: "flex",
+        flexFlow: "row",
+        alignItems: "center",
+    },
+    leagueTitle: {
+        fontSize: "1.5em",
+        "&:nth-child(2)": {
+            fontSize: "0.95em",
+            color: "#888",
+            marginLeft: "10px",
+        },
+    },
+
+    // SECTION HEADING
+    headingSection: {
+        position: "relative",
+        "&:before": {
+            position: "absolute",
+            content: '""',
+            width: "100%",
+            height: "3px",
+            bottom: "-6px",
+            left: 0,
+            borderRadius: "0px 5px 5px 15px",
+            zIndex: "2",
+            background:
+                "linear-gradient(90deg, rgba(213,105,255,1) 0%, rgba(68,161,240,1) 30%, rgba(250,250,250,0) 60%)",
+        },
+    },
+
+    // ALL PLAYERS
+    accordion: {
+        margin: "10px 0",
+        backgroundColor: "transparent",
+        transition: "all 0.2s ease-out",
+        "&:before": {
+            display: "none",
+        },
+        "&:hover": {
+            boxShadow: "0px 5px 10px 2px rgba(200,235,250,0.2)",
+        },
+    },
+    expanded: {
+        boxShadow: "0px 5px 10px 2px rgba(0,0,0,0.2)",
+        backgroundColor: "rgba(0,0,0,0.2)",
+    },
+    headingAccordian: {
+        fontSize: "1.3em",
+    },
+    flexColumn: {
+        display: "flex",
+        flexFlow: "column",
+    },
+    coaches: {
+        padding: 10,
+        margin: "10px 0",
+        width: "100%",
+        borderBottom: "1px solid rgba(255,250,250,0.2)",
+    },
+    rosterName: {
+        fontSize: "0.8em",
+        color: "#999",
+    },
 }));
