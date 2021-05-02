@@ -5,6 +5,11 @@ const teamsState = atom({
     default: [],
 });
 
+const teamsInfoState = atom({
+    key: "teamsInfoState",
+    default: [],
+});
+
 // GET TEAM
 export const getTeamState = selector({
     key: "getTeamState",
@@ -19,5 +24,23 @@ export const setTeamState = selector({
     key: "setTeamState",
     set: ({ set }, newTeamValue) => {
         set(teamsState, newTeamValue);
+    },
+});
+
+// TEAMS INFO
+// Get Teams
+export const getTeamInfoState = selector({
+    key: "getTeamInfoState",
+    get: ({ get }) => {
+        const state = get(teamsInfoState);
+        return state;
+    },
+});
+
+// SET TEAM
+export const setTeamInfoState = selector({
+    key: "setTeamInfoState",
+    set: ({ set }, newTeamValue) => {
+        set(teamsInfoState, newTeamValue);
     },
 });

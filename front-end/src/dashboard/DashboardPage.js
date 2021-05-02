@@ -12,7 +12,6 @@ export const DashboardPage = () => {
     const { membershipTypeId = "" } = userInfo || {};
     const isCoach = membershipTypeId === "coach";
     const [teams, isLoadingTeams] = useTeams();
-
     const { school } = teams[0] || {};
 
     // Delete team is in when player click on a team then the option is available
@@ -78,7 +77,7 @@ export const DashboardPage = () => {
                                 <LeagueRecords teams={teams} />
                             </Grid>
                             <Grid item xs={12}>
-                                <Member />
+                                <Member teams={teams} />
                             </Grid>
                         </Grid>
                         <Grid item xs={12} sm={7}>
