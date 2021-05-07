@@ -18,6 +18,7 @@ export const useTeams = () => {
                 setIsLoading(true);
                 try {
                     const response = await get(`/api/users/${authId}/teams`);
+                    console.log("getting Teams");
                     setTeams(response.data);
                 } catch (e) {
                     console.log("Error!");
