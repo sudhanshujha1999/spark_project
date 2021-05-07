@@ -107,7 +107,7 @@ export const SideNav = () => {
                             />
                         </Icon>
                         {/* <WhatshotIcon fontSize='large' color='primary' /> */}
-                        <Typography className={classes.logoName}>Spark Esports</Typography>
+                        <Typography className={classes.logoName}>SPARK ESPORTS</Typography>
                     </Box>
                 </Link>
                 <List>
@@ -193,8 +193,9 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
     },
     logoName: {
-        marginLeft: "22px",
-        fontSize: "1.6em",
+        marginLeft: "18px",
+        letterSpacing: 2,
+        fontSize: "1.25em",
         fontWeight: 700,
         fontFamily: "'Josefin Sans'",
         color: "#fafafa",

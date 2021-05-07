@@ -9,12 +9,15 @@ import {
     MenuItem,
     Typography,
     TextField,
+    IconButton,
 } from "../ui";
+import { DeleteIcon } from "../icons";
 import { useStyles } from "./Styles";
 import { useState } from "react";
 
 export const LeagueRecords = ({ teams }) => {
     const classes = useStyles();
+    // SET THESE LEAGUES ON THE VALUE OF A HOOK THAT CALL THE DATA
     const [leagues, setLeagues] = useState([]);
     const [open, setOpen] = useState(false);
     const [selected, setSelected] = useState("");
@@ -27,18 +30,31 @@ export const LeagueRecords = ({ teams }) => {
 
     const onClose = () => {
         setOpen(false);
+        setLeague("");
+        setInfo("");
+        setSelected("");
     };
 
     const handleAdd = () => {
-        setLeagues([
-            ...leagues,
-            {
-                team: selected,
-                league,
-                record: info,
-            },
-        ]);
+        if (selected === "" || league === "" || info === "") {
+            // Snackbar to be added
+            console.log("Please Enter all Fields");
+            return;
+        }
+        // CAN CHANGE TO DEFAULT MONGO ID OR CAN KEEP IT
+        const recorId = Math.floor(100000000 + Math.random() * 900000000);
+        const newRecord = {
+            id: recorId,
+            team: selected,
+            leagueName: league,
+            record: info,
+        };
+        setLeagues([...leagues, newRecord]);
         onClose();
+    };
+
+    const handleRemove = (removeId) => {
+        setLeagues(leagues.filter((leagueRecord) => leagueRecord.id !== removeId));
     };
 
     return (
@@ -48,18 +64,21 @@ export const LeagueRecords = ({ teams }) => {
                     <Typography className={classes.headingSection} variant='h5' gutterBottom>
                         League Records
                     </Typography>
-                    <Box className={`${classes.newsContainer} ${classes.customScroll}`}>
+                    <Grid
+                        container
+                        item
+                        className={`${classes.newsContainer} ${classes.customScroll}`}>
                         {leagues.length > 0 ? (
-                            leagues.map(({ team, record }, index) => {
+                            leagues.map(({ id, leagueName, team, record }, index) => {
                                 return (
-                                    <Grid item xs={12}>
+                                    <Grid key={id} item xs={6}>
                                         <Box className={classes.newsBox}>
                                             <Box className={classes.leagueName}>
                                                 <Typography
                                                     className={classes.leagueTitle}
                                                     variant='subtitle2'
                                                     gutterBottom>
-                                                    {league}
+                                                    {leagueName}
                                                 </Typography>
                                                 <Typography
                                                     className={classes.leagueTitle}
@@ -68,6 +87,11 @@ export const LeagueRecords = ({ teams }) => {
                                                 </Typography>
                                             </Box>
                                             <Typography variant='body1'>{record}</Typography>
+                                            <IconButton
+                                                className={classes.removeBtn}
+                                                onClick={() => handleRemove(id)}>
+                                                <DeleteIcon fontSize='small' />
+                                            </IconButton>
                                         </Box>
                                     </Grid>
                                 );
@@ -79,7 +103,7 @@ export const LeagueRecords = ({ teams }) => {
                                 </Box>
                             </Grid>
                         )}
-                    </Box>
+                    </Grid>
                     <Box className={classes.overlay} />
                     <Box my={2}>
                         <Button color='secondary' onClick={handleClick} variant='contained'>
@@ -89,7 +113,13 @@ export const LeagueRecords = ({ teams }) => {
                 </Grid>
             </Grid>
             <Dialog open={open} onClose={onClose}>
-                <Box className={classes.dialog}>
+                <Box
+                    className={classes.dialog}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            handleAdd();
+                        }
+                    }}>
                     <Typography variant='h6'>Add league info</Typography>
                     <FormControl className={classes.selectField} variant='outlined' color='primary'>
                         <InputLabel className={classes.label}>Team</InputLabel>

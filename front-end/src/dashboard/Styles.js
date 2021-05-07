@@ -289,6 +289,22 @@ export const useStyles = makeStyles((theme) => ({
         borderRadius: "5px",
         boxShadow: "0px 10px 15px 0px rgba(50,50,50,0.1)",
         margin: "20px 0",
+        position: "relative",
+        "&:hover": {
+            "& $removeBtn": {
+                transform: "scale(1) translate(0px, 0px)",
+                opacity: 1,
+            },
+        },
+    },
+    removeBtn: {
+        position: "absolute",
+        right: "-15px",
+        top: "-15px",
+        color: "#ff3c3c",
+        transform: "scale(0.7) translate(-15px, 5px)",
+        opacity: 0,
+        transition: `all 0.5s ${bezierValue}`,
     },
     leagueName: {
         display: "flex",
@@ -298,7 +314,7 @@ export const useStyles = makeStyles((theme) => ({
     leagueTitle: {
         fontSize: "1.5em",
         "&:nth-child(2)": {
-            fontSize: "0.95em",
+            fontSize: "0.85em",
             color: "#888",
             marginLeft: "10px",
         },

@@ -10,6 +10,7 @@ import { feature } from "./FeaturesData";
 import img1 from "../img/border-1.png";
 import img2 from "../img/border.png";
 import img3 from "../img/border-2.png";
+import SparkLogo from "../img/logo.svg";
 import { useCurrentUserInfo } from "../users";
 import { HeadingForLoggedInUser } from "./HeadingForLoggedInUser";
 
@@ -49,7 +50,7 @@ export const LandingPage = () => {
                     <Box>{steps[step]}</Box>
                 )}
             </Zoom>
-            <Grid container spacing={10}>
+            <Grid className={classes.featuresContainer} container spacing={10}>
                 {feature.map((item, index) => (
                     <Grid item xs={12} xl={6}>
                         <Box className={classes.cardContainer}>
@@ -83,6 +84,8 @@ export const LandingPage = () => {
                         </Box>
                     </Grid>
                 ))}
+                {/* Log at the back of the bg */}
+                <img className={classes.bgBehind} src={SparkLogo} alt='Company-Logo' />
             </Grid>
         </Box>
     );

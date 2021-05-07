@@ -236,6 +236,20 @@ export const useStyles = makeStyles((theme) => ({
         },
     },
 
+    featuresContainer: {
+        position: "relative",
+    },
+    bgBehind: {
+        position: "fixed",
+        width: "128vw",
+        height: "120vh",
+        top: 0,
+        left: "-60%",
+        filter: "drop-shadow(2px 4px 6px black)",
+        zIndex: "-10000",
+        opacity: "0.5",
+    },
+
     // CARD STYLES
     cardContainer: {
         width: "min(700px, 95vw)",
@@ -260,7 +274,7 @@ export const useStyles = makeStyles((theme) => ({
         left: "-14%",
         width: "124%",
         height: "150%",
-        zIndex: "-1000",
+        zIndex: "0",
         filter: "drop-shadow(2px 4px 6px black)",
         transform: "scale(1)",
         transition: "all 0.2s ease-out",
@@ -276,7 +290,7 @@ export const useStyles = makeStyles((theme) => ({
         // backgroundSize: "cover",
         transform: "scale(1)",
         filter: "drop-shadow(3px 5px 10px rgb(0 0 0 / 90%))",
-        zIndex: "-100",
+        zIndex: "1",
         transition: "all 0.2s ease-out",
     },
     cardBgRight: {
