@@ -7,19 +7,20 @@ import { HeadingContent } from "./HeadingContent";
 import { HeadingForm } from "./HeadingForm";
 import { EmailSentSuccess } from "./EmailSentSuccess";
 import { feature } from "./FeaturesData";
-import img1 from "../img/border-1.png";
-import img2 from "../img/border.png";
-import img3 from "../img/border-2.png";
-import SparkLogo from "../img/logo.svg";
+import img1 from "../img/border-1.svg";
+import img2 from "../img/border.svg";
+// import SparkLogo from "../img/logo.svg";
 import { useCurrentUserInfo } from "../users";
 import { HeadingForLoggedInUser } from "./HeadingForLoggedInUser";
+import { Hidden } from "@material-ui/core";
 
 export const LandingPage = () => {
     const classes = useStyles();
     const [visible, setVisible] = useState(true);
     const [step, setStep] = useState(0);
     const { isLoading, userInfo } = useCurrentUserInfo();
-    const border = [img1, img2, img3];
+    const border = [img1, img2];
+    const borderLg = [img1, img2, img2, img1, img2, img1];
     const nextStep = () => {
         setVisible(false);
         setTimeout(() => {
@@ -63,13 +64,28 @@ export const LandingPage = () => {
                                         : `${classes.cardBg} ${classes.cardBgLeft}`
                                 }
                             />
-                            {index % 2 === 0 && (
+                            <Hidden xlUp>
                                 <img
-                                    src={border[index / 2]}
+                                    src={border[index % 2 === 0 ? 0 : 1]}
                                     alt='testImag'
-                                    className={classes.cardBorder}
+                                    className={
+                                        index % 2 === 0
+                                            ? `${classes.cardBorder} ${classes.cardBorderLeft}`
+                                            : `${classes.cardBorder} ${classes.cardBorderRight}`
+                                    }
                                 />
-                            )}
+                            </Hidden>
+                            <Hidden lgDown>
+                                <img
+                                    src={borderLg[[0, 3, 4].includes(index) ? 0 : 1]}
+                                    alt='testImag'
+                                    className={
+                                        [0, 3, 4].includes(index)
+                                            ? `${classes.cardBorder} ${classes.cardBorderLeft}`
+                                            : `${classes.cardBorder} ${classes.cardBorderRight}`
+                                    }
+                                />
+                            </Hidden>
                             <Box
                                 className={
                                     index % 2 !== 0
@@ -85,7 +101,7 @@ export const LandingPage = () => {
                     </Grid>
                 ))}
                 {/* Log at the back of the bg */}
-                <img className={classes.bgBehind} src={SparkLogo} alt='Company-Logo' />
+                {/* <img className={classes.bgBehind} src={SparkLogo} alt='Company-Logo' /> */}
             </Grid>
         </Box>
     );
