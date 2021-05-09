@@ -12,10 +12,10 @@ import { Box, CircularProgress, Divider, Grid, Tabs, Tab, Typography } from "../
 import { useStyles } from "./styles";
 
 export const MemberDetailPage = ({ currentUserId }) => {
-    const { memberId } = useParams();
+    const { memberId, teamId } = useParams();
     const { isLoading, user } = useUser(memberId ? memberId : currentUserId ? currentUserId : null);
     const { userInfo: currentUser, isLoading: loadingCurrentUser } = useCurrentUserInfo();
-    const { isLoading: isLoadingNotes, notes, setNotes } = useNotes(memberId);
+    const { isLoading: isLoadingNotes, notes, setNotes } = useNotes(memberId, teamId);
     const teams = useGetTeamsForUser(user);
     const [value, setValue] = useState(0);
     const tabLabel = ["Overview", "Notes"];
@@ -29,7 +29,7 @@ export const MemberDetailPage = ({ currentUserId }) => {
     // NEED TO REMOVE AFTER EVERTINH IS DONE
     const addNote = async (text) => {
         try {
-            const response = await post(`/api/players/${memberId}/notes`, { text: text });
+            const response = await post(`/api/players/${memberId}/notes`, { text: text, groupId: teamId });
             const newNote = response.data;
             setNotes([newNote, ...notes]);
         } catch (e) {
@@ -39,7 +39,7 @@ export const MemberDetailPage = ({ currentUserId }) => {
 
     const deleteNote = async (noteId) => {
         try {
-            await del(`/api/players/${memberId}/notes/${noteId}`);
+            await del(`/api/players/${memberId}/notes/${noteId}`, { groupId: teamId });
             setNotes(notes.filter((note) => note.id !== noteId));
         } catch (e) {
             console.log(e);

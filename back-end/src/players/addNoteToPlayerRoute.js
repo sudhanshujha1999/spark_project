@@ -1,10 +1,12 @@
 import { isCoachForPlayer } from '../coaches';
 import { addNoteForPlayer } from '../notes';
+import { ADMIN, hasPermission } from '../permissions';
 import {
     isLoggedInProtector,
     isVerifiedProtector,
     isOnboardedProtector,
 } from '../route-protectors';
+import { getUserByAuthId } from "../users";
 
 export const addNoteToPlayerRoute = {
     method: 'post',
@@ -15,20 +17,28 @@ export const addNoteToPlayerRoute = {
     ],
     handler: async (req, res) => {
         const { user_id: coachId } = req.user;
-        const { text } = req.body;
+        const { text, groupId } = req.body;
         const { playerId } = req.params;
 
-        // PERMISSIONS: need to change this thing to use permissions instead
-        if (!isCoachForPlayer(coachId, playerId)) {
-            return res.status(403).send({ message: 'Coaches can only add notes for their own players' });
-        }
+        // 1. Who's sending this request? (We need to translate their authId to an actual userId)
+        const requesterAuthId = req.user.uid;
+        const requesterUser = await getUserByAuthId(requesterAuthId);
+        const requesterId = requesterUser.id;
+
+        const isAllowed = await hasPermission({
+            userId: requesterId, 
+            groupId,
+            permissionType: ADMIN,
+        });
+
+        if (!isAllowed) return res.sendStatus(403);
 
         try {
             const newNote = await addNoteForPlayer({ coachId, playerId, text });
             res.status(200).json(newNote);
         } catch (e) {
             console.log(e);
-            res.status(500).send({ message: 'Error adding note to user', error: e });
+            res.status(500).send({ message: 'Error adding note to user' });
         }
     },
 };

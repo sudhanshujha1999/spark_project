@@ -27,6 +27,7 @@ if (!FIREBASE_CREDENTIALS) {
     console.log("ERROR: No firebase credentials found");
 } else {
     firebaseAdmin.initializeApp({
+        projectId: 'spark-esport',
         credential: firebaseAdmin.credential.cert(FIREBASE_CREDENTIALS),
     });
     const store = firebaseAdmin.firestore();
@@ -57,8 +58,6 @@ app.get("*", (req, res) => {
 });
 
 const start = async () => {
-    // await initializeDbConnection();
-
     app.listen(PORT, () => {
         console.log("Server is listening on port " + PORT);
     });

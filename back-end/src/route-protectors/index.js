@@ -1,4 +1,5 @@
 import * as admin from 'firebase-admin';
+import { hasPermission } from '../permissions';
 
 export const isLoggedInProtector = {
     test: async req => !!req.user,
@@ -27,3 +28,11 @@ export const isOnboardedProtector = {
     errorCode: 403,
     errorMessage: "You must complete the onboarding flow",
 };
+
+// export const hasPermissionProtector = permissionType => {
+//     test: async req => {
+
+//     }
+//     errorCode: 403,
+//     errorMessage: "User doesn't have the correct permissions to perform this action",
+// }

@@ -5,7 +5,7 @@ export const createTeam = async ({ name, game, schoolId, coachId, url }) => {
    const teamRef = await admin
       .firestore()
       .collection("groups")
-      .add({ name, game, groupType: "team", url });
+      .add({ name, game, schoolId, groupType: "team", url });
    const teamId = teamRef.id;
    await createMembership({
       userId: coachId,

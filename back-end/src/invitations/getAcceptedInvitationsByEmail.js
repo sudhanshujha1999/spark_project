@@ -1,4 +1,4 @@
-import admin from 'firebase-admin';
+import * as admin from 'firebase-admin';
 
 export const getAcceptedInvitationsByEmail = async email => {
     const querySnapshot = await admin.firestore()

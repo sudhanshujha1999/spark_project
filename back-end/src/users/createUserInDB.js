@@ -13,5 +13,6 @@ export const createUserInDB = async ({ id, email, membershipTypeId, confirmation
         isOnboarded: false,
     };
 
-    await admin.firestore().collection('users').add(newUser);
+    const docRef = await admin.firestore().collection('users').add(newUser);
+    return docRef.id;
 }

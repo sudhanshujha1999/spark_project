@@ -1,4 +1,4 @@
-import { EmailVerificationResult, PleaseVerifyEmail, SignInPage } from "./auth";
+import { CreateAccountPage, EmailVerificationResult, PleaseVerifyEmail, SignInPage } from "./auth";
 import { DashboardPage } from "./dashboard";
 import { GoalSettingPage } from "./goal-setting";
 import { InvitationLandingPage } from "./invitations";
@@ -20,7 +20,7 @@ import { TeamInfoForm, EditTeamInfo } from "./teams";
 import { WarRoom, Session } from "./war-room";
 
 export const createTeamRoute = {
-    path: "/schools/:schoolId/new-team",
+    path: "/new-team",
     component: TeamInfoForm,
 };
 
@@ -88,6 +88,13 @@ export const onboardingCreateTeamsRoute = {
     path: "/onboarding/schools/:schoolId/teams",
     component: CreateTeams,
     isCoachOnboarding: true,
+    hideNav: true,
+};
+
+export const createAccountRoute = {
+    path: "/create-account",
+    component: CreateAccountPage,
+    isPublic: true,
     hideNav: true,
 };
 

@@ -3,6 +3,7 @@ import { isCoachForTeam } from "../coaches";
 import { createGroup } from "../groups";
 import { createInvitation, sendInvitationEmail } from "../invitations";
 import { createMembership } from "../memberships";
+import { ADMIN, hasPermission } from '../permissions';
 import { getRosterById } from "../rosters";
 import {
    isLoggedInProtector,
@@ -21,6 +22,19 @@ export const addPlayerRoute = {
         isVerifiedProtector,
     ],
    handler: async (req, res) => {
+    const { rosterId: groupId } = req.params;
+    const requesterAuthId = req.user.uid;
+    const requesterUser = await getUserByAuthId(requesterAuthId);
+    const requesterId = requesterUser.id;
+
+    const isAllowed = await hasPermission({
+        userId: requesterId, 
+        groupId,
+        permissionType: ADMIN,
+    });
+    
+    if (!isAllowed) return res.sendStatus(403);
+
       try {
          const coachAuthId = req.user.uid;
          const { rosterId } = req.params;
@@ -65,6 +79,7 @@ export const addPlayerRoute = {
 
          res.sendStatus(200);
       } catch (error) {
+         console.log(error);
          return res.status(500).send({
             success: false,
             error: error,

@@ -4,7 +4,7 @@ import { createInvitation, sendInvitationEmail } from "../invitations";
 import { addPermission, ADMIN } from "../permissions";
 import { isLoggedInProtector, isVerifiedProtector } from "../route-protectors";
 import { createRoster } from "../rosters";
-import { createSchool } from "../schools";
+import { createSchool, addMembersToSchool } from "../schools";
 import { createTeam } from "../teams";
 import {
     createUserInDB,
@@ -43,23 +43,30 @@ export const onboardCoachRoute = {
         const userInDB = await getUserByAuthId(authId);
         const userId = userInDB.id; // This is the actual user id, different from the authId we saw earlier (a little confusing, perhaps)
 
-        // 4. Update the user's info in the DB with the onboarding data
-        const updatedUser = await updateUser(userId, { fullName, bio });
-
         const user = {
             ...authUser,
             ...updatedUser,
         };
-
-        // 5. Create a school in the DB with the provided name from onboarding
-        const schoolId = await createSchool({
-            name: schoolName,
-            coachId: userId,
-            groupType: OrganizationType,
+        
+        // 4. Update the user's info in the DB with the onboarding data
+        const updatedUser = await updateUser(userId, {
+            fullName,
+            bio,
         });
 
-        // 6. Give the coach ADMIN-level permission for the school
+        // 5. Give the coach ADMIN-level permission for the school
         await addPermission({ userId, groupId: schoolId, permissionType: ADMIN });
+
+        // 6. Create the school
+        const school = {
+            name: schoolName,
+            coachId: userId,
+            groupType: "school",
+        }
+        const schoolId = await createSchool(school);
+
+        // We're going to use this to keep track of all the member ids we're adding to the school
+        let memberIds = []
 
         // 7. Loop through all the teams and rosters provided in the onboarding flow,
         //    create them in the database, and give the coach (this user) ADMIN permissions.
@@ -92,6 +99,7 @@ export const onboardCoachRoute = {
                 const rosterId = await createRoster({
                     name: rosterName,
                     teamId,
+                    schoolId,
                     coachId: userId,
                 });
 
@@ -108,6 +116,8 @@ export const onboardCoachRoute = {
                     const playerId = user
                         ? user.id
                         : await createUserInDB({ email, membershipTypeId: "player" });
+                    
+                    memberIds.push(playerId);
 
                     // 7j. Generate a confirmation code that we can send to the user's email.
                     //     This will be used in the 'acceptInvitationRoute'
@@ -135,7 +145,10 @@ export const onboardCoachRoute = {
             }
         }
 
-        // 8. Mark the user as "onboarded" - and then we're done!
+        // 8. Add the accumulated members to the school
+        await addMembersToSchool(schoolId, userId, memberIds);
+
+        // 9. Mark the user as "onboarded" - and then we're done!
         await setUserToOnboarded(userId);
 
         res.status(200).json({});

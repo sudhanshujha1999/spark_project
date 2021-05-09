@@ -47,9 +47,9 @@ export const getAllTeamsForUser = async (userId) => {
       )
    ).filter((x) => x);
    const teamsNoDupes = removeDuplicatesByProperty("id", teams);
-   const schools = await Promise.all(
-      teamsNoDupes.map((team) => getSchoolForGroup(team))
-   );
+   const schools = (await Promise.all(
+      teamsNoDupes.map((team) => admin.firestore().collection('schools').doc(team.schoolId).get())
+   )).map(doc => ({ id: doc.id, ...doc.data() }));
    const teamsWithSchools = teamsNoDupes.map((team, i) => ({
       ...team,
       school: schools[i],

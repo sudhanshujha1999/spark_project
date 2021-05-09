@@ -76,7 +76,28 @@ export const DashboardPage = () => {
                     </>
                 )
             ) : (
+              <>
                 <Typography variant='h3'>You have no orgs create one</Typography>
+                    {school && <Typography variant='h2' className={classes.orgName}>
+                        {school.name}
+                    </Typography>}
+                    <Box mt={2} mb={7}>
+                        <Divider />
+                    </Box>
+                    <Grid container>
+                        <Grid item xs={12} sm={5} container>
+                            <Grid item xs={12}>
+                                <LeagueRecords teams={teams} />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Member teams={teams} />
+                            </Grid>
+                        </Grid>
+                        <Grid item xs={12} sm={7}>
+                            <TeamsList school={school} teams={teams} isCoach={isCoach} />
+                        </Grid>
+                    </Grid>
+              </>
             )}
         </Box>
     );
