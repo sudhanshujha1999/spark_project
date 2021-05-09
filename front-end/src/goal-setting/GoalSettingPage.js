@@ -3,6 +3,7 @@ import { useGetPlayerStats } from "./useGetPlayerStats";
 import { useEffect, useState } from "react";
 import { KdaCharts } from "./KdaCharts";
 import { AddCustomCharts } from "./AddCustomCharts";
+import { CustomCharts } from "./CustomCharts";
 // RANDOMIZE COLOR LATER
 
 export const GoalSettingPage = () => {
@@ -29,6 +30,7 @@ export const GoalSettingPage = () => {
     ]);
     const [data, setData] = useState([]);
     const [labels, setLabels] = useState([]);
+    const [customCharts, setCustomCharts] = useState([]);
 
     useEffect(() => {
         if (matches && !loadingMatches) {
@@ -86,6 +88,7 @@ export const GoalSettingPage = () => {
             // WILL MAKE IT A STATE AND WEHNEVER THIS CHANGES WE CALL THE SET NEW DATA
             const newDataSet = statsToWork.map((statName, index) => {
                 const color = getRandomColor();
+                // FIRST INITIALIZE A BASIC OBJECT FOR A STAT
                 let statObject = {
                     label: getLabelForaStat(statName),
                     borderColor: `hsla(${color}, 1)`,
@@ -96,8 +99,11 @@ export const GoalSettingPage = () => {
                     },
                     sum: 0,
                     data: [],
-                    fill: index === 10,
+                    // HAVE TO MAKE A CONDITON THAT TAKE CARE OF THE FILL IN CHARTS
+                    // fill: index === 10,
+                    fill: false,
                 };
+                // CALCULATE THE REQUIRED VALUE FOR THAT STAT
                 statsForaPlayer.forEach((singleMatchStats) => {
                     const value = singleMatchStats[statName];
                     statObject.sum = statObject.sum + value;
@@ -133,7 +139,14 @@ export const GoalSettingPage = () => {
                             />
                         </Grid>
                         <Grid xs={12}>
-                            <AddCustomCharts data={data} />
+                            <AddCustomCharts data={data} setCharts={setCustomCharts} />
+                        </Grid>
+                        <Grid xs={12}>
+                            <CustomCharts
+                                customCharts={customCharts}
+                                labels={labels}
+                                setCustomCharts={setCustomCharts}
+                            />
                         </Grid>
                     </>
                 ) : (
