@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useHistory, Redirect } from 'react-router-dom';
+import { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import firebase from 'firebase/app';
 import { useQueryParams } from '../routing';
 import {
@@ -19,7 +19,6 @@ export const SignInPage = () => {
     const [password, setPassword] = useState("");
     const [networkError, setNetworkError] = useState("");
     const { userInfo, isLoading } = useCurrentUserInfo();
-    const history = useHistory();
 
     const onSignIn = async () => {
         setNetworkError("");
@@ -29,23 +28,6 @@ export const SignInPage = () => {
             setNetworkError(e.message);
         }
     };
-
-    useEffect(() => {
-        const redirectAccordingly = async () => {
-            if (!userInfo.isConfirmed) {
-                await firebase.auth().signOut();
-                history.push(`/please-verify-email/${userInfo.id}?variant=1`);
-            } else if (!userInfo.isOnboarded) {
-                history.push(`/onboarding/user-info`);
-            } else {
-                history.push(dest || "/");
-            }
-        };
-
-        if (!isLoading && userInfo) {
-            redirectAccordingly();
-        }
-    }, [isLoading, userInfo, dest, history]);
 
     if (isLoading) {
         return <p>Loading...</p>;

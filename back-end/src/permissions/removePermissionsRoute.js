@@ -1,7 +1,7 @@
 import { isLoggedInProtector, isVerifiedProtector } from "../route-protectors";
 import { getUserByAuthId } from "../users";
 import { hasPermission } from './hasPermission';
-import { removePermission } from './removePermission';
+import { ADMIN, removePermission } from './removePermission';
 
 export const removePermissionsRoute = {
     path: '/permissions',
@@ -23,7 +23,7 @@ export const removePermissionsRoute = {
         const canRemovePermissions = await hasPermission({
             userId: requesterId, 
             groupId,
-            permissionType: 'ADMIN',
+            permissionType: ADMIN,
         });
 
         if (!canRemovePermissions) return res.status(401).json({ message: 'User must be an admin to change permissions for group' });

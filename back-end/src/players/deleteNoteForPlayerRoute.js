@@ -1,9 +1,11 @@
 import { isCoachForPlayer } from '../coaches';
 import { canDeleteNote, deleteNote } from '../notes';
+import { ADMIN, hasPermission } from '../permissions';
 import {
     isLoggedInProtector,
     isVerifiedProtector,
 } from '../route-protectors';
+import { getUserByAuthId } from "../users";
 
 export const deleteNoteForPlayerRoute = {
     method: 'delete',
@@ -15,11 +17,20 @@ export const deleteNoteForPlayerRoute = {
     handler: async (req, res) => {
         const { user_id: coachId } = req.user;
         const { playerId, noteId } = req.params;
+        const { groupId } = req.body;
 
-        // PERMISSIONS: Change this
-        if (!(await canDeleteNote(coachId, noteId))) {
-            return res.status(403).send({ message: 'Coaches can only delete notes for their own players' });
-        }
+        // 1. Who's sending this request? (We need to translate their authId to an actual userId)
+        const requesterAuthId = req.user.uid;
+        const requesterUser = await getUserByAuthId(requesterAuthId);
+        const requesterId = requesterUser.id;
+
+        const isAllowed = await hasPermission({
+            userId: requesterId, 
+            groupId,
+            permissionType: ADMIN,
+        });
+
+        if (!isAllowed) return res.sendStatus(403);
 
         try {
             await deleteNote(noteId);

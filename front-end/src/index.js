@@ -4,6 +4,7 @@ import firebase from 'firebase/app';
 import 'firebase/analytics';
 import 'firebase/auth';
 import 'firebase/firestore';
+import "firebase/storage";
 import './index.css';
 import { App } from './App';
 import reportWebVitals from './reportWebVitals';
@@ -21,6 +22,11 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
+
+if (process.env.NODE_ENV === 'development') {
+    firebase.auth().useEmulator("http://localhost:9099");
+    firebase.firestore().useEmulator("localhost", 8000);
+}
 
 ReactDOM.render(
   <React.StrictMode>

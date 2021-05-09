@@ -39,8 +39,8 @@ export const InvitationLandingPage = () => {
     const onContinue = () => {
         history.push(
             alreadyHasAccount
-                ? `/sign-in?email=${invitationEmail}`
-                : `/create-account?email=${invitationEmail}&role=player`);
+                ? `/sign-in?email=${encodeURIComponent(invitationEmail)}`
+                : `/create-account?email=${encodeURIComponent(invitationEmail)}&role=player`);
     }
 
     const onTryAgain = () => {
