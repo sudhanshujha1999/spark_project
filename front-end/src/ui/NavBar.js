@@ -1,9 +1,11 @@
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Box from "@material-ui/core/Box";
+import { Icon, Typography } from "./";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
+import SparkLogo from "../img/logo.svg";
 import { useCurrentUser, SignOutButton } from "../auth";
 
 export const NavBar = () => {
@@ -18,7 +20,23 @@ export const NavBar = () => {
             className={classes.appBar}
             p={2}>
             <Toolbar>
-                <Box style={{ flex: 10 }}></Box>
+                <Box className={classes.logo} style={{ flex: 10 }}>
+                    {!currentUser && (
+                        <>
+                            <Icon fontSize='large'>
+                                <img
+                                    style={{
+                                        width: "100%",
+                                        height: "100%",
+                                    }}
+                                    alt='Spark Logo'
+                                    src={SparkLogo}
+                                />
+                            </Icon>
+                            <Typography className={classes.logoName}>SPARK ESPORTS</Typography>
+                        </>
+                    )}
+                </Box>
                 <Box>
                     {!isLoading && currentUser ? (
                         <Box
@@ -33,8 +51,9 @@ export const NavBar = () => {
                             </Box>
                         </Box>
                     ) : (
-       
-                        <Link to="/sign-in"><Button variant='outlined'>Sign In</Button></Link>
+                        <Link to='/sign-in'>
+                            <Button variant='outlined'>Sign In</Button>
+                        </Link>
                     )}{" "}
                 </Box>
             </Toolbar>
@@ -58,6 +77,23 @@ const useStyles = makeStyles((theme) => ({
     },
     menuButton: {
         marginRight: theme.spacing(2),
+    },
+    logo: {
+        cursor: "pointer",
+        width: "fit-content",
+        display: "flex",
+        flexFlow: "row nowrap",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        filter: "grayscale(1)",
+    },
+    logoName: {
+        margin: "4px 0px 0px 18px",
+        letterSpacing: 2,
+        fontSize: "1.3em",
+        fontWeight: 700,
+        fontFamily: "'Josefin Sans'",
+        color: "#fafafa",
     },
     title: {
         flexGrow: 1,

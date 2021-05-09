@@ -236,9 +236,23 @@ export const useStyles = makeStyles((theme) => ({
         },
     },
 
+    featuresContainer: {
+        position: "relative",
+    },
+    bgBehind: {
+        position: "fixed",
+        width: "128vw",
+        height: "120vh",
+        top: 0,
+        left: "-60%",
+        filter: "drop-shadow(2px 4px 6px black)",
+        zIndex: "-10000",
+        opacity: "0.5",
+    },
+
     // CARD STYLES
     cardContainer: {
-        width: "min(700px, 95vw)",
+        width: "min(500px, 95vw)",
         minHeight: 350,
         display: "flex",
         flexFlow: "column",
@@ -256,34 +270,38 @@ export const useStyles = makeStyles((theme) => ({
     },
     cardBorder: {
         position: "absolute",
-        top: "-33%",
-        left: "-14%",
-        width: "124%",
-        height: "150%",
-        zIndex: "-1000",
+        top: "-40%",
+        width: "104%",
+        height: "160%",
+        zIndex: "0",
         filter: "drop-shadow(2px 4px 6px black)",
         transform: "scale(1)",
         transition: "all 0.2s ease-out",
     },
+    cardBorderLeft: {
+        top: "-52%",
+        left: "-40%",
+        height: "170%",
+    },
+    cardBorderRight: {
+        top: "-22%",
+        right: "-40%",
+    },
     cardBg: {
         position: "absolute",
-        top: 0,
-        height: "350px",
+        top: 12,
+        height: "300px",
         objectPosition: "center",
-        // zIndex: "-100",
-        // backgroundImage: `url(${char})`,
-        // backgroundPosition: "center",
-        // backgroundSize: "cover",
         transform: "scale(1)",
         filter: "drop-shadow(3px 5px 10px rgb(0 0 0 / 90%))",
-        zIndex: "-100",
+        zIndex: "1",
         transition: "all 0.2s ease-out",
     },
     cardBgRight: {
-        right: 0,
+        right: "-20%",
     },
     cardBgLeft: {
-        left: 0,
+        left: "-15%",
     },
     infoContainerLeft: {
         marginLeft: "30%",

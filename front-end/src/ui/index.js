@@ -26,6 +26,7 @@ import FormGroup from "@material-ui/core/FormGroup";
 import Grid from "@material-ui/core/Grid";
 import Grow from "@material-ui/core/Grow";
 import IconButton from "@material-ui/core/IconButton";
+import Icon from "@material-ui/core/Icon";
 import InputLabel from "@material-ui/core/InputLabel";
 import MaterialLink from "@material-ui/core/Link";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -80,6 +81,7 @@ export {
     Fab,
     Grid,
     Grow,
+    Icon,
     IconButton,
     InputLabel,
     Link,

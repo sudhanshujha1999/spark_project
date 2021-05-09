@@ -1,10 +1,10 @@
 import { useTeams } from "../teams";
-import { Box, Divider, Typography, Grid } from "../ui";
-import { TeamsList } from "./TeamsList";
-import { LeagueRecords } from "./LeagueRecords";
+import { Box, Typography } from "../ui";
 import { useCurrentUserInfo } from "../users";
 import { useStyles } from "./Styles";
-import { Member } from "./Member";
+import { useEffect, useState } from "react";
+import { OrganizationPage } from "./OrganizationPage";
+import { OrganizationPicklistPage } from "./OrganizationPicklistPage";
 
 export const DashboardPage = () => {
     const classes = useStyles();
@@ -12,59 +12,72 @@ export const DashboardPage = () => {
     const { membershipTypeId = "" } = userInfo || {};
     const isCoach = membershipTypeId === "coach";
     const [teams, isLoadingTeams] = useTeams();
-    const { school } = teams[0] || {};
+    const { school: oraganiszation } = teams[0] || {};
+    const [groupedOraganizations, setGroupedOrganizations] = useState([]);
+    const [selectedOrganization, setSelectedOrganization] = useState(null);
 
-    // Delete team is in when player click on a team then the option is available
-    // const onDeleteTeam = async (teamId) => {
-    //     // eslint-disable-next-line no-restricted-globals
-    //     const userReallyWantsToDelete = confirm(
-    //         "Are you sure you want to delete this team and all its corresponding data? (You cannot undo this)"
-    //     );
-    //     if (teams.length <= 1) {
-    //         alert(
-    //             "That's your last team! You must have at least one team. Please create another before deleting this one"
-    //         );
-    //         return;
-    //     }
-
-    //     if (userReallyWantsToDelete) {
-    //         try {
-    //             await axios.delete(`/api/teams/${teamId}`);
-    //             setTeams(teams.filter((team) => team.id !== teamId));
-    //         } catch (e) {
-    //             console.log(e);
-    //         }
-    //     }
-    // };
-
-    // Edit team is now in the teams folder with name EditTeamInfo
-    // const onEditTeam = async ({ name, id }) => {
-    //     try {
-    //         await axios.put(`/api/team/${id}/update`, { name });
-    //         setTeams(
-    //             teams.map((team) => {
-    //                 if (team.id === id) {
-    //                     return { ...team, name: name };
-    //                 }
-    //                 return team;
-    //             })
-    //         );
-    //         console.log("saved");
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
-
-    // const editTeam = (team) => {
-    //     console.log(team);
-    // };
+    useEffect(() => {
+        if (!isLoadingTeams) {
+            if (teams.length > 0) {
+                let organizationsGroup = [];
+                //  To reduce some time, i think basic for takes less time than the func, but does time matters in JS?
+                for (let i = 0; i < teams.length; i++) {
+                    const { school: organizationForTeam } = teams[i];
+                    // For each team we check them and group them
+                    // This takes index
+                    let arrayIfFoundIndex = null;
+                    // This is flag if array found
+                    let arrayFound = false;
+                    // This finds the org if in the group
+                    organizationsGroup.forEach((org, index) => {
+                        if (org[0].school.id === organizationForTeam.id) {
+                            arrayIfFoundIndex = index;
+                            arrayFound = true;
+                        }
+                    });
+                    // added a boolean value cause it takes 0 as false and if you add if >= 0 it take null as true
+                    if (arrayFound) {
+                        // push to that group
+                        organizationsGroup[arrayIfFoundIndex].push(teams[i]);
+                    } else {
+                        // make a new group
+                        organizationsGroup.push([teams[i]]);
+                    }
+                }
+                // Add to groups
+                setGroupedOrganizations(organizationsGroup);
+                if (organizationsGroup.length === 1) {
+                    setSelectedOrganization(organizationsGroup[0]);
+                }
+            }
+        }
+    }, [teams, isLoadingTeams]);
 
     return (
         <Box style={{ position: "relative", minHeight: "83vh" }}>
             {isLoadingTeams ? (
                 <p>Loading...</p>
+            ) : // Later change to ternary op
+            groupedOraganizations.length > 0 ? (
+                selectedOrganization ? (
+                    <>
+                        <OrganizationPage
+                            teams={selectedOrganization}
+                            isCoach={isCoach}
+                            oraganiszation={selectedOrganization[0].school}
+                        />
+                    </>
+                ) : (
+                    <>
+                        <OrganizationPicklistPage
+                            organizations={groupedOraganizations}
+                            setSelectedOrg={setSelectedOrganization}
+                        />
+                    </>
+                )
             ) : (
-                <>
+              <>
+                <Typography variant='h3'>You have no orgs create one</Typography>
                     {school && <Typography variant='h2' className={classes.orgName}>
                         {school.name}
                     </Typography>}
@@ -84,7 +97,7 @@ export const DashboardPage = () => {
                             <TeamsList school={school} teams={teams} isCoach={isCoach} />
                         </Grid>
                     </Grid>
-                </>
+              </>
             )}
         </Box>
     );

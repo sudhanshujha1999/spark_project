@@ -7,7 +7,7 @@ export const Member = ({ teams }) => {
     return (
         <Box mt={4} pr={3}>
             <Typography className={classes.headingSection} variant='h5'>
-                Teams
+                All Players
             </Typography>
             <Box my={2}>
                 {teams.map((team) => (
