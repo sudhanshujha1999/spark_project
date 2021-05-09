@@ -24,12 +24,13 @@ export const useTeams = () => {
                 }
             }
             setIsLoading(false);
+            console.log(teams);
         };
 
         if (authId) {
             loadPlayers();
         }
-    }, [authId]);
+    }, [authId, setTeams, teams]);
 
     return [teams, isLoading, error, setTeams];
 };

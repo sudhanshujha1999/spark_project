@@ -1,4 +1,5 @@
 export const ADMIN = 'ADMIN';
+export const PLAYER = 'PLAYER';
 
 export const CAN_VIEW_MEMBERS = 'CAN_VIEW_MEMBERS';
 export const CAN_EDIT_MEMBERS = 'CAN_EDIT_MEMBERS';

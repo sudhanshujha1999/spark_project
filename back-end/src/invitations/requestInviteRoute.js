@@ -5,7 +5,7 @@ export const requestInviteRoute = {
     method: "post",
     handler: async (req, res) => {
         const { email, organisation, type, level, refer } = req.body;
-        const text = `Email : ${email} has request the invite.
+        const text = `Email : ${email} has requested an invite.
                     Organization : ${organisation}
                     User: ${type}
                     Organization Level: ${level}

@@ -3,20 +3,25 @@ import { useState, useRef } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { post } from "../network";
 import firebase from "firebase";
-import "firebase/storage";
+import { useSchools } from "../schools";
 import {
     Alert,
     Box,
     Button,
-    Container,
     CircularProgress,
+    Container,
     DeletableListItem,
     Divider,
+    FormControl,
     Grid,
+    InputLabel,
+    MenuItem,
+    Select,
     Slide,
     TextField,
     Typography,
 } from "../ui";
+import { useCurrentUserInfo } from "../users";
 import { defaultImage } from "./defaultGames";
 import { GAMES as games } from "./defaultGames";
 import controller from "../img/controller.png";
@@ -46,6 +51,9 @@ export const TeamInfoForm = () => {
     const [rosters, setRosters] = useState([]);
     const [loading, setLoading] = useState(false);
     const [img, setImg] = useState(null);
+    const { userInfo } = useCurrentUserInfo();
+    const { schools } = useSchools((userInfo || {}).id);
+    const [selectedSchool, setSelectedSchool] = useState(schools[0]);
 
     // FOR DISPLAY PURPOSE
     const [active, setActive] = useState({});
@@ -192,6 +200,27 @@ export const TeamInfoForm = () => {
                             variant='outlined'
                         />
                     </Box>
+                    <FormControl variant='outlined' fullWidth>
+                        <InputLabel
+                            id='-select-filled-label'
+                            style={{
+                                padding: "2px 5px",
+                                backgroundColor: "#222831",
+                            }}>
+                            Organization Type
+                        </InputLabel>
+                        <Select
+                            disableUnderline
+                            MenuProps={{ disableScrollLock: true }}
+                            labelId='select-filled-label'
+                            value={selectedSchool}
+                            onChange={(e) => setSelectedSchool(e.target.value)}
+                        >
+                            {schools.map(school => (
+                                <MenuItem value={school}>{school.name}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                     <Box mb={2}>
                         <TextField
                             value={game}

@@ -3,6 +3,7 @@ import { removePermissionsRoute } from './removePermissionsRoute';
 
 export {
     ADMIN,
+    PLAYER,
     CAN_VIEW_MEMBERS,
     CAN_EDIT_MEMBERS,
     CAN_VIEW_EVENTS,

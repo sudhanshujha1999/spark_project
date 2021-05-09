@@ -1,5 +1,7 @@
 import * as admin from 'firebase-admin';
+import { getAllAncestorGroups } from '../groups';
 import { createMembership } from '../memberships';
+import { addPermission, PLAYER } from "../permissions";
 import { getUserByEmail } from '../users';
 
 export const acceptInvitationByCode = async confirmationCode => {
@@ -39,7 +41,21 @@ export const acceptInvitationByCode = async confirmationCode => {
             data,
         });
 
-        // 5. And mark the invitation as accepted
+        // 5. Add a permission to the user - this will allow them to view group
+        //    info and stuff like that
+        await addPermission({ userId, groupId, permissionType: PLAYER });
+
+        // 6. Additionally, we need to find all the groups that THIS group belongs
+        //    to and mark the player as a player on those groups as well.
+        const ancestorGroups = await getAllAncestorGroups(groupId);
+        
+        await Promise.all(
+            ancestorGroups.map(ancestorGroup => 
+                addPermission({ userId, groupId: ancestorGroup.id, permissionType: PLAYER })
+            )
+        );
+
+        // 6. And mark the invitation as accepted
         await store.collection('invitations')
             .doc(invitationRef.id)
             .update({ isAccepted: true });

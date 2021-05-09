@@ -65,9 +65,9 @@ export const DashboardPage = () => {
                 <p>Loading...</p>
             ) : (
                 <>
-                    <Typography variant='h2' className={classes.orgName}>
-                        {school && (school.name || "")}
-                    </Typography>
+                    {school && <Typography variant='h2' className={classes.orgName}>
+                        {school.name}
+                    </Typography>}
                     <Box mt={2} mb={7}>
                         <Divider />
                     </Box>
