@@ -1,14 +1,11 @@
-import { atom } from 'recoil';
+import { atom } from "recoil";
 
 export const onboardingState = atom({
     persistence_UNSTABLE: {
-        type: 'onboardingState'
+        type: "onboardingState",
     },
-    key: 'onboardingState',
+    key: "onboardingState",
     default: {
         userInfo: {},
-        schoolInfo: {},
-        teams: [],
-        newTeamInfo: {},
     },
 });

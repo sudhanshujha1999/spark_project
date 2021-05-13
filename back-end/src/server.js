@@ -1,7 +1,7 @@
 import "regenerator-runtime/runtime.js";
 import express from "express";
 import path from "path";
-import bodyParser from "body-parser";
+import mongoose from "mongoose";
 import * as firebaseAdmin from "firebase-admin";
 import { addUserToRoute, protectRoute } from "./middleware";
 import { routes } from "./routes";
@@ -27,12 +27,26 @@ if (!FIREBASE_CREDENTIALS) {
     console.log("ERROR: No firebase credentials found");
 } else {
     firebaseAdmin.initializeApp({
-        projectId: 'spark-esport',
+        projectId: "spark-esport",
         credential: firebaseAdmin.credential.cert(FIREBASE_CREDENTIALS),
     });
     const store = firebaseAdmin.firestore();
     store.settings({ ignoreUndefinedProperties: true });
 }
+
+// MONGO DB CONNECT
+const MONGO_URI = `mongodb+srv://Abhishek123:dbappend123@clusterappend.m8taj.mongodb.net/spark?retryWrites=true&w=majority`;
+const connectDatabase = async () => {
+    await mongoose.connect(MONGO_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false,
+    });
+};
+
+connectDatabase()
+    .then(() => console.log("MongoDb Connected..."))
+    .catch((error) => console.log(`Cannot connect mongo Db. Error: ${error.message}`));
 
 const app = express();
 

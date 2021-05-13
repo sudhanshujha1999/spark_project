@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
-import { useCurrentUser } from '../auth';
-import { get } from '../network';
+import { useState, useEffect } from "react";
+import { useCurrentUser } from "../auth";
+import { get } from "../network";
 
 export const useCurrentUserInfo = () => {
     const { user, isLoading: isLoadingUser } = useCurrentUser();
     const [isLoadingInfo, setIsLoadingInfo] = useState(true);
     const [info, setInfo] = useState(null);
-    const [error, setError] = useState('');
+    const [error, setError] = useState("");
 
     useEffect(() => {
         const loadInfo = async () => {
@@ -18,7 +18,7 @@ export const useCurrentUserInfo = () => {
                 setError(e.message);
                 setIsLoadingInfo(false);
             }
-        }
+        };
 
         if (!isLoadingUser && user) {
             loadInfo();
@@ -34,9 +34,7 @@ export const useCurrentUserInfo = () => {
 
     return {
         isLoading: isLoadingUser || isLoadingInfo,
-        userInfo: user && info
-            ? { ...user, ...info }
-            : null,
+        userInfo: user && info ? { ...user, ...info } : null,
         error,
     };
-}
+};

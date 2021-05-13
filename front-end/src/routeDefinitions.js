@@ -4,15 +4,7 @@ import { GoalSettingPage } from "./goal-setting";
 import { InvitationLandingPage } from "./invitations";
 import { TermsAndPrivacy } from "./legal";
 import { MemberDetailPage, ProfilePage } from "./members";
-import {
-    AddPlayers,
-    CreateTeams,
-    NewTeamInfo,
-    OnboardingComplete,
-    PlayerInfo,
-    SchoolInfo,
-    UserInfo,
-} from "./onboarding";
+import { UserInfo, OnboardingComplete } from "./onboarding";
 import { LandingPage } from "./landing-page";
 import { RostersPage } from "./rosters";
 import { SchedulingPage } from "./scheduling";
@@ -70,24 +62,10 @@ export const profileRoute = {
     component: ProfilePage,
 };
 
-export const onboardingAddPlayersRoute = {
-    path: "/onboarding/schools/:schoolId/teams/:teamId/players",
-    component: AddPlayers,
-    isCoachOnboarding: true,
-    hideNav: true,
-};
-
 export const onboardingCompleteRoute = {
     path: "/onboarding/done",
     component: OnboardingComplete,
     isOnboarding: true,
-    hideNav: true,
-};
-
-export const onboardingCreateTeamsRoute = {
-    path: "/onboarding/schools/:schoolId/teams",
-    component: CreateTeams,
-    isCoachOnboarding: true,
     hideNav: true,
 };
 
@@ -98,31 +76,10 @@ export const createAccountRoute = {
     hideNav: true,
 };
 
-export const onboardingNewTeamInfoRoute = {
-    path: "/onboarding/schools/:schoolId/teams/new",
-    component: NewTeamInfo,
-    isCoachOnboarding: true,
-    hideNav: true,
-};
-
-export const onboardingPlayerInfoRoute = {
-    path: "/onboarding/player-info",
-    component: PlayerInfo,
-    isPlayerOnboarding: true,
-    hideNav: true,
-};
-
-export const onboardingSchoolInfoRoute = {
-    path: "/onboarding/schools",
-    component: SchoolInfo,
-    isCoachOnboarding: true,
-    hideNav: true,
-};
-
 export const onboardingUserInfoRoute = {
     path: "/onboarding/user-info",
     component: UserInfo,
-    isCoachOnboarding: true,
+    isOnboarding: true,
     hideNav: true,
 };
 

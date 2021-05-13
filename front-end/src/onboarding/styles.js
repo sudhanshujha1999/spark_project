@@ -99,4 +99,67 @@ export const useStyles = makeStyles((theme) => ({
         transform: "rotate(-20deg)",
         filter: "drop-shadow(0 15px 10px rgba(0,0,0,0.5))",
     },
+
+    // USER INFO
+    infoContainer: {
+        borderTop: "2px solid #eaeaea",
+        paddingTop: 20,
+        marginTop: 10,
+    },
+    profileBox: {
+        height: "250px",
+        width: "90%",
+        margin: "0 auto",
+        display: "flex",
+        flexFlow: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "rgba(0,0,0,0.3)",
+        clipPath: "polygon(0 0, 100% 0%, 100% 80%, 50% 100%, 0 80%)",
+        marginTop: "-20px",
+        "& > span": {
+            textAlign: "center",
+        },
+    },
+    profileWithImageBox: {
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+        transition: "all 0.2s ease-out",
+        position: "relative",
+        opacity: 1,
+        overflow: "visible",
+        "&::before": {
+            content: '""',
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            transform: "translateY(-100%)",
+            zIndex: "-5",
+            opacity: "0.4",
+            clipPath: "polygon(0 0, 100% 0%, 100% 80%, 50% 100%, 0 80%)",
+            transition: `all 0.5s cubic-bezier(0.26, 1, 0.43, 0.93)`,
+            backgroundImage: "linear-gradient(126deg, rgba(9,4,41,1) 0%, rgba(8,6,8,1) 100%)",
+        },
+        "&:hover": {
+            "&::before": {
+                transform: "translateX(0%)",
+            },
+            "& $editBtn": {
+                transform: "scale(1) translate(3%, -80%)",
+                opacity: 1,
+            },
+        },
+    },
+    editBtn: {
+        position: "absolute",
+        top: "50%",
+        "& > span": {
+            textTransform: "capitalize",
+        },
+        transform: "scale(0.7) translate(3%, -40%) ",
+        opacity: 0,
+        transition: `all 0.5s cubic-bezier(0.26, 1, 0.43, 0.93)`,
+    },
 }));
