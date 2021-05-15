@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useRecoilState } from "recoil";
 import { useHistory } from "react-router-dom";
 import {
     Alert,
@@ -9,30 +8,35 @@ import {
     CircularProgress,
     Divider,
     Grid,
-    IconButton,
     TextField,
 } from "../ui";
+import firebase from "firebase";
+import "firebase/storage";
+import { post } from "../network";
 import { EditIcon } from "../icons";
 import { validateLength } from "../util";
-import { onboardingState } from "./onboardingState";
+// import { onboardingState } from "./onboardingState";
 import { useStyles } from "./styles";
+import { useCurrentUserInfo } from "../users";
 
 const validations = [validateLength("fullName", 2), validateLength("gamerName", 2)];
 const TYPES = ["image/jgp", "image/jpeg", "image/png"];
 
 export const UserInfo = () => {
     const classes = useStyles();
-    const [onboardingInfo, setOnboardingInfo] = useRecoilState(onboardingState);
-    const {
-        fullName: initialFullName = "",
-        gamerName: initialGamerName = "",
-        bio: initialBio = "",
-    } = onboardingInfo.userInfo;
-    const [fullName, setFullName] = useState(initialFullName);
-    const [gamerName, setGamerName] = useState(initialGamerName);
+    const { userInfo: user } = useCurrentUserInfo();
+    // We can use this if we want to more steps to this on-boarding
+    // const [onboardingInfo, setOnboardingInfo] = useRecoilState(onboardingState);
+    // const {
+    //     fullName: initialFullName = "",
+    //     gamerName: initialGamerName = "",
+    //     bio: initialBio = "",
+    // } = onboardingInfo.userInfo;
+    const [fullName, setFullName] = useState("");
+    const [gamerName, setGamerName] = useState("");
     const [url, setUrl] = useState("");
     const [img, setImg] = useState("");
-    const [bio, setBio] = useState(initialBio);
+    const [bio, setBio] = useState("");
 
     const history = useHistory();
 
@@ -58,15 +62,43 @@ export const UserInfo = () => {
 
         setIsUpdating(true);
 
+        let userInfo = { full_name: fullName, bio, gamer_name: gamerName };
         if (img) {
-            console.log("UopdateImg and update");
-        } else {
-            console.log("update");
+            // ADD IMAGE GET URL AND UPLOAD
+            const storageRef = firebase
+                .storage()
+                .ref(`/profile-image/${fullName}&name=${img.name}`);
+            storageRef.put(img).on(
+                "state_changed",
+                (snapshot) => {
+                    console.log((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+                },
+                (err) => {
+                    console.log(err);
+                },
+                () =>
+                    storageRef
+                        .getDownloadURL()
+                        .then((url) => {
+                            userInfo.profile_img = url;
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        })
+            );
+            console.log("add url to update object");
         }
-
-        const userInfo = { fullName, bio };
-        setOnboardingInfo({ ...onboardingInfo, userInfo });
-        history.push("/onboarding/schools");
+        try {
+            const {
+                data: { user: newUser },
+            } = await post(`/api/users/${user.uid}/onboarding/complete`, userInfo);
+            // Update info in the DB
+            console.log(newUser);
+            history.push("/onboarding/done");
+        } catch (error) {
+            console.log(error.message);
+        }
+        setIsUpdating(false);
     };
 
     const imgfunction = (e) => {
@@ -159,7 +191,12 @@ export const UserInfo = () => {
             <Box py={2}>
                 <Grid container justify='space-between'>
                     <Grid item xs={12}>
-                        <Button onClick={onFinish} fullWidth color='secondary' variant='contained'>
+                        <Button
+                            onClick={onFinish}
+                            disabled={isUpdating}
+                            fullWidth
+                            color='secondary'
+                            variant='contained'>
                             {isUpdating ? <CircularProgress size='2em' /> : "Finish"}
                         </Button>
                     </Grid>

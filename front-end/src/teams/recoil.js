@@ -2,7 +2,7 @@ import { atom, selector } from "recoil";
 
 const teamsState = atom({
     key: "teamsState",
-    default: [],
+    default: null,
 });
 
 const teamsInfoState = atom({

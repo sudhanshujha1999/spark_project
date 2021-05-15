@@ -1,40 +1,45 @@
 import { useState, useEffect } from "react";
 import { useCurrentUser } from "../auth";
 import { get } from "../network";
+import { useRecoilState } from "recoil";
+import { userState } from "./userState";
 
 export const useCurrentUserInfo = () => {
     const { user, isLoading: isLoadingUser } = useCurrentUser();
     const [isLoadingInfo, setIsLoadingInfo] = useState(true);
-    const [info, setInfo] = useState(null);
+    const [userInfoFromDb, setUserInfoFromDb] = useRecoilState(userState);
     const [error, setError] = useState("");
-
     useEffect(() => {
         const loadInfo = async () => {
             try {
-                const response = await get(`/api/users/${user.uid}`);
-                setInfo(response.data);
-                setIsLoadingInfo(false);
+                console.log("User api called");
+                const { data } = await get(`/api/users/${user.uid}`);
+                setUserInfoFromDb(data);
             } catch (e) {
                 setError(e.message);
-                setIsLoadingInfo(false);
             }
         };
 
         if (!isLoadingUser && user) {
-            loadInfo();
+            // Stop making extra call when called each time
+            // if there is no data in the userInfoFromDb
+            if (!userInfoFromDb) {
+                loadInfo();
+            }
+            setIsLoadingInfo(false);
         }
-    }, [isLoadingUser, user]);
+    }, [isLoadingUser, user, setUserInfoFromDb, userInfoFromDb]);
 
     useEffect(() => {
         if (!isLoadingUser && !user) {
-            setInfo(null);
+            setUserInfoFromDb(null);
             setIsLoadingInfo(false);
         }
-    }, [isLoadingUser, user]);
+    }, [isLoadingUser, user, setUserInfoFromDb]);
 
     return {
         isLoading: isLoadingUser || isLoadingInfo,
-        userInfo: user && info ? { ...user, ...info } : null,
+        userInfo: user && userInfoFromDb ? { ...user, ...userInfoFromDb } : null,
         error,
     };
 };

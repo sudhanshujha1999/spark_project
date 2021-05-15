@@ -59,7 +59,7 @@ export const createUserRoute = {
                 // so, for current flow it will be false
                 // if there is, just add the corresponding auth id to their user object in the database
                 await addAuthIdToUser({
-                    userId: user.id,
+                    userId: user._id,
                     authId,
                     membershipTypeId,
                     ...confirmationObject,

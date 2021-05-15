@@ -1,18 +1,10 @@
-import * as admin from "firebase-admin";
-
-export const updateUser = async (userId, { fullName, bio, url }) => {
-    const userRef = admin.firestore().collection("users").doc(userId);
-    let updateObject = {};
-    if (fullName) {
-        updateObject.fullName = fullName;
+import { Users } from "../models";
+export const updateUser = async (userId, params) => {
+    let query = {};
+    for (var key in params) {
+        //could also be req.query and req.params
+        params[key] !== "" ? (query[key] = params[key]) : null;
     }
-    if (bio) {
-        updateObject.bio = bio;
-    }
-    if (url) {
-        updateObject.url = url;
-    }
-    await userRef.set(updateObject, { merge: true });
-    const updated = await userRef.get();
+    const updated = await Users.findByIdAndUpdate(userId, { $set: query });
     return updated;
 };

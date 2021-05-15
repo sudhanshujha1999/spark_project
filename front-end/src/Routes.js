@@ -1,4 +1,4 @@
-import { Switch } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { PublicRoute, OnboardingRoute, PrivateRoute } from "./routing";
 import { Box, NavBar, SideNav } from "./ui";
 import * as routeDefinitions from "./routeDefinitions";
@@ -12,7 +12,7 @@ export const Routes = () => {
         <Switch>
             {routes.map((route, i) => {
                 const RouteType = route.isPublic
-                    ? PublicRoute
+                    ? Route
                     : route.isOnboarding
                     ? OnboardingRoute
                     : PrivateRoute;

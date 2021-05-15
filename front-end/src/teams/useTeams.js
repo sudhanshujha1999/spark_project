@@ -14,7 +14,7 @@ export const useTeams = () => {
 
     useEffect(() => {
         const loadPlayers = async () => {
-            if (teams.length === 0) {
+            if (!teams) {
                 setIsLoading(true);
                 try {
                     const response = await get(`/api/users/${authId}/teams`);

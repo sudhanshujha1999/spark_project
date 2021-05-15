@@ -1,17 +1,10 @@
-import { useState } from 'react';
-import { Redirect } from 'react-router-dom';
-import firebase from 'firebase/app';
-import { useQueryParams } from '../routing';
-import {
-    Alert,
-    Box,
-    Button,
-    CenteredContainer,
-    TextField,
-    Typography,
-} from '../ui';
-import { signIn } from './signIn';
-import { useCurrentUserInfo } from '../users';
+import { useState } from "react";
+import { Redirect, useHistory } from "react-router-dom";
+import firebase from "firebase/app";
+import { useQueryParams } from "../routing";
+import { Alert, Box, Button, CenteredContainer, TextField, Typography } from "../ui";
+import { signIn } from "./signIn";
+import { useCurrentUserInfo } from "../users";
 
 export const SignInPage = () => {
     const { dest, email: emailFromInvitation } = useQueryParams();
@@ -19,6 +12,7 @@ export const SignInPage = () => {
     const [password, setPassword] = useState("");
     const [networkError, setNetworkError] = useState("");
     const { userInfo, isLoading } = useCurrentUserInfo();
+    const history = useHistory();
 
     const onSignIn = async () => {
         setNetworkError("");

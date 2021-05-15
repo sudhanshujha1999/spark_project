@@ -16,8 +16,7 @@ const shouldRedirectAfterAuth = (pathname) =>
     });
 
 export const PrivateRoute = (props) => {
-    console.log("private");
-    const { isLoading, userInfo } = useCurrentUserInfo();
+    const { isLoading, userInfo } = useCurrentUserInfo(true);
     const location = useLocation();
     const { pathname } = location;
     return isLoading ? (
