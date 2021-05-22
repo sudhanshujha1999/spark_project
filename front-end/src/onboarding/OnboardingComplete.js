@@ -1,15 +1,11 @@
 import { useHistory } from "react-router-dom";
 import { CheckCircleIcon } from "../icons";
 import { Box, Button, CenteredContainer, Typography } from "../ui";
-import { useRecoilState } from "recoil";
-import { userState } from "../users/userState";
 
 export const OnboardingComplete = () => {
     const history = useHistory();
-    const [user, setUser] = useRecoilState(userState);
     const onGoToDashboard = () => {
-        setUser({ ...user, isOnboarded: true });
-        history.push("/");
+        history.push("/dashboard");
     };
 
     return (

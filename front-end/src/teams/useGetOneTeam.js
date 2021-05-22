@@ -1,8 +1,8 @@
-import { useTeams } from "./useTeams";
+import { useOrganizations } from "./useOrganizations";
 import { useState, useEffect } from "react";
 
 export const useGetOneTeam = (id) => {
-    const [teams] = useTeams();
+    const [teams] = useOrganizations();
     const [team, setTeam] = useState();
     useEffect(() => {
         if (teams) {

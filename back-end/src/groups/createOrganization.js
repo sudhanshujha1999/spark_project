@@ -21,26 +21,27 @@ export const createOrganization = async ({
     }
 
     const organization_code = uuidv4().split("-")[0].toUpperCase();
-    const organization_type = ORGANIZATION;
-    // const admin = [{
-    //     id: creatorId,
-    //     name: userDetails.name,
-    //     email: userDetails.email,
-    //     profile_img: userDetails.profile_img,
-    // }]
+    const admin = [
+        {
+            id: creatorId,
+            name: userDetails.full_name,
+            email: userDetails.email,
+            profile_img: userDetails.profile_img,
+            admin_type: "ADMIN",
+        },
+    ];
     const newOrganization = new Groups({
-        name,
+        name: name,
         image_url,
+        group_type: ORGANIZATION,
         created_by: creatorId,
         location,
-        organization_level,
-        organization_code,
-        organization_type,
-        // admins,
+        organization_level: organization_level,
+        organization_code: organization_code,
+        admins: admin,
     });
     const parent_groups = [newOrganization._id];
     await newOrganization.save();
-    newOrganization.updateOne({ $set: { parent_groups: parent_groups } });
-    await newOrganization.save();
+    await newOrganization.updateOne({ $set: { parent_groups: parent_groups } });
     return newOrganization._id;
 };

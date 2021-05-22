@@ -1,5 +1,5 @@
 import { CreateAccountPage, EmailVerificationResult, PleaseVerifyEmail, SignInPage } from "./auth";
-import { DashboardPage } from "./dashboard";
+import { DashboardPage, CreateOrganizationPage } from "./dashboard";
 import { GoalSettingPage } from "./goal-setting";
 import { InvitationLandingPage } from "./invitations";
 import { TermsAndPrivacy } from "./legal";
@@ -12,7 +12,7 @@ import { TeamInfoForm, EditTeamInfo } from "./teams";
 import { WarRoom, Session } from "./war-room";
 
 export const createTeamRoute = {
-    path: "/new-team",
+    path: "/new-team/:id",
     component: TeamInfoForm,
 };
 
@@ -67,6 +67,11 @@ export const onboardingCompleteRoute = {
     component: OnboardingComplete,
     isOnboarding: true,
     hideNav: true,
+};
+
+export const createOrganization = {
+    path: "/dashboard/create-organization",
+    component: CreateOrganizationPage,
 };
 
 export const createAccountRoute = {

@@ -15,6 +15,8 @@ import "firebase/storage";
 import { post } from "../network";
 import { EditIcon } from "../icons";
 import { validateLength } from "../util";
+import { useRecoilState } from "recoil";
+import { userState } from "../users/userState";
 // import { onboardingState } from "./onboardingState";
 import { useStyles } from "./styles";
 import { useCurrentUserInfo } from "../users";
@@ -24,6 +26,7 @@ const TYPES = ["image/jgp", "image/jpeg", "image/png"];
 
 export const UserInfo = () => {
     const classes = useStyles();
+    const [userInState, setUserInState] = useRecoilState(userState);
     const { userInfo: user } = useCurrentUserInfo();
     // We can use this if we want to more steps to this on-boarding
     // const [onboardingInfo, setOnboardingInfo] = useRecoilState(onboardingState);
@@ -94,6 +97,7 @@ export const UserInfo = () => {
             } = await post(`/api/users/${user.uid}/onboarding/complete`, userInfo);
             // Update info in the DB
             console.log(newUser);
+            setUserInState({ ...userInState, ...userInfo, isOnboarded: true });
             history.push("/onboarding/done");
         } catch (error) {
             console.log(error.message);

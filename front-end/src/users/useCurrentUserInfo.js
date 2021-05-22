@@ -9,6 +9,7 @@ export const useCurrentUserInfo = () => {
     const [isLoadingInfo, setIsLoadingInfo] = useState(true);
     const [userInfoFromDb, setUserInfoFromDb] = useRecoilState(userState);
     const [error, setError] = useState("");
+
     useEffect(() => {
         const loadInfo = async () => {
             try {
@@ -18,6 +19,7 @@ export const useCurrentUserInfo = () => {
             } catch (e) {
                 setError(e.message);
             }
+            setIsLoadingInfo(false);
         };
 
         if (!isLoadingUser && user) {
@@ -25,8 +27,9 @@ export const useCurrentUserInfo = () => {
             // if there is no data in the userInfoFromDb
             if (!userInfoFromDb) {
                 loadInfo();
+            } else {
+                setIsLoadingInfo(false);
             }
-            setIsLoadingInfo(false);
         }
     }, [isLoadingUser, user, setUserInfoFromDb, userInfoFromDb]);
 

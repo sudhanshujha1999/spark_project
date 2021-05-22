@@ -15,7 +15,7 @@ export const TeamsListItem = ({ team, onClickDelete, onClickEdit, isCoach }) => 
         if (edit) {
             console.log("saveFirst");
         } else {
-            history.push(`/teams/${team.id}`);
+            history.push(`/teams/${team._id}`);
         }
     };
 

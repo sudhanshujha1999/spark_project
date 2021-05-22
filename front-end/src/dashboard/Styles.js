@@ -370,4 +370,9 @@ export const useStyles = makeStyles((theme) => ({
         fontSize: "0.8em",
         color: "#999",
     },
+    loadScreenFull: {
+        display: "grid",
+        placeItems: "center",
+        height: "75vh",
+    },
 }));
