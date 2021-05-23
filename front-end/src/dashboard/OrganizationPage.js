@@ -3,13 +3,32 @@ import { TeamsList } from "./TeamsList";
 import { LeagueRecords } from "./LeagueRecords";
 import { useStyles } from "./Styles";
 import { Member } from "./Member";
+import { useHistory } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-export const OrganizationPage = ({ isCoach, teams, oraganiszation }) => {
+export const OrganizationPage = ({ user, teams, organization }) => {
     const classes = useStyles();
+    const [isCoach, setIsCoach] = useState(false);
+    const history = useHistory();
+    // check if the organization has any teams and the user is the creator then redirect to create teams page
+    // otherwise we can show you are not in any team please contact your coach
+    console.log(isCoach);
+    useEffect(() => {
+        if (organization && teams.length === 0) {
+            if (organization.created_by === user._id) {
+                history.push(`new-team/${organization._id}`);
+            }
+            if (organization.admins.filter((admin) => admin.id === user._id).lenght === 1) {
+                setIsCoach(true);
+            }
+        }
+        // eslint-disable-next-line
+    }, [organization, user._id]);
+
     return (
         <Box>
             <Typography variant='h2' className={classes.orgName}>
-                {oraganiszation && (oraganiszation.name || "")}
+                {organization && (organization.name || "")}
             </Typography>
             <Box mt={2} mb={7}>
                 <Divider />
@@ -24,7 +43,7 @@ export const OrganizationPage = ({ isCoach, teams, oraganiszation }) => {
                     </Grid>
                 </Grid>
                 <Grid item xs={12} sm={7}>
-                    <TeamsList school={oraganiszation} teams={teams} isCoach={isCoach} />
+                    <TeamsList school={organization} teams={teams} isCoach={isCoach} />
                 </Grid>
             </Grid>
         </Box>

@@ -13,21 +13,22 @@ export const useTeam = (teamId) => {
         const loadTeam = async () => {
             try {
                 if (teamId) {
-                    const currentTeamInfo = allTeamsInfo.filter((team) => team.id === teamId);
+                    const currentTeamInfo = allTeamsInfo.filter((team) => team._id === teamId);
                     if (currentTeamInfo.length > 0) {
                         setTeam(currentTeamInfo[0]);
                         console.log("found");
                     } else {
-                        const response = await get(`/api/teams/${teamId}`);
-                        setTeam(response.data);
+                        const { data } = await get(`/api/teams/${teamId}`);
+                        setTeam(data.team);
                         console.log("call");
                         console.log(teamId);
-                        setAllTeamsInfo([...allTeamsInfo, response.data]);
+                        setAllTeamsInfo([...allTeamsInfo, data.team]);
                     }
                 } else {
                     setTeam({});
                 }
             } catch (e) {
+                console.log(e.message);
                 console.log("Error!");
             }
             setIsLoading(false);

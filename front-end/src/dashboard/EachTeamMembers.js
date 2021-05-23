@@ -1,18 +1,9 @@
-import { useTeam } from "../teams/useTeam";
 import { useState } from "react";
-import {
-    Accordion,
-    AccordionSummary,
-    AccordionDetails,
-    Box,
-    Typography,
-    CircularProgress,
-} from "../ui";
+import { Accordion, AccordionSummary, AccordionDetails, Box, Typography } from "../ui";
 import { ExpandMoreIcon } from "../icons";
 import { useStyles } from "./Styles";
 
 export const EachTeamMembers = ({ team }) => {
-    const { team: teamInfo, isLoading } = useTeam(team.id);
     const classes = useStyles();
     const [expanded, setExpanded] = useState(false);
 
@@ -31,48 +22,43 @@ export const EachTeamMembers = ({ team }) => {
                 <Typography className={classes.headingAccordian}>{team.name}</Typography>
             </AccordionSummary>
             <AccordionDetails>
-                {isLoading ? (
-                    <CircularProgress color='secondary' />
-                ) : (
-                    <Box
-                        style={{
-                            width: "100%",
-                        }}>
-                        {teamInfo.coaches && (
+                <Box
+                    style={{
+                        width: "100%",
+                    }}>
+                    {team.admins && (
+                        <Box className={`${classes.flexColumn} ${classes.coaches}`}>
+                            <Typography variant='h6' color='primary' gutterBottom>
+                                Coach
+                            </Typography>
+                            {team.admins.map((coach) => (
+                                <Typography>{coach.name}</Typography>
+                            ))}
+                        </Box>
+                    )}
+                    {team.players && (
+                        <>
                             <Box className={`${classes.flexColumn} ${classes.coaches}`}>
-                                <Typography variant='h6' color='primary' gutterBottom>
-                                    Coach
+                                <Typography gutterBottom color='primary' variant='h6'>
+                                    Players
                                 </Typography>
-                                {teamInfo.coaches.map((coach) => (
-                                    <Typography>{coach.email}</Typography>
-                                ))}
-                            </Box>
-                        )}
-                        {teamInfo.rosters && (
-                            <>
-                                <Box className={`${classes.flexColumn} ${classes.coaches}`}>
-                                    <Typography gutterBottom color='primary' variant='h6'>
-                                        Players
+                                {team.players.length > 0 ? (
+                                    team.players.map((player) => (
+                                        <>
+                                            <Typography gutterBottom>
+                                                {player.name}&nbsp;
+                                            </Typography>
+                                        </>
+                                    ))
+                                ) : (
+                                    <Typography variant='body2' gutterBottom>
+                                        This team has no players
                                     </Typography>
-                                    {teamInfo.rosters.map((roster) => {
-                                        return roster.players.map((player) => (
-                                            <>
-                                                <Typography gutterBottom>
-                                                    {player.email}&nbsp;
-                                                    <Typography
-                                                        component='span'
-                                                        className={classes.rosterName}>
-                                                        {`(${roster.name})`}
-                                                    </Typography>
-                                                </Typography>
-                                            </>
-                                        ));
-                                    })}
-                                </Box>
-                            </>
-                        )}
-                    </Box>
-                )}
+                                )}
+                            </Box>
+                        </>
+                    )}
+                </Box>
             </AccordionDetails>
         </Accordion>
     );

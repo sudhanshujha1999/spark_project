@@ -7,9 +7,8 @@ import banner from "../img/default-image.jpg";
 export const TeamItemCard = ({ team, isCoach, index, editTeam = () => {} }) => {
     const classes = useStyles();
     const history = useHistory();
-
     const handleClick = () => {
-        history.push(`/teams/${team.id}`);
+        history.push(`/teams/${team._id}`);
     };
     return (
         <Grid item xs={12} sm={6} lg={4} key={team.id}>
@@ -20,7 +19,9 @@ export const TeamItemCard = ({ team, isCoach, index, editTeam = () => {} }) => {
                     <Box
                         className={classes.teamImg}
                         style={{
-                            backgroundImage: team.url ? `url(${team.url})` : `url(${banner})`,
+                            backgroundImage: team.image_url
+                                ? `url(${team.image_url})`
+                                : `url(${banner})`,
                         }}
                     />
                     <Typography className={classes.teamName}>

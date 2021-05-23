@@ -1,11 +1,9 @@
-import { createSchoolRoute } from './createSchoolRoute';
+import { createOrganizationRoute } from "./createOrganizationRoute";
 
-export const routes = [
-    createSchoolRoute,
-];
+export const routes = [createOrganizationRoute];
 
-export { createSchool } from './createSchool';
-export { getSchoolForGroup } from './getSchoolForGroup';
-export { getSchoolsForUser } from './getSchoolsForUser';
-export { isCoachForSchool } from './isCoachForSchool';
-export { addMembersToSchool } from './addMembersToSchool';
+export { createOrganization } from "./createSchool";
+export { getSchoolForGroup } from "./getSchoolForGroup";
+export { getSchoolsForUser } from "./getSchoolsForUser";
+export { isCoachForSchool } from "./isCoachForSchool";
+export { addMembersToSchool } from "./addMembersToSchool";

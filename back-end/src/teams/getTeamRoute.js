@@ -1,16 +1,39 @@
-import { getCoachesForGroup } from '../coaches';
-import { getRostersForTeam } from '../rosters';
-import { getById } from '../util';
+import { getRostersForTeam } from "../rosters";
+import { Groups, TEAM } from "../models";
 
 export const getTeamRoute = {
-    path: '/teams/:teamId',
-    method: 'get',
+    path: "/teams/:teamId",
+    method: "get",
     handler: async (req, res) => {
         const { teamId } = req.params;
-        const team = await getById('groups', teamId);
+        try {
+            const team = await Groups.findOne({
+                parent_groups: teamId,
+                group_type: TEAM,
+            }).select("-parent_groups");
+            // Check if team is there
+            if (!team) {
+                return res.status(404).json({
+                    success: false,
+                    team: [],
+                    message: "No team found",
+                });
+            }
 
-        if (!team) {
-            return res.sendStatus(404);
+            // Get roster for a team
+            const roster = await getRostersForTeam(teamId);
+            // make a object that has all the roster in a team object
+            const teamWithRosters = { ...team.toObject(), rosters: roster };
+            return res.status(200).json({
+                team: teamWithRosters,
+            });
+        } catch (error) {
+            console.log(error.message);
+            return res.status(500).json({
+                team: [],
+                message: error.message,
+                success: false,
+            });
         }
 
         const rosters = await getRostersForTeam(teamId);
@@ -22,4 +45,4 @@ export const getTeamRoute = {
             rosters,
         });
     },
-}
+};

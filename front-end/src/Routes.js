@@ -1,10 +1,5 @@
 import { Switch, Route } from "react-router-dom";
-import {
-    CoachOnboardingRoute,
-    OnboardingRoute,
-    PlayerOnboardingRoute,
-    PrivateRoute,
-} from "./routing";
+import { PublicRoute, OnboardingRoute, PrivateRoute } from "./routing";
 import { Box, NavBar, SideNav } from "./ui";
 import * as routeDefinitions from "./routeDefinitions";
 import { useCurrentUserInfo } from "./users";
@@ -13,16 +8,11 @@ const routes = Object.values(routeDefinitions);
 
 export const Routes = () => {
     const { userInfo } = useCurrentUserInfo();
-
     return (
         <Switch>
             {routes.map((route, i) => {
                 const RouteType = route.isPublic
                     ? Route
-                    : route.isCoachOnboarding
-                    ? CoachOnboardingRoute
-                    : route.isPlayerOnboarding
-                    ? PlayerOnboardingRoute
                     : route.isOnboarding
                     ? OnboardingRoute
                     : PrivateRoute;

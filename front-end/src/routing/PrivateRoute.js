@@ -19,23 +19,12 @@ export const PrivateRoute = (props) => {
     const { isLoading, userInfo } = useCurrentUserInfo();
     const location = useLocation();
     const { pathname } = location;
-
     return isLoading ? (
         <p>Loading...</p>
-    ) : userInfo ? (
-        userInfo.isOnboarded ? (
-            <Route {...props} />
-        ) : (
-            <Redirect
-                to={
-                    userInfo.membershipTypeId === "coach"
-                        ? `/onboarding/user-info`
-                        : `/onboarding/player-info`
-                }
-            />
-        )
+    ) : userInfo && userInfo.isOnboarded ? (
+        <Route {...props} />
     ) : (
-        <Redirect to="/" />
+        <Redirect to={`/onboarding/user-info`} />
     );
     // : shouldRedirectAfterAuth(pathname)
     //     ? <Redirect to={`/sign-in?dest=${encodeURI(pathname)}`} />

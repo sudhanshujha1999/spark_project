@@ -5,23 +5,23 @@ import { GroupAddIcon, ClearIcon } from "../icons";
 // import { EditableTextField } from "../ui";
 import { useStyles } from "./styles";
 import { post } from "../network";
-import { useTeam, useTeams } from "../teams";
+import { useTeam, useOrganizations } from "../teams";
 import { Box, Button, Card, CircularProgress, Divider, Fab, Typography } from "../ui";
 import { AddRosterDialog } from "./AddRosterDialog";
 import { useCurrentUserInfo } from "../users";
+import { useIsCoach } from "../users/useIsCoach";
 import { DisplayRosterItem } from "./DisplayRosterItem";
 
 export const RostersPage = () => {
     const classes = useStyles();
     const history = useHistory();
     const { teamId } = useParams();
-    const [teams] = useTeams();
+    const [teams] = useOrganizations();
     const { isLoading: isLoadingTeam, team } = useTeam(teamId);
-    // console.log(team);
     const { userInfo } = useCurrentUserInfo();
-    const { id: currentUserId, membershipTypeId = "" } = userInfo || {};
-    const isCoach = membershipTypeId === "coach";
-    const { name: teamName = "", coaches = [], rosters: initialRosters = [] } = team;
+    const isCoach = useIsCoach(teamId);
+    const { _id: currentUserId } = userInfo || {};
+    const { name: teamName = "", admins = [], rosters: initialRosters = [] } = team;
     const [rosters, setRosters] = useState(initialRosters);
     const [newPlayerEmails, setNewPlayerEmails] = useState({});
     const [showAddRosterDialog, setShowAddRosterDialog] = useState(false);
@@ -124,7 +124,7 @@ export const RostersPage = () => {
             {/* Might have some elements in this component */}
             <Box
                 style={{
-                    backgroundImage: `url(${team.url})`,
+                    backgroundImage: `url(${team.image_url})`,
                 }}
                 className={classes.teamBanner}
             />
@@ -137,7 +137,7 @@ export const RostersPage = () => {
                 }}>
                 <Typography variant='h2'>{teamName}</Typography>
                 <h1>Coaches</h1>
-                {coaches.map(({ fullName: coachName }) => (
+                {admins.map(({ name: coachName }) => (
                     <Box mb={2}>
                         <Card>
                             <Box p={2}>
@@ -183,9 +183,13 @@ export const RostersPage = () => {
                         </Fab>
                     </>
                 )}
+                {/* {false && */}
                 {rosters &&
                     rosters.map(
-                        ({ id: rosterId, name: rosterName, players, invitations }, rosterIndex) => {
+                        (
+                            { _id: rosterId, name: rosterName, players, invitations = [] },
+                            rosterIndex
+                        ) => {
                             const newPlayerEmailsForRoster = newPlayerEmails[rosterId] || [];
                             return (
                                 <>

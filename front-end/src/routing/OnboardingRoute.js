@@ -5,14 +5,21 @@ import { useQueryParams } from "./useQueryParams";
 export const OnboardingRoute = (props) => {
     const { isLoading, userInfo } = useCurrentUserInfo();
     const { admin } = useQueryParams();
+    if (admin === "true") {
+        return <Route {...props} />;
+    }
 
-    return isLoading ? (
-        <p>Loading...</p>
-    ) : !userInfo ? (
-        <Redirect to='/sign-in' />
-    ) : userInfo.isOnboarded || admin !== "true" ? (
-        <Redirect to='/' />
-    ) : (
-        <Route {...props} />
-    );
+    if (isLoading) {
+        return <p>Loading...</p>;
+    }
+
+    if (!userInfo) {
+        return <Redirect to='/sign-in' />;
+    }
+
+    if (userInfo.isOnboarded) {
+        return <Redirect to='/dashboard' />;
+    }
+
+    return <Route {...props} />;
 };

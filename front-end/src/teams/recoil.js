@@ -1,8 +1,8 @@
 import { atom, selector } from "recoil";
 
-const teamsState = atom({
-    key: "teamsState",
-    default: [],
+export const organizationsState = atom({
+    key: "organizationsState",
+    default: null,
 });
 
 const teamsInfoState = atom({
@@ -11,19 +11,19 @@ const teamsInfoState = atom({
 });
 
 // GET TEAM
-export const getTeamState = selector({
-    key: "getTeamState",
+export const getOrganizationsState = selector({
+    key: "getOrganizationsState",
     get: ({ get }) => {
-        const state = get(teamsState);
+        const state = get(organizationsState);
         return state;
     },
 });
 
 // SET TEAM
-export const setTeamState = selector({
-    key: "setTeamState",
+export const setOrganizationsState = selector({
+    key: "setOrganizationsState",
     set: ({ set }, newTeamValue) => {
-        set(teamsState, newTeamValue);
+        set(organizationsState, newTeamValue);
     },
 });
 

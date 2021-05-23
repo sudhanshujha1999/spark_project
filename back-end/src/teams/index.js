@@ -1,16 +1,16 @@
 import { createTeamRoute } from "./createTeamRoute";
 import { deleteTeamRoute } from "./deleteTeamRoute";
 import { getTeamRoute } from "./getTeamRoute";
-import { getTeamsForUserRoute } from "./getTeamsForUserRoute";
+import { getAllGroupsForUser } from "./getAllGroupsForUser";
 import { editTeamRoute } from "./editTeamRoute";
 import { testRoute } from "./testRoute";
 export const routes = [
-   createTeamRoute,
-   deleteTeamRoute,
-   getTeamRoute,
-   getTeamsForUserRoute,
-   editTeamRoute,
-   testRoute,
+    createTeamRoute,
+    deleteTeamRoute,
+    getTeamRoute,
+    getAllGroupsForUser,
+    editTeamRoute,
+    testRoute,
 ];
 
 export { createTeam } from "./createTeam";

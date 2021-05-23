@@ -1,5 +1,5 @@
 import { Container, Grid, Button, Box, CircularProgress, Slide, Fade } from "../ui";
-import { useTeams } from "../teams";
+import { useOrganizations } from "../teams";
 import { useCurrentUserInfo } from "../users";
 import { PreviousSessions } from "./PreviousSessions";
 import { useStyles } from "./styles";
@@ -10,7 +10,7 @@ export const WarRoom = () => {
     const { userInfo, isLoading } = useCurrentUserInfo();
     const { membershipTypeId = "" } = userInfo || {};
     const isCoach = membershipTypeId === "coach";
-    const [teams, isLoadingTeams] = useTeams();
+    const [teams, isLoadingTeams] = useOrganizations();
     const [addSession, setAddSession] = useState(false);
 
     const classes = useStyles();

@@ -1,9 +1,9 @@
 import { useStyles } from "./styles";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { post } from "../network";
 import firebase from "firebase";
-import { useSchools } from "../schools";
+import { useOrganizations } from "../teams/useOrganizations";
 import {
     Alert,
     Box,
@@ -12,11 +12,7 @@ import {
     Container,
     DeletableListItem,
     Divider,
-    FormControl,
     Grid,
-    InputLabel,
-    MenuItem,
-    Select,
     Slide,
     TextField,
     Typography,
@@ -52,8 +48,7 @@ export const TeamInfoForm = () => {
     const [loading, setLoading] = useState(false);
     const [img, setImg] = useState(null);
     const { userInfo } = useCurrentUserInfo();
-    const { schools } = useSchools((userInfo || {}).id);
-    const [selectedSchool, setSelectedSchool] = useState(schools[0]);
+    const [update, setUpadate] = useState(false);
 
     // FOR DISPLAY PURPOSE
     const [active, setActive] = useState({});
@@ -62,8 +57,23 @@ export const TeamInfoForm = () => {
     const [validationErrors, setValidationErrors] = useState([]);
     const classes = useStyles();
 
+    const [organizations] = useOrganizations(update);
     const history = useHistory();
-    const { schoolId } = useParams();
+    const { id: organizationId } = useParams();
+
+    // check if the id is same as organization as in the db
+    useEffect(() => {
+        console.log(organizations);
+        if (
+            organizations &&
+            organizations.filter((organization) => organization._id === organizationId).length > 0
+        ) {
+            console.log(true);
+        }
+        // make an else condition that set a flag true to show
+        // there are no organization same to this id select menu and then redirect to this page
+        // and we also need to check permissions here
+    }, [organizations, organizationId]);
 
     const getValidationErrors = () => {
         const fields = { name, game, rosters };
@@ -73,7 +83,7 @@ export const TeamInfoForm = () => {
         return errors;
     };
 
-    const onNext = async () => {
+    const onFinish = async () => {
         const validationErrors = getValidationErrors();
         setValidationErrors(validationErrors);
         if (validationErrors.length > 0) return;
@@ -81,7 +91,9 @@ export const TeamInfoForm = () => {
         setLoading(true);
         if (img) {
             // THEN UPLOAD
-            const storageRef = firebase.storage().ref(`/teamImage/${schoolId}+${name}+${img.name}`);
+            const storageRef = firebase
+                .storage()
+                .ref(`/teamImage/${organizationId}+${name}+${img.name}`);
             storageRef.put(img).on(
                 "state_changed",
                 (snapshot) => {
@@ -97,7 +109,7 @@ export const TeamInfoForm = () => {
                             const newTeamInfo = {
                                 name,
                                 game,
-                                schoolId,
+                                organizationId,
                                 rosters,
                                 url,
                             };
@@ -114,14 +126,19 @@ export const TeamInfoForm = () => {
             const newTeamInfo = {
                 name,
                 game,
-                schoolId,
+                organizationId,
                 rosters,
                 url: Object.keys(active).length !== 0 ? active.img : defaultImage,
             };
             try {
-                const response = await post("/api/teams", newTeamInfo);
-                const newTeamId = response.data;
-                history.push(`/teams/${newTeamId}`);
+                await post("/api/teams", newTeamInfo);
+                console.log("saved");
+                setUpadate(true);
+                // FLOW
+                // make flow after this step
+                // const newTeamId = response.data;
+                // history.push(`/teams/${newTeamId}`);
+                setLoading(false);
             } catch (error) {
                 setLoading(false);
                 console.log(error);
@@ -141,18 +158,22 @@ export const TeamInfoForm = () => {
         let selectedFile = e.target.files[0];
         if (selectedFile && TYPES.includes(selectedFile.type)) {
             setShow(false);
-            setImg(selectedFile);
-            previewRef.current = URL.createObjectURL(selectedFile);
-            setTimeout(() => setShow(true), 500);
+            setTimeout(() => {
+                setImg(selectedFile);
+                previewRef.current = URL.createObjectURL(selectedFile);
+                setShow(true);
+            }, 500);
         }
     };
 
     const onSelectGame = (game) => {
         setShow(false);
         setImg(null);
-        setTimeout(() => setShow(true), 500);
         setGame(game.name);
-        setActive(game);
+        setTimeout(() => {
+            setActive(game);
+            setShow(true);
+        }, 500);
     };
 
     return (
@@ -200,27 +221,6 @@ export const TeamInfoForm = () => {
                             variant='outlined'
                         />
                     </Box>
-                    <FormControl variant='outlined' fullWidth>
-                        <InputLabel
-                            id='-select-filled-label'
-                            style={{
-                                padding: "2px 5px",
-                                backgroundColor: "#222831",
-                            }}>
-                            Organization Type
-                        </InputLabel>
-                        <Select
-                            disableUnderline
-                            MenuProps={{ disableScrollLock: true }}
-                            labelId='select-filled-label'
-                            value={selectedSchool}
-                            onChange={(e) => setSelectedSchool(e.target.value)}
-                        >
-                            {schools.map(school => (
-                                <MenuItem value={school}>{school.name}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
                     <Box mb={2}>
                         <TextField
                             value={game}
@@ -327,7 +327,7 @@ export const TeamInfoForm = () => {
                                 <Button
                                     color='primary'
                                     variant='contained'
-                                    onClick={onNext}
+                                    onClick={onFinish}
                                     disabled={loading}
                                     fullWidth={loading}>
                                     {loading ? (

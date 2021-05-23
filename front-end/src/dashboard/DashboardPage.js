@@ -1,103 +1,80 @@
-import { useTeams } from "../teams";
-import { Box, Typography } from "../ui";
+import { useOrganizations } from "../teams";
+import { Box, Button, Typography } from "../ui";
 import { useCurrentUserInfo } from "../users";
 import { useStyles } from "./Styles";
+import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { OrganizationPage } from "./OrganizationPage";
 import { OrganizationPicklistPage } from "./OrganizationPicklistPage";
 
 export const DashboardPage = () => {
-    const classes = useStyles();
+    // const classes = useStyles();
+    const history = useHistory();
     const { userInfo } = useCurrentUserInfo();
-    const { membershipTypeId = "" } = userInfo || {};
-    const isCoach = membershipTypeId === "coach";
-    const [teams, isLoadingTeams] = useTeams();
-    const { school: oraganiszation } = teams[0] || {};
-    const [groupedOraganizations, setGroupedOrganizations] = useState([]);
+    const [organizations, isLoadingOrganizations] = useOrganizations();
     const [selectedOrganization, setSelectedOrganization] = useState(null);
 
     useEffect(() => {
-        if (!isLoadingTeams) {
-            if (teams.length > 0) {
-                let organizationsGroup = [];
-                //  To reduce some time, i think basic for takes less time than the func, but does time matters in JS?
-                for (let i = 0; i < teams.length; i++) {
-                    const { school: organizationForTeam } = teams[i];
-                    // For each team we check them and group them
-                    // This takes index
-                    let arrayIfFoundIndex = null;
-                    // This is flag if array found
-                    let arrayFound = false;
-                    // This finds the org if in the group
-                    organizationsGroup.forEach((org, index) => {
-                        if (org[0].school.id === organizationForTeam.id) {
-                            arrayIfFoundIndex = index;
-                            arrayFound = true;
-                        }
-                    });
-                    // added a boolean value cause it takes 0 as false and if you add if >= 0 it take null as true
-                    if (arrayFound) {
-                        // push to that group
-                        organizationsGroup[arrayIfFoundIndex].push(teams[i]);
-                    } else {
-                        // make a new group
-                        organizationsGroup.push([teams[i]]);
-                    }
-                }
-                // Add to groups
-                setGroupedOrganizations(organizationsGroup);
-                if (organizationsGroup.length === 1) {
-                    setSelectedOrganization(organizationsGroup[0]);
-                }
+        if (!isLoadingOrganizations) {
+            if (organizations && organizations.length === 1) {
+                setSelectedOrganization(organizations[0]);
             }
         }
-    }, [teams, isLoadingTeams]);
+    }, [organizations, isLoadingOrganizations]);
+
+    const makeOrganization = () => {
+        history.push("/dashboard/create-organization");
+    };
 
     return (
         <Box style={{ position: "relative", minHeight: "83vh" }}>
-            {isLoadingTeams ? (
+            {isLoadingOrganizations ? (
                 <p>Loading...</p>
-            ) : // Later change to ternary op
-            groupedOraganizations.length > 0 ? (
+            ) : // If the organization is null ie. in the start and check for the length
+            organizations && organizations.length > 0 ? (
                 selectedOrganization ? (
                     <>
                         <OrganizationPage
-                            teams={selectedOrganization}
-                            isCoach={isCoach}
-                            oraganiszation={selectedOrganization[0].school}
+                            teams={selectedOrganization.teams}
+                            user={userInfo}
+                            organization={selectedOrganization}
                         />
                     </>
                 ) : (
                     <>
-                        <OrganizationPicklistPage
-                            organizations={groupedOraganizations}
+                        Need picklist
+                        {/* <OrganizationPicklistPage
+                            organization={organizations}
                             setSelectedOrg={setSelectedOrganization}
-                        />
+                        /> */}
                     </>
                 )
             ) : (
-              <>
-                <Typography variant='h3'>You have no orgs create one</Typography>
-                    {school && <Typography variant='h2' className={classes.orgName}>
-                        {school.name}
-                    </Typography>}
-                    <Box mt={2} mb={7}>
-                        <Divider />
-                    </Box>
-                    <Grid container>
-                        <Grid item xs={12} sm={5} container>
-                            <Grid item xs={12}>
-                                <LeagueRecords teams={teams} />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Member teams={teams} />
-                            </Grid>
-                        </Grid>
-                        <Grid item xs={12} sm={7}>
-                            <TeamsList school={school} teams={teams} isCoach={isCoach} />
-                        </Grid>
-                    </Grid>
-              </>
+                <Box>
+                    <Typography
+                        variant='h3'
+                        style={{
+                            marginBottom: 50,
+                        }}>
+                        Welcome{" "}
+                        <Typography component='span' variant='h3' color='secondary'>
+                            {userInfo.full_name}
+                        </Typography>{" "}
+                        to a brand new Spark Account
+                    </Typography>
+                    <Typography
+                        variant='h6'
+                        style={{
+                            marginBottom: 20,
+                            width: "max(300px, 60vw)",
+                        }}>
+                        Currently you don't have any organization, you can create one or ask your
+                        coach to invite in an existing organization
+                    </Typography>
+                    <Button variant='contained' onClick={makeOrganization}>
+                        Create Organization
+                    </Button>
+                </Box>
             )}
         </Box>
     );
