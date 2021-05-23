@@ -29,7 +29,8 @@ export const SignInPage = () => {
 
     if (userInfo && !userInfo.isConfirmed) {
         firebase.auth().signOut();
-        return <Redirect to={`/please-verify-email/${userInfo.id}?variant=1`} />;
+        console.log(userInfo.auth_id);
+        return <Redirect to={`/please-verify-email/${userInfo.auth_id}?variant=1`} />;
     }
 
     if (userInfo && !userInfo.isOnboarded) {

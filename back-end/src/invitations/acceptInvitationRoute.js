@@ -1,17 +1,17 @@
-import { getUserByEmail } from '../users';
-import { acceptInvitationByCode } from './acceptInvitationByCode';
+import { getUserByEmail } from "../users";
+import { acceptInvitationByCode } from "./acceptInvitationByCode";
 
 /*
     This is the route that will be hit when a user accepts an invitation by
     clicking on the "accept" button on the InvitationLandingPage
 */
 export const acceptInvitationRoute = {
-    path: '/invitations/:confirmationCode/accept',
-    method: 'post',
+    path: "/invitations/:confirmationCode/accept",
+    method: "post",
     handler: async (req, res) => {
         // 1. Get the confirmation code that we generated when we sent the invitation
         const { confirmationCode } = req.params;
-        
+
         try {
             // 2. Accept the invitation - this will move the invitation over to
             // the "memberships" collection
@@ -27,11 +27,13 @@ export const acceptInvitationRoute = {
             console.log(e);
 
             // If something went wrong, it probably means there was no corresponding invitation
-            if (e.message == 'Not found') {
-                res.status(404).json({ message: 'No invitation exists with the corresponding confirmation code' });
+            if (e.message == "Not found") {
+                res.status(404).json({
+                    message: "No invitation exists with the corresponding confirmation code",
+                });
             } else {
-                res.status(500).json({ message: 'Unable to accept invitation' });
+                res.status(500).json({ message: "Unable to accept invitation" });
             }
         }
     },
-}
+};

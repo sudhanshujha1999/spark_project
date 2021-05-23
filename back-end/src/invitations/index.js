@@ -13,6 +13,7 @@ export const routes = [
 ];
 
 export { createInvitation } from "./createInvitation";
-export { getAcceptedInvitationsByEmail } from './getAcceptedInvitationsByEmail';
+export { getAcceptedInvitationsByEmail } from "./getAcceptedInvitationsByEmail";
 export { getInvitationsForRoster } from "./getInvitationsForRoster";
 export { sendInvitationEmail } from "./sendInvitationEmail";
+export { getAllInvitationsForTeam } from "./getAllInvitationsForTeam";

@@ -16,7 +16,8 @@ import {
 } from "../ui";
 import { post } from "../network";
 import { useStyles } from "./Styles";
-import { addOrganizationToUser, setNewUser } from "../users/userState";
+import { useHistory } from "react-router-dom";
+import { addOrganizationToUser } from "../users/userState";
 import { useCurrentUserInfo } from "../users";
 import { useSetRecoilState } from "recoil";
 
@@ -33,7 +34,7 @@ const validations = [
 
 export const CreateOrganizationPage = () => {
     const { isLoading, userInfo } = useCurrentUserInfo();
-    console.log(userInfo);
+    const history = useHistory();
     const addOrganization = useSetRecoilState(addOrganizationToUser);
     const [canCreateOrganization, setCanCreateOrganization] = useState(false);
     const [name, setName] = useState("");
@@ -63,6 +64,7 @@ export const CreateOrganizationPage = () => {
             const { data } = await post(`/api/organization`, schoolInfo);
             // Need to update the user after the org is created
             addOrganization(data.groupId);
+            history.push(`/new-team/${data.groupId}`);
         } catch (e) {
             console.log(e);
             setIsUpdating(false);

@@ -61,7 +61,7 @@ export const createTeamRoute = {
                 });
             }
 
-            res.status(200).send(teamId);
+            res.status(200).json({ success: true, id: teamId });
         } catch (error) {
             console.log(error.message);
             return res.status(500).json({ message: error.message });

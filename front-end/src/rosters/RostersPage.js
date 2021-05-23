@@ -16,31 +16,41 @@ export const RostersPage = () => {
     const classes = useStyles();
     const history = useHistory();
     const { teamId } = useParams();
-    const [teams] = useOrganizations();
+    const [organizations] = useOrganizations();
     const { isLoading: isLoadingTeam, team } = useTeam(teamId);
     const { userInfo } = useCurrentUserInfo();
     const isCoach = useIsCoach(teamId);
     const { _id: currentUserId } = userInfo || {};
-    const { name: teamName = "", admins = [], rosters: initialRosters = [] } = team;
-    const [rosters, setRosters] = useState(initialRosters);
+    const { name: teamName = "", admins = [] } = team;
+    // console.log(team.invitations);
+    const [rosters, setRosters] = useState([]);
+    const [invitations, setInvitations] = useState([]);
     const [newPlayerEmails, setNewPlayerEmails] = useState({});
     const [showAddRosterDialog, setShowAddRosterDialog] = useState(false);
     const [progress, setProgress] = useState(false);
     const [deleteProgress, setDeleteProgress] = useState(false);
 
     useEffect(() => {
-        setRosters(team.rosters);
+        if (team.rosters) {
+            setRosters(team.rosters);
+        }
     }, [team.rosters]);
+
+    useEffect(() => {
+        if (team.invitations) {
+            setInvitations(team.invitations);
+        }
+    }, [team.invitations]);
 
     const onAddPlayer = async (rosterId, email, _callback) => {
         try {
             await post(`/api/rosters/${rosterId}/players`, {
                 email: email,
             });
-            setNewPlayerEmails({
-                ...newPlayerEmails,
-                [rosterId]: [...(newPlayerEmails[rosterId] || []), email],
-            });
+            // setNewPlayerEmails({
+            //     ...newPlayerEmails,
+            //     [rosterId]: [...(newPlayerEmails[rosterId] || []), email],
+            // });
             _callback("");
         } catch (e) {
             console.log(e);
@@ -99,7 +109,7 @@ export const RostersPage = () => {
         const userReallyWantsToDelete = confirm(
             "Are you sure you want to delete this team and all its corresponding data? (You cannot undo this)"
         );
-        if (teams.length <= 1) {
+        if (organizations[0].teams.length <= 1) {
             alert(
                 "That's your last team! You must have at least one team. Please create another before deleting this one"
             );
@@ -211,6 +221,16 @@ export const RostersPage = () => {
                             );
                         }
                     )}
+
+                {invitations.map(({ email }) => (
+                    <Box mt={3} mb={2}>
+                        <Card>
+                            <Box p={2}>
+                                <p>{email} - Invitation Pending</p>
+                            </Box>
+                        </Card>
+                    </Box>
+                ))}
             </Box>
         </>
     );
