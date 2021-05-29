@@ -53,11 +53,6 @@ const GroupsSchema = new Schema(
                 email: String,
                 gamerName: String,
                 bio: String,
-                profile_img: String,
-                invitation_accepted: {
-                    type: Boolean,
-                    default: false,
-                },
             },
         ],
     },

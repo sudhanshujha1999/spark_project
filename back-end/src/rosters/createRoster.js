@@ -1,10 +1,11 @@
 // Mongo Db miongration
 import { Groups, ROSTER } from "../models";
 
-export const createRoster = async ({ name = "", teamId, organizationId = null, coach }) => {
+export const createRoster = async ({ name = "", teamId, organizationId = null, coach = {} }) => {
     if (name === "") {
         throw new Error("requied-fields-not-filled");
     }
+    // need to create a check if coach is provided or not
     // create an admin of user
     const admin = [
         {
@@ -38,4 +39,5 @@ export const createRoster = async ({ name = "", teamId, organizationId = null, c
     }
     await newRoster.save();
     await newRoster.updateOne({ $set: { parent_groups: parent_groups } });
+    return newRoster;
 };

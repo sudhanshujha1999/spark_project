@@ -4,15 +4,18 @@ import { getTeamInfoState, setTeamInfoState } from "./recoil";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 
 export const useTeam = (teamId) => {
+    console.log(teamId);
     const [isLoading, setIsLoading] = useState(true);
     const [team, setTeam] = useState({});
     const allTeamsInfo = useRecoilValue(getTeamInfoState);
     const setAllTeamsInfo = useSetRecoilState(setTeamInfoState);
+    console.log(allTeamsInfo);
 
     useEffect(() => {
         const loadTeam = async () => {
             try {
                 if (teamId) {
+                    console.log(teamId);
                     const currentTeamInfo = allTeamsInfo.filter((team) => team._id === teamId);
                     if (currentTeamInfo.length > 0) {
                         setTeam(currentTeamInfo[0]);
@@ -21,7 +24,7 @@ export const useTeam = (teamId) => {
                         const { data } = await get(`/api/teams/${teamId}`);
                         setTeam(data.team);
                         console.log("call");
-                        console.log(teamId);
+                        // console.log(teamId);
                         setAllTeamsInfo([...allTeamsInfo, data.team]);
                     }
                 } else {

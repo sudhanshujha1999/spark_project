@@ -21,10 +21,10 @@ import { PlayerCard } from "./PlayerCard";
 
 export const DisplayRosterItem = ({
     rosterId,
+    isDefaultRoster,
     rosterName,
     players,
     isCoach,
-    newPlayerEmailsForRoster,
     invitations,
     currentUserId,
     onDeleteRoster,
@@ -99,20 +99,26 @@ export const DisplayRosterItem = ({
                     className={classes.accordianSummary}>
                     <Box py={1} className={classes.rosterName}>
                         <EditableTextField
-                            value={name}
+                            value={isDefaultRoster ? "Players with no roster" : name}
                             setValue={setName}
-                            editable={editable}
+                            editable={isDefaultRoster ? false : editable}
                             onPressEnter={editRosterName}
                             align='left'
                         />
                     </Box>
                 </AccordionSummary>
                 <AccordionDetails className={classes.accordianDetails}>
-                    {players && players.lenght > 0 ? (
+                    {players && players.length > 0 ? (
                         <Grid container spacing={4} justify='center' alignItems='center'>
                             {players.map(
                                 (
-                                    { id: playerId, name: playerName, gamerName, bio, email },
+                                    {
+                                        id: playerId,
+                                        name: playerName,
+                                        gamerName: gamerName,
+                                        bio,
+                                        email,
+                                    },
                                     index
                                 ) => (
                                     <>
@@ -130,56 +136,16 @@ export const DisplayRosterItem = ({
                                                 index={index}
                                             />
                                         </Grid>
-                                        {/* <Box mb={2}>
-                              <Link
-                                 to={`/teams/${teamId}/rosters/${rosterId}/members/${playerId}`}
-                                 onClick={
-                                    isCoach || playerId === currentUserId
-                                       ? () => {}
-                                       : (e) => {
-                                            e.preventDefault();
-                                         }
-                                 }
-                                 style={
-                                    isCoach || playerId === currentUserId
-                                       ? { cursor: "pointer" }
-                                       : { cursor: "default" }
-                                 }
-                              >
-                                 <Card
-                                    style={
-                                       playerId === currentUserId
-                                          ? { border: "4px solid #7289da" }
-                                          : {}
-                                    }
-                                 >
-                                    <Box p={2}>
-                                       <p>
-                                          {playerName} - {gamerName}
-                                       </p>
-                                    </Box>
-                                 </Card>
-                              </Link>
-                           </Box> */}
                                     </>
                                 )
                             )}
                         </Grid>
                     ) : (
                         <Box>
-                            <Typography variant='h5'>No player is the team</Typography>
+                            <Typography variant='h5'>No player is the roster</Typography>
                         </Box>
                     )}
                     {invitations.map(({ email }) => (
-                        <Box mt={3} mb={2}>
-                            <Card>
-                                <Box p={2}>
-                                    <p>{email} - Invitation Pending</p>
-                                </Box>
-                            </Card>
-                        </Box>
-                    ))}
-                    {newPlayerEmailsForRoster.map((email) => (
                         <Box mt={3} mb={2}>
                             <Card>
                                 <Box p={2}>
@@ -234,7 +200,7 @@ export const DisplayRosterItem = ({
                             </Box>
                         </form>
                     )}
-                    {rosterName && isCoach && (
+                    {!isDefaultRoster && isCoach && (
                         <Box my={1}>
                             <Button
                                 startIcon={editable ? <CheckIcon /> : <EditIcon />}

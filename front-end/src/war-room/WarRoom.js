@@ -8,8 +8,7 @@ import { useState } from "react";
 
 export const WarRoom = () => {
     const { userInfo, isLoading } = useCurrentUserInfo();
-    const { membershipTypeId = "" } = userInfo || {};
-    const isCoach = membershipTypeId === "coach";
+    const isCoach = true;
     const [teams, isLoadingTeams] = useOrganizations();
     const [addSession, setAddSession] = useState(false);
 

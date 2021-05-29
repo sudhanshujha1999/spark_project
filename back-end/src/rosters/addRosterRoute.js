@@ -8,12 +8,12 @@ export const addRosterRoute = {
     handler: async (req, res) => {
         const { name, teamId, coachId } = req.body;
         try {
-            const coach = await Groups.findById(coachId);
-            const newRosterId = await createRoster({ name, teamId, coach });
-            res.status(200).send({ id: newRosterId });
+            const coach = await getUserById(coachId);
+            const newRoster = await createRoster({ name, teamId, coach });
+            return res.status(200).send({ roster: newRoster });
         } catch (e) {
             console.log(e);
-            res.sendStatus(500);
+            return res.sendStatus(500);
         }
     },
 };

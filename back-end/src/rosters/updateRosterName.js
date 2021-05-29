@@ -1,7 +1,4 @@
-import * as admin from "firebase-admin";
-
+import { Groups } from "../models";
 export const updateRosterName = async (rosterId, name) => {
-   await admin.firestore().collection("groups").doc(rosterId).update({
-      name: name,
-   });
+    await Groups.findByIdAndUpdate(rosterId, { name: name });
 };

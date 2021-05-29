@@ -33,7 +33,7 @@ export const useIsCoach = (groupId) => {
                             });
                         } else {
                             setIsCoachArray((prevState) => {
-                                return { ...prevState, [`${group._id}`]: true };
+                                return { ...prevState, [`${group._id}`]: false };
                             });
                         }
                     });
@@ -45,6 +45,7 @@ export const useIsCoach = (groupId) => {
 
     useEffect(() => {
         if (isCoachArray) {
+            console.log(isCoachArray);
             console.log("isCoachArray_change");
             setIsCoach(isCoachArray[groupId]);
         }

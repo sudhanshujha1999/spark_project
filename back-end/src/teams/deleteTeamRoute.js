@@ -1,16 +1,25 @@
-import { deleteTeam } from './deleteTeam';
+import { deleteTeam } from "./deleteTeam";
+import { getUserByAuthId } from "../users";
 
 export const deleteTeamRoute = {
-    path: '/teams/:id',
-    method: 'delete',
+    path: "/teams/:id",
+    method: "delete",
     handler: async (req, res) => {
         const { id: teamId } = req.params;
+        const userAuthId = req.user.uid;
         try {
-            await deleteTeam(teamId);
-            res.sendStatus(200);
+            const user = await getUserByAuthId(userAuthId);
+            const team = await deleteTeam(teamId, user._id);
+            return res.status(200).json({ team });
         } catch (e) {
             console.log(e);
-            res.sendStatus(500);
+            if (e.message === "not-authorized-to-delete") {
+                return res.status(403).json({
+                    success: false,
+                    message: e.message,
+                });
+            }
+            return res.status(500);
         }
-    }
-}
+    },
+};

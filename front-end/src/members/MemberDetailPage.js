@@ -21,15 +21,15 @@ export const MemberDetailPage = ({ currentUserId }) => {
     const tabLabel = ["Overview", "Notes"];
 
     const handleChange = (event, newValue) => {
-        // console.log(teams);
         setValue(newValue);
-        // console.log(currentUser);
-        // console.log(user);
     };
     // NEED TO REMOVE AFTER EVERTINH IS DONE
     const addNote = async (text) => {
         try {
-            const response = await post(`/api/players/${memberId}/notes`, { text: text, groupId: teamId });
+            const response = await post(`/api/players/${memberId}/notes`, {
+                text: text,
+                groupId: teamId,
+            });
             const newNote = response.data;
             setNotes([newNote, ...notes]);
         } catch (e) {
@@ -53,7 +53,7 @@ export const MemberDetailPage = ({ currentUserId }) => {
             <Overview user={user} teams={teams} />
         ) : (
             <Box className={classes.load}>
-                <CircularProgress color="secondary" />
+                <CircularProgress color='secondary' />
             </Box>
         ),
         <Notes notes={notes} addNote={addNote} deleteNote={deleteNote} />,
@@ -69,12 +69,12 @@ export const MemberDetailPage = ({ currentUserId }) => {
                         <ProfilePic user={user.id === currentUser.id ? user : null} />
                     )}
                     <Box className={classes.detailsContent}>
-                        <Typography className={classes.name} gutterBottom variant="h2">
+                        <Typography className={classes.name} gutterBottom variant='h2'>
                             {user.fullName}
                         </Typography>
                         <Box className={classes.gamerName}>
                             <img style={{ width: 20 }} src={gamerIcon} alt={gamerIcon} />
-                            <Typography variant="h3">{user.gamerName}</Typography>
+                            <Typography variant='h3'>{user.gamerName}</Typography>
                         </Box>
                     </Box>
                 </Box>

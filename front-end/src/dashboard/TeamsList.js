@@ -25,7 +25,7 @@ export const TeamsList = ({ school, teams, isCoach, editTeam }) => {
                 );
             })}
             {isCoach && (
-                <Link to="/new-team">
+                <Link to={`/new-team/${school._id}`}>
                     <Fab variant='extended' color='primary' className={classes.fab}>
                         <AddIcon />
                         Add Team
@@ -41,11 +41,13 @@ export const TeamsList = ({ school, teams, isCoach, editTeam }) => {
             <Grid container>
                 {isCoach && (
                     <Grid item xs={3}>
-                        {school && <Link to="/new-team">
-                            <Card raised className={classes.cardStyles}>
-                                <h3>+ Add a new team</h3>
-                            </Card>
-                        </Link>}
+                        {school && (
+                            <Link to={`/new-team/${school._id}`}>
+                                <Card raised className={classes.cardStyles}>
+                                    <h3>+ Add a new team</h3>
+                                </Card>
+                            </Link>
+                        )}
                     </Grid>
                 )}
             </Grid>
