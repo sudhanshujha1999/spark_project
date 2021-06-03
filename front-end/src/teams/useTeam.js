@@ -4,12 +4,10 @@ import { getTeamInfoState, setTeamInfoState } from "./recoil";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 
 export const useTeam = (teamId) => {
-    console.log(teamId);
     const [isLoading, setIsLoading] = useState(true);
     const [team, setTeam] = useState({});
     const allTeamsInfo = useRecoilValue(getTeamInfoState);
     const setAllTeamsInfo = useSetRecoilState(setTeamInfoState);
-    console.log(allTeamsInfo);
 
     useEffect(() => {
         const loadTeam = async () => {

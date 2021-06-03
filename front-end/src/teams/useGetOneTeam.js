@@ -1,6 +1,6 @@
 import { useOrganizations } from "./useOrganizations";
 import { useState, useEffect } from "react";
-
+// Remove this
 export const useGetOneTeam = (id) => {
     const [teams] = useOrganizations();
     const [team, setTeam] = useState();

@@ -1,22 +1,23 @@
-import { getUserByAuthId } from '../users';
-import { getEventsForMonth } from './getEventsForMonth';
+import { getUserByAuthId } from "../users";
+import { getEventsForMonth } from "./getEventsForMonth";
 
 export const getEventsForMonthRoute = {
-    path: '/events/:year/:month',
-    method: 'get',
+    path: "/events/:year/:month",
+    method: "get",
     handler: async (req, res) => {
         const { year, month } = req.params;
         const { user_id: authId } = req.user;
-        const user = await getUserByAuthId(authId);
+        try {
+            const user = await getUserByAuthId(authId);
+            const events = await getEventsForMonth({
+                userEmail: user.email,
+                year,
+                month,
+            });
 
-        console.log({ year, month, user });
-
-        const events = await getEventsForMonth({
-            userEmail: user.email,
-            year,
-            month,
-        });
-
-        res.status(200).json(events);
+            return res.status(200).json(events);
+        } catch (error) {
+            return res.status(500).json({ success: false, message: error.message });
+        }
     },
 };

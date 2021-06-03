@@ -7,7 +7,6 @@ import banner from "../img/default-image.jpg";
 export const TeamItemCard = ({ team, isCoach, index }) => {
     const classes = useStyles();
     const history = useHistory();
-    console.log(team);
     const handleClick = () => {
         history.push(`/teams/${team._id}`);
     };

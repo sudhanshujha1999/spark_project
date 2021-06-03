@@ -13,7 +13,6 @@ export const getUserRoute = {
             const authUserInfo = await getUserByAuthId(authUser.user_id);
             return res.status(200).json(authUserInfo);
         }
-
         return res.status(403).json({ message: "Users can only view their own data" });
     },
 };

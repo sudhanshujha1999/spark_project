@@ -63,7 +63,7 @@ export const addPlayerRoute = {
                     email,
                     groupName: team.name,
                     schoolName: organization.name,
-                    confirmationCode,
+                    confirmationCode: ifAlreadyAnInvitation.confirmationCode,
                     baseUrl,
                 });
                 return res.sendStatus(200);
@@ -78,17 +78,7 @@ export const addPlayerRoute = {
                 roster.players.filter((player) => player.email === email).length > 0 ? true : false;
             const ifPlayerIsInTheOrganization =
                 user && user.organizations.includes(organization.id) ? true : false;
-            console.log({
-                email,
-                coachId: requesterId,
-                inRosterAlready,
-                inTeamAlready,
-                teamId: team._id,
-                rosterId: roster._id,
-                organizationId: organization.id,
-                playerHasOrganization: ifPlayerIsInTheOrganization,
-                confirmationCode,
-            });
+
             // if Already in that roster
             if (inRosterAlready) {
                 console.log("player-already-exist");
