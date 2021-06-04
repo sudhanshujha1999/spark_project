@@ -14,11 +14,15 @@ import { useStyles } from "./styles";
 export const MemberDetailPage = ({ currentUserId }) => {
     const { memberId, teamId } = useParams();
     const { isLoading, user } = useUser(memberId ? memberId : currentUserId ? currentUserId : null);
-    const { userInfo: currentUser, isLoading: loadingCurrentUser } = useCurrentUserInfo();
+    console.log(memberId);
+    console.log(teamId);
+    const { userInfo: currentUser } = useCurrentUserInfo();
+    console.log(currentUser._id);
     const { isLoading: isLoadingNotes, notes, setNotes } = useNotes(memberId, teamId);
     const teams = useGetTeamsForUser(user);
     const [value, setValue] = useState(0);
     const tabLabel = ["Overview", "Notes"];
+    console.log(currentUser);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -31,7 +35,7 @@ export const MemberDetailPage = ({ currentUserId }) => {
                 groupId: teamId,
             });
             const newNote = response.data;
-            setNotes([newNote, ...notes]);
+            // setNotes([newNote, ...notes]);
         } catch (e) {
             console.log(e);
         }
@@ -40,7 +44,7 @@ export const MemberDetailPage = ({ currentUserId }) => {
     const deleteNote = async (noteId) => {
         try {
             await del(`/api/players/${memberId}/notes/${noteId}`, { groupId: teamId });
-            setNotes(notes.filter((note) => note.id !== noteId));
+            // setNotes(notes.filter((note) => note.id !== noteId));
         } catch (e) {
             console.log(e);
         }
@@ -56,7 +60,7 @@ export const MemberDetailPage = ({ currentUserId }) => {
                 <CircularProgress color='secondary' />
             </Box>
         ),
-        <Notes notes={notes} addNote={addNote} deleteNote={deleteNote} />,
+        // <Notes notes={notes} addNote={addNote} deleteNote={deleteNote} />,
     ];
 
     return isLoading ? (
@@ -70,11 +74,11 @@ export const MemberDetailPage = ({ currentUserId }) => {
                     )}
                     <Box className={classes.detailsContent}>
                         <Typography className={classes.name} gutterBottom variant='h2'>
-                            {user.fullName}
+                            {user.full_name}
                         </Typography>
                         <Box className={classes.gamerName}>
                             <img style={{ width: 20 }} src={gamerIcon} alt={gamerIcon} />
-                            <Typography variant='h3'>{user.gamerName}</Typography>
+                            <Typography variant='h3'>{user.gamer_name}</Typography>
                         </Box>
                     </Box>
                 </Box>

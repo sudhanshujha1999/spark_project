@@ -38,7 +38,6 @@ export const NewEventForm = ({ selectedDate, onSubmitEvent = () => {}, sending, 
     const [validationErrors, setValidationErrors] = useState([]);
     const [invitees, setInvitees] = useState([]);
     const classes = useStyles();
-    console.log(invitees);
 
     const getValidationErrors = () => {
         const fields = { name, time, description };
@@ -53,7 +52,10 @@ export const NewEventForm = ({ selectedDate, onSubmitEvent = () => {}, sending, 
         setValidationErrors(validationErrors);
         if (validationErrors.length > 0) return;
         // right now there is no invitees Check
-        onSubmitEvent({ name, date, description, time, invitees, backgroundColor });
+        const inviteesData = invitees.map(({ email, id }) => {
+            return { email, id };
+        });
+        onSubmitEvent({ name, date, description, time, invitees: inviteesData, backgroundColor });
     };
 
     return (
@@ -105,8 +107,8 @@ export const NewEventForm = ({ selectedDate, onSubmitEvent = () => {}, sending, 
                 })}
             </Box>
             <Divider />
-            <Box p={2} style={{ fontWeight: "bold" }}>
-                Invite players and/or coaches:
+            <Box my={2}>
+                <Typography variant='h6'>Invite players and/or coaches:</Typography>
             </Box>
             <Box mb={2}>
                 {invitees.length > 0 && (

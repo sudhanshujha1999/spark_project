@@ -15,9 +15,11 @@ export const AddPlayersInEvent = ({ userId, setInvitees, invitees }) => {
 
     return (
         <Box>
-            <Typography variant='h6' gutterBottom>
-                Your Teams
-            </Typography>
+            <Box pl={2}>
+                <Typography variant='body2' gutterBottom>
+                    Your Teams
+                </Typography>
+            </Box>
             {allTeams.map((team) => (
                 <TeamPlayerSelect
                     userId={userId}

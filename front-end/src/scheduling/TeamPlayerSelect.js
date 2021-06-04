@@ -31,7 +31,9 @@ export const TeamPlayerSelect = ({ team, userId, setInvitees, invitees }) => {
     return (
         <Box ml={3}>
             <Box my={1}>
-                <Typography gutterBottom>{team.name}</Typography>
+                <Typography variant='subtitle2' gutterBottom>
+                    {team.name}
+                </Typography>
             </Box>
             <Box my={3}>
                 <Autocomplete

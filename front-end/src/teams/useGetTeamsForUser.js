@@ -8,8 +8,12 @@ export const useGetTeamsForUser = (user) => {
         if (user) {
             const getTeam = async () => {
                 try {
-                    const response = await get(`/api/users/${user.authId}/teams`);
-                    setTeams(response.data);
+                    const {
+                        data: { organizations },
+                    } = await get(`/api/users/${user.auth_id}/teams`);
+                    let teams = [];
+                    organizations.forEach((organization) => teams.push(...organization.teams));
+                    setTeams(teams);
                 } catch (e) {
                     console.log("Error!");
                 }

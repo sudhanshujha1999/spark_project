@@ -9,6 +9,7 @@ export const createEventRoute = {
         const { name, description, date: dateRaw, time, invitees = [], backgroundColor } = req.body;
         const date = new Date(dateRaw);
         const authUser = req.user;
+        console.log(invitees);
         try {
             const user = await getUserByAuthId(authUser.user_id);
             const createdById = user._id;

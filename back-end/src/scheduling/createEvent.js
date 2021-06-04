@@ -19,6 +19,7 @@ export const createEvent = async ({
     invitees,
     created_by,
 }) => {
+    console.log(invitees);
     const dateObject = new Date(date);
     const newEvent = new Events({
         name: name,
