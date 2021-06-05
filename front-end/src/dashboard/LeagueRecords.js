@@ -67,7 +67,10 @@ export const LeagueRecords = ({ teams }) => {
                     <Grid
                         container
                         item
-                        className={`${classes.newsContainer} ${classes.customScroll}`}>
+                        className={`${classes.newsContainer} ${classes.customScroll}`}
+                        style={{
+                            overflowY: leagues.length > 1 ? "scroll" : "auto",
+                        }}>
                         {leagues.length > 0 ? (
                             leagues.map(({ id, leagueName, team, record }, index) => {
                                 return (

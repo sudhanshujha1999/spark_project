@@ -1,6 +1,9 @@
-import * as admin from 'firebase-admin';
-import { connectToDb } from '../util';
+import { Permissions } from "../models";
 
 export const addPermission = ({ userId, groupId, permissionType }) => {
-    return admin.firestore().collection('permissions').add({ userId, groupId, permissionType });
-}
+    return new Permissions({
+        userId: userId,
+        groupId: groupId,
+        permission_type: permissionType,
+    }).save();
+};

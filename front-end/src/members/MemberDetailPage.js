@@ -66,34 +66,37 @@ export const MemberDetailPage = ({ currentUserId }) => {
     return isLoading ? (
         <p>Loading...</p>
     ) : (
-        <Grid container spacing={2}>
-            <Grid item xs={12}>
-                <Box className={classes.profileDetails}>
-                    {user && currentUser && (
-                        <ProfilePic user={user.id === currentUser.id ? user : null} />
-                    )}
-                    <Box className={classes.detailsContent}>
-                        <Typography className={classes.name} gutterBottom variant='h2'>
-                            {user.full_name}
-                        </Typography>
-                        <Box className={classes.gamerName}>
-                            <img style={{ width: 20 }} src={gamerIcon} alt={gamerIcon} />
-                            <Typography variant='h3'>{user.gamer_name}</Typography>
+        <>
+            <Box className={classes.background} />
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <Box className={classes.profileDetails}>
+                        {user && currentUser && (
+                            <ProfilePic user={user.id === currentUser.id ? user : null} />
+                        )}
+                        <Box className={classes.detailsContent}>
+                            <Typography className={classes.name} gutterBottom variant='h2'>
+                                {user.full_name}
+                            </Typography>
+                            <Box className={classes.gamerName}>
+                                <img style={{ width: 20 }} src={gamerIcon} alt={gamerIcon} />
+                                <Typography variant='h3'>{user.gamer_name}</Typography>
+                            </Box>
                         </Box>
                     </Box>
-                </Box>
+                </Grid>
+                <Grid item xs={12}>
+                    <Tabs value={value} onChange={handleChange}>
+                        {tabLabel.map((item) => (
+                            <Tab label={item} />
+                        ))}
+                    </Tabs>
+                    <Divider />
+                </Grid>
+                <Grid item xs={12}>
+                    {TABS[value]}
+                </Grid>
             </Grid>
-            <Grid item xs={12}>
-                <Tabs value={value} onChange={handleChange}>
-                    {tabLabel.map((item) => (
-                        <Tab label={item} />
-                    ))}
-                </Tabs>
-                <Divider />
-            </Grid>
-            <Grid item xs={12}>
-                {TABS[value]}
-            </Grid>
-        </Grid>
+        </>
     );
 };

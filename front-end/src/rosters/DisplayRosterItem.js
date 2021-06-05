@@ -12,6 +12,7 @@ import {
     TextField,
     Typography,
     EditableTextField,
+    CircularProgress,
 } from "../ui";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -29,11 +30,12 @@ export const DisplayRosterItem = ({
     currentUserId,
     onDeleteRoster,
     teamId,
-    onAddPlayer = () => {},
+    onAddPlayer = async () => {},
 }) => {
     const [expanded, setExpanded] = useState(false);
     const [addPlayer, setAddPlayer] = useState(false);
     const [editable, setEditable] = useState(false);
+    const [progress, setProgress] = useState(false);
     const [name, setName] = useState(rosterName);
     const [newPlayerEmail, setNewPlayerEmail] = useState("");
     const [newPlayerEmailError, setNewPlayerEmailError] = useState("");
@@ -41,19 +43,22 @@ export const DisplayRosterItem = ({
     const onClickAdd = async () => {
         if (!isEmail(newPlayerEmail)) return setNewPlayerEmailError("Not a valid email");
 
+        setProgress(true);
         try {
             setNewPlayerEmailError("");
             // console.log(rosterId, newPlayerEmail);
-            onAddPlayer(rosterId, newPlayerEmail, (error) => {
+            await onAddPlayer(rosterId, newPlayerEmail, (error) => {
                 setNewPlayerEmailError(error);
                 if (error === "") {
                     setNewPlayerEmail("");
                     setAddPlayer(false);
+                    setProgress(false);
                 }
             });
         } catch (e) {
             console.log(e);
             setNewPlayerEmailError("Something went wrong with the server...");
+            setProgress(false);
         }
     };
 
@@ -185,8 +190,9 @@ export const DisplayRosterItem = ({
                                             style={{ flex: 1 }}
                                             color='primary'
                                             variant='contained'
-                                            type='submit'>
-                                            Add
+                                            type='submit'
+                                            disabled={progress}>
+                                            {progress ? <CircularProgress size='2em' /> : "Add"}
                                         </Button>
                                     </>
                                 ) : (

@@ -1,4 +1,6 @@
 import { Groups } from "../models";
+import { createNewPlayerPermission } from "../permissions";
+
 export const addPlayerIdToGroup = async ({
     groupId,
     playerId,
@@ -19,5 +21,6 @@ export const addPlayerIdToGroup = async ({
         bio: bio,
         profile_img: profile_img,
     };
+    await createNewPlayerPermission({ userId: playerId, groupId: groupId });
     await Groups.findByIdAndUpdate(groupId, { $push: { players: playerToAdd } }, { new: true });
 };

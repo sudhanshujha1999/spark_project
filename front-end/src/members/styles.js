@@ -1,6 +1,18 @@
 import { makeStyles } from "@material-ui/core/styles";
+import background from "../img/background.jpg";
 
 export const useStyles = makeStyles((theme) => ({
+    background: {
+        width: "110vw",
+        top: 0,
+        left: 0,
+        height: "110vh",
+        position: "fixed",
+        zIndex: "-100000",
+        opacity: "0.8",
+        backgroundImage: `url(${background})`,
+        backgroundSize: "cover",
+    },
     profileDetails: {
         display: "flex",
         flexFlow: "column",

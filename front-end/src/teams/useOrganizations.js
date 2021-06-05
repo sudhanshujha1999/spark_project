@@ -25,6 +25,7 @@ export const useOrganizations = (update = false) => {
                     console.log("Error!");
                     setError(e.message);
                 }
+                setIsLoading(false);
             }
         };
 
@@ -47,12 +48,12 @@ export const useOrganizations = (update = false) => {
                     console.log("Error!");
                     setError(e.message);
                 }
+                setIsLoading(false);
             }
         };
         if (authId) {
             loadOrganization();
         }
-        setIsLoading(false);
         // eslint-disable-next-line
     }, [userInfo]);
 
@@ -69,8 +70,8 @@ export const useOrganizations = (update = false) => {
                     console.log("Error!");
                     setError(e.message);
                 }
+                setIsLoading(false);
             };
-            setIsLoading(false);
             updateOrganization();
         }
         // eslint-disable-next-line

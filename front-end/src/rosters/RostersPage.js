@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import axios from "axios";
 import { GroupAddIcon, ClearIcon } from "../icons";
 // import { EditableTextField } from "../ui";
 import { useStyles } from "./styles";
 import { post, del } from "../network";
 import { useTeam, useOrganizations } from "../teams";
 import {
+    Avatar,
     Box,
     Button,
     Card,
+    Chip,
     CircularProgress,
     CustomSnackbar,
     Divider,
@@ -39,7 +40,6 @@ export const RostersPage = () => {
     const [deleteProgress, setDeleteProgress] = useState(false);
     const [message, setMessage] = useState("");
     const [snackbarType, setSnackbarType] = useState("error");
-
     useEffect(() => {
         if (team.rosters) {
             setRosters(team.rosters);
@@ -151,15 +151,27 @@ export const RostersPage = () => {
                 }}>
                 <Typography variant='h2'>{teamName}</Typography>
                 <h1>Coaches</h1>
-                {admins.map(({ name: coachName }) => (
-                    <Box mb={2}>
-                        <Card>
-                            <Box p={2}>
-                                <p>{coachName}</p>
+                <Box mb={2}>
+                    <Card>
+                        {admins.map(({ name: coachName, profile_img }) => (
+                            <Box width='fit-content' m={2}>
+                                <Chip
+                                    avatar={
+                                        profile_img ? (
+                                            <Avatar alt={coachName} src={profile_img} />
+                                        ) : (
+                                            <Avatar>{coachName.charAt(0)}</Avatar>
+                                        )
+                                    }
+                                    label={coachName}
+                                    // onClick={handleClick}
+                                    variant='outlined'
+                                    color='secondary'
+                                />
                             </Box>
-                        </Card>
-                    </Box>
-                ))}
+                        ))}
+                    </Card>
+                </Box>
                 <Divider />
                 <h1>Rosters</h1>
                 {isCoach && (

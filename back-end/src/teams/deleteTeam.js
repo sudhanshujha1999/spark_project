@@ -1,5 +1,6 @@
 import { Groups } from "../models";
 import { deleteTeamImage } from "./deleteTeamImage";
+import { removeAllPermissionsOfGroup } from "../permissions";
 
 export const deleteTeam = async (teamId, userId) => {
     // do we want to make a check if the team is delted by the creator
@@ -13,6 +14,7 @@ export const deleteTeam = async (teamId, userId) => {
     }
 
     await Groups.deleteMany({ parent_groups: teamId });
+    await removeAllPermissionsOfGroup({ groupId: teamId });
     return true;
     // const team = admin.firestore().collection("groups").doc(teamId);
     // // GET TEAMS DATA WITH TO GET URL

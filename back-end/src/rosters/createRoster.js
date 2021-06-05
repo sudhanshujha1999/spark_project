@@ -1,5 +1,6 @@
 // Mongo Db miongration
 import { Groups, ROSTER } from "../models";
+import { createAdminPermissionForGroup } from "../permissions";
 
 export const createRoster = async ({ name = "", teamId, organizationId = null, coach = {} }) => {
     if (name === "") {
@@ -39,5 +40,6 @@ export const createRoster = async ({ name = "", teamId, organizationId = null, c
     }
     await newRoster.save();
     await newRoster.updateOne({ $set: { parent_groups: parent_groups } });
+    await createAdminPermissionForGroup({ userId: coach._id, groupId: newRoster._id });
     return newRoster;
 };

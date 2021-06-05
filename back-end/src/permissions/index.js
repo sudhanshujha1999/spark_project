@@ -1,5 +1,5 @@
-import { addPermissionsRoute } from './addPermissionsRoute';
-import { removePermissionsRoute } from './removePermissionsRoute';
+import { addPermissionsRoute } from "./addPermissionsRoute";
+import { removePermissionsRoute } from "./removePermissionsRoute";
 
 export {
     ADMIN,
@@ -10,13 +10,13 @@ export {
     CAN_EDIT_EVENTS,
     CAN_VIEW_NOTES,
     CAN_EDIT_NOTES,
-} from './permissionTypes';
+} from "./permissionTypes";
 
-export const routes = [
-    addPermissionsRoute,
-    removePermissionsRoute,
-];
+export const routes = [addPermissionsRoute, removePermissionsRoute];
 
-export { addPermission } from './addPermission';
-export { hasPermission } from './hasPermission';
-export { removePermission } from './removePermission';
+export { addPermission } from "./addPermission";
+export { hasPermission } from "./hasPermission";
+export { removePermission } from "./removePermission";
+export { createAdminPermissionForGroup } from "./createAdminPermissionForGroup";
+export { createNewPlayerPermission } from "./createNewPlayerPermission";
+export { removeAllPermissionsOfGroup } from "./removeAllPermissionsOfGroup";

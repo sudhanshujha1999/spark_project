@@ -1,6 +1,7 @@
 // MONGODB MINGRATION
 import { Users, ORGANIZATION, Groups } from "../models";
 import { v4 as uuidv4 } from "uuid";
+import { createAdminPermissionForGroup } from "../permissions";
 
 export const createOrganization = async ({
     name,
@@ -43,5 +44,7 @@ export const createOrganization = async ({
     const parent_groups = [newOrganization._id];
     await newOrganization.save();
     await newOrganization.updateOne({ $set: { parent_groups: parent_groups } });
+    await createAdminPermissionForGroup({ userId: creatorId, groupId: newOrganization._id });
+
     return newOrganization._id;
 };
