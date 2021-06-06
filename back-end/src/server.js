@@ -35,7 +35,8 @@ if (!FIREBASE_CREDENTIALS) {
 }
 
 // MONGO DB CONNECT
-const MONGO_URI = `mongodb+srv://Abhishek123:dbappend123@clusterappend.m8taj.mongodb.net/spark?retryWrites=true&w=majority`;
+const MONGO_URI = `mongodb+srv://${process.env.MONGO_DB_USERNAME}:${process.env.MONGO_DB_PASSWORD}@cluster0.al0a8.mongodb.net/${process.env.MONGO_DB_NAME}?retryWrites=true&w=majority`;
+
 const connectDatabase = async () => {
     await mongoose.connect(MONGO_URI, {
         useNewUrlParser: true,
