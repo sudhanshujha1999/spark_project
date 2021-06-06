@@ -113,9 +113,10 @@ export const TeamInfoForm = () => {
                                 rosters,
                                 url,
                             };
-                            const response = await post("/api/teams", newTeamInfo);
-                            const newTeamId = response.data;
-                            history.push(`/teams/${newTeamId}`);
+                            const {
+                                data: { id },
+                            } = await post("/api/teams", newTeamInfo);
+                            history.push(`/teams/${id}`);
                         })
                         .catch((error) => {
                             setLoading(false);
@@ -131,13 +132,11 @@ export const TeamInfoForm = () => {
                 url: Object.keys(active).length !== 0 ? active.img : defaultImage,
             };
             try {
-                await post("/api/teams", newTeamInfo);
-                console.log("saved");
+                const {
+                    data: { id },
+                } = await post("/api/teams", newTeamInfo);
+                history.push(`/teams/${id}`);
                 setUpadate(true);
-                // FLOW
-                // make flow after this step
-                // const newTeamId = response.data;
-                // history.push(`/teams/${newTeamId}`);
                 setLoading(false);
             } catch (error) {
                 setLoading(false);

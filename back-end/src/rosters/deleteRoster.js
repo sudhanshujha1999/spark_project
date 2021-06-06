@@ -1,26 +1,12 @@
-import * as admin from 'firebase-admin';
+import { Groups } from "../models";
+import { removeAllPermissionsOfGroup } from "../permissions";
 
-export const deleteRoster = async rosterId => {
-    await admin.firestore().collection('groups').doc(rosterId).delete();
-
-    const membershipsSnapshot = await admin.firestore()
-        .collection('memberships')
-        .where('groupId', '==', rosterId)
-        .get();
-
-    const invitationsSnapshot = await admin.firestore()
-        .collection('invitations')
-        .where('groupId', '==', rosterId)
-        .get();
-
-    var batch = admin.firestore().batch();
-
-    membershipsSnapshot.forEach(doc => {
-        batch.delete(doc.ref);
-    });
-    invitationsSnapshot.forEach(doc => {
-        batch.delete(doc.ref);
-    });
-
-    await batch.commit();
-}
+export const deleteRoster = async (rosterId, userId) => {
+    const roster = await Groups.findOne({ _id: rosterId, created_by: userId });
+    if (!roster) {
+        throw new Error("not-authorized-to-delete");
+    }
+    await roster.deleteOne();
+    await removeAllPermissionsOfGroup({ groupId: roster._id });
+    return roster.created_by === userId;
+};

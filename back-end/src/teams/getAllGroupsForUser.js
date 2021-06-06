@@ -1,8 +1,7 @@
-import { Groups, ORGANIZATION, TEAM, ROSTER } from "../models";
+import { Groups, ORGANIZATION, TEAM } from "../models";
 import { getUserByAuthId } from "../users";
 
-// Mongo DB Migration
-
+// Get all organizatioon and teams for a user
 export const getAllGroupsForUser = {
     path: "/users/:userId/teams",
     method: "get",

@@ -1,4 +1,5 @@
 import { Groups, ROSTER } from "../models";
+import { createAdminPermissionForGroup } from "../permissions";
 
 export const createDefaultRoster = async ({ organizationId, teamId, coach }) => {
     try {
@@ -26,6 +27,7 @@ export const createDefaultRoster = async ({ organizationId, teamId, coach }) => 
         const parent_groups = [organizationId, teamId, defaultRoster._id];
         await defaultRoster.save();
         await defaultRoster.updateOne({ $set: { parent_groups: parent_groups } });
+        await createAdminPermissionForGroup({ userId: coach._id, groupId: defaultRoster._id });
         console.log("DefaultRosterCreated");
     } catch (error) {
         console.log(error.message);

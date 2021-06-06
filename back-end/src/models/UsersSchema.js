@@ -10,7 +10,7 @@ const UsersSchema = new Schema(
         },
         auth_id: {
             type: String,
-            required: true,
+            default: null,
         },
         // invitation_from:,
         confirmationCode: String,

@@ -31,8 +31,8 @@ export const CalendarCell = ({
                     p={1}
                     mb={1}
                     style={{
-                        background: event.hasOwnProperty("backgroundColor")
-                            ? `${event.backgroundColor.colorCode.background}`
+                        background: event.hasOwnProperty("background_color")
+                            ? `${event.background_color.background}`
                             : "#7289da",
                         borderRadius: 4,
                         overflow: "hidden",

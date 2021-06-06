@@ -1,5 +1,6 @@
 import { getRostersForTeam } from "../rosters";
 import { Groups, TEAM } from "../models";
+import { getAllInvitationsForTeam } from "../invitations";
 
 export const getTeamRoute = {
     path: "/teams/:teamId",
@@ -19,11 +20,16 @@ export const getTeamRoute = {
                     message: "No team found",
                 });
             }
-
+            // Get all invitations in a team
+            const invitations = await getAllInvitationsForTeam(teamId);
             // Get roster for a team
             const roster = await getRostersForTeam(teamId);
             // make a object that has all the roster in a team object
-            const teamWithRosters = { ...team.toObject(), rosters: roster };
+            const teamWithRosters = {
+                ...team.toObject(),
+                rosters: roster,
+                invitations: invitations,
+            };
             return res.status(200).json({
                 team: teamWithRosters,
             });
@@ -35,14 +41,5 @@ export const getTeamRoute = {
                 success: false,
             });
         }
-
-        const rosters = await getRostersForTeam(teamId);
-        const coaches = await getCoachesForGroup(teamId);
-
-        return res.status(200).json({
-            ...team,
-            coaches,
-            rosters,
-        });
     },
 };

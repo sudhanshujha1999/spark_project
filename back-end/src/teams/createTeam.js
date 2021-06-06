@@ -1,4 +1,6 @@
 import { Groups, TEAM } from "../models";
+import { createAdminPermissionForGroup } from "../permissions";
+
 export const createTeam = async ({ name = "", game = "", organizationId, coach = {}, url }) => {
     if (name === "" || game === "") {
         throw new Error("requied-fields-not-filled");
@@ -30,5 +32,6 @@ export const createTeam = async ({ name = "", game = "", organizationId, coach =
     const parent_groups = [organizationId, newTeam._id];
     await newTeam.save();
     await newTeam.updateOne({ $set: { parent_groups: parent_groups } });
+    await createAdminPermissionForGroup({ userId: coach._id, groupId: newTeam._id });
     return newTeam._id;
 };

@@ -1,14 +1,10 @@
-import * as admin from 'firebase-admin';
+import { Groups } from "../models";
 
-export const getGroupById = async id => {
-    const docSnapshot = await admin.firestore().collection('group')
-        .doc(id)
-        .get();
-
-    if (!docSnapshot) return null;
-    
-    return {
-        ...docSnapshot.data(),
-        id: docSnapshot.id,
-    };
-}
+export const getGroupById = async (groupId) => {
+    const group = await Groups.findById(groupId);
+    if (group) {
+        return group;
+    } else {
+        return null;
+    }
+};

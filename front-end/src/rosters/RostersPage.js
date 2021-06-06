@@ -1,12 +1,22 @@
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import axios from "axios";
 import { GroupAddIcon, ClearIcon } from "../icons";
 // import { EditableTextField } from "../ui";
 import { useStyles } from "./styles";
-import { post } from "../network";
+import { post, del } from "../network";
 import { useTeam, useOrganizations } from "../teams";
-import { Box, Button, Card, CircularProgress, Divider, Fab, Typography } from "../ui";
+import {
+    Avatar,
+    Box,
+    Button,
+    Card,
+    Chip,
+    CircularProgress,
+    CustomSnackbar,
+    Divider,
+    Fab,
+    Typography,
+} from "../ui";
 import { AddRosterDialog } from "./AddRosterDialog";
 import { useCurrentUserInfo } from "../users";
 import { useIsCoach } from "../users/useIsCoach";
@@ -16,31 +26,38 @@ export const RostersPage = () => {
     const classes = useStyles();
     const history = useHistory();
     const { teamId } = useParams();
-    const [teams] = useOrganizations();
+    const [organizations] = useOrganizations();
     const { isLoading: isLoadingTeam, team } = useTeam(teamId);
     const { userInfo } = useCurrentUserInfo();
     const isCoach = useIsCoach(teamId);
     const { _id: currentUserId } = userInfo || {};
-    const { name: teamName = "", admins = [], rosters: initialRosters = [] } = team;
-    const [rosters, setRosters] = useState(initialRosters);
+    const { name: teamName = "", admins = [] } = team;
+    const [rosters, setRosters] = useState([]);
+    const [invitations, setInvitations] = useState([]);
     const [newPlayerEmails, setNewPlayerEmails] = useState({});
     const [showAddRosterDialog, setShowAddRosterDialog] = useState(false);
     const [progress, setProgress] = useState(false);
     const [deleteProgress, setDeleteProgress] = useState(false);
+    const [message, setMessage] = useState("");
+    const [snackbarType, setSnackbarType] = useState("error");
+    useEffect(() => {
+        if (team.rosters) {
+            setRosters(team.rosters);
+        }
+    }, [team.rosters]);
 
     useEffect(() => {
-        setRosters(team.rosters);
-    }, [team.rosters]);
+        if (team.invitations) {
+            setInvitations(team.invitations);
+        }
+    }, [team.invitations]);
 
     const onAddPlayer = async (rosterId, email, _callback) => {
         try {
             await post(`/api/rosters/${rosterId}/players`, {
                 email: email,
             });
-            setNewPlayerEmails({
-                ...newPlayerEmails,
-                [rosterId]: [...(newPlayerEmails[rosterId] || []), email],
-            });
+            setInvitations([...invitations, { email }]);
             _callback("");
         } catch (e) {
             console.log(e);
@@ -54,15 +71,14 @@ export const RostersPage = () => {
             "Are you sure you want to delete this roster and all its corresponding info? (You cannot undo this)"
         );
         if (userReallyWantsToDeleteRoster) {
+            setDeleteProgress(true);
             try {
-                setDeleteProgress(true);
-                await axios.delete(`/api/rosters/${rosterId}`);
-                setRosters(rosters.filter((roster) => roster.id !== rosterId));
-                history.push("/");
+                await del(`/api/rosters/${rosterId}`);
+                setRosters(rosters.filter((roster) => roster._id !== rosterId));
             } catch (e) {
-                setDeleteProgress(false);
                 console.log(e);
             }
+            setDeleteProgress(false);
         }
     };
 
@@ -75,23 +91,18 @@ export const RostersPage = () => {
         };
         // SEND THIS OBJECT AND CREATE A NEW OBJECT
         try {
-            const result = await axios.post("/api/rosters/add", newRosterObject);
+            const {
+                data: { roster },
+            } = await post("/api/rosters/add", newRosterObject);
             // --------------------
-            // console.log(rosters);
-            const addedRoster = {
-                groupType: "roster",
-                id: result.data.id,
-                name,
-                players: [],
-                invitations: [],
-            };
-            setRosters([...rosters, addedRoster]);
-            setProgress(false);
-            setShowAddRosterDialog(false);
+            console.log(roster);
+            setRosters([...rosters, roster]);
         } catch (error) {
             console.log(error);
             setProgress(false);
         }
+        setProgress(false);
+        setShowAddRosterDialog(false);
     };
 
     const handleDeleteTeam = async () => {
@@ -99,15 +110,18 @@ export const RostersPage = () => {
         const userReallyWantsToDelete = confirm(
             "Are you sure you want to delete this team and all its corresponding data? (You cannot undo this)"
         );
-        if (teams.length <= 1) {
-            alert(
+        if (organizations[0].teams.length <= 1) {
+            setSnackbarType("error");
+            setMessage(
                 "That's your last team! You must have at least one team. Please create another before deleting this one"
             );
             return;
         }
         if (userReallyWantsToDelete) {
             try {
-                await axios.delete(`/api/teams/${teamId}`);
+                console.log(teamId);
+                const { data } = await del(`/api/teams/${teamId}`);
+                console.log({ data });
                 history.push("/");
             } catch (e) {
                 console.log(e);
@@ -137,15 +151,27 @@ export const RostersPage = () => {
                 }}>
                 <Typography variant='h2'>{teamName}</Typography>
                 <h1>Coaches</h1>
-                {admins.map(({ name: coachName }) => (
-                    <Box mb={2}>
-                        <Card>
-                            <Box p={2}>
-                                <p>{coachName}</p>
+                <Box mb={2}>
+                    <Card>
+                        {admins.map(({ name: coachName, profile_img }) => (
+                            <Box width='fit-content' m={2}>
+                                <Chip
+                                    avatar={
+                                        profile_img ? (
+                                            <Avatar alt={coachName} src={profile_img} />
+                                        ) : (
+                                            <Avatar>{coachName.charAt(0)}</Avatar>
+                                        )
+                                    }
+                                    label={coachName}
+                                    // onClick={handleClick}
+                                    variant='outlined'
+                                    color='secondary'
+                                />
                             </Box>
-                        </Card>
-                    </Box>
-                ))}
+                        ))}
+                    </Card>
+                </Box>
                 <Divider />
                 <h1>Rosters</h1>
                 {isCoach && (
@@ -196,6 +222,7 @@ export const RostersPage = () => {
                                     {rosterName && (
                                         <DisplayRosterItem
                                             rosterId={rosterId}
+                                            isDefaultRoster={rosterName === "DEFAULT_ROSTER"}
                                             rosterName={rosterName}
                                             players={players}
                                             isCoach={isCoach}
@@ -211,7 +238,18 @@ export const RostersPage = () => {
                             );
                         }
                     )}
+
+                {invitations.map(({ email }) => (
+                    <Box mt={3} mb={2}>
+                        <Card>
+                            <Box p={2}>
+                                <p>{email} - Invitation Pending</p>
+                            </Box>
+                        </Card>
+                    </Box>
+                ))}
             </Box>
+            <CustomSnackbar message={message} setMessage={setMessage} type={snackbarType} />
         </>
     );
 };

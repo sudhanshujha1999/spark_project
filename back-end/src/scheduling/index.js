@@ -1,7 +1,5 @@
-import { createEventRoute } from './createEventRoute';
-import { getEventsForMonthRoute } from './getEventsForMonthRoute';
+import { createEventRoute } from "./createEventRoute";
+import { getEventsForMonthRoute } from "./getEventsForMonthRoute";
+import { deleteEventRoute } from "./deleteEventRoute";
 
-export const routes = [
-    createEventRoute,
-    getEventsForMonthRoute,
-];
+export const routes = [createEventRoute, deleteEventRoute, getEventsForMonthRoute];

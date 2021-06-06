@@ -9,5 +9,5 @@ export const ProfilePage = () => {
         console.log(userInfo);
     }, [userInfo]);
 
-    return isLoading ? <p>Loading...</p> : <MemberDetailPage currentUserId={userInfo.id} />;
+    return isLoading ? <p>Loading...</p> : <MemberDetailPage currentUserId={userInfo._id} />;
 };

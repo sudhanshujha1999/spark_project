@@ -4,6 +4,7 @@ import Accordion from "@material-ui/core/Accordion";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
+// import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
 import Alert from "@material-ui/lab/Alert";
 import Avatar from "@material-ui/core/Avatar";
 import Badge from "@material-ui/core/Badge";
@@ -11,6 +12,7 @@ import Box from "@material-ui/core/Box";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
+import Chip from "@material-ui/core/Chip";
 import Checkbox from "@material-ui/core/Checkbox";
 import CardActions from "@material-ui/core/CardActions";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -28,6 +30,7 @@ import Grow from "@material-ui/core/Grow";
 import IconButton from "@material-ui/core/IconButton";
 import Icon from "@material-ui/core/Icon";
 import InputLabel from "@material-ui/core/InputLabel";
+// import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
 import MaterialLink from "@material-ui/core/Link";
 import MenuItem from "@material-ui/core/MenuItem";
 import Paper from "@material-ui/core/Paper";
@@ -40,7 +43,9 @@ import Snackbar from "@material-ui/core/Snackbar";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import TextField from "@material-ui/core/TextField";
+import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
+// import TimePicker from "@material-ui/lab/TimePicker";
 
 export { AddableList } from "./AddableList";
 export { CenteredContainer } from "./CenteredContainer";
@@ -59,6 +64,7 @@ export {
     Accordion,
     AccordionSummary,
     AccordionDetails,
+    // AdapterDateFns,
     Alert,
     Avatar,
     Autocomplete,
@@ -69,6 +75,7 @@ export {
     Card,
     CardActions,
     CircularProgress,
+    Chip,
     Checkbox,
     Container,
     Dialog,
@@ -86,6 +93,7 @@ export {
     InputLabel,
     Link,
     MenuItem,
+    // LocalizationProvider,
     MaterialLink,
     Paper,
     Select,
@@ -95,7 +103,9 @@ export {
     SpeedDialAction,
     TextField,
     Typography,
+    // TimePicker,
     Tab,
     Tabs,
+    Tooltip,
     Snackbar,
 };

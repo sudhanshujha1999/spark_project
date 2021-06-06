@@ -42,22 +42,16 @@ export const createUserRoute = {
             // 4. Check if the user has ever accepted an invitation (which means we don't need to confirm their email,
             // since we send invitations via email)
 
-            // MONGO_DB MIGTATION
-            // commenting cause i need to see the invitaions flow
-            // const acceptedInvitationsForUser = await getAcceptedInvitationsByEmail(email);
-            // const emailAlreadyConfirmed = acceptedInvitationsForUser.length > 0;
+            const emailAlreadyConfirmed = await getAcceptedInvitationsByEmail(email);
 
             // 5. Generate a confirmation code for the user to confirm their email (only if step 4 is false).
-            // MONGO_DB MIGTATION
-            // const confirmationObject = emailAlreadyConfirmed
-            const confirmationObject = false ? { isConfirmed: true } : { confirmationCode: uuid() };
+            const confirmationObject = emailAlreadyConfirmed
+                ? { isConfirmed: true }
+                : { confirmationCode: uuid() };
 
             // 6. Check and see if there's already a user in the DB (not firebase auth) with that email
             // (i.e. this happens when the user is invited to a team or something, and will usually be true)
             if (user) {
-                // MONGO_DB MIGTATION --> need to see invitaions
-                // so, for current flow it will be false
-                // if there is, just add the corresponding auth id to their user object in the database
                 await addAuthIdToUser({
                     userId: user._id,
                     authId,
@@ -76,8 +70,7 @@ export const createUserRoute = {
 
             // 7. Send a verification email if the user's email isn't yet confirmed
             // MONGO_DB MIGTATION
-            // if (!emailAlreadyConfirmed) {
-            if (true) {
+            if (!emailAlreadyConfirmed) {
                 await sendVerificationEmail({
                     email,
                     ...confirmationObject,

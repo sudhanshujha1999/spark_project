@@ -27,7 +27,7 @@ export const EditTeamInfo = () => {
     const { teamId } = useParams();
     const { team, isLoading } = useTeam(teamId);
     const [saving, setSaving] = useState(false);
-    const [name, setName] = useState("");
+    const [name, setName] = useState(team);
     const [game, setGame] = useState("");
     const [img, setImg] = useState(null);
     const [newImg, setNewImg] = useState(null);
@@ -39,7 +39,7 @@ export const EditTeamInfo = () => {
             console.log(team);
             setName(team.name);
             setGame(team.game);
-            setImg(team.url);
+            setImg(team.image_url);
         }
     }, [team]);
 
@@ -61,8 +61,8 @@ export const EditTeamInfo = () => {
         // IF THERE IS A NEW IMAGE THEN DO THIS
         if (newImg) {
             // IF URL EXIST THEN DELETE THE OLD IMAGE IF NOT IN THE DEFAULT ONE
-            if (team.url) {
-                const path = firebase.storage().refFromURL(team.url).fullPath;
+            if (team.image_url) {
+                const path = firebase.storage().refFromURL(team.image_url).fullPath;
                 const storageFolder = path.substr(0, path.indexOf("/"));
                 if (storageFolder !== "default") {
                     // DELETE IMAGE
@@ -97,7 +97,7 @@ export const EditTeamInfo = () => {
                             const newTeamInfo = {
                                 name,
                                 game,
-                                url,
+                                image_url: url,
                             };
                             try {
                                 await put(`/api/team/${teamId}/update`, newTeamInfo);
@@ -123,7 +123,7 @@ export const EditTeamInfo = () => {
                 const newTeamInfo = {
                     name,
                     game,
-                    url: img,
+                    image_url: img,
                 };
                 try {
                     await put(`/api/team/${teamId}/update`, newTeamInfo);
@@ -221,7 +221,7 @@ export const EditTeamInfo = () => {
                             </Box>
                             <Box my={2}>
                                 <Divider />
-                                <PlayerPermissionSettings rosters={team.rosters} />
+                                {/* <PlayerPermissionSettings rosters={team.rosters} /> */}
                             </Box>
                         </Grid>
                     </Grid>

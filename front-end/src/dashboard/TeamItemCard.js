@@ -4,11 +4,14 @@ import { useHistory, Link } from "react-router-dom";
 import { useStyles } from "./Styles";
 import banner from "../img/default-image.jpg";
 
-export const TeamItemCard = ({ team, isCoach, index, editTeam = () => {} }) => {
+export const TeamItemCard = ({ team, isCoach, index }) => {
     const classes = useStyles();
     const history = useHistory();
     const handleClick = () => {
         history.push(`/teams/${team._id}`);
+    };
+    const editTeam = () => {
+        history.push(`/teams/${team._id}/edit`);
     };
     return (
         <Grid item xs={12} sm={6} lg={4} key={team.id}>
@@ -31,10 +34,8 @@ export const TeamItemCard = ({ team, isCoach, index, editTeam = () => {} }) => {
                                 <IconButton
                                     className={classes.iconBtn}
                                     onClick={(e) => {
-                                        {
-                                            e.stopPropagation();
-                                            editTeam(team);
-                                        }
+                                        e.stopPropagation();
+                                        editTeam();
                                     }}>
                                     <SettingsIcon size='small' className={classes.btnIcon} />
                                 </IconButton>
@@ -52,11 +53,9 @@ export const TeamItemCard = ({ team, isCoach, index, editTeam = () => {} }) => {
                         disableElevation
                         color='primary'
                         onClick={(e) => {
-                            {
-                                e.stopPropagation();
-                                handleClick();
-                                console.log("btn");
-                            }
+                            e.stopPropagation();
+                            handleClick();
+                            console.log("btn");
                         }}>
                         See Team
                     </Button>

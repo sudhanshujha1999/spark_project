@@ -12,6 +12,7 @@ import {
     TextField,
     Typography,
     EditableTextField,
+    CircularProgress,
 } from "../ui";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -21,19 +22,20 @@ import { PlayerCard } from "./PlayerCard";
 
 export const DisplayRosterItem = ({
     rosterId,
+    isDefaultRoster,
     rosterName,
     players,
     isCoach,
-    newPlayerEmailsForRoster,
     invitations,
     currentUserId,
     onDeleteRoster,
     teamId,
-    onAddPlayer = () => {},
+    onAddPlayer = async () => {},
 }) => {
     const [expanded, setExpanded] = useState(false);
     const [addPlayer, setAddPlayer] = useState(false);
     const [editable, setEditable] = useState(false);
+    const [progress, setProgress] = useState(false);
     const [name, setName] = useState(rosterName);
     const [newPlayerEmail, setNewPlayerEmail] = useState("");
     const [newPlayerEmailError, setNewPlayerEmailError] = useState("");
@@ -41,19 +43,22 @@ export const DisplayRosterItem = ({
     const onClickAdd = async () => {
         if (!isEmail(newPlayerEmail)) return setNewPlayerEmailError("Not a valid email");
 
+        setProgress(true);
         try {
             setNewPlayerEmailError("");
             // console.log(rosterId, newPlayerEmail);
-            onAddPlayer(rosterId, newPlayerEmail, (error) => {
+            await onAddPlayer(rosterId, newPlayerEmail, (error) => {
                 setNewPlayerEmailError(error);
                 if (error === "") {
                     setNewPlayerEmail("");
                     setAddPlayer(false);
+                    setProgress(false);
                 }
             });
         } catch (e) {
             console.log(e);
             setNewPlayerEmailError("Something went wrong with the server...");
+            setProgress(false);
         }
     };
 
@@ -99,20 +104,26 @@ export const DisplayRosterItem = ({
                     className={classes.accordianSummary}>
                     <Box py={1} className={classes.rosterName}>
                         <EditableTextField
-                            value={name}
+                            value={isDefaultRoster ? "Players with no roster" : name}
                             setValue={setName}
-                            editable={editable}
+                            editable={isDefaultRoster ? false : editable}
                             onPressEnter={editRosterName}
                             align='left'
                         />
                     </Box>
                 </AccordionSummary>
                 <AccordionDetails className={classes.accordianDetails}>
-                    {players && players.lenght > 0 ? (
+                    {players && players.length > 0 ? (
                         <Grid container spacing={4} justify='center' alignItems='center'>
                             {players.map(
                                 (
-                                    { id: playerId, name: playerName, gamerName, bio, email },
+                                    {
+                                        id: playerId,
+                                        name: playerName,
+                                        gamerName: gamerName,
+                                        bio,
+                                        email,
+                                    },
                                     index
                                 ) => (
                                     <>
@@ -130,56 +141,16 @@ export const DisplayRosterItem = ({
                                                 index={index}
                                             />
                                         </Grid>
-                                        {/* <Box mb={2}>
-                              <Link
-                                 to={`/teams/${teamId}/rosters/${rosterId}/members/${playerId}`}
-                                 onClick={
-                                    isCoach || playerId === currentUserId
-                                       ? () => {}
-                                       : (e) => {
-                                            e.preventDefault();
-                                         }
-                                 }
-                                 style={
-                                    isCoach || playerId === currentUserId
-                                       ? { cursor: "pointer" }
-                                       : { cursor: "default" }
-                                 }
-                              >
-                                 <Card
-                                    style={
-                                       playerId === currentUserId
-                                          ? { border: "4px solid #7289da" }
-                                          : {}
-                                    }
-                                 >
-                                    <Box p={2}>
-                                       <p>
-                                          {playerName} - {gamerName}
-                                       </p>
-                                    </Box>
-                                 </Card>
-                              </Link>
-                           </Box> */}
                                     </>
                                 )
                             )}
                         </Grid>
                     ) : (
                         <Box>
-                            <Typography variant='h5'>No player is the team</Typography>
+                            <Typography variant='h5'>No player is the roster</Typography>
                         </Box>
                     )}
                     {invitations.map(({ email }) => (
-                        <Box mt={3} mb={2}>
-                            <Card>
-                                <Box p={2}>
-                                    <p>{email} - Invitation Pending</p>
-                                </Box>
-                            </Card>
-                        </Box>
-                    ))}
-                    {newPlayerEmailsForRoster.map((email) => (
                         <Box mt={3} mb={2}>
                             <Card>
                                 <Box p={2}>
@@ -219,8 +190,9 @@ export const DisplayRosterItem = ({
                                             style={{ flex: 1 }}
                                             color='primary'
                                             variant='contained'
-                                            type='submit'>
-                                            Add
+                                            type='submit'
+                                            disabled={progress}>
+                                            {progress ? <CircularProgress size='2em' /> : "Add"}
                                         </Button>
                                     </>
                                 ) : (
@@ -234,7 +206,7 @@ export const DisplayRosterItem = ({
                             </Box>
                         </form>
                     )}
-                    {rosterName && isCoach && (
+                    {!isDefaultRoster && isCoach && (
                         <Box my={1}>
                             <Button
                                 startIcon={editable ? <CheckIcon /> : <EditIcon />}

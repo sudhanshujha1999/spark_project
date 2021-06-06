@@ -5,9 +5,9 @@ export const editTeamRoute = {
     method: "put",
     handler: async (req, res) => {
         const { id: teamId } = req.params;
-        const { name, url, game } = req.body;
+        const updateValues = req.body;
         try {
-            await updateTeam({ teamId, name, url, game });
+            await updateTeam({ teamId, updateValues });
             res.status(200).send({
                 success: true,
                 message: "Values Changed",

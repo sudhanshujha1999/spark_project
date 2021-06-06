@@ -142,6 +142,7 @@ export const CreateAccountPage = () => {
                     fullWidth
                     variant='contained'
                     size='large'
+                    disabled={isProcessing}
                     color='primary'>
                     {isProcessing ? <CircularProgress /> : "Create Account"}
                 </Button>

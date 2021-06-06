@@ -13,7 +13,7 @@ export const useOrganizations = (update = false) => {
     const [error, setError] = useState([]);
 
     useEffect(() => {
-        const loadPlayers = async () => {
+        const loadOrganization = async () => {
             // if no organizations call it ie. if organization is null at the beggining
             if (!organizations) {
                 console.log("first");
@@ -23,28 +23,39 @@ export const useOrganizations = (update = false) => {
                     setOrganizations(data.organizations);
                 } catch (e) {
                     console.log("Error!");
+                    setError(e.message);
                 }
+                setIsLoading(false);
             }
+        };
 
+        if (authId) {
+            loadOrganization();
+        }
+        // eslint-disable-next-line
+    }, [authId, setOrganizations]);
+
+    useEffect(() => {
+        const loadOrganization = async () => {
             // if the organization is added to the userInfo object
             if (organizations && organizations.length !== userInfo.organizations.length) {
                 setIsLoading(true);
                 try {
-                    console.log("updating");
+                    console.log("updating_on_length");
                     const { data } = await get(`/api/users/${authId}/teams`);
                     setOrganizations(data.organizations);
                 } catch (e) {
                     console.log("Error!");
+                    setError(e.message);
                 }
+                setIsLoading(false);
             }
-
-            setIsLoading(false);
         };
-
         if (authId) {
-            loadPlayers();
+            loadOrganization();
         }
-    }, [authId, setOrganizations, organizations, userInfo]);
+        // eslint-disable-next-line
+    }, [userInfo]);
 
     useEffect(() => {
         if (update) {
@@ -57,9 +68,10 @@ export const useOrganizations = (update = false) => {
                     setOrganizations(data.organizations);
                 } catch (e) {
                     console.log("Error!");
+                    setError(e.message);
                 }
+                setIsLoading(false);
             };
-            setIsLoading(false);
             updateOrganization();
         }
         // eslint-disable-next-line

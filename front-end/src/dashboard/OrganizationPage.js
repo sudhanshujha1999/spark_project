@@ -5,25 +5,14 @@ import { useStyles } from "./Styles";
 import { Member } from "./Member";
 import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useIsCoach } from "../users/useIsCoach";
 
 export const OrganizationPage = ({ user, teams, organization }) => {
     const classes = useStyles();
-    const [isCoach, setIsCoach] = useState(false);
     const history = useHistory();
     // check if the organization has any teams and the user is the creator then redirect to create teams page
     // otherwise we can show you are not in any team please contact your coach
-    console.log(isCoach);
-    useEffect(() => {
-        if (organization && teams.length === 0) {
-            if (organization.created_by === user._id) {
-                history.push(`new-team/${organization._id}`);
-            }
-            if (organization.admins.filter((admin) => admin.id === user._id).lenght === 1) {
-                setIsCoach(true);
-            }
-        }
-        // eslint-disable-next-line
-    }, [organization, user._id]);
+    const isCoach = useIsCoach(organization._id);
 
     return (
         <Box>
@@ -33,7 +22,7 @@ export const OrganizationPage = ({ user, teams, organization }) => {
             <Box mt={2} mb={7}>
                 <Divider />
             </Box>
-            <Grid container>
+            <Grid container spacing={2}>
                 <Grid item xs={12} sm={5} container>
                     <Grid item xs={12}>
                         <LeagueRecords teams={teams} />

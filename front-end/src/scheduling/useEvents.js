@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { get } from '../network';
+import { useState, useEffect } from "react";
+import { get } from "../network";
 
 export const useEvents = (year, month) => {
     const [isLoading, setIsLoading] = useState();
@@ -10,7 +10,7 @@ export const useEvents = (year, month) => {
             try {
                 const response = await get(`/api/events/${year}/${month}`);
                 const eventsRaw = response.data;
-                const events = eventsRaw.map(event => ({
+                const events = eventsRaw.map((event) => ({
                     ...event,
                     date: new Date(event.date),
                 }));
@@ -19,10 +19,10 @@ export const useEvents = (year, month) => {
             } catch (e) {
                 console.log(e);
             }
-        }
+        };
 
         loadEvents();
     }, [year, month]);
 
     return { events, setEvents, isLoading };
-}
+};

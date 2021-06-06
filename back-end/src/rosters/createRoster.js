@@ -1,10 +1,12 @@
 // Mongo Db miongration
 import { Groups, ROSTER } from "../models";
+import { createAdminPermissionForGroup } from "../permissions";
 
-export const createRoster = async ({ name = "", teamId, organizationId, coach }) => {
+export const createRoster = async ({ name = "", teamId, organizationId = null, coach = {} }) => {
     if (name === "") {
         throw new Error("requied-fields-not-filled");
     }
+    // need to create a check if coach is provided or not
     // create an admin of user
     const admin = [
         {
@@ -23,7 +25,21 @@ export const createRoster = async ({ name = "", teamId, organizationId, coach })
         created_by: coach._id,
     });
     // add parent groups
-    const parent_groups = [organizationId, teamId, newRoster._id];
+
+    let parent_groups = [];
+    // check if organizationId is provided or not
+    if (!organizationId) {
+        const team = await Groups.findById(teamId);
+        if (team) {
+            parent_groups = [...team.parent_groups, newRoster._id];
+        } else {
+            throw new Error("no-team-found");
+        }
+    } else {
+        parent_groups = [organizationId, teamId, newRoster._id];
+    }
     await newRoster.save();
     await newRoster.updateOne({ $set: { parent_groups: parent_groups } });
+    await createAdminPermissionForGroup({ userId: coach._id, groupId: newRoster._id });
+    return newRoster;
 };

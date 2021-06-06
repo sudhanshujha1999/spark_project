@@ -131,7 +131,7 @@ export const useStyles = makeStyles((theme) => ({
         height: "100%",
         margin: "10px auto",
         backgroundColor: "#303030",
-        padding: "20px 10px",
+        padding: "5px 10px",
         borderRadius: "5px",
         boxShadow: "0px 0px 10px 2px rgba(0,0,0,0.4)",
         cursor: "pointer",
@@ -168,6 +168,10 @@ export const useStyles = makeStyles((theme) => ({
             backgroundPosition: "top",
         },
     },
+    breakWord: {
+        wordWrap: "break-word",
+        width: "90%",
+    },
     teamImage: {
         position: "absolute",
         top: "-30px",
@@ -183,7 +187,7 @@ export const useStyles = makeStyles((theme) => ({
         boxShadow: "0px 5px 10px 2px rgba(0,0,0,0.2)",
     },
     playerName: {
-        marginTop: "50px",
+        marginTop: "20px",
     },
     email: {
         position: "absolute",

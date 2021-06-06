@@ -1,0 +1,21 @@
+import {
+    ADMIN,
+    PLAYER,
+    CAN_EDIT_EVENTS,
+    CAN_EDIT_MEMBERS,
+    CAN_EDIT_NOTES,
+    CAN_VIEW_EVENTS,
+    CAN_VIEW_MEMBERS,
+    CAN_VIEW_NOTES,
+} from "../permissions";
+
+export const VALID_PERMISSIONS = [
+    ADMIN,
+    PLAYER,
+    CAN_EDIT_EVENTS,
+    CAN_EDIT_MEMBERS,
+    CAN_EDIT_NOTES,
+    CAN_VIEW_EVENTS,
+    CAN_VIEW_MEMBERS,
+    CAN_VIEW_NOTES,
+];

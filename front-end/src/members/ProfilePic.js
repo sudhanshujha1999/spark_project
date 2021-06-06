@@ -64,7 +64,7 @@ export const ProfilePic = ({ user }) => {
                         storageRef
                             .getDownloadURL()
                             .then(async (url) => {
-                                const updates = { url: url };
+                                const updates = { profile_img: url };
                                 await post(`/api/users/${user.id}`, { updates });
                                 setProfileImage(url);
                                 setImageUpload(false);
@@ -89,7 +89,7 @@ export const ProfilePic = ({ user }) => {
             setImageUpload(true);
             try {
                 await deletePhoto(profileImage);
-                const updates = { url: "" };
+                const updates = { profile_img: "" };
                 await post(`/api/users/${user.id}`, { updates });
             } catch (error) {
                 console.log(error);
@@ -115,10 +115,10 @@ export const ProfilePic = ({ user }) => {
     const actions = [
         {
             icon: (
-                <IconButton component="label">
+                <IconButton component='label'>
                     <PhotoCameraIcon />
                     <input
-                        type="file"
+                        type='file'
                         hidden
                         onChange={(e) => {
                             handleUpload(e);
@@ -135,7 +135,7 @@ export const ProfilePic = ({ user }) => {
     return (
         <Box>
             <Badge
-                overlap="circle"
+                overlap='circle'
                 anchorOrigin={{
                     vertical: "bottom",
                     horizontal: "right",
@@ -143,13 +143,13 @@ export const ProfilePic = ({ user }) => {
                 badgeContent={
                     user && (
                         <SpeedDial
-                            ariaLabel="SpeedDial openIcon example"
+                            ariaLabel='SpeedDial openIcon example'
                             className={classes.speedDial}
                             FabProps={{
                                 color: "secondary",
                                 className: classes.fab,
                             }}
-                            direction="right"
+                            direction='right'
                             icon={<SpeedDialIcon />}
                             hidden={imageUpload}
                             onClose={handleClose}
@@ -168,17 +168,17 @@ export const ProfilePic = ({ user }) => {
                 }>
                 {imageUpload ? (
                     <Box className={classes.savingImage}>
-                        <CircularProgress color="secondary" />
+                        <CircularProgress color='secondary' />
                     </Box>
                 ) : profileImage ? (
-                    <Avatar className={classes.avatar} src={profileImage} alt="Profile Pic" />
+                    <Avatar className={classes.avatar} src={profileImage} alt='Profile Pic' />
                 ) : (
                     <Avatar className={classes.avatar}>
                         <AccountCircleIcon className={classes.icon} />
                     </Avatar>
                 )}
             </Badge>
-            <CustomSnackbar message={message} setMessage={setMessage} type="error" />
+            <CustomSnackbar message={message} setMessage={setMessage} type='error' />
         </Box>
     );
 };

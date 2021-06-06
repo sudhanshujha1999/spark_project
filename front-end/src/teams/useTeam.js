@@ -13,6 +13,7 @@ export const useTeam = (teamId) => {
         const loadTeam = async () => {
             try {
                 if (teamId) {
+                    console.log(teamId);
                     const currentTeamInfo = allTeamsInfo.filter((team) => team._id === teamId);
                     if (currentTeamInfo.length > 0) {
                         setTeam(currentTeamInfo[0]);
@@ -21,7 +22,7 @@ export const useTeam = (teamId) => {
                         const { data } = await get(`/api/teams/${teamId}`);
                         setTeam(data.team);
                         console.log("call");
-                        console.log(teamId);
+                        // console.log(teamId);
                         setAllTeamsInfo([...allTeamsInfo, data.team]);
                     }
                 } else {
