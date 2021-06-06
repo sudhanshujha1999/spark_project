@@ -12,17 +12,14 @@ import { Box, CircularProgress, Divider, Grid, Tabs, Tab, Typography } from "../
 import { useStyles } from "./styles";
 
 export const MemberDetailPage = ({ currentUserId }) => {
-    const { memberId, teamId } = useParams();
-    const { isLoading, user } = useUser(memberId ? memberId : currentUserId ? currentUserId : null);
-    console.log(memberId);
-    console.log(teamId);
+    const { memberId: memberIdFromParams, teamId } = useParams();
+    const memberId = memberIdFromParams ? memberIdFromParams : currentUserId ? currentUserId : null;
+    const { isLoading, user } = useUser(memberId);
     const { userInfo: currentUser } = useCurrentUserInfo();
-    console.log(currentUser._id);
-    const { isLoading: isLoadingNotes, notes, setNotes } = useNotes(memberId, teamId);
+    const { notes, setNotes } = useNotes(memberId, teamId);
     const teams = useGetTeamsForUser(user);
     const [value, setValue] = useState(0);
     const tabLabel = ["Overview", "Notes"];
-    console.log(currentUser);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -35,7 +32,7 @@ export const MemberDetailPage = ({ currentUserId }) => {
                 groupId: teamId,
             });
             const newNote = response.data;
-            // setNotes([newNote, ...notes]);
+            setNotes([newNote, ...notes]);
         } catch (e) {
             console.log(e);
         }
@@ -44,7 +41,7 @@ export const MemberDetailPage = ({ currentUserId }) => {
     const deleteNote = async (noteId) => {
         try {
             await del(`/api/players/${memberId}/notes/${noteId}`, { groupId: teamId });
-            // setNotes(notes.filter((note) => note.id !== noteId));
+            setNotes(notes.filter((note) => note.id !== noteId));
         } catch (e) {
             console.log(e);
         }
@@ -60,7 +57,12 @@ export const MemberDetailPage = ({ currentUserId }) => {
                 <CircularProgress color='secondary' />
             </Box>
         ),
-        // <Notes notes={notes} addNote={addNote} deleteNote={deleteNote} />,
+        <Notes
+            notes={notes}
+            addNote={addNote}
+            deleteNote={deleteNote}
+            viewingOwnProfile={currentUserId === memberId}
+        />,
     ];
 
     return isLoading ? (

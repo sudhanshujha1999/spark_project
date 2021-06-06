@@ -11,7 +11,7 @@ import {
     Typography,
 } from "../ui";
 
-export const Notes = ({ notes, addNote, deleteNote }) => {
+export const Notes = ({ notes, addNote, deleteNote, viewingOwnProfile }) => {
     const [newNoteText, setNewNoteText] = useState("");
     const [saving, setSaving] = useState(false);
     const classes = useStyles();
@@ -43,30 +43,39 @@ export const Notes = ({ notes, addNote, deleteNote }) => {
                     </Box>
                 ))
             ) : (
-                <Box my={4} className={classes.noGames}>
+                <Box
+                    my={4}
+                    className={classes.noGames}
+                    style={{
+                        justifyContent: "flex-start",
+                    }}>
                     <ClearAllIcon />
                     <Typography>No Notes</Typography>
                 </Box>
             )}
-            <Box>
-                <TextField
-                    value={newNoteText}
-                    onChange={(e) => setNewNoteText(e.target.value)}
-                    label="New Note"
-                    fullWidth
-                    variant="outlined"
-                />
-            </Box>
-            <Box mt={2}>
-                <Button
-                    onClick={handleAdd}
-                    color="primary"
-                    disabled={saving}
-                    fullWidth
-                    variant="contained">
-                    {saving ? <CircularProgress color="secondary" /> : "Add Note"}
-                </Button>
-            </Box>
+            {!viewingOwnProfile && (
+                <>
+                    <Box>
+                        <TextField
+                            value={newNoteText}
+                            onChange={(e) => setNewNoteText(e.target.value)}
+                            label='New Note'
+                            fullWidth
+                            variant='outlined'
+                        />
+                    </Box>
+                    <Box mt={2}>
+                        <Button
+                            onClick={handleAdd}
+                            color='primary'
+                            disabled={saving}
+                            fullWidth
+                            variant='contained'>
+                            {saving ? <CircularProgress color='secondary' /> : "Add Note"}
+                        </Button>
+                    </Box>
+                </>
+            )}
             <Divider />
         </div>
     );

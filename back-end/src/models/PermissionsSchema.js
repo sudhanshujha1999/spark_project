@@ -18,7 +18,7 @@ const PermissionsSchema = new Schema(
                 validator: function (value) {
                     return VALID_PERMISSIONS.includes(value);
                 },
-                message: (props) => `${props.value} is not a valid group!`,
+                message: (props) => `${props.value} is not a valid permissions group!`,
             },
             required: true,
         },

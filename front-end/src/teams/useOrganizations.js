@@ -11,7 +11,6 @@ export const useOrganizations = (update = false) => {
     const organizations = useRecoilValue(getOrganizationsState);
     const setOrganizations = useSetRecoilState(setOrganizationsState);
     const [error, setError] = useState([]);
-
     useEffect(() => {
         const loadOrganization = async () => {
             // if no organizations call it ie. if organization is null at the beggining
@@ -26,6 +25,8 @@ export const useOrganizations = (update = false) => {
                     setError(e.message);
                 }
                 setIsLoading(false);
+            } else {
+                setIsLoading(false);
             }
         };
 
@@ -33,7 +34,7 @@ export const useOrganizations = (update = false) => {
             loadOrganization();
         }
         // eslint-disable-next-line
-    }, [authId, setOrganizations]);
+    }, [authId]);
 
     useEffect(() => {
         const loadOrganization = async () => {

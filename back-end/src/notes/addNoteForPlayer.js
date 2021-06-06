@@ -1,12 +1,9 @@
-import * as admin from 'firebase-admin';
+import { Notes } from "../models";
 
 export const addNoteForPlayer = async ({ coachId, playerId, text }) => {
-    const createdAt = admin.firestore.Timestamp.fromDate(new Date());
-    const newNote = { coachId, playerId, text, createdAt };
-    const newNoteRef = await admin.firestore().collection('notes').add(newNote);
-    return {
-        ...newNote,
-        createdAt,
-        id: newNoteRef.id,
-    };
-}
+    const newNoteObject = { created_by: coachId, userId: playerId, text };
+    const newNote = new Notes(newNoteObject);
+    await newNote.save();
+    console.log("note-created");
+    return newNote;
+};

@@ -12,8 +12,7 @@ export const OrganizationPage = ({ user, teams, organization }) => {
     const history = useHistory();
     // check if the organization has any teams and the user is the creator then redirect to create teams page
     // otherwise we can show you are not in any team please contact your coach
-    const isCoach = useIsCoach(organization._id);
-
+    const { isCoach } = useIsCoach(organization._id);
     return (
         <Box>
             <Typography variant='h2' className={classes.orgName}>

@@ -1,5 +1,6 @@
 import { addPermissionsRoute } from "./addPermissionsRoute";
 import { removePermissionsRoute } from "./removePermissionsRoute";
+import { getAllPermissionsForUserRoute } from "./getAllPermissionsForUserRoute";
 
 export {
     ADMIN,
@@ -12,7 +13,7 @@ export {
     CAN_EDIT_NOTES,
 } from "./permissionTypes";
 
-export const routes = [addPermissionsRoute, removePermissionsRoute];
+export const routes = [addPermissionsRoute, removePermissionsRoute, getAllPermissionsForUserRoute];
 
 export { addPermission } from "./addPermission";
 export { hasPermission } from "./hasPermission";

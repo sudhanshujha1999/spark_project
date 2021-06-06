@@ -5,6 +5,11 @@ export const userState = atom({
     default: null,
 });
 
+export const userPermissionsState = atom({
+    key: "userPermissionsState",
+    default: null,
+});
+
 export const addOrganizationToUser = selector({
     key: "addOrganizationToUser",
     set: ({ get, set }, organizationId) => {

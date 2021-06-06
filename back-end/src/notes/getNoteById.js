@@ -1,9 +1,8 @@
-import * as admin from 'firebase-admin';
-
+import { Notes } from "../models";
 export const getNoteById = async (noteId) => {
-    const noteDoc = await admin.firestore().collection('notes').doc(noteId).get();
-    return {
-        ...noteDoc.data(),
-        id: noteDoc.id,
-    };
-}
+    if (!noteId) {
+        throw new Error("no-note-id-found");
+    }
+    const note = await Notes.findById(nodeId);
+    return note;
+};

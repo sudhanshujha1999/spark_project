@@ -1,14 +1,10 @@
-import * as admin from 'firebase-admin';
+import { Notes } from "../models";
 
-export const getNotesForPlayer = async ({ coachId, playerId }) => {
-    const querySnapshot = await admin.firestore().collection('notes')
-        .where('coachId', '==', coachId)
-        .where('playerId', '==', playerId)
-        .get();
+export const getNotesForPlayer = async ({ viewerId, playerId }) => {
+    const notes = Notes.find({
+        userId: playerId,
+        created_by: viewerId,
+    });
 
-    return querySnapshot.docs.map(doc => ({
-        ...doc.data(),
-        createdAt: doc.data().createdAt.toDate(),
-        id: doc.id,
-    }));
-}
+    return notes;
+};
