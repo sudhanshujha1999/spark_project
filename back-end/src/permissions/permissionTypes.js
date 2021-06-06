@@ -1,3 +1,4 @@
+// if change here change in valid permissions too in '../models'
 export const ADMIN = "ADMIN";
 export const PLAYER = "PLAYER";
 

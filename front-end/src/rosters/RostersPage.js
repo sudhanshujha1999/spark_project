@@ -29,7 +29,7 @@ export const RostersPage = () => {
     const [organizations] = useOrganizations();
     const { isLoading: isLoadingTeam, team } = useTeam(teamId);
     const { userInfo } = useCurrentUserInfo();
-    const isCoach = useIsCoach(teamId);
+    const { isCoach } = useIsCoach(teamId);
     const { _id: currentUserId } = userInfo || {};
     const { name: teamName = "", admins = [] } = team;
     const [rosters, setRosters] = useState([]);

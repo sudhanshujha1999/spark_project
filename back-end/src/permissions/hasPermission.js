@@ -1,5 +1,4 @@
-import * as admin from 'firebase-admin';
-
+import { Permissions } from "../models";
 /*
     Permissions in the database look like this:
 
@@ -10,11 +9,10 @@ import * as admin from 'firebase-admin';
     }
 */
 export const hasPermission = async ({ userId, groupId, permissionType }) => {
-    const resultSnapshot = await admin.firestore()
-        .collection('permissions')
-        .where('userId', '==', userId)
-        .where('groupId', '==', groupId)
-        .where('permissionType', '==', permissionType)
-        .get();
-    return resultSnapshot.docs.length > 0;
-}
+    const permissionExists = await Permissions.findOne({
+        userId,
+        groupId,
+        permission_type: permissionType,
+    });
+    return permissionExists;
+};

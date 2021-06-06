@@ -1,5 +1,9 @@
-import * as admin from 'firebase-admin';
+import { Notes } from "../models";
 
-export const deleteNote = async noteId => {
-    await admin.firestore().collection('notes').doc(noteId).delete();
-}
+export const deleteNote = async (noteId) => {
+    if (!noteId) {
+        throw new Error("no-note-id-found");
+    }
+    await Notes.findByIdAndDelete(noteId);
+    return true;
+};

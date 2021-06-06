@@ -1,6 +1,5 @@
-import { connectToDb } from "../util";
+import { Permissions } from "../models";
 
-export const removePermission = async ({ userId, groupId, permissionType }) => {
-    const db = connectToDb("spark-esports-db");
-    return await db.collection("permissions").remove({ userId, groupId, permissionType });
+export const removePermissions = async ({ userId, groupId, permissionType }) => {
+    await Permissions.findByIdAndDelete({ userId, groupId, permission_type: permissionType });
 };

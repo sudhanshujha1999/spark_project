@@ -1,22 +1,18 @@
-import { isCoachForPlayer } from '../coaches';
-import { addNoteForPlayer } from '../notes';
-import { ADMIN, hasPermission } from '../permissions';
+import { isCoachForPlayer } from "../coaches";
+import { addNoteForPlayer } from "../notes";
+import { ADMIN, hasPermission } from "../permissions";
 import {
     isLoggedInProtector,
     isVerifiedProtector,
     isOnboardedProtector,
-} from '../route-protectors';
+} from "../route-protectors";
 import { getUserByAuthId } from "../users";
 
 export const addNoteToPlayerRoute = {
-    method: 'post',
-    path: '/players/:playerId/notes',
-    protectors: [
-        isLoggedInProtector,
-        isVerifiedProtector,
-    ],
+    method: "post",
+    path: "/players/:playerId/notes",
+    protectors: [isLoggedInProtector, isVerifiedProtector],
     handler: async (req, res) => {
-        const { user_id: coachId } = req.user;
         const { text, groupId } = req.body;
         const { playerId } = req.params;
 
@@ -26,7 +22,7 @@ export const addNoteToPlayerRoute = {
         const requesterId = requesterUser.id;
 
         const isAllowed = await hasPermission({
-            userId: requesterId, 
+            userId: requesterId,
             groupId,
             permissionType: ADMIN,
         });
@@ -34,11 +30,11 @@ export const addNoteToPlayerRoute = {
         if (!isAllowed) return res.sendStatus(403);
 
         try {
-            const newNote = await addNoteForPlayer({ coachId, playerId, text });
+            const newNote = await addNoteForPlayer({ requesterId, playerId, text });
             res.status(200).json(newNote);
         } catch (e) {
             console.log(e);
-            res.status(500).send({ message: 'Error adding note to user' });
+            res.status(500).send({ message: "Error adding note to user" });
         }
     },
 };

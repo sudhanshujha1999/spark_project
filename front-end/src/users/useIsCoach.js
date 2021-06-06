@@ -1,55 +1,35 @@
-import { useRecoilValue } from "recoil";
-import { userState } from "./userState";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { userState, userPermissionsState } from "./userState";
 import { useEffect, useState } from "react";
 import { useOrganizations } from "../teams/useOrganizations";
+import { get } from "../network";
 
 export const useIsCoach = (groupId) => {
     const user = useRecoilValue(userState);
     const [organizations] = useOrganizations(true);
-    const [groups, setGroups] = useState([]);
-    const [isCoachArray, setIsCoachArray] = useState({});
-    const [isCoach, setIsCoach] = useState(false);
-
+    const [permissions, setPermissions] = useRecoilState(userPermissionsState);
+    const [selectedGroup, setSelectedGroup] = useState({});
     // need to load permissions here
     // currently a small logic to fix that but will add the perrmissions route here
 
     useEffect(() => {
-        if (organizations) {
-            let makingGroupsArray = [...organizations];
-            organizations.forEach((organization) => makingGroupsArray.push(...organization.teams));
-            setGroups(makingGroupsArray);
+        if (user) {
+            const loadPermissions = async () => {
+                const {
+                    data: { permissions },
+                } = await get(`/api/${user._id}/permissions`);
+                setPermissions(permissions);
+            };
+            loadPermissions();
         }
-    }, [organizations]);
+    }, [organizations, user]);
 
     useEffect(() => {
-        if (groups.length > 0 && user) {
-            if (Object.keys(isCoachArray).length !== groups.length) {
-                console.log("groups_change");
-                groups.forEach((group) => {
-                    group.admins.forEach((admin) => {
-                        if (admin.id === user._id) {
-                            setIsCoachArray((prevState) => {
-                                return { ...prevState, [`${group._id}`]: true };
-                            });
-                        } else {
-                            setIsCoachArray((prevState) => {
-                                return { ...prevState, [`${group._id}`]: false };
-                            });
-                        }
-                    });
-                });
-            }
-        }
-        // eslint-disable-next-line
-    }, [groups, user, setIsCoachArray]);
-
-    useEffect(() => {
-        if (isCoachArray) {
-            console.log(isCoachArray);
+        if (permissions) {
             console.log("isCoachArray_change");
-            setIsCoach(isCoachArray[groupId]);
+            setSelectedGroup(permissions[groupId]);
         }
-    }, [isCoachArray, groupId]);
-
-    return isCoach;
+    }, [permissions, groupId]);
+    // to add more just go for selectedGroup.CAN_VIEW_EVENTS
+    return { isCoach: selectedGroup.ADMIN };
 };
