@@ -76,9 +76,9 @@ export const TeamPlayerSelect = ({ team, userId, setInvitees, invitees }) => {
                                 {option.id !== "000" && (
                                     <Typography
                                         style={{
-                                            color: "#777",
+                                            color: "#c5c5c5",
                                         }}
-                                        variant='caption'>
+                                        variant='subtitle1'>
                                         &nbsp; {`(${option.email})`}
                                     </Typography>
                                 )}

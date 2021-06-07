@@ -57,11 +57,7 @@ export const DashboardPage = () => {
                         style={{
                             marginBottom: 50,
                         }}>
-                        Welcome{" "}
-                        <Typography component='span' variant='h3' color='secondary'>
-                            {userInfo.full_name}
-                        </Typography>{" "}
-                        to a brand new Spark Account
+                        Welcome to Spark
                     </Typography>
                     <Typography
                         variant='h6'
