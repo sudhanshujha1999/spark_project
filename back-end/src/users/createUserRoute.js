@@ -78,7 +78,7 @@ export const createUserRoute = {
                 });
             }
 
-            res.status(200).json({ id: authId });
+            res.status(200).json({ id: authId, ...confirmationObject });
         } catch (e) {
             console.log(e);
             res.status(500).json({ message: "Uh oh! Something went wrong..." });
