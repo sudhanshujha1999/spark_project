@@ -64,7 +64,7 @@ export const CreateOrganizationPage = () => {
             const { data } = await post(`/api/organization`, schoolInfo);
             // Need to update the user after the org is created
             addOrganization(data.groupId);
-            history.push(`/new-team/${data.groupId}`);
+            history.push(`/new-team/${data.groupId}?n1x=xj67bdsne12sxmlse`);
         } catch (e) {
             console.log(e);
             setIsUpdating(false);

@@ -73,8 +73,12 @@ export const CreateAccountPage = () => {
             };
             const response = await post("/api/users", data);
             setIsProcessing(false);
-            const { id } = response.data;
-            history.push(`/please-verify-email/${id}`);
+            const { id, isConfirmed } = response.data;
+            if (isConfirmed) {
+                history.push(`/sign-in`);
+            } else {
+                history.push(`/please-verify-email/${id}`);
+            }
         } catch (e) {
             setNetworkError(e.response.data.message);
             setIsProcessing(false);

@@ -55,10 +55,21 @@ export const SchedulingPage = () => {
         try {
             const { name, description, date, time, invitees, backgroundColor } = eventDetails;
             setSending(true);
-            await post("/api/events", eventDetails);
+            const {
+                data: { eventId },
+            } = await post("/api/events", eventDetails);
             setEvents([
                 ...events,
-                { name, description, date, time, invitees, background_color: backgroundColor },
+                {
+                    _id: eventId,
+                    name,
+                    description,
+                    date,
+                    time,
+                    invitees,
+                    background_color: backgroundColor,
+                    created_by: user._id,
+                },
             ]);
             setShowNewEventModal(false);
             setSending(false);

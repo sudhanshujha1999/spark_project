@@ -9,6 +9,8 @@ export const EventDetailForm = ({ selectedEvent, userId, deleteEvent = async () 
     const classes = useStyles();
     const onclickDelete = async () => {
         try {
+            console.log(userId);
+            console.log(selectedEvent.created_by);
             setError("");
             if (selectedEvent.created_by !== userId) {
                 // check user permission

@@ -13,7 +13,7 @@ export const createEventRoute = {
         try {
             const user = await getUserByAuthId(authUser.user_id);
             const createdById = user._id;
-            await createEvent({
+            const eventId = await createEvent({
                 name,
                 time,
                 date,
@@ -46,7 +46,9 @@ export const createEventRoute = {
             //     });
             // }
 
-            return res.sendStatus(200);
+            return res.status(200).json({
+                eventId: eventId,
+            });
         } catch (error) {
             console.log(error.message);
             return res.status(500).json({

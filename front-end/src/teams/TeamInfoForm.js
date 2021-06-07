@@ -4,6 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { post } from "../network";
 import firebase from "firebase";
 import { useOrganizations } from "../teams/useOrganizations";
+import { useQueryParams } from "../routing/useQueryParams";
 import {
     Alert,
     Box,
@@ -40,6 +41,7 @@ const validations = [
 const TYPES = ["image/jgp", "image/jpeg", "image/png"];
 
 export const TeamInfoForm = () => {
+    const { n1x } = useQueryParams();
     const [isAddingRoster, setIsAddingRoster] = useState(false);
     const [newRosterName, setNewRosterName] = useState("");
     const [name, setName] = useState("");
@@ -184,9 +186,23 @@ export const TeamInfoForm = () => {
                 }}>
                 <Grid item xs={12} sm={6}>
                     <Box className={classes.contentContainer}>
-                        <Typography className={classes.teamName}>
-                            {name ? name : "Enter a team name"}
-                        </Typography>
+                        {
+                            // random no. just a quick fix to check if i's a first time team
+                            n1x === "xj67bdsne12sxmlse" ? (
+                                <Box my={2}>
+                                    <Typography variant='h5' gutterBottom>
+                                        Create your first team
+                                    </Typography>
+                                    <Typography variant='subtitle2' gutterBottom>
+                                        Enter your team name, choose a game and add a roster..
+                                    </Typography>
+                                </Box>
+                            ) : (
+                                <Typography className={classes.teamName}>
+                                    {name ? name : "Enter a team name"}
+                                </Typography>
+                            )
+                        }
                         <Box className={classes.imageContainer}>
                             <Slide in={show} direction='right'>
                                 <Box
