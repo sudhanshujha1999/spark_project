@@ -4,7 +4,8 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { pathState, newStageState, downloadState, nameState } from "./recoilState";
 import { useState, useRef, useEffect } from "react";
 import { useStyles, colors } from "./styles";
-import bg from "../img/lol-map.png";
+// import bg from "../img/lol-map.png";
+import bg from "../img/split-map.jpg";
 
 export const DrawingBoard = () => {
     const [isDrawing, setIsDrawing] = useState(false);
@@ -117,6 +118,26 @@ export const DrawingBoard = () => {
 
     // SET EVERYTHING ONCE THE COMPONENT LOAD
     useEffect(() => {
+        containerRef.current.width = "800px";
+        console.log(containerRef.current.offsetWidth);
+
+        // background canvas
+        const backgroundCanvas = backgroundRef.current;
+        backgroundCanvas.width = containerRef.current.offsetWidth;
+        backgroundCanvas.height = containerRef.current.offsetHeight;
+        const backgroundContext = backgroundCanvas.getContext("2d");
+        const background = new Image();
+        // background.src = bg;
+        background.src =
+            "https://firebasestorage.googleapis.com/v0/b/spark-esport.appspot.com/o/maps%2Flol-map.png?alt=media&token=6a6e88c4-514d-4a05-9b3c-f95627152dd9";
+        background.onload = () => {
+            // const ratioX = canvas.width / background.naturalWidth;
+            // const ratioY = canvas.height / background.naturalHeight;
+            // const ratio = Math.min(ratioX, ratioY);
+            backgroundContext.drawImage(background, 0, 0);
+        };
+
+        // drawing canvas settings
         const canvas = canvasRef.current;
         canvas.width = containerRef.current.offsetWidth * 4;
         canvas.height = containerRef.current.offsetHeight * 4;
@@ -130,22 +151,10 @@ export const DrawingBoard = () => {
         context.lineWidth = 5;
         contextRef.current = context;
 
+        // download canvas
         const downloadCanvas = downloadCanvasRef.current;
         downloadCanvas.width = containerRef.current.offsetWidth;
         downloadCanvas.height = containerRef.current.offsetHeight;
-
-        const backgroundCanvas = backgroundRef.current;
-        backgroundCanvas.width = containerRef.current.offsetWidth;
-        backgroundCanvas.height = containerRef.current.offsetHeight;
-        const backgroundContext = backgroundCanvas.getContext("2d");
-        const background = new Image();
-        background.src = bg;
-        background.onload = () => {
-            // const ratioX = canvas.width / background.naturalWidth;
-            // const ratioY = canvas.height / background.naturalHeight;
-            // const ratio = Math.min(ratioX, ratioY);
-            backgroundContext.drawImage(background, 0, 0);
-        };
 
         // eslint-disable-next-line
     }, []);

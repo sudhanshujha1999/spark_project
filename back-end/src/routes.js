@@ -9,6 +9,7 @@ import { routes as schoolRoutes } from "./schools";
 import { routes as teamRoutes } from "./teams";
 import { routes as userRoutes } from "./users";
 import { routes as testRoutes } from "./test";
+import { routes as warRoomRoutes } from "./war-room";
 
 export const routes = [
     ...emailVerificationRoutes,
@@ -22,4 +23,5 @@ export const routes = [
     ...teamRoutes,
     ...userRoutes,
     ...testRoutes,
+    ...warRoomRoutes,
 ];

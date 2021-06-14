@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { DeleteIcon } from "../icons";
-import { Alert, Box, IconButton, Divider, Typography } from "../ui";
+import { Alert, Avatar, Box, Chip, IconButton, Divider, Typography } from "../ui";
 import { useStyles } from "./styles";
 
 export const EventDetailForm = ({ selectedEvent, userId, deleteEvent = async () => {} }) => {
@@ -51,11 +51,25 @@ export const EventDetailForm = ({ selectedEvent, userId, deleteEvent = async () 
             <Divider />
             <Box mb={2}>
                 <Typography variant='h6'>Invitees:</Typography>
-                {invitees.map(({ email }) => (
-                    <Box ml={2}>
-                        <Typography variant='body1'>{email}</Typography>
-                    </Box>
-                ))}
+                <Box my={1} display='flex' flexDirection='row' flexWrap='wrap'>
+                    {invitees.map(({ name, profile_img }) => (
+                        <Chip
+                            style={{
+                                margin: "10px",
+                            }}
+                            variant='outlined'
+                            avatar={
+                                profile_img ? (
+                                    <Avatar color='secondary' alt={name} src={profile_img} />
+                                ) : (
+                                    <Avatar color='secondary'>{name.charAt(0)}</Avatar>
+                                )
+                            }
+                            label={name}
+                            onClick={() => console.log("make an onClick")}
+                        />
+                    ))}
+                </Box>
             </Box>
             {error && (
                 <Box my={1}>

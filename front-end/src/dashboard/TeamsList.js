@@ -25,7 +25,7 @@ export const TeamsList = ({ school, teams, isCoach, editTeam }) => {
                 );
             })}
             {isCoach && (
-                <Link to={`/new-team/${school._id}`}>
+                <Link to={`/new-team/${school._id}?n1x=xj67bdsne12sxmlse`}>
                     <Fab variant='extended' color='primary' className={classes.fab}>
                         <AddIcon />
                         Add Team

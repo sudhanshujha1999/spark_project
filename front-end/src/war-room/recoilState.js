@@ -1,30 +1,42 @@
 import { atom, selector } from "recoil";
 
+// all war-room sessions
+export const sessionState = atom({
+    key: "sessionState",
+    default: null,
+});
+
+// this contains all the previous states
 export const pathsState = atom({
     key: "pathsState",
     default: [],
 });
 
+// contaniers the name of the current state
 export const nameState = atom({
     key: "nameState",
     default: "",
 });
 
-export const newStageState = atom({
-    key: "newStageState",
-    default: false,
-});
-
+// description of current state
 export const stageDescriptionState = atom({
     key: "stageDescriptionState",
     default: "",
 });
 
+// flag helps in resetting things in other conponents
+export const newStageState = atom({
+    key: "newStageState",
+    default: false,
+});
+
+// paths of current state
 export const pathState = atom({
     key: "pathState",
     default: [],
 });
 
+// download flag state
 export const downloadState = atom({
     key: "downloadState",
     default: false,

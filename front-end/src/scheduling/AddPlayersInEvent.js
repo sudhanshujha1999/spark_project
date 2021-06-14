@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { TeamPlayerSelect } from "./TeamPlayerSelect";
 
 export const AddPlayersInEvent = ({ userId, setInvitees, invitees }) => {
-    const [organizations] = useOrganizations();
+    const { allOrganizations: organizations } = useOrganizations();
     const [allTeams, setAllTeams] = useState([]);
 
     useEffect(() => {

@@ -8,7 +8,6 @@ export const useTeam = (teamId) => {
     const [team, setTeam] = useState({});
     const allTeamsInfo = useRecoilValue(getTeamInfoState);
     const setAllTeamsInfo = useSetRecoilState(setTeamInfoState);
-
     useEffect(() => {
         const loadTeam = async () => {
             try {

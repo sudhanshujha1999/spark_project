@@ -52,10 +52,7 @@ export const NewEventForm = ({ selectedDate, onSubmitEvent = () => {}, sending, 
         setValidationErrors(validationErrors);
         if (validationErrors.length > 0) return;
         // right now there is no invitees Check
-        const inviteesData = invitees.map(({ email, id }) => {
-            return { email, id };
-        });
-        onSubmitEvent({ name, date, description, time, invitees: inviteesData, backgroundColor });
+        onSubmitEvent({ name, date, description, time, invitees, backgroundColor });
     };
 
     return (

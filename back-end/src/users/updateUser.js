@@ -1,4 +1,4 @@
-import { Users, Groups } from "../models";
+import { Users, Groups, Events } from "../models";
 
 export const updateUser = async (userId, params) => {
     let query = {};
@@ -30,6 +30,22 @@ export const updateUser = async (userId, params) => {
                 "players.$.gamerName": updated.gamer_name,
                 "players.$.profile_img": updated.profile_img,
                 "players.$.bio": updated.bio,
+            },
+        },
+        {
+            new: true,
+        }
+    );
+
+    // update in events
+    await Events.updateMany(
+        { "invitees.id": updated._id },
+        {
+            $set: {
+                "invitees.$.name": updated.full_name,
+                "invitees.$.gamerName": updated.gamer_name,
+                "invitees.$.profile_img": updated.profile_img,
+                "invitees.$.bio": updated.bio,
             },
         },
         {

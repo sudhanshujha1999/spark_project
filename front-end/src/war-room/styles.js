@@ -26,7 +26,6 @@ export const useStyles = makeStyles((theme) => ({
     subtitle: {
         color: "#898989",
         margin: "10px 0 20px",
-        cursor: "pointer",
     },
     rosterLoading: {
         height: "50px",

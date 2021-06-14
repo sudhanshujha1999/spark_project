@@ -6,7 +6,7 @@ import { get } from "../network";
 
 export const useIsCoach = (groupId) => {
     const user = useRecoilValue(userState);
-    const [organizations] = useOrganizations(true);
+    const { allOrganizations: organizations } = useOrganizations(true);
     const [permissions, setPermissions] = useRecoilState(userPermissionsState);
     const [selectedGroup, setSelectedGroup] = useState({});
     // need to load permissions here
@@ -27,9 +27,11 @@ export const useIsCoach = (groupId) => {
     useEffect(() => {
         if (permissions) {
             console.log("isCoachArray_change");
-            setSelectedGroup(permissions[groupId]);
+            if (permissions[groupId]) {
+                setSelectedGroup(permissions[groupId]);
+            }
         }
     }, [permissions, groupId]);
     // to add more just go for selectedGroup.CAN_VIEW_EVENTS
-    return { isCoach: selectedGroup.ADMIN };
+    return { isCoach: selectedGroup.ADMIN || false };
 };

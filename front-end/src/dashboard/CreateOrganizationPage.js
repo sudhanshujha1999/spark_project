@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import {
     Alert,
+    Autocomplete,
     Box,
     Button,
     CircularProgress,
@@ -20,7 +21,7 @@ import { useHistory } from "react-router-dom";
 import { addOrganizationToUser } from "../users/userState";
 import { useCurrentUserInfo } from "../users";
 import { useSetRecoilState } from "recoil";
-
+import { city_names } from "../util/allCitiesArray";
 const validations = [
     {
         test: ({ name }) => name.length > 1,
@@ -29,6 +30,10 @@ const validations = [
     {
         test: ({ orgType }) => orgType !== "",
         errorMessage: "Please select a organization type",
+    },
+    {
+        test: ({ location }) => location !== null,
+        errorMessage: "Please select a loaction",
     },
 ];
 
@@ -39,6 +44,7 @@ export const CreateOrganizationPage = () => {
     const [canCreateOrganization, setCanCreateOrganization] = useState(false);
     const [name, setName] = useState("");
     const [orgType, setOrgType] = useState("");
+    const [location, setLoaction] = useState(city_names[0]);
     const [isUpdating, setIsUpdating] = useState(false);
     const [validationErrors, setValidationErrors] = useState([]);
     const [networkError, setNetworkError] = useState("");
@@ -46,7 +52,7 @@ export const CreateOrganizationPage = () => {
     const classes = useStyles();
 
     const getValidationErrors = () => {
-        const fields = { name, orgType };
+        const fields = { name, orgType, location };
         const errors = validations
             .filter((validation) => !validation.test(fields))
             .map((validation) => validation.errorMessage);
@@ -60,7 +66,7 @@ export const CreateOrganizationPage = () => {
 
         setIsUpdating(true);
         try {
-            const schoolInfo = { name, organization_level: orgType };
+            const schoolInfo = { name, organization_level: orgType, location: location };
             const { data } = await post(`/api/organization`, schoolInfo);
             // Need to update the user after the org is created
             addOrganization(data.groupId);
@@ -130,6 +136,19 @@ export const CreateOrganizationPage = () => {
                                 </MenuItem>
                             </Select>
                         </FormControl>
+                    </Box>
+                    <Box mb={2}>
+                        <Autocomplete
+                            value={location}
+                            id='cities'
+                            onChange={(e, data) => setLoaction(data)}
+                            options={city_names}
+                            getOptionLabel={(option) => option}
+                            style={{ width: 300 }}
+                            renderInput={(params) => (
+                                <TextField {...params} label='Select City' variant='outlined' />
+                            )}
+                        />
                     </Box>
                     <Divider />
                     <Box py={2}>

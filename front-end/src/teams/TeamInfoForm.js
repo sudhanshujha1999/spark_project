@@ -59,7 +59,7 @@ export const TeamInfoForm = () => {
     const [validationErrors, setValidationErrors] = useState([]);
     const classes = useStyles();
 
-    const [organizations] = useOrganizations(update);
+    const { organizations, allOrganizations } = useOrganizations(update);
     const history = useHistory();
     const { id: organizationId } = useParams();
 
