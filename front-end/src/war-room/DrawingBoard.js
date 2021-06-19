@@ -4,10 +4,8 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { pathState, newStageState, downloadState, nameState } from "./recoilState";
 import { useState, useRef, useEffect } from "react";
 import { useStyles, colors } from "./styles";
-// import bg from "../img/lol-map.png";
-import bg from "../img/split-map.jpg";
 
-export const DrawingBoard = () => {
+export const DrawingBoard = ({ mapLink, isCoach, setHasChanged }) => {
     const [isDrawing, setIsDrawing] = useState(false);
     const [paths, setPaths] = useRecoilState(pathState);
     const stageName = useRecoilValue(nameState);
@@ -36,7 +34,7 @@ export const DrawingBoard = () => {
         contextRef.current.beginPath();
         contextRef.current.moveTo(offsetX * 2, offsetY * 2);
         pointsRef.current.push({ x: offsetX * 2, y: offsetY * 2, color: color });
-        setIsDrawing(true);
+        setIsDrawing(true && isCoach);
     };
 
     // STOP DRAWING
@@ -45,8 +43,10 @@ export const DrawingBoard = () => {
             contextRef.current.closePath();
             setPaths([...paths, pointsRef.current]);
             pointsRef.current = [];
-            setIsDrawing(false);
+            setIsDrawing(false && isCoach);
             contextRef.current.save();
+            // has drawn something
+            setHasChanged(true);
         }
     };
 
@@ -128,8 +128,8 @@ export const DrawingBoard = () => {
         const backgroundContext = backgroundCanvas.getContext("2d");
         const background = new Image();
         // background.src = bg;
-        background.src =
-            "https://firebasestorage.googleapis.com/v0/b/spark-esport.appspot.com/o/maps%2Flol-map.png?alt=media&token=6a6e88c4-514d-4a05-9b3c-f95627152dd9";
+        background.src = mapLink;
+        // "https://firebasestorage.googleapis.com/v0/b/spark-esport.appspot.com/o/maps%2Flol-map.png?alt=media&token=6a6e88c4-514d-4a05-9b3c-f95627152dd9";
         background.onload = () => {
             // const ratioX = canvas.width / background.naturalWidth;
             // const ratioY = canvas.height / background.naturalHeight;
@@ -204,22 +204,24 @@ export const DrawingBoard = () => {
 
     return (
         <Box className={classes.drawingComponent}>
-            <Box my={2} className={classes.rowContainer}>
-                {colors.map((item) => (
-                    <Box
-                        onClick={() => setActiveColor(item.color)}
-                        className={
-                            item.color === color
-                                ? `${classes.color} ${classes.active}`
-                                : classes.color
-                        }
-                        key={item.name}
-                        style={{
-                            backgroundColor: item.color,
-                        }}
-                    />
-                ))}
-            </Box>
+            {isCoach && (
+                <Box my={2} className={classes.rowContainer}>
+                    {colors.map((item) => (
+                        <Box
+                            onClick={() => setActiveColor(item.color)}
+                            className={
+                                item.color === color
+                                    ? `${classes.color} ${classes.active}`
+                                    : classes.color
+                            }
+                            key={item.name}
+                            style={{
+                                backgroundColor: item.color,
+                            }}
+                        />
+                    ))}
+                </Box>
+            )}
             <Box ref={containerRef} className={classes.canvasContainer}>
                 <canvas
                     ref={canvasRef}
@@ -231,11 +233,13 @@ export const DrawingBoard = () => {
                 <canvas className={classes.backgroundCanvas} ref={backgroundRef} />
                 <canvas className={classes.downloadCanvas} ref={downloadCanvasRef} />
             </Box>
-            <Box my={3} className={classes.rowContainer}>
-                <Button onClick={handleUndo}>Undo</Button>
-                <Button onClick={handleClear}>Clear All</Button>
-                <Button onClick={handleRedo}>Redo</Button>
-            </Box>
+            {isCoach && (
+                <Box my={3} className={classes.rowContainer}>
+                    <Button onClick={handleUndo}>Undo</Button>
+                    <Button onClick={handleClear}>Clear All</Button>
+                    <Button onClick={handleRedo}>Redo</Button>
+                </Box>
+            )}
         </Box>
     );
 };

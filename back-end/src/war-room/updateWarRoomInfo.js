@@ -1,9 +1,9 @@
 import { WarRoom } from "../models";
 
-export const saveStagesOfWarRoom = async ({ sessionId, newStages }) => {
+export const updateWarRoomInfo = async ({ sessionId, updateValues }) => {
     const updated = await WarRoom.findByIdAndUpdate(
         sessionId,
-        { stages: newStages },
+        { $set: updateValues },
         { new: true }
     );
     if (!updated) {

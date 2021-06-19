@@ -1,6 +1,6 @@
 import { isLoggedInProtector, isVerifiedProtector } from "../route-protectors";
 import { getUserByAuthId } from "../users";
-import { saveStagesOfWarRoom } from "./saveStagesOfWarRoom";
+import { updateWarRoomInfo } from "./updateWarRoomInfo";
 
 export const saveSessionStageRoute = {
     path: "/:sessionId/save/session",
@@ -9,7 +9,12 @@ export const saveSessionStageRoute = {
     handler: async (req, res) => {
         const authUser = req.user;
         const { sessionId } = req.params;
-        const { stages } = req.body;
+        let updateQuery = {};
+        for (var key in req.body) {
+            //could also be req.query
+            req.body[key] !== "" ? (updateQuery[key] = req.body[key]) : null;
+        }
+
         try {
             // user creating the war room session
             const user = await getUserByAuthId(authUser.user_id);
@@ -21,7 +26,8 @@ export const saveSessionStageRoute = {
             // check permission here
             // ---------------------
             // upate stages in db
-            await saveStagesOfWarRoom({ sessionId, newStages: stages });
+            await updateWarRoomInfo({ sessionId, updateValues: updateQuery });
+            console.log("war-room-updated");
             return res.status(200).json({
                 success: true,
             });

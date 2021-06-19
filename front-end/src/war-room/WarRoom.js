@@ -1,4 +1,4 @@
-import { Container, Grid, Button, Box, CircularProgress, Slide, Fade } from "../ui";
+import { Container, Grid, Button, Box, CircularProgress, Fade } from "../ui";
 import { useOrganizations } from "../teams";
 import { useIsCoach } from "../users/useIsCoach";
 import { AllSessions } from "./AllSessions";
@@ -9,7 +9,7 @@ import { useGetAllSessions } from "./useGetAllSessions";
 
 export const WarRoom = () => {
     const { organizations, isLoading: isLoadingOrganizations } = useOrganizations();
-    const isCoach = useIsCoach(organizations ? organizations._id : "");
+    const { isCoach } = useIsCoach(organizations._id);
     const { sessions, isLoading: isLoadingSessions } = useGetAllSessions();
     const [addSession, setAddSession] = useState(false);
     const classes = useStyles();
@@ -48,20 +48,21 @@ export const WarRoom = () => {
                             </Grid>
                         )}
                     </Grid>
-                    <Slide
-                        in={addSession}
-                        style={{
-                            height: addSession ? "auto" : 0,
-                            transitionDelay: addSession ? "100ms" : "0ms",
-                        }}
-                        direction='right'>
-                        <Box>
-                            <AddWarRoomSession
-                                handleCancel={handleCancel}
-                                teams={organizations.teams}
-                            />
-                        </Box>
-                    </Slide>
+                    {addSession && (
+                        <Fade
+                            in={addSession}
+                            style={{
+                                height: addSession ? "auto" : 0,
+                                transitionDelay: addSession ? "100ms" : "0ms",
+                            }}>
+                            <Box>
+                                <AddWarRoomSession
+                                    handleCancel={handleCancel}
+                                    teams={organizations.teams}
+                                />
+                            </Box>
+                        </Fade>
+                    )}
                 </>
             )}
         </Container>

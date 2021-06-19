@@ -42,6 +42,14 @@ export const downloadState = atom({
     default: false,
 });
 
+export const variableDataState = atom({
+    key: "variableDataState",
+    default: {
+        strategy: "",
+        opponent_strategy: "",
+    },
+});
+
 export const addNewPathToState = selector({
     key: "addNewPathToState",
     set: ({ get, set }) => {
@@ -103,5 +111,12 @@ export const setDownload = selector({
     key: "setDownload",
     set: ({ set }) => {
         set(downloadState, true);
+    },
+});
+// later add invitees
+export const saveDataFromInfo = selector({
+    key: "saveDataFromInfo",
+    set: ({ set }, { strategy, opponentStrategy }) => {
+        set(variableDataState, { strategy: strategy, opponent_strategy: opponentStrategy });
     },
 });

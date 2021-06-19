@@ -1,8 +1,11 @@
 import { Snackbar, Alert } from "./";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export const CustomSnackbar = ({ message, setMessage, type }) => {
     const [view, setView] = useState(false);
+    const setMessageEmpty = useCallback(() => {
+        setTimeout(() => setMessage(""), 500);
+    }, [setMessage]);
 
     function handleClose(event, reason) {
         if (reason === "clickaway") {
@@ -18,6 +21,12 @@ export const CustomSnackbar = ({ message, setMessage, type }) => {
             setView(false);
         }
     }, [message]);
+
+    useEffect(() => {
+        if (!view) {
+            setMessageEmpty();
+        }
+    }, [view, setMessageEmpty]);
 
     return (
         <Snackbar open={view} autoHideDuration={3000} onClose={handleClose}>

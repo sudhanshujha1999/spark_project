@@ -1,5 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { red, blue, purple, yellow, orange, green, grey } from "@material-ui/core/colors";
+import bg from "../img/background.jpg";
 
 export const useStyles = makeStyles((theme) => ({
     // LOADING
@@ -7,6 +8,41 @@ export const useStyles = makeStyles((theme) => ({
         display: "grid",
         placeItems: "center",
         height: "50vh",
+    },
+    // headings
+    headingMedium: {
+        fontSize: "2.5em",
+        width: "fit-content",
+        position: "relative",
+        "&:before": {
+            position: "absolute",
+            content: '""',
+            width: "150%",
+            height: "3px",
+            bottom: "-6px",
+            left: 0,
+            borderRadius: "0px 5px 5px 15px",
+            zIndex: "2",
+            background:
+                "linear-gradient(90deg, rgba(213,105,255,1) 0%, rgba(68,161,240,1) 30%, rgba(250,250,250,0) 60%)",
+        },
+    },
+    headingSmall: {
+        fontSize: "1.5em",
+        width: "fit-content",
+        position: "relative",
+        "&:before": {
+            position: "absolute",
+            content: '""',
+            width: "150%",
+            height: "3px",
+            bottom: "-6px",
+            left: 0,
+            borderRadius: "0px 5px 5px 15px",
+            zIndex: "2",
+            background:
+                "linear-gradient(90deg, #ffef2e 0%, rgb(240 100 68) 30%, rgba(250,250,250,0) 60%)",
+        },
     },
     // ADD SESSION DIALOG
     addSessionContainer: {
@@ -134,6 +170,104 @@ export const useStyles = makeStyles((theme) => ({
         "&:nth-child(2)": {
             transform: "translateY(0px)",
         },
+    },
+    // session information
+    membersChip: {
+        margin: "5px 10px",
+        padding: "5px",
+    },
+    infoMessage: {
+        padding: "5px",
+        color: theme.palette.warning.main,
+        background: "rgba(0,0,0,0.4)",
+        borderRadius: 5,
+        display: "block",
+        marginTop: 5,
+        width: "fit-content",
+    },
+    teamsVs: {
+        position: "relative",
+        width: "fit-content",
+    },
+    vsContainer: {
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        overflow: "visible",
+        zIndex: "2",
+        transform: "translate(-50%, -50%)",
+    },
+    vsSign: {
+        borderRadius: "50%",
+        fontSize: "2em",
+        padding: "20px",
+        fontWeight: 700,
+        position: "relative",
+        background: "linear-gradient(0deg, #000, #262626)",
+        "&:before": {
+            position: "absolute",
+            content: '""',
+            top: "-1px",
+            left: "-1px",
+            zIndex: "-2",
+            borderRadius: "50%",
+            background:
+                "linear-gradient(460deg, #fd9832, #ffef2e, #9cff36, #38eefe, #357cff, #386cff, #dd23ff, #ff3183)",
+            backgroundSize: "400%",
+            width: "calc(100% + 2px)",
+            filter: "blur(5px)",
+            height: "calc(100% + 2px)",
+            animation: "$animateGradient 50s linear infinite",
+        },
+    },
+    "@keyframes animateGradient": {
+        "0%": {
+            backgroundPosition: "0 0",
+        },
+        "50%": {
+            backgroundPosition: "300% 0",
+        },
+        "100%": {
+            backgroundPosition: "0% 0",
+        },
+    },
+    teamName: {
+        margin: "20px 0px",
+        display: "inline-block",
+        padding: "10px 20px",
+        fontSize: "1.7em",
+        width: "250px",
+        backgroundImage: `url(${bg})`,
+        backgroundSize: "cover",
+        fontWeight: 600,
+        backgroundBlendMode: "luminosity",
+        borderRadius: "2px",
+        "&:nth-child(2)": {
+            backgroundColor: purple[500],
+            textAlign: "right",
+            backgroundPosition: "left",
+            paddingRight: "60px",
+            // background: "linear-gradient(90deg, rgba(142,36,170,1) 0%, rgba(51,51,51,1) 100%)",
+            // transform: "translate(10px,-10px) rotate(-3deg)",
+            transform: "translate(10px,-10px)",
+            clipPath: "polygon(20% 0, 100% 0, 100% 100%, 0% 100%)",
+        },
+        "&:nth-child(3)": {
+            backgroundColor: theme.palette.secondary.main,
+            // background: "linear-gradient(-90deg, rgba(255,211,105,1) 20%, rgba(51,51,51,1) 100%)",
+            paddingLeft: "60px",
+            backgroundPosition: "right",
+            textAlign: "left",
+            // transform: "translate(-10px,10px) rotate(-3deg)",
+            transform: "translate(-10px,10px)",
+            clipPath: "polygon(0 0, 100% 0, 80% 100%, 0% 100%)",
+        },
+    },
+    description: {
+        padding: "10px",
+        backgroundColor: "rgba(0,0,0,0.2)",
+        width: "min(500px, 90%)",
+        borderRadius: "4px",
     },
     // ALL STAGES LIST
     stagesContainer: {

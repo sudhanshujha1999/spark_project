@@ -32,6 +32,12 @@ const WarRoomSchema = new Schema(
         map_link: {
             type: String,
         },
+        strategy: {
+            type: String,
+        },
+        opponent_strategy: {
+            type: String,
+        },
         // war room stages/canvas paths,
         stages: [
             {

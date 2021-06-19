@@ -10,7 +10,7 @@ export const useOrganizations = (update = false) => {
     const [isLoading, setIsLoading] = useState(true);
     const organizations = useRecoilValue(getOrganizationsState);
     const setOrganizations = useSetRecoilState(setOrganizationsState);
-    const [selectedOrganization, setSelectedOrganization] = useState(null);
+    const [selectedOrganization, setSelectedOrganization] = useState({});
 
     const [error, setError] = useState([]);
     useEffect(() => {

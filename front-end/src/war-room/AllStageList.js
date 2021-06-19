@@ -14,7 +14,7 @@ import {
 import { useStyles } from "./styles";
 import { useState } from "react";
 
-export const AllStageList = () => {
+export const AllStageList = ({ isCoach, setHasChanged }) => {
     const allStages = useRecoilValue(pathsState);
     const setDownloadTrue = useSetRecoilState(setDownload);
     const classes = useStyles();
@@ -31,6 +31,7 @@ export const AllStageList = () => {
     const handleClick = () => {
         if (stageName !== "") {
             addPath();
+            setHasChanged(true);
             setNewStage(true);
         } else {
             setMessage("Please Enter a Name");
@@ -38,7 +39,8 @@ export const AllStageList = () => {
     };
 
     const setStage = (stage, index) => {
-        if (active === null) {
+        setMessage("");
+        if (active === null || !isCoach) {
             setPath(stage.path);
             setStageName(stage.name);
             setDescription(stage.description);
@@ -78,6 +80,7 @@ export const AllStageList = () => {
                                     className={classes.listItem}
                                     value={stageName}
                                     fullWidth
+                                    disabled={!isCoach}
                                     onChange={(e) => setStageName(e.target.value)}
                                     variant='outlined'
                                 />
@@ -89,6 +92,7 @@ export const AllStageList = () => {
                                     multiline
                                     onChange={(e) => setDescription(e.target.value)}
                                     variant='outlined'
+                                    disabled={!isCoach}
                                 />
                             </>
                         );
@@ -112,7 +116,7 @@ export const AllStageList = () => {
                     <Box my={2} />
                 </Grid>
             )}
-            {active === null && (
+            {active === null && isCoach && (
                 <>
                     <Grid item xs={12}>
                         <TextField
@@ -140,7 +144,7 @@ export const AllStageList = () => {
                     </Grid>
                 </>
             )}
-            {active !== null && (
+            {active !== null && isCoach && (
                 <Grid item xs={12} className={classes.row}>
                     <Box mr={2}>
                         <Button variant='contained' color='primary' onClick={handleSave}>

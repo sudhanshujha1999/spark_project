@@ -1,2 +1,2 @@
 export { WarRoom } from "./WarRoom";
-export { Session } from "./Session";
+export { SessionDetails } from "./SessionDetails";
