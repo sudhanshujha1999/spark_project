@@ -12,11 +12,12 @@ import {
 } from "../ui";
 import { post } from "../network";
 import { ClearIcon } from "../icons";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useTeam } from "../teams";
 import { useStyles } from "./styles";
 import { mapsData as maps } from "./mapsData";
 import { useHistory } from "react-router-dom";
+import { MenuItem } from "@material-ui/core";
 
 export const AddWarRoomSession = ({ handleCancel, teams }) => {
     const [sessionName, setSessionName] = useState("");
@@ -28,6 +29,7 @@ export const AddWarRoomSession = ({ handleCancel, teams }) => {
     const [description, setDescription] = useState("");
     const [date, setDate] = useState("");
     const [opponentTeam, setOpponentTeam] = useState("");
+    const [selectedMapGame, setSelectedMApGame] = useState("");
     // used in processing
     const [searchTeam, setSearchTeam] = useState(null);
     const [saving, setSaving] = useState(false);
@@ -99,6 +101,34 @@ export const AddWarRoomSession = ({ handleCancel, teams }) => {
     const handleRemove = (playerToRemove) => {
         setPlayers(players.filter((playerItem) => playerItem !== playerToRemove));
     };
+
+    const memoizedGroupedMaps = useMemo(() => {
+        // made the maps like that cause in future if we want to add maps db
+        // then we can enter a new map with the groupid and map details and we will
+        // modify the data here as we need
+        let groupedMaps = {};
+        maps.forEach((map) => {
+            if (!groupedMaps[`${map.groupId}`]) {
+                const mapObject = {
+                    id: map.groupId,
+                    name: map.groupName,
+                    maps: [],
+                };
+                mapObject.maps.push({
+                    name: map.name,
+                    link: map.link,
+                });
+                groupedMaps[`${map.groupId}`] = mapObject;
+            } else {
+                groupedMaps[`${map.groupId}`].maps.push({
+                    name: map.name,
+                    link: map.link,
+                });
+            }
+        });
+        return groupedMaps;
+    }, []);
+    console.log(memoizedGroupedMaps);
 
     return (
         <Box className={classes.addSessionContainer}>
@@ -229,22 +259,46 @@ export const AddWarRoomSession = ({ handleCancel, teams }) => {
                 </Grid>
 
                 {/* MAPS */}
-                <Grid item xs={12} className={classes.row}>
-                    {maps.map((mapItem) => (
-                        <Box className={classes.map} onClick={() => selectMap(mapItem)}>
-                            <Box
-                                className={
-                                    mapItem.name === map.name
-                                        ? `${classes.mapImage} ${classes.activeMap}`
-                                        : classes.mapImage
-                                }
-                                style={{
-                                    backgroundImage: `url(${mapItem.link})`,
-                                }}
-                            />
-                            <Typography className={classes.subtitle}>{mapItem.name}</Typography>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        select
+                        label='Game'
+                        variant='outlined'
+                        fullWidth
+                        value={selectedMapGame}
+                        className={classes.sessionTextfield}
+                        onChange={(e) => {
+                            setSelectedMApGame(e.target.value);
+                        }}>
+                        {Object.values(memoizedGroupedMaps).map(({ name, id }) => (
+                            <MenuItem key={id} value={id}>
+                                {name}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                </Grid>
+                <Grid item xs={12}>
+                    {selectedMapGame && (
+                        <Box display='flex' flexDirection='row' flexWrap='wrap'>
+                            {memoizedGroupedMaps[`${selectedMapGame}`].maps.map((mapItem) => (
+                                <Box className={classes.map} onClick={() => selectMap(mapItem)}>
+                                    <Box
+                                        className={
+                                            mapItem.name === map.name
+                                                ? `${classes.mapImage} ${classes.activeMap}`
+                                                : classes.mapImage
+                                        }
+                                        style={{
+                                            backgroundImage: `url(${mapItem.link})`,
+                                        }}
+                                    />
+                                    <Typography className={classes.subtitle}>
+                                        {mapItem.name}
+                                    </Typography>
+                                </Box>
+                            ))}
                         </Box>
-                    ))}
+                    )}
                 </Grid>
 
                 {/* ACTIONS */}

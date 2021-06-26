@@ -145,25 +145,27 @@ export const AllStageList = ({ isCoach, setHasChanged }) => {
                 </>
             )}
             {active !== null && isCoach && (
-                <Grid item xs={12} className={classes.row}>
-                    <Box mr={2}>
-                        <Button variant='contained' color='primary' onClick={handleSave}>
-                            Save
-                        </Button>
-                    </Box>
-                    <Box mr={2}>
-                        <Button variant='outlined' color='primary' onClick={handleDownload}>
-                            Download
-                        </Button>
-                    </Box>
-                    <Box mr={2}>
-                        <Button
-                            className={classes.deleteBtn}
-                            variant='contained'
-                            color='primary'
-                            onClick={handleDelete}>
-                            Delete
-                        </Button>
+                <Grid item xs={12}>
+                    <Box display='flex' flexDirection='row' alignItems='center'>
+                        <Box mr={2}>
+                            <Button variant='contained' color='primary' onClick={handleSave}>
+                                Save
+                            </Button>
+                        </Box>
+                        <Box mr={2}>
+                            <Button variant='outlined' color='primary' onClick={handleDownload}>
+                                Download
+                            </Button>
+                        </Box>
+                        <Box mr={2}>
+                            <Button
+                                className={classes.deleteBtn}
+                                variant='contained'
+                                color='primary'
+                                onClick={handleDelete}>
+                                Delete
+                            </Button>
+                        </Box>
                     </Box>
                 </Grid>
             )}

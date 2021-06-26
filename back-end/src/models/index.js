@@ -4,7 +4,7 @@ export { Invitation } from "./InvitationSchema";
 export { Events } from "./EventsSchema";
 export { Permissions } from "./PermissionsSchema";
 export { Notes } from "./NotesSchema";
-
+export { League } from "./LeagueSchema";
 export { WarRoom } from "./WarRoomSchema";
 // <-----------War room sample object----------->
 // {

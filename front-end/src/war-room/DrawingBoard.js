@@ -4,6 +4,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { pathState, newStageState, downloadState, nameState } from "./recoilState";
 import { useState, useRef, useEffect } from "react";
 import { useStyles, colors } from "./styles";
+// import bg from "../img/map.png";
 
 export const DrawingBoard = ({ mapLink, isCoach, setHasChanged }) => {
     const [isDrawing, setIsDrawing] = useState(false);
@@ -13,6 +14,7 @@ export const DrawingBoard = ({ mapLink, isCoach, setHasChanged }) => {
     const [newStage, setNewStage] = useRecoilState(newStageState);
     const [redoPaths, setRedoPaths] = useState([]);
     const [color, setColor] = useState(grey[100]);
+    const [dimenstions, setDimensions] = useState({});
 
     const drawnAfterUndo = useRef(0);
     const canvasRef = useRef(null);
@@ -118,46 +120,57 @@ export const DrawingBoard = ({ mapLink, isCoach, setHasChanged }) => {
 
     // SET EVERYTHING ONCE THE COMPONENT LOAD
     useEffect(() => {
-        containerRef.current.width = "800px";
-        console.log(containerRef.current.offsetWidth);
-
         // background canvas
-        const backgroundCanvas = backgroundRef.current;
-        backgroundCanvas.width = containerRef.current.offsetWidth;
-        backgroundCanvas.height = containerRef.current.offsetHeight;
-        const backgroundContext = backgroundCanvas.getContext("2d");
         const background = new Image();
-        // background.src = bg;
         background.src = mapLink;
-        // "https://firebasestorage.googleapis.com/v0/b/spark-esport.appspot.com/o/maps%2Flol-map.png?alt=media&token=6a6e88c4-514d-4a05-9b3c-f95627152dd9";
         background.onload = () => {
-            // const ratioX = canvas.width / background.naturalWidth;
-            // const ratioY = canvas.height / background.naturalHeight;
-            // const ratio = Math.min(ratioX, ratioY);
-            backgroundContext.drawImage(background, 0, 0);
+            console.log();
+            const width = background.naturalWidth;
+            const height = background.naturalHeight;
+            setDimensions({
+                width,
+                height,
+            });
         };
-
-        // drawing canvas settings
-        const canvas = canvasRef.current;
-        canvas.width = containerRef.current.offsetWidth * 4;
-        canvas.height = containerRef.current.offsetHeight * 4;
-        canvas.style.height = "100%";
-        canvas.style.width = "100%";
-
-        const context = canvas.getContext("2d");
-        context.scale(2, 2);
-        context.lineCap = "round";
-        context.strokeStyle = color;
-        context.lineWidth = 5;
-        contextRef.current = context;
-
-        // download canvas
-        const downloadCanvas = downloadCanvasRef.current;
-        downloadCanvas.width = containerRef.current.offsetWidth;
-        downloadCanvas.height = containerRef.current.offsetHeight;
-
         // eslint-disable-next-line
     }, []);
+
+    useEffect(() => {
+        if (dimenstions.width) {
+            // background canvas
+            const backgroundCanvas = backgroundRef.current;
+            backgroundCanvas.width = containerRef.current.offsetWidth;
+            backgroundCanvas.height = containerRef.current.offsetHeight;
+            const backgroundContext = backgroundCanvas.getContext("2d");
+            const background = new Image();
+            // background.src = bg;
+            background.src = mapLink;
+            // "https://firebasestorage.googleapis.com/v0/b/spark-esport.appspot.com/o/maps%2Flol-map.png?alt=media&token=6a6e88c4-514d-4a05-9b3c-f95627152dd9";
+            background.onload = () => {
+                backgroundContext.drawImage(background, 0, 0);
+            };
+
+            // drawing canvas settings
+            const canvas = canvasRef.current;
+            canvas.width = containerRef.current.offsetWidth * 4;
+            canvas.height = containerRef.current.offsetHeight * 4;
+            canvas.style.height = "100%";
+            canvas.style.width = "100%";
+
+            const context = canvas.getContext("2d");
+            context.scale(2, 2);
+            context.lineCap = "round";
+            context.strokeStyle = color;
+            context.lineWidth = 5;
+            contextRef.current = context;
+
+            // download canvas
+            const downloadCanvas = downloadCanvasRef.current;
+            downloadCanvas.width = containerRef.current.offsetWidth;
+            downloadCanvas.height = containerRef.current.offsetHeight;
+        }
+        // eslint-disable-next-line
+    }, [dimenstions]);
 
     const downloadImage = () => {
         const downloadCanvas = downloadCanvasRef.current;
@@ -201,11 +214,12 @@ export const DrawingBoard = ({ mapLink, isCoach, setHasChanged }) => {
         }
         // eslint-disable-next-line
     }, [downloadImageTrigger, setDownloadImageTrigger]);
+    console.log(dimenstions);
 
     return (
         <Box className={classes.drawingComponent}>
             {isCoach && (
-                <Box my={2} className={classes.rowContainer}>
+                <Box my={4} className={classes.rowContainer}>
                     {colors.map((item) => (
                         <Box
                             onClick={() => setActiveColor(item.color)}
@@ -222,7 +236,13 @@ export const DrawingBoard = ({ mapLink, isCoach, setHasChanged }) => {
                     ))}
                 </Box>
             )}
-            <Box ref={containerRef} className={classes.canvasContainer}>
+            <Box
+                className={classes.canvasContainer}
+                ref={containerRef}
+                style={{
+                    width: dimenstions.width,
+                    height: dimenstions.height,
+                }}>
                 <canvas
                     ref={canvasRef}
                     onMouseLeave={stopDrawing}

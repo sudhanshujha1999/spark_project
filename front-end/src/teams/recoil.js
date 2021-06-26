@@ -10,6 +10,11 @@ const teamsInfoState = atom({
     default: [],
 });
 
+export const leaguesState = atom({
+    key: "leaguesState",
+    default: {},
+});
+
 // GET TEAM
 export const getOrganizationsState = selector({
     key: "getOrganizationsState",

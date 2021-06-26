@@ -58,11 +58,23 @@ export const AllSessions = ({ sessions = [] }) => {
                         </Typography>
                     </Box>
                 </Grid>
-                {upcoming.map((event, index) => (
-                    <Grid item key={index} xs={12} sm={6} lg={4} spacing={3}>
-                        <SessionItem event={event} goToSession={goToSession} />
+                {upcoming.lenght > 0 ? (
+                    <>
+                        <Grid item className={classes.eventGradient} xs={12}>
+                            <Box className={`${classes.eventsContainer} ${classes.customScrollX}`}>
+                                {upcoming.map((event, index) => (
+                                    <Box mx={2} key={index}>
+                                        <SessionItem event={event} goToSession={goToSession} />
+                                    </Box>
+                                ))}
+                            </Box>
+                        </Grid>
+                    </>
+                ) : (
+                    <Grid item xs={12}>
+                        <Typography variant='h6'>No upcoming events...</Typography>
                     </Grid>
-                ))}
+                )}
                 {past.length > 0 && (
                     <>
                         <Grid item xs={12}>
@@ -72,11 +84,15 @@ export const AllSessions = ({ sessions = [] }) => {
                                 </Typography>
                             </Box>
                         </Grid>
-                        {past.map((event, index) => (
-                            <Grid item key={index} xs={12} sm={6} lg={4} spacing={3}>
-                                <SessionItem event={event} goToSession={goToSession} />
-                            </Grid>
-                        ))}
+                        <Grid item className={classes.eventGradient} xs={12}>
+                            <Box className={`${classes.eventsContainer} ${classes.customScrollX}`}>
+                                {past.map((event, index) => (
+                                    <Box mx={2} key={index}>
+                                        <SessionItem event={event} goToSession={goToSession} />
+                                    </Box>
+                                ))}
+                            </Box>
+                        </Grid>
                     </>
                 )}
             </Grid>

@@ -6,6 +6,7 @@ import { useStyles } from "./styles";
 import { AddWarRoomSession } from "./AddWarRoomSession";
 import { useState } from "react";
 import { useGetAllSessions } from "./useGetAllSessions";
+import { LeagueRecords } from "./LeagueRecords";
 
 export const WarRoom = () => {
     const { organizations, isLoading: isLoadingOrganizations } = useOrganizations();
@@ -29,11 +30,9 @@ export const WarRoom = () => {
             ) : (
                 <>
                     <Grid container>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} md={7}>
                             <AllSessions sessions={sessions} />
-                        </Grid>
-                        {isCoach && (
-                            <Grid xs={12}>
+                            {isCoach && (
                                 <Fade in={!addSession}>
                                     <Box>
                                         <Box my={5} />
@@ -45,8 +44,15 @@ export const WarRoom = () => {
                                         </Button>
                                     </Box>
                                 </Fade>
-                            </Grid>
-                        )}
+                            )}
+                        </Grid>
+                        <Grid item xs={12} md={5}>
+                            <LeagueRecords
+                                teams={organizations.teams}
+                                organizationId={organizations._id}
+                                isCoach={isCoach}
+                            />
+                        </Grid>
                     </Grid>
                     {addSession && (
                         <Fade

@@ -34,6 +34,8 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MaterialLink from "@material-ui/core/Link";
 import MenuItem from "@material-ui/core/MenuItem";
 import Paper from "@material-ui/core/Paper";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
 import SpeedDial from "@material-ui/lab/SpeedDial";
 import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
 import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
@@ -96,6 +98,8 @@ export {
     // LocalizationProvider,
     MaterialLink,
     Paper,
+    Radio,
+    RadioGroup,
     Select,
     Slide,
     SpeedDial,

@@ -60,5 +60,5 @@ export const useGetSession = (sessionId) => {
         }
     }, [session]);
 
-    return { session, isLoading };
+    return { session, isLoading, setPaths };
 };

@@ -67,9 +67,9 @@ export const SessionDetails = () => {
                     )}
                     {isCoach && isChanged && (
                         <Button
-                            fullWidth
                             color='secondary'
                             variant='contained'
+                            className={classes.saveBtn}
                             endIcon={<SaveIcon />}
                             disabled={saving}
                             onClick={endSession}>
