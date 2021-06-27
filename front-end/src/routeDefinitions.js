@@ -9,7 +9,7 @@ import { LandingPage } from "./landing-page";
 import { RostersPage } from "./rosters";
 import { SchedulingPage } from "./scheduling";
 import { TeamInfoForm, EditTeamInfo } from "./teams";
-import { WarRoom, Session } from "./war-room";
+import { WarRoom, SessionDetails } from "./war-room";
 
 export const createTeamRoute = {
     path: "/new-team/:id",
@@ -127,5 +127,5 @@ export const warRoomRoute = {
 
 export const warRoomSessionRoute = {
     path: "/war-room/:sessionId/session",
-    component: Session,
+    component: SessionDetails,
 };

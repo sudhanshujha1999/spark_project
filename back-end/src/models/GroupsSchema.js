@@ -52,6 +52,7 @@ const GroupsSchema = new Schema(
                 name: String,
                 email: String,
                 gamerName: String,
+                profile_img: String,
                 bio: String,
             },
         ],

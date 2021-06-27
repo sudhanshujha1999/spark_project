@@ -10,6 +10,8 @@ export const useOrganizations = (update = false) => {
     const [isLoading, setIsLoading] = useState(true);
     const organizations = useRecoilValue(getOrganizationsState);
     const setOrganizations = useSetRecoilState(setOrganizationsState);
+    const [selectedOrganization, setSelectedOrganization] = useState({});
+
     const [error, setError] = useState([]);
     useEffect(() => {
         const loadOrganization = async () => {
@@ -78,5 +80,18 @@ export const useOrganizations = (update = false) => {
         // eslint-disable-next-line
     }, [update]);
 
-    return [organizations, isLoading, error, setOrganizations];
+    useEffect(() => {
+        // this will help us to return the selected org if more than one org are there
+        if (organizations && organizations.length > 0) {
+            setSelectedOrganization(organizations[0]);
+        }
+    }, [organizations]);
+
+    return {
+        organizations: selectedOrganization,
+        allOrganizations: organizations,
+        isLoading,
+        error,
+        setOrganizations,
+    };
 };

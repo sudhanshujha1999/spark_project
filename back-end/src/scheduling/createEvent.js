@@ -1,13 +1,3 @@
-// import * as admin from 'firebase-admin';
-
-// export const createEvent = async event => {
-//     await admin.firestore().collection('events').add({
-//         ...event,
-//         date: admin.firestore.Timestamp.fromDate(new Date(event.date)),
-//         year: `${1900 + (new Date(event.date)).getYear()}`,
-//         month: `${(new Date(event.date)).getMonth()}`,
-//     });
-// }
 import { Events } from "../models";
 
 export const createEvent = async ({
@@ -17,6 +7,7 @@ export const createEvent = async ({
     description,
     background_color,
     invitees,
+    event_type,
     created_by,
 }) => {
     const dateObject = new Date(date);
@@ -29,6 +20,7 @@ export const createEvent = async ({
         year: dateObject.getFullYear(),
         month: dateObject.getMonth(),
         invitees,
+        event_type: event_type,
         created_by,
     });
     await newEvent.save();

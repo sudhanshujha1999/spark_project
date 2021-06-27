@@ -1,3 +1,4 @@
+import { DISCUSSION } from "../models/validEventTypes";
 import { getUserByAuthId } from "../users";
 import { createEvent } from "./createEvent";
 import { sendEventEmail } from "./sendEventEmail";
@@ -9,7 +10,6 @@ export const createEventRoute = {
         const { name, description, date: dateRaw, time, invitees = [], backgroundColor } = req.body;
         const date = new Date(dateRaw);
         const authUser = req.user;
-        console.log(invitees);
         try {
             const user = await getUserByAuthId(authUser.user_id);
             const createdById = user._id;
@@ -17,6 +17,8 @@ export const createEventRoute = {
                 name,
                 time,
                 date,
+                // later take it from the body
+                event_type: DISCUSSION,
                 description,
                 background_color: backgroundColor,
                 created_by: createdById,
@@ -25,9 +27,12 @@ export const createEventRoute = {
                     {
                         id: user._id,
                         email: user.email,
+                        name: user.full_name,
+                        gamerName: user.gamer_name,
+                        profile_img: user.profile_img,
+                        bio: user.bio,
                     },
                 ],
-                createdById,
             });
             // no invitations we can create task to check if the player exist or not
             // if exists then add him if not then create him in db and send invite

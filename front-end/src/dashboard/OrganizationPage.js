@@ -1,6 +1,6 @@
 import { Box, Grid, Typography, Divider } from "../ui";
 import { TeamsList } from "./TeamsList";
-import { LeagueRecords } from "./LeagueRecords";
+import { LeagueRecords } from "../war-room";
 import { useStyles } from "./Styles";
 import { Member } from "./Member";
 import { useHistory } from "react-router-dom";
@@ -24,10 +24,14 @@ export const OrganizationPage = ({ user, teams, organization }) => {
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={5} container>
                     <Grid item xs={12}>
-                        <LeagueRecords teams={teams} />
+                        <LeagueRecords
+                            teams={teams}
+                            organizationId={organization._id}
+                            showActions={false}
+                        />
                     </Grid>
                     <Grid item xs={12}>
-                        <Member teams={teams} />
+                        <Member teams={teams || []} />
                     </Grid>
                 </Grid>
                 <Grid item xs={12} sm={7}>

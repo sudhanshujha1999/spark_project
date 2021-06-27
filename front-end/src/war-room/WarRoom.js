@@ -1,41 +1,38 @@
-import { Container, Grid, Button, Box, CircularProgress, Slide, Fade } from "../ui";
+import { Container, Grid, Button, Box, CircularProgress, Fade } from "../ui";
 import { useOrganizations } from "../teams";
-import { useCurrentUserInfo } from "../users";
-import { PreviousSessions } from "./PreviousSessions";
+import { useIsCoach } from "../users/useIsCoach";
+import { AllSessions } from "./AllSessions";
 import { useStyles } from "./styles";
 import { AddWarRoomSession } from "./AddWarRoomSession";
 import { useState } from "react";
+import { useGetAllSessions } from "./useGetAllSessions";
+import { LeagueRecords } from "./LeagueRecords";
 
 export const WarRoom = () => {
-    const { userInfo, isLoading } = useCurrentUserInfo();
-    const isCoach = true;
-    const [teams, isLoadingTeams] = useOrganizations();
+    const { organizations, isLoading: isLoadingOrganizations } = useOrganizations();
+    const { isCoach } = useIsCoach(organizations._id);
+    const { sessions, isLoading: isLoadingSessions } = useGetAllSessions();
     const [addSession, setAddSession] = useState(false);
-
     const classes = useStyles();
-
     const handleAdd = () => {
         setAddSession(true);
     };
-
     const handleCancel = () => {
         setAddSession(false);
     };
 
     return (
         <Container maxWidth='xl'>
-            {isLoading && isLoadingTeams ? (
+            {isLoadingSessions || isLoadingOrganizations || !organizations ? (
                 <Box className={classes.loading}>
                     <CircularProgress color='secondary' />
                 </Box>
             ) : (
                 <>
                     <Grid container>
-                        <Grid item xs={12}>
-                            <PreviousSessions />
-                        </Grid>
-                        {isCoach && (
-                            <Grid xs={12}>
+                        <Grid item xs={12} md={7}>
+                            <AllSessions sessions={sessions} />
+                            {isCoach && (
                                 <Fade in={!addSession}>
                                     <Box>
                                         <Box my={5} />
@@ -47,14 +44,31 @@ export const WarRoom = () => {
                                         </Button>
                                     </Box>
                                 </Fade>
-                            </Grid>
-                        )}
+                            )}
+                        </Grid>
+                        <Grid item xs={12} md={5}>
+                            <LeagueRecords
+                                teams={organizations.teams}
+                                organizationId={organizations._id}
+                                isCoach={isCoach}
+                            />
+                        </Grid>
                     </Grid>
-                    <Slide in={addSession} direction='right'>
-                        <Box>
-                            <AddWarRoomSession handleCancel={handleCancel} teams={teams} />
-                        </Box>
-                    </Slide>
+                    {addSession && (
+                        <Fade
+                            in={addSession}
+                            style={{
+                                height: addSession ? "auto" : 0,
+                                transitionDelay: addSession ? "100ms" : "0ms",
+                            }}>
+                            <Box>
+                                <AddWarRoomSession
+                                    handleCancel={handleCancel}
+                                    teams={organizations.teams}
+                                />
+                            </Box>
+                        </Fade>
+                    )}
                 </>
             )}
         </Container>

@@ -26,7 +26,7 @@ export const RostersPage = () => {
     const classes = useStyles();
     const history = useHistory();
     const { teamId } = useParams();
-    const [organizations] = useOrganizations();
+    const { organizations } = useOrganizations();
     const { isLoading: isLoadingTeam, team } = useTeam(teamId);
     const { userInfo } = useCurrentUserInfo();
     const { isCoach } = useIsCoach(teamId);
@@ -110,7 +110,7 @@ export const RostersPage = () => {
         const userReallyWantsToDelete = confirm(
             "Are you sure you want to delete this team and all its corresponding data? (You cannot undo this)"
         );
-        if (organizations[0].teams.length <= 1) {
+        if (organizations.teams.length <= 1) {
             setSnackbarType("error");
             setMessage(
                 "That's your last team! You must have at least one team. Please create another before deleting this one"

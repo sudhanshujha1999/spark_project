@@ -11,16 +11,11 @@ export const DashboardPage = () => {
     // const classes = useStyles();
     const history = useHistory();
     const { userInfo } = useCurrentUserInfo();
-    const [organizations, isLoadingOrganizations] = useOrganizations();
-    const [selectedOrganization, setSelectedOrganization] = useState(null);
-
-    useEffect(() => {
-        if (!isLoadingOrganizations) {
-            if (organizations && organizations.length === 1) {
-                setSelectedOrganization(organizations[0]);
-            }
-        }
-    }, [organizations, isLoadingOrganizations]);
+    const {
+        allOrganizations,
+        organizations,
+        isLoading: isLoadingOrganizations,
+    } = useOrganizations();
 
     const makeOrganization = () => {
         history.push("/dashboard/create-organization");
@@ -31,13 +26,13 @@ export const DashboardPage = () => {
             {isLoadingOrganizations ? (
                 <p>Loading...</p>
             ) : // If the organization is null ie. in the start and check for the length
-            organizations && organizations.length > 0 ? (
-                selectedOrganization ? (
+            allOrganizations && allOrganizations.length > 0 ? (
+                organizations ? (
                     <>
                         <OrganizationPage
-                            teams={selectedOrganization.teams}
+                            teams={organizations.teams}
                             user={userInfo}
-                            organization={selectedOrganization}
+                            organization={organizations}
                         />
                     </>
                 ) : (

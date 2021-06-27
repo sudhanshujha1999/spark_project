@@ -10,46 +10,63 @@ import {
     TextField,
     Typography,
 } from "../ui";
+import { post } from "../network";
 import { ClearIcon } from "../icons";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useTeam } from "../teams";
 import { useStyles } from "./styles";
-import { isEmail } from "../util";
 import { mapsData as maps } from "./mapsData";
 import { useHistory } from "react-router-dom";
+import { MenuItem } from "@material-ui/core";
 
 export const AddWarRoomSession = ({ handleCancel, teams }) => {
     const [sessionName, setSessionName] = useState("");
     // Needs to be from a Select Menu
+    // fields to fill
     const [gameName, setGameName] = useState("");
     const [teamName, setTeamName] = useState("");
     const [map, setMap] = useState({});
+    const [description, setDescription] = useState("");
     const [date, setDate] = useState("");
-    const [searchTeam, setSearchTeam] = useState(null);
     const [opponentTeam, setOpponentTeam] = useState("");
-    const [loadingTeam, setLoadingTeam] = useState(false);
-    const [player, setPlayer] = useState("");
+    const [selectedMapGame, setSelectedMApGame] = useState("");
+    // used in processing
+    const [searchTeam, setSearchTeam] = useState(null);
+    const [saving, setSaving] = useState(false);
     const [players, setPlayers] = useState([]);
-    const [teamId, setTeamId] = useState("123");
-    const { team } = useTeam(teamId);
+    const [teamId, setTeamId] = useState(null);
+    const { team, isLoading } = useTeam(teamId);
     const history = useHistory();
     const classes = useStyles();
 
-    const handleAdd = () => {
+    const handleAdd = async () => {
         if (!teamName || !gameName || !opponentTeam || !sessionName || !date || !map) {
             console.log("fill All fields");
-            console.log(teamName);
-            console.log(players);
-            console.log(gameName);
-            console.log(opponentTeam);
-            console.log(date);
-            console.log(map);
-            console.log(sessionName);
             return;
         }
-        console.log(date);
-        // REGISTER THE WAR ROOM SESSION AND MAKE INVITES FOR ALL THE PLAYERS
-        history.push("/war-room/123123/session");
+        const warRoomObject = {
+            team: teamName,
+            game: gameName,
+            description,
+            opponentTeam: opponentTeam,
+            eventName: sessionName,
+            eventDate: date,
+            mapName: map.name,
+            mapLink: map.link,
+            invitees: players,
+        };
+        setSaving(true);
+        try {
+            const {
+                data: { sessionId },
+            } = await post("/api/war-room", warRoomObject);
+            console.log(sessionId);
+            // REGISTER THE WAR ROOM SESSION AND MAKE INVITES FOR ALL THE PLAYERS
+            history.push(`/war-room/${sessionId}/session`);
+        } catch (error) {
+            console.log(error.message);
+        }
+        setSaving(false);
     };
 
     useEffect(() => {
@@ -62,40 +79,18 @@ export const AddWarRoomSession = ({ handleCancel, teams }) => {
 
     useEffect(() => {
         if (searchTeam && searchTeam[teamName]) {
-            console.log(searchTeam[teamName].id);
-            setLoadingTeam(true);
-            setTeamId(searchTeam[teamName].id);
+            setTeamId(searchTeam[teamName]._id);
         } else {
             setTeamId(null);
         }
     }, [teamName, searchTeam]);
 
-    useEffect(() => {
-        if (team) {
-            if (team.name === teamName) setLoadingTeam(false);
-        }
-        if (team === null) {
-            setLoadingTeam(false);
-        }
-        // eslint-disable-next-line
-    }, [team]);
-
     const onClickRoster = (roster) => {
         if (roster.players.length > 0) {
-            roster.players.forEach((player) => {
-                if (!players.some((item) => item === player.email)) {
-                    setPlayers([...players, player.email]);
-                }
-            });
-        }
-    };
-
-    const addPlayer = () => {
-        if (isEmail(player)) {
-            if (!players.some((item) => item === player)) {
-                setPlayers([...players, player]);
-                setPlayer("");
-            }
+            const newPlayers = roster.players.filter(
+                (player) => !players.some((addedPlayers) => addedPlayers.email === player.email)
+            );
+            setPlayers([...players, ...newPlayers]);
         }
     };
 
@@ -106,6 +101,34 @@ export const AddWarRoomSession = ({ handleCancel, teams }) => {
     const handleRemove = (playerToRemove) => {
         setPlayers(players.filter((playerItem) => playerItem !== playerToRemove));
     };
+
+    const memoizedGroupedMaps = useMemo(() => {
+        // made the maps like that cause in future if we want to add maps db
+        // then we can enter a new map with the groupid and map details and we will
+        // modify the data here as we need
+        let groupedMaps = {};
+        maps.forEach((map) => {
+            if (!groupedMaps[`${map.groupId}`]) {
+                const mapObject = {
+                    id: map.groupId,
+                    name: map.groupName,
+                    maps: [],
+                };
+                mapObject.maps.push({
+                    name: map.name,
+                    link: map.link,
+                });
+                groupedMaps[`${map.groupId}`] = mapObject;
+            } else {
+                groupedMaps[`${map.groupId}`].maps.push({
+                    name: map.name,
+                    link: map.link,
+                });
+            }
+        });
+        return groupedMaps;
+    }, []);
+    console.log(memoizedGroupedMaps);
 
     return (
         <Box className={classes.addSessionContainer}>
@@ -124,18 +147,19 @@ export const AddWarRoomSession = ({ handleCancel, teams }) => {
                         fullWidth
                     />
                     <Autocomplete
-                        freeSolo
                         value={teamName}
                         options={teams.map((option) => option.name)}
                         onChange={(e, option) => {
                             if (option) {
                                 setTeamName(option);
                                 setGameName(searchTeam[option].game);
+                            } else {
+                                setTeamName(null);
+                                setGameName(null);
                             }
                         }}
                         renderInput={(params) => (
                             <TextField
-                                onChange={(e) => setTeamName(e.target.value)}
                                 variant='outlined'
                                 className={classes.sessionTextfield}
                                 {...params}
@@ -145,15 +169,17 @@ export const AddWarRoomSession = ({ handleCancel, teams }) => {
                         )}
                     />
                     <Autocomplete
-                        freeSolo
                         value={gameName}
                         options={teams.map((option) => option.game)}
                         onChange={(e, option) => {
-                            option && setGameName(option);
+                            if (option) {
+                                setGameName(option);
+                            } else {
+                                setGameName(null);
+                            }
                         }}
                         renderInput={(params) => (
                             <TextField
-                                onChange={(e) => setGameName(e.target.value)}
                                 variant='outlined'
                                 className={classes.sessionTextfield}
                                 {...params}
@@ -170,6 +196,18 @@ export const AddWarRoomSession = ({ handleCancel, teams }) => {
                         onChange={(e) => setOpponentTeam(e.target.value)}
                         fullWidth
                     />
+                    <TextField
+                        value={description}
+                        className={classes.sessionTextfield}
+                        onChange={(e) => setDescription(e.target.value)}
+                        label='Strategy'
+                        multiline
+                        placeholder='What will be main topic of this sesson'
+                        defaultValue=''
+                        fullWidth
+                        rows={4}
+                        variant='outlined'
+                    />
                     <Box>
                         <Typography className={classes.subtitle}> Pick date for session</Typography>
                         <DatePicker value={date} setValue={(value) => setDate(value)} />
@@ -184,7 +222,7 @@ export const AddWarRoomSession = ({ handleCancel, teams }) => {
                     {players.length > 0 &&
                         players.map((player) => (
                             <Box className={classes.players}>
-                                <Typography>{player}</Typography>
+                                <Typography>{player.email}</Typography>
                                 <IconButton size='small' onClick={() => handleRemove(player)}>
                                     <ClearIcon fontSize='small' />
                                 </IconButton>
@@ -195,18 +233,22 @@ export const AddWarRoomSession = ({ handleCancel, teams }) => {
                             <Typography variant='body1' className={classes.subtitle}>
                                 Add from rosters
                             </Typography>
-                            {loadingTeam ? (
+                            {isLoading ? (
                                 <Box className={classes.rosterLoading}>
                                     <CircularProgress color='secondary' />
                                 </Box>
                             ) : team.rosters && team.rosters.length > 0 ? (
-                                team.rosters.map((roster) => (
-                                    <Box
-                                        onClick={() => onClickRoster(roster)}
-                                        className={classes.rosterName}>
-                                        <Typography>{roster.name}</Typography>
-                                    </Box>
-                                ))
+                                team.rosters.map(
+                                    (roster) =>
+                                        roster.players.length > 0 && (
+                                            <Box
+                                                my={2}
+                                                onClick={() => onClickRoster(roster)}
+                                                className={classes.rosterName}>
+                                                <Typography>{roster.name}</Typography>
+                                            </Box>
+                                        )
+                                )
                             ) : (
                                 <Typography variant='subtitle2'>No rosters found</Typography>
                             )}
@@ -214,38 +256,49 @@ export const AddWarRoomSession = ({ handleCancel, teams }) => {
                             <Divider />
                         </Box>
                     )}
-                    <Box my={2} className={classes.addPlayerBox}>
-                        <TextField
-                            value={player}
-                            fullWidth
-                            onChange={(e) => setPlayer(e.target.value)}
-                            variant='outlined'
-                            className={classes.sessionTextfield}
-                            label='Player email'
-                        />
-                        <Button onClick={addPlayer} variant='outlined' color='primary'>
-                            Add player
-                        </Button>
-                    </Box>
                 </Grid>
 
                 {/* MAPS */}
-                <Grid item xs={12} className={classes.row}>
-                    {maps.map((mapItem) => (
-                        <Box className={classes.map} onClick={() => selectMap(mapItem)}>
-                            <Box
-                                className={
-                                    mapItem.name === map.name
-                                        ? `${classes.mapImage} ${classes.activeMap}`
-                                        : classes.mapImage
-                                }
-                                style={{
-                                    backgroundImage: `url(${mapItem.map})`,
-                                }}
-                            />
-                            <Typography className={classes.subtitle}>{mapItem.name}</Typography>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        select
+                        label='Game'
+                        variant='outlined'
+                        fullWidth
+                        value={selectedMapGame}
+                        className={classes.sessionTextfield}
+                        onChange={(e) => {
+                            setSelectedMApGame(e.target.value);
+                        }}>
+                        {Object.values(memoizedGroupedMaps).map(({ name, id }) => (
+                            <MenuItem key={id} value={id}>
+                                {name}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                </Grid>
+                <Grid item xs={12}>
+                    {selectedMapGame && (
+                        <Box display='flex' flexDirection='row' flexWrap='wrap'>
+                            {memoizedGroupedMaps[`${selectedMapGame}`].maps.map((mapItem) => (
+                                <Box className={classes.map} onClick={() => selectMap(mapItem)}>
+                                    <Box
+                                        className={
+                                            mapItem.name === map.name
+                                                ? `${classes.mapImage} ${classes.activeMap}`
+                                                : classes.mapImage
+                                        }
+                                        style={{
+                                            backgroundImage: `url(${mapItem.link})`,
+                                        }}
+                                    />
+                                    <Typography className={classes.subtitle}>
+                                        {mapItem.name}
+                                    </Typography>
+                                </Box>
+                            ))}
                         </Box>
-                    ))}
+                    )}
                 </Grid>
 
                 {/* ACTIONS */}
@@ -261,8 +314,13 @@ export const AddWarRoomSession = ({ handleCancel, teams }) => {
                         </Button>
                     </Grid>
                     <Grid item xs={6} sm={4}>
-                        <Button fullWidth onClick={handleAdd} variant='contained' color='primary'>
-                            Add
+                        <Button
+                            fullWidth
+                            disabled={saving}
+                            onClick={handleAdd}
+                            variant='contained'
+                            color='primary'>
+                            {saving ? <CircularProgress color='secondary' /> : "Add"}
                         </Button>
                     </Grid>
                 </Grid>
