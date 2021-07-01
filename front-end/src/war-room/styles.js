@@ -454,9 +454,12 @@ export const useStyles = makeStyles((theme) => ({
     // MULTI PURPOSE
 
     deleteBtn: {
-        backgroundColor: red[400],
+        backgroundImage: "linear-gradient(to right, #eb3941, #f15e64, #e14e53, #e2373f)",
+        backgroundSize: "300% 300%",
+        color: "#fafafa",
+        transition: "all 0.5s ease-out",
         "&:hover": {
-            backgroundColor: red[600],
+            backgroundPosition: "right center",
         },
     },
     // DRAWING BOARD
