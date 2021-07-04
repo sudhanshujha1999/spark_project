@@ -2,7 +2,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import addRosterContainerBackground from "../img/tornadoBg.svg";
 import purple from "@material-ui/core/colors/purple";
 import teamPic from "../img/teamPic.jpg";
-import red from "@material-ui/core/colors/red";
 
 export const useStyles = makeStyles((theme) => ({
     // orgName: {
@@ -55,18 +54,24 @@ export const useStyles = makeStyles((theme) => ({
         left: "10px",
         bottom: "10px",
         color: "#eaeaea",
-        backgroundColor: red[400],
+        backgroundImage: "linear-gradient(to right, #eb3941, #f15e64, #e14e53, #e2373f)",
+        backgroundSize: "300% 300%",
+        color: "#fafafa",
+        transition: "all 0.5s ease-out",
         "&:hover": {
-            backgroundColor: red[600],
+            backgroundPosition: "right center",
         },
     },
     rosterEdit: {
         marginRight: 20,
     },
     rosterCancel: {
-        backgroundColor: red[400],
+        backgroundImage: "linear-gradient(to right, #eb3941, #f15e64, #e14e53, #e2373f)",
+        backgroundSize: "300% 300%",
+        color: "#fafafa",
+        transition: "all 0.5s ease-out",
         "&:hover": {
-            backgroundColor: red[600],
+            backgroundPosition: "right center",
         },
     },
     accordianConatiner: {

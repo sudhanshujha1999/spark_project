@@ -308,8 +308,7 @@ export const AddWarRoomSession = ({ handleCancel, teams }) => {
                             fullWidth
                             onClick={handleCancel}
                             className={classes.deleteBtn}
-                            variant='contained'
-                            color='primary'>
+                            variant='contained'>
                             Cancel
                         </Button>
                     </Grid>
