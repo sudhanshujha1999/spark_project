@@ -69,7 +69,6 @@ export const MemberDetailPage = ({ currentUserId }) => {
         <p>Loading...</p>
     ) : (
         <>
-            <Box className={classes.background} />
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <Box className={classes.profileDetails}>

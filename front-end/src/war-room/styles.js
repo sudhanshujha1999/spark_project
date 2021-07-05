@@ -137,7 +137,7 @@ export const useStyles = makeStyles((theme) => ({
             pointerEvents: "none",
             right: "10%",
             top: 0,
-            background: "linear-gradient(-90deg, rgba(34,40,49,1) 20%, rgba(51,51,51,0) 86%)",
+            background: "linear-gradient(-90deg, rgb(28 31 35) 20%, rgba(51,51,51,0) 86%)",
         },
     },
     container: {

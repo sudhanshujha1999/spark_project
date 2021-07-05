@@ -1,6 +1,6 @@
 import { CreateAccountPage, EmailVerificationResult, PleaseVerifyEmail, SignInPage } from "./auth";
 import { DashboardPage, CreateOrganizationPage } from "./dashboard";
-import { GoalSettingPage } from "./goal-setting";
+import { GoalSettingPage, StatsFormTest } from "./goal-setting";
 import { InvitationLandingPage } from "./invitations";
 import { TermsAndPrivacy } from "./legal";
 import { MemberDetailPage, ProfilePage } from "./members";
@@ -37,7 +37,7 @@ export const emailVerificationResultRoute = {
 
 export const goalSettingRoute = {
     path: "/goals",
-    component: GoalSettingPage,
+    component: StatsFormTest,
 };
 
 export const invitationLandingRoute = {

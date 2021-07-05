@@ -1,1 +1,2 @@
-export { GoalSettingPage } from './GoalSettingPage';
+export { GoalSettingPage } from "./GoalSettingPage";
+export { StatsFormTest } from "./StatsFormTest";
