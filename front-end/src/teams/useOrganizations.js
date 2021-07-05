@@ -89,7 +89,7 @@ export const useOrganizations = (update = false) => {
 
     return {
         organizations: selectedOrganization,
-        allOrganizations: organizations,
+        allOrganizations: organizations || [],
         isLoading,
         error,
         setOrganizations,

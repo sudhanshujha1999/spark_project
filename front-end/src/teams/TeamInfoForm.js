@@ -65,17 +65,17 @@ export const TeamInfoForm = () => {
 
     // check if the id is same as organization as in the db
     useEffect(() => {
-        console.log(organizations);
         if (
             organizations &&
-            organizations.filter((organization) => organization._id === organizationId).length > 0
+            allOrganizations.filter((organization) => organization._id === organizationId).length >
+                0
         ) {
             console.log(true);
         }
         // make an else condition that set a flag true to show
         // there are no organization same to this id select menu and then redirect to this page
         // and we also need to check permissions here
-    }, [organizations, organizationId]);
+    }, [organizations, organizationId, allOrganizations]);
 
     const getValidationErrors = () => {
         const fields = { name, game, rosters };
@@ -304,7 +304,7 @@ export const TeamInfoForm = () => {
                                     style={{ flex: 1, marginRight: 8 }}
                                     onClick={() => setIsAddingRoster(false)}
                                     color='primary'
-                                    variant='contained'>
+                                    variant='outlined'>
                                     Cancel
                                 </Button>
                                 <Button
