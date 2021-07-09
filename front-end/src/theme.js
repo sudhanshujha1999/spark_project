@@ -35,6 +35,10 @@ export const theme = createMuiTheme({
         MuiButton: {
             root: {
                 fontWeight: 600,
+                letterSpacing: "1.2px",
+                "&.Mui-disabled": {
+                    backgroundImage: "none",
+                },
             },
             containedPrimary: {
                 backgroundImage: "linear-gradient(to right, #895cf2 0%, #ffabf4 50%, #895cf2 100%)",
@@ -53,9 +57,6 @@ export const theme = createMuiTheme({
                 "&:hover": {
                     backgroundPosition: "right center",
                 },
-            },
-            disabled: {
-                backgroundImage: "none !important",
             },
         },
     },
