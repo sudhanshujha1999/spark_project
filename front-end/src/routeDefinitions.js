@@ -1,131 +1,146 @@
-import { CreateAccountPage, EmailVerificationResult, PleaseVerifyEmail, SignInPage } from "./auth";
-import { DashboardPage, CreateOrganizationPage } from "./dashboard";
-import { GoalSettingPage } from "./goal-setting";
-import { InvitationLandingPage } from "./invitations";
-import { TermsAndPrivacy } from "./legal";
-import { MemberDetailPage, ProfilePage } from "./members";
-import { UserInfo, OnboardingComplete } from "./onboarding";
-import { LandingPage } from "./landing-page";
-import { RostersPage } from "./rosters";
-import { SchedulingPage } from "./scheduling";
-import { TeamInfoForm, EditTeamInfo } from "./teams";
-import { WarRoom, SessionDetails } from "./war-room";
+import {
+  CreateAccountPage,
+  EmailVerificationResult,
+  PleaseVerifyEmail,
+  SignInPage,
+} from './auth'
+import { DashboardPage, CreateOrganizationPage } from './dashboard'
+import { GoalSettingPage } from './goal-setting'
+import { InvitationLandingPage } from './invitations'
+import { TermsAndPrivacy } from './legal'
+import { MemberDetailPage, ProfilePage } from './members'
+import { UserInfo, OnboardingComplete } from './onboarding'
+import { LandingPage } from './landing-page'
+import { RostersPage } from './rosters'
+import { SchedulingPage } from './scheduling'
+import { TeamInfoForm, EditTeamInfo } from './teams'
+import { WarRoom, SessionDetails } from './war-room'
+import { ChooseTeam } from './goal-setting'
+import { ChoosePlayer } from './goal-setting'
 
 export const createTeamRoute = {
-    path: "/new-team/:id",
-    component: TeamInfoForm,
-};
+  path: '/new-team/:id',
+  component: TeamInfoForm,
+}
 
 export const dashboardRoute = {
-    path: "/dashboard",
-    component: DashboardPage,
-};
+  path: '/dashboard',
+  component: DashboardPage,
+}
 
 export const landingPageRoute = {
-    path: "/",
-    component: LandingPage,
-    isPublic: true,
-    hideNav: true,
-};
+  path: '/',
+  component: LandingPage,
+  isPublic: true,
+  hideNav: true,
+}
 
 export const emailVerificationResultRoute = {
-    path: "/verification-result",
-    component: EmailVerificationResult,
-    isPublic: true,
-    hideNav: true,
-};
+  path: '/verification-result',
+  component: EmailVerificationResult,
+  isPublic: true,
+  hideNav: true,
+}
 
 export const goalSettingRoute = {
-    path: "/goals",
-    component: GoalSettingPage,
-};
+  path: '/goals',
+  component: GoalSettingPage,
+}
+export const goalChooseTeamRoute = {
+  path: '/goals/chooseteam',
+  component: ChooseTeam,
+}
+export const goalChoosePlayerRoute = {
+  path: '/goals/chooseplayer',
+  component: ChoosePlayer,
+}
 
 export const invitationLandingRoute = {
-    path: "/invitations/confirm",
-    component: InvitationLandingPage,
-    isPublic: true,
-    hideNav: true,
-};
+  path: '/invitations/confirm',
+  component: InvitationLandingPage,
+  isPublic: true,
+  hideNav: true,
+}
 
 export const editTeamPageRoute = {
-    path: "/teams/:teamId/edit",
-    component: EditTeamInfo,
-};
+  path: '/teams/:teamId/edit',
+  component: EditTeamInfo,
+}
 
 export const memberDetailRoute = {
-    path: "/teams/:teamId/rosters/:rosterId/members/:memberId",
-    component: MemberDetailPage,
-};
+  path: '/teams/:teamId/rosters/:rosterId/members/:memberId',
+  component: MemberDetailPage,
+}
 
 export const profileRoute = {
-    path: "/profile/",
-    component: ProfilePage,
-};
+  path: '/profile/',
+  component: ProfilePage,
+}
 
 export const onboardingCompleteRoute = {
-    path: "/onboarding/done",
-    component: OnboardingComplete,
-    isOnboarding: true,
-    hideNav: true,
-};
+  path: '/onboarding/done',
+  component: OnboardingComplete,
+  isOnboarding: true,
+  hideNav: true,
+}
 
 export const createOrganization = {
-    path: "/dashboard/create-organization",
-    component: CreateOrganizationPage,
-};
+  path: '/dashboard/create-organization',
+  component: CreateOrganizationPage,
+}
 
 export const createAccountRoute = {
-    path: "/create-account",
-    component: CreateAccountPage,
-    isPublic: true,
-    hideNav: true,
-};
+  path: '/create-account',
+  component: CreateAccountPage,
+  isPublic: true,
+  hideNav: true,
+}
 
 export const onboardingUserInfoRoute = {
-    path: "/onboarding/user-info",
-    component: UserInfo,
-    isOnboarding: true,
-    hideNav: true,
-};
+  path: '/onboarding/user-info',
+  component: UserInfo,
+  isOnboarding: true,
+  hideNav: true,
+}
 
 export const pleaseVerifyEmailRoute = {
-    path: "/please-verify-email/:userId",
-    component: PleaseVerifyEmail,
-    isPublic: true,
-    hideNav: true,
-};
+  path: '/please-verify-email/:userId',
+  component: PleaseVerifyEmail,
+  isPublic: true,
+  hideNav: true,
+}
 
 export const rostersRoute = {
-    path: "/teams/:teamId",
-    component: RostersPage,
-};
+  path: '/teams/:teamId',
+  component: RostersPage,
+}
 
 export const schedulingRoute = {
-    path: "/scheduling",
-    component: SchedulingPage,
-};
+  path: '/scheduling',
+  component: SchedulingPage,
+}
 
 export const signInRoute = {
-    path: "/sign-in",
-    component: SignInPage,
-    isPublic: true,
-    hideNav: true,
-};
+  path: '/sign-in',
+  component: SignInPage,
+  isPublic: true,
+  hideNav: true,
+}
 
 export const termsAndPrivacyRoute = {
-    path: "/terms-and-privacy",
-    component: TermsAndPrivacy,
-    isPublic: true,
-    hideNav: true,
-    newTab: true,
-};
+  path: '/terms-and-privacy',
+  component: TermsAndPrivacy,
+  isPublic: true,
+  hideNav: true,
+  newTab: true,
+}
 
 export const warRoomRoute = {
-    path: "/war-room",
-    component: WarRoom,
-};
+  path: '/war-room',
+  component: WarRoom,
+}
 
 export const warRoomSessionRoute = {
-    path: "/war-room/:sessionId/session",
-    component: SessionDetails,
-};
+  path: '/war-room/:sessionId/session',
+  component: SessionDetails,
+}

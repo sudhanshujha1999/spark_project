@@ -2,13 +2,13 @@ import { Link } from 'react-router-dom'
 import { Card, Grid, Fab, Typography } from '../ui'
 import { AddIcon } from '../icons'
 import { TeamItemCard } from './TeamItemCard'
-import { useStyles } from './Styles'
+import { useStyles } from './styles'
 
 export const TeamsList = ({ school, teams, isCoach, editTeam }) => {
   const classes = useStyles()
   return school && teams && teams.length > 0 ? (
     <Grid container spacing={2}>
-      <Grid item xs={12}>
+      <Grid style={{ marginBottom: '30px' }} item xs={12}>
         <Typography variant='h5'>Your teams</Typography>
       </Grid>
       {teams.map((team, index) => {
