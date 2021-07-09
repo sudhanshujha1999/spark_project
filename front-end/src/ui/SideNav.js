@@ -237,8 +237,13 @@ const useStyles = makeStyles((theme) => ({
         transition: "all 0.2s ease-in",
         overflowX: "hidden",
         borderRight: "none",
+        backgroundImage: "linear-gradient(183deg, rgba(57,62,70,1) 0%, rgba(26,28,32,1) 100%)",
+        // boxShadow:
+        //     "rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px",
     },
     drawerPaperClose: {
+        backgroundImage: "linear-gradient(183deg, rgba(57,62,70,1) 0%, rgba(26,28,32,1) 100%)",
+        // boxShadow: "rgba(240, 46, 170, 0.3) 5px 5px, rgba(240, 46, 170, 0.1) 10px 10px",
         borderRight: "none",
         width: drawerWidth - 175,
         overflowX: "hidden !important",

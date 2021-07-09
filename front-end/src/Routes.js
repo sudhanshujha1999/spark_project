@@ -1,12 +1,15 @@
 import { Switch, Route } from "react-router-dom";
-import { PublicRoute, OnboardingRoute, PrivateRoute } from "./routing";
+import { OnboardingRoute, PrivateRoute } from "./routing";
 import { Box, NavBar, SideNav } from "./ui";
 import * as routeDefinitions from "./routeDefinitions";
 import { useCurrentUserInfo } from "./users";
+import { makeStyles } from "@material-ui/core/styles";
+import background from "./img/bg-2.svg";
 
 const routes = Object.values(routeDefinitions);
 
 export const Routes = () => {
+    const classes = useStyles();
     const { userInfo } = useCurrentUserInfo();
     return (
         <Switch>
@@ -21,6 +24,7 @@ export const Routes = () => {
                     <RouteType key={i} path={route.path} exact>
                         <NavBar />
                         {(!route.hideNav || (userInfo && userInfo.isOnboarded)) && <SideNav />}
+                        <Box className={classes.background} />
                         <Box
                             ml={route.hideNav ? 0 : "64px"}
                             mt={route.hideNav ? 0 : "64px"}
@@ -33,3 +37,17 @@ export const Routes = () => {
         </Switch>
     );
 };
+
+const useStyles = makeStyles((theme) => ({
+    background: {
+        width: "110vw",
+        top: 0,
+        left: 0,
+        height: "110vh",
+        position: "fixed",
+        zIndex: "-100000",
+        opacity: "0.8",
+        backgroundImage: `url(${background})`,
+        backgroundSize: "cover",
+    },
+}));

@@ -11,6 +11,7 @@ import { routes as teamRoutes } from "./teams";
 import { routes as userRoutes } from "./users";
 import { routes as testRoutes } from "./test";
 import { routes as warRoomRoutes } from "./war-room";
+import { routes as statsRoutes } from "./stats";
 
 export const routes = [
     ...emailVerificationRoutes,
@@ -26,4 +27,5 @@ export const routes = [
     ...userRoutes,
     ...testRoutes,
     ...warRoomRoutes,
+    ...statsRoutes,
 ];

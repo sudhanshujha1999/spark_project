@@ -18,9 +18,6 @@ export const useGetPlayerStats = (playerId) => {
             }
             setLoading(false);
         };
-        // if(playerId){
-
-        // }
         fetchData();
     }, []);
 
