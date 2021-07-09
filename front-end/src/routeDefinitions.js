@@ -1,6 +1,5 @@
 import { CreateAccountPage, EmailVerificationResult, PleaseVerifyEmail, SignInPage } from "./auth";
 import { DashboardPage, CreateOrganizationPage } from "./dashboard";
-import { GoalSettingPage, StatsFormTest } from "./goal-setting";
 import { InvitationLandingPage } from "./invitations";
 import { TermsAndPrivacy } from "./legal";
 import { MemberDetailPage, ProfilePage } from "./members";
@@ -10,6 +9,7 @@ import { RostersPage } from "./rosters";
 import { SchedulingPage } from "./scheduling";
 import { TeamInfoForm, EditTeamInfo } from "./teams";
 import { WarRoom, SessionDetails } from "./war-room";
+import { NotificationsPage } from "./notifications/NotificationsPage";
 
 export const createTeamRoute = {
     path: "/new-team/:id",
@@ -33,11 +33,6 @@ export const emailVerificationResultRoute = {
     component: EmailVerificationResult,
     isPublic: true,
     hideNav: true,
-};
-
-export const goalSettingRoute = {
-    path: "/goals",
-    component: StatsFormTest,
 };
 
 export const invitationLandingRoute = {
@@ -87,6 +82,11 @@ export const onboardingUserInfoRoute = {
     isOnboarding: true,
     hideNav: true,
 };
+
+export const notificationsRoute = {
+	path: "/notifications",
+	component: NotificationsPage,
+}
 
 export const pleaseVerifyEmailRoute = {
     path: "/please-verify-email/:userId",

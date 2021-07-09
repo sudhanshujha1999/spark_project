@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import SparkLogo from "../img/logo.svg";
 import { useCurrentUser, SignOutButton } from "../auth";
+import { NotificationsButton } from '../notifications';
 
 export const NavBar = () => {
     const classes = useStyles();
@@ -39,6 +40,7 @@ export const NavBar = () => {
                 </Box>
                 <Box>
                     {!isLoading && currentUser ? (
+						<>
                         <Box
                             style={{
                                 display: "flex",
@@ -46,14 +48,22 @@ export const NavBar = () => {
                                 alignItems: "center",
                             }}>
                             <p>Logged in as {currentUser.email}</p>
+							<Box ml={3} mr={2}>
+								<Link to="/notifications">
+									<NotificationsButton notifications={['hello']} />
+								</Link>
+							</Box>
                             <Box ml={2}>
                                 <SignOutButton variant='outlined' />
                             </Box>
                         </Box>
+						</>
                     ) : (
+						<>
                         <Link to='/sign-in'>
                             <Button variant='outlined'>Sign In</Button>
                         </Link>
+						</>
                     )}{" "}
                 </Box>
             </Toolbar>

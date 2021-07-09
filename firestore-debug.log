@@ -1,0 +1,147 @@
+API endpoint: http://localhost:8080
+If you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:
+
+   export FIRESTORE_EMULATOR_HOST=localhost:8080
+
+Dev App Server is now running.
+
+Jul 09, 2021 10:42:21 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 10:42:21 AM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users
+Jul 09, 2021 10:43:13 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 10:43:13 AM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users
+Jul 09, 2021 10:43:39 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 10:43:39 AM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 10:43:39 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 10:43:39 AM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 10:45:29 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 10:45:29 AM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 10:45:29 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 10:45:29 AM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 10:47:15 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 10:47:15 AM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 10:47:15 AM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 10:47:15 AM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 12:51:26 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 12:51:26 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 12:51:26 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 12:51:26 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 12:51:29 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 12:51:29 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 12:51:29 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 12:51:29 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 12:56:10 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 12:56:10 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 12:56:10 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 12:56:10 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 12:57:29 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 12:57:29 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 12:58:15 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 12:58:15 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 12:58:17 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 12:58:17 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 12:58:17 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 12:58:17 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 12:58:17 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 12:58:17 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 12:58:24 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 12:58:24 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 12:58:24 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 12:58:24 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 12:58:24 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 12:58:24 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 12:59:15 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 12:59:15 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 12:59:15 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 12:59:15 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 12:59:19 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 12:59:19 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 12:59:19 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 12:59:19 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 12:59:19 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 12:59:19 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 1:01:43 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 1:01:43 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 1:01:43 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 1:01:43 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 1:01:43 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 1:01:43 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 1:05:25 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 1:05:25 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 1:05:25 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 1:05:25 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 1:10:27 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 1:10:27 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 1:10:28 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 1:10:28 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT
+Jul 09, 2021 1:10:28 PM io.gapi.emulators.netty.HttpVersionRoutingHandler channelRead
+INFO: Detected non-HTTP/2 connection.
+Jul 09, 2021 1:10:28 PM io.gapi.emulators.netty.NotFoundHandler handleRequest
+INFO: Unknown request URI: /api/users/dOhy5dtq9xz6CKErv15Ze7XDXHBT

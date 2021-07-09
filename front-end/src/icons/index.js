@@ -16,6 +16,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import GroupIcon from "@material-ui/icons/Group";
 import GpsFixedIcon from "@material-ui/icons/GpsFixed";
+import NotificationsIcon from '@material-ui/icons/Notifications';
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import RecentActorsIcon from "@material-ui/icons/RecentActors";
@@ -46,6 +47,7 @@ export {
     GpsFixedIcon,
     GroupIcon,
     GroupAddIcon,
+	NotificationsIcon,
     PlayArrowIcon,
     PhotoCameraIcon,
     ReorderIcon,
