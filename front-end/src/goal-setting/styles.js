@@ -1,5 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/styles'
 import blue from '@material-ui/core/colors/blue'
+import teamPic from '../img/teamPic.jpg'
 const bezierValue = 'cubic-bezier(0.26, 1, 0.43, 0.93)'
 
 export const useStyles = makeStyles((theme) => ({
@@ -58,7 +59,7 @@ export const useStyles = makeStyles((theme) => ({
         boxShadow: '0px 5px 10px rgba(0,0,0,0.3)',
       },
       '& $rank': {
-        top: '-15%',
+        top: '-11%',
         right: '-7%',
         backgroundColor: 'rgba(0,0,0,0.6)',
       },
@@ -173,7 +174,7 @@ export const useStyles = makeStyles((theme) => ({
     opacity: 0,
     position: 'absolute',
     width: '100%',
-    top: '60%',
+    top: '70%',
     left: '50%',
     transform: 'translateX(-50%)',
     display: 'flex',
@@ -190,6 +191,83 @@ export const useStyles = makeStyles((theme) => ({
     '&:hover': {
       boxShadow: '0px 5px 10px rgba(0,0,0,0.4)',
     },
+  },
+  // PLAYER CARD
+  playerCardConatiner: {
+    maxWidth: '200px',
+    height: '250px',
+    position: 'relative',
+    '&:hover': {
+      '& $playerCard': {
+        boxShadow: '0px 5px 15px 2px rgba(255,255,255,0.2)',
+      },
+    },
+  },
+  playerCard: {
+    display: 'flex',
+    flexFlow: 'column',
+    position: 'relative',
+    zIndex: '3',
+    height: '100%',
+    margin: '10px auto',
+    backgroundColor: '#303030',
+    padding: '5px 10px',
+    borderRadius: '5px',
+    boxShadow: '0px 0px 10px 2px rgba(0,0,0,0.4)',
+    cursor: 'pointer',
+    transition: 'all .2s ease-in',
+  },
+  gradient: {
+    position: 'absolute',
+    maxWidth: '290px',
+    content: '""',
+    top: '50%',
+    borderRadius: '5px',
+    left: '50%',
+    transform: 'translate(-50%,-50%)',
+    width: '102%',
+    height: '102%',
+    zIndex: '-100',
+    backgroundImage:
+      'linear-gradient(460deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)',
+    backgroundSize: '300%',
+    backgroundPosition: 'right',
+    animation: '$animate 20s infinite alternate',
+  },
+  '@keyframes animate': {
+    '0%': {
+      backgroundPosition: 'right',
+    },
+    '25%': {
+      backgroundPosition: 'bottom',
+    },
+    '50%': {
+      backgroundPosition: 'left',
+    },
+    '100%': {
+      backgroundPosition: 'top',
+    },
+  },
+  breakWord: {
+    wordWrap: 'break-word',
+    width: '90%',
+  },
+  teamImage: {
+    position: 'absolute',
+    top: '-30px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    width: '50px',
+    height: '50px',
+    zIndex: '200',
+    borderRadius: '50%',
+    backgroundImage: `url(${teamPic})`,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    boxShadow: '0px 5px 10px 2px rgba(0,0,0,0.2)',
+  },
+  playerName: {
+    marginTop: '20px',
   },
 
   dialog: {

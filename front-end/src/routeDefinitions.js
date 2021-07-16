@@ -17,6 +17,7 @@ import { TeamInfoForm, EditTeamInfo } from './teams'
 import { WarRoom, SessionDetails } from './war-room'
 import { ChooseTeam } from './goal-setting'
 import { ChoosePlayer } from './goal-setting'
+import { CreateGoal } from './goal-setting/CreateGoal'
 
 export const createTeamRoute = {
   path: '/new-team/:id',
@@ -53,6 +54,10 @@ export const goalChooseTeamRoute = {
 export const goalChoosePlayerRoute = {
   path: '/goals/chooseplayer',
   component: ChoosePlayer,
+}
+export const goalCreateRoute = {
+  path: '/goals/create-goal',
+  component: CreateGoal,
 }
 
 export const invitationLandingRoute = {

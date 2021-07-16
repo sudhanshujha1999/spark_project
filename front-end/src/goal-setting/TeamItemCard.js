@@ -29,7 +29,7 @@ export const TeamItemCard = ({ team, isCoach, index }) => {
           />
           <Typography className={classes.teamName}>
             {team.name}
-            {isCoach && (
+            {/* {isCoach && (
               <Link to={`/teams/${team.id}/edit`}>
                 <IconButton
                   className={classes.iconBtn}
@@ -41,14 +41,14 @@ export const TeamItemCard = ({ team, isCoach, index }) => {
                   <SettingsIcon size='small' className={classes.btnIcon} />
                 </IconButton>
               </Link>
-            )}
+            )} */}
           </Typography>
         </Box>
         <Box className={classes.back}>
           <Typography gutterBottom className={classes.gameName}>
             {team.game}
           </Typography>
-          <Button
+          {/* <Button
             variant='contained'
             className={classes.teamCardBtn}
             disableElevation
@@ -60,7 +60,7 @@ export const TeamItemCard = ({ team, isCoach, index }) => {
             }}
           >
             See Team
-          </Button>
+          </Button> */}
         </Box>
       </Box>
     </Grid>

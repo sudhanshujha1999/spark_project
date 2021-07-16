@@ -7,7 +7,6 @@ import { useIsCoach } from '../users/useIsCoach'
 export const ChooseTeam = () => {
   const { organizations, isLoading: isLoadingOrganizations } =
     useOrganizations()
-  console.log(organizations)
   const { isCoach } = useIsCoach(organizations._id)
 
   return (
