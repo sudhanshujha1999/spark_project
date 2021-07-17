@@ -19,24 +19,6 @@ export const HeadingForLoggedInUser = ({ user }) => {
 
     return (
         <Box className={classes.headingContainer}>
-            <Box display='flex' alignItems='center' justifyContent='space-between'>
-                <Box className={classes.logo} mr={2}>
-                    <Icon fontSize='large'>
-                        <img
-                            style={{
-                                width: "100%",
-                                height: "100%",
-                            }}
-                            alt='Spark Logo'
-                            src={SparkLogo}
-                        />
-                    </Icon>
-                </Box>
-                <Typography className={classes.orgName}>SPARK</Typography>
-            </Box>{" "}
-            <Typography component='h1' align='center' className={classes.bannerHeading}>
-                Esports Team Management
-            </Typography>
             <Typography className={classes.body} variant='body2' align='center' gutterBottom>
                 We hope you're enjoying <strong className={classes.nameOrg}>Spark.</strong>
                 <br />
