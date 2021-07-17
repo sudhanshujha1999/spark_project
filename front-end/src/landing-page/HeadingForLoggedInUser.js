@@ -1,7 +1,8 @@
-import { Box, Typography, Button } from "../ui";
+import { Box, Button, Typography, Icon } from "../ui";
 import { useStyles } from "./styles";
 import { useState } from "react";
 import { FormDialog, ShareDialog } from "./FormDialog";
+import SparkLogo from "../img/logo.svg";
 
 export const HeadingForLoggedInUser = ({ user }) => {
     const classes = useStyles();
@@ -18,11 +19,25 @@ export const HeadingForLoggedInUser = ({ user }) => {
 
     return (
         <Box className={classes.headingContainer}>
-            <Typography className={classes.orgName}>SPARK</Typography>
-            <Typography component='h1' className={classes.bannerHeading}>
+            <Box display='flex' alignItems='center' justifyContent='space-between'>
+                <Box className={classes.logo} mr={2}>
+                    <Icon fontSize='large'>
+                        <img
+                            style={{
+                                width: "100%",
+                                height: "100%",
+                            }}
+                            alt='Spark Logo'
+                            src={SparkLogo}
+                        />
+                    </Icon>
+                </Box>
+                <Typography className={classes.orgName}>SPARK</Typography>
+            </Box>{" "}
+            <Typography component='h1' align='center' className={classes.bannerHeading}>
                 Esports Team Management
             </Typography>
-            <Typography className={classes.body} variant='body2' gutterBottom>
+            <Typography className={classes.body} variant='body2' align='center' gutterBottom>
                 We hope you're enjoying <strong className={classes.nameOrg}>Spark.</strong>
                 <br />
                 Give us some feedback or refer another coach!

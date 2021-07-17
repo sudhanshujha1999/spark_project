@@ -58,8 +58,7 @@ export const useStyles = makeStyles((theme) => ({
     // ORG NAME
     logo: {
         width: "max(50px, 6vw)",
-        filter: "grayscale(1)",
-        // animation: "$animateLogo 15s infinite linear",
+        animation: "$animateLogo 15s infinite linear",
     },
     "@keyframes animateLogo": {
         "0%": {
@@ -99,8 +98,8 @@ export const useStyles = makeStyles((theme) => ({
         lineHeight: "1em",
         maxWidth: "700px",
         marginBottom: "15px",
-        fontSize: "min(4em, 14vw)",
-        alignSelf: "flex-start",
+        fontSize: "min(3em, 14vw)",
+        alignSelf: "center",
     },
     body: {
         marginBottom: "15px",
