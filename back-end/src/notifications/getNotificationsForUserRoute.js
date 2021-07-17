@@ -1,5 +1,6 @@
-import { getNotificationsForUser } from "./getNotificationsForUser";
 import { isLoggedInProtector } from "../route-protectors";
+import { getUserByAuthId } from "../users";
+import { getNotificationsForUser } from "./getNotificationsForUser";
 
 export const getNotificationsForUserRoute = {
 	path: '/users/:userId/notifications',

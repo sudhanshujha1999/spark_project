@@ -1,3 +1,5 @@
+import { useRecoilValue } from 'recoil';
+import { notificationsState } from './notificationsState';
 import {
 	NotificationsIcon,
 } from '../icons';
@@ -6,7 +8,9 @@ import {
 	Box,
 } from '../ui';
 
-export const NotificationsButton = ({ notifications = [] }) => {
+export const NotificationsButton = () => {
+	const notifications = useRecoilValue(notificationsState);
+
 	return (
 		<Box style={{ cursor: 'pointer' }}>
 			{notifications.length > 0 && (
