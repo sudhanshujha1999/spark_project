@@ -13,12 +13,7 @@ export const NavBar = () => {
     const { isLoading, user: currentUser } = useCurrentUser();
 
     return (
-        <AppBar
-            backgroundColor='#304964'
-            swid='nav-bar'
-            position='fixed'
-            className={classes.appBar}
-            p={2}>
+        <AppBar swid='nav-bar' position='fixed' className={classes.appBar} p={2}>
             <Toolbar>
                 <Box className={classes.logo} style={{ flex: 10 }}>
                     {!currentUser && (
@@ -69,10 +64,9 @@ const useStyles = makeStyles((theme) => ({
         zIndex: 500,
         opacity: 0.4,
         transition: "all 0.2s ease-out",
-        backgroundColor: "rgba(34,40,49,0.5)",
+        backgroundImage: "linear-gradient(145deg, rgba(57,62,70,1) 0%, rgba(26,28,32,1) 100%)",
         "&:hover": {
             opacity: 1,
-            backgroundColor: "rgba(34,40,49,1)",
         },
     },
     menuButton: {

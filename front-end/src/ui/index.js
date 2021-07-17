@@ -42,6 +42,7 @@ import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
 import Slide from "@material-ui/core/Slide";
 import Select from "@material-ui/core/Select";
 import Snackbar from "@material-ui/core/Snackbar";
+import Switch from "@material-ui/core/Switch";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import TextField from "@material-ui/core/TextField";
@@ -112,4 +113,5 @@ export {
     Tabs,
     Tooltip,
     Snackbar,
+    Switch,
 };

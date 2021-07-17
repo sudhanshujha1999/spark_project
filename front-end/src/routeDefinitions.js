@@ -1,5 +1,6 @@
 import { CreateAccountPage, EmailVerificationResult, PleaseVerifyEmail, SignInPage } from "./auth";
 import { DashboardPage, CreateOrganizationPage } from "./dashboard";
+import { CommunityPage } from "./community";
 import { GoalSettingPage } from "./goal-setting";
 import { InvitationLandingPage } from "./invitations";
 import { TermsAndPrivacy } from "./legal";
@@ -9,11 +10,16 @@ import { LandingPage } from "./landing-page";
 import { RostersPage } from "./rosters";
 import { SchedulingPage } from "./scheduling";
 import { TeamInfoForm, EditTeamInfo } from "./teams";
-import { WarRoom, SessionDetails } from "./war-room";
+import { WarRoom, SessionDetails, Scrimmages } from "./war-room";
 
 export const createTeamRoute = {
     path: "/new-team/:id",
     component: TeamInfoForm,
+};
+
+export const communityPageRoute = {
+    path: "/community",
+    component: CommunityPage,
 };
 
 export const dashboardRoute = {
@@ -110,6 +116,11 @@ export const signInRoute = {
     component: SignInPage,
     isPublic: true,
     hideNav: true,
+};
+
+export const allScrimmageRoute = {
+    path: "/scrimmages",
+    component: Scrimmages,
 };
 
 export const termsAndPrivacyRoute = {

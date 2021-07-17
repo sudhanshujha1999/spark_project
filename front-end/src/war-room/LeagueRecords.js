@@ -13,6 +13,7 @@ export const LeagueRecords = ({
     organizationId,
     showActions = true,
     isCoach = false,
+    height,
 }) => {
     const classes = useStyles();
     // SET THESE LEAGUES ON THE VALUE OF A HOOK THAT CALL THE DATA
@@ -69,31 +70,40 @@ export const LeagueRecords = ({
                         League Records
                     </Typography>
                     <Box mb={6} />
-                    <Grid
-                        container
-                        item
-                        className={`${classes.newsContainer} ${classes.customScroll}`}>
-                        {leagues.length > 0 ? (
-                            leagues.map((league, index) => (
-                                <Grid key={league._id} item xs={12}>
-                                    <LeagueItem
-                                        league={league}
-                                        score={scoreMemo[index]}
-                                        updateLeagues={updateLeagues}
-                                        handleRemove={handleRemove}
-                                        showActions={showActions && isCoach}
-                                    />
+                    <Box
+                        className={`${classes.leagueContainer} ${classes.customScrollY}`}
+                        style={{
+                            height: height ? height - 80 : "auto",
+                        }}>
+                        <Grid container>
+                            {leagues.length > 0 ? (
+                                leagues.map((league, index) => (
+                                    <Grid
+                                        style={{
+                                            overflowX: "hidden",
+                                            margin: "10px 0",
+                                        }}
+                                        key={league._id}
+                                        item
+                                        xs={11}>
+                                        <LeagueItem
+                                            league={league}
+                                            score={scoreMemo[index]}
+                                            updateLeagues={updateLeagues}
+                                            handleRemove={handleRemove}
+                                            showActions={showActions && isCoach}
+                                        />
+                                    </Grid>
+                                ))
+                            ) : (
+                                <Grid item xs={12}>
+                                    <Box className={`${classes.container} ${classes.newsBox}`}>
+                                        <Typography variant='h5'>No league info</Typography>
+                                    </Box>
                                 </Grid>
-                            ))
-                        ) : (
-                            <Grid item xs={12}>
-                                <Box className={`${classes.container} ${classes.newsBox}`}>
-                                    <Typography variant='h5'>No league info</Typography>
-                                </Box>
-                            </Grid>
-                        )}
-                    </Grid>
-                    <Box className={classes.overlay} />
+                            )}
+                        </Grid>
+                    </Box>
                     {showActions && isCoach && (
                         <Box my={2}>
                             <Button color='secondary' onClick={handleClick} variant='contained'>
