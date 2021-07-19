@@ -70,6 +70,7 @@ export const CreateGoal = () => {
             value={metric}
             onChange={(e) => setMetric(e.target.value)}
             MenuProps={{
+              disableScrollLock: true,
               anchorOrigin: {
                 vertical: 'bottom',
                 horizontal: 'left',
