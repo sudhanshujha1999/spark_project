@@ -3,7 +3,12 @@ import { DeleteIcon } from "../icons";
 import { Alert, Avatar, Box, Chip, IconButton, Divider, Typography } from "../ui";
 import { useStyles } from "./styles";
 
-export const EventDetailForm = ({ selectedEvent, userId, deleteEvent = async () => {} }) => {
+export const EventDetailForm = ({
+    selectedEvent,
+    userId,
+    deleteEvent = async () => {},
+    isCoach,
+}) => {
     const { name, description, date, time, invitees } = selectedEvent;
     const [error, setError] = useState("");
     const classes = useStyles();
@@ -32,9 +37,11 @@ export const EventDetailForm = ({ selectedEvent, userId, deleteEvent = async () 
                     background: selectedEvent.background_color.background,
                 }}
             />
-            <IconButton className={classes.deleteButton} onClick={onclickDelete}>
-                <DeleteIcon />
-            </IconButton>
+            {isCoach && (
+                <IconButton className={classes.deleteButton} onClick={onclickDelete}>
+                    <DeleteIcon />
+                </IconButton>
+            )}
             <Box mb={2}>
                 <Typography variant='h4'>{name}</Typography>
             </Box>

@@ -1,19 +1,44 @@
 import { Avatar, Box, Button, Typography } from "../ui";
 import { useStyles } from "./styles";
+import { useMemo } from "react";
+import { defaultLogo, GAMES } from "../teams/defaultGames";
 
-export const ScrimmageItem = ({ scrimmage, setSelectedScrimmage = () => {} }) => {
+export const ScrimmageItem = ({
+    scrimmage,
+    setSelectedScrimmage = () => {},
+    deselect = () => {},
+}) => {
     const classes = useStyles();
 
     const handleDelete = () => {
         console.log(scrimmage);
+        deselect();
     };
 
     const handleView = () => {
         setSelectedScrimmage(scrimmage);
     };
 
+    const gameImage = useMemo(() => {
+        const game = GAMES.filter(
+            (game) => game.name.toLowerCase() === scrimmage.game.toLowerCase()
+        )[0];
+        if (game) {
+            if (game.logo) {
+                return game.logo;
+            } else {
+                return defaultLogo;
+            }
+        } else {
+            return defaultLogo;
+        }
+    }, [scrimmage]);
+
     return (
         <Box className={classes.scrimmagePost}>
+            <Box className={classes.gameImageContainer} mr={2}>
+                <img className={classes.image} src={gameImage} alt='game' />
+            </Box>
             <Box>
                 {scrimmage.organization_logo ? (
                     <Avatar src={scrimmage.organization_logo} alt='organization_logo' />
@@ -27,9 +52,6 @@ export const ScrimmageItem = ({ scrimmage, setSelectedScrimmage = () => {} }) =>
                 <Box display='flex' flexDirection='row' alignItems='center'>
                     <Box>
                         <Typography variant='h5'>{scrimmage.organization_name}</Typography>
-                    </Box>
-                    <Box mx={2}>
-                        <Typography variant='body2'>{scrimmage.game}</Typography>
                     </Box>
                 </Box>
                 <Typography variant='caption'>Skill - {scrimmage.skill_level}/10</Typography>
@@ -47,7 +69,7 @@ export const ScrimmageItem = ({ scrimmage, setSelectedScrimmage = () => {} }) =>
             </Box>
             <Box mx={1}>
                 <Button className={classes.deleteBtn} onClick={handleDelete}>
-                    delete
+                    close
                 </Button>
             </Box>
         </Box>

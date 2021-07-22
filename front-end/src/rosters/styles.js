@@ -33,7 +33,7 @@ export const useStyles = makeStyles((theme) => ({
             top: 0,
             left: 0,
             zIndex: "-998",
-            background: "linear-gradient(0deg, rgba(34,40,49,1) 30%, rgba(255,255,255,0) 100%)",
+            background: "linear-gradient(0deg, rgb(28 30 35) 30%, rgba(255,255,255,0) 100%)",
         },
         [theme.breakpoints.down("sm")]: {
             width: "120%",

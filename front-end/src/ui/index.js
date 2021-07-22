@@ -62,6 +62,7 @@ export { StateForm } from "./StateForm";
 export { TabPanel } from "./TabPanel";
 export { CustomSnackbar } from "./CustomSnackbar";
 export { DatePicker } from "./DatePicker";
+export { SkillsDisplayRow } from "./SkillsDisplayRow";
 
 export {
     Accordion,

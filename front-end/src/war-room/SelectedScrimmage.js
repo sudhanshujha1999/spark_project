@@ -1,29 +1,39 @@
-import { Box, Button, Typography } from "../ui";
+import { Box, Button, CustomSnackbar, Typography } from "../ui";
 import { useStyles } from "./styles";
 import { post } from "../network";
 import { useSetRecoilState } from "recoil";
+import { useState } from "react";
 import { invitationAcceptedSelector, invitationDeclinedSelector } from "../community/recoil";
 
-export const SelectedScrimmage = ({ scrimmage }) => {
+export const SelectedScrimmage = ({ scrimmage, isCoach }) => {
     const classes = useStyles();
+    const [message, setMessgae] = useState("");
     const acceptRequest = useSetRecoilState(invitationAcceptedSelector);
     const declineRequest = useSetRecoilState(invitationDeclinedSelector);
 
     const handleDecline = async (request) => {
-        try {
-            await post(`/api/scrimmage/${request._id}/decline/`);
-            declineRequest({ requestId: request._id, scrimmageId: scrimmage._id });
-        } catch (error) {
-            console.error(error);
+        if (isCoach) {
+            try {
+                await post(`/api/scrimmage/${request._id}/decline/`);
+                declineRequest({ requestId: request._id, scrimmageId: scrimmage._id });
+            } catch (error) {
+                console.error(error);
+            }
+        } else {
+            setMessgae(`Your dont have the required permission to take action on this post`);
         }
     };
 
     const handleAccept = async (request) => {
-        try {
-            await post(`/api/scrimmage/${request._id}/accept/`);
-            acceptRequest({ requestId: request._id, scrimmageId: scrimmage._id });
-        } catch (error) {
-            console.error(error);
+        if (isCoach) {
+            try {
+                await post(`/api/scrimmage/${request._id}/accept/`);
+                acceptRequest({ requestId: request._id, scrimmageId: scrimmage._id });
+            } catch (error) {
+                console.error(error);
+            }
+        } else {
+            setMessgae(`Your dont have the required permission to take action on this post`);
         }
     };
 
@@ -39,7 +49,7 @@ export const SelectedScrimmage = ({ scrimmage }) => {
                 <Typography> Requests :</Typography>
             </Box>
             <Box ml={1}>
-                {scrimmage.requests.length ? (
+                {scrimmage.requests?.length ? (
                     <Box className={classes.requestBox}>
                         {scrimmage.requests.map((request) => (
                             <>
@@ -88,6 +98,7 @@ export const SelectedScrimmage = ({ scrimmage }) => {
                     <Typography variant='subtitle2'>No requests till now..</Typography>
                 )}
             </Box>
+            <CustomSnackbar message={message} setMessage={setMessgae} type='info' />
         </Box>
     );
 };

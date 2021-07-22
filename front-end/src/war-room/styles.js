@@ -49,6 +49,13 @@ export const useStyles = makeStyles((theme) => ({
         },
     },
     // SCRIMMAGE ITEM
+    gameImageContainer: {
+        filter: "drop-shadow(2px 10px 3px rgba(0,0,0,0.6))",
+    },
+    image: {
+        maxWidth: "90px",
+        maxHeight: "60px",
+    },
     scrimmagePost: {
         display: "flex",
         flexFlow: "row",

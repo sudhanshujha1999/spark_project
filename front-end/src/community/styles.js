@@ -12,13 +12,31 @@ export const useStyles = makeStyles((theme) => ({
             color: purple[400],
         },
     },
+    postBackground: {
+        backgroundImage: "linear-gradient(180deg, rgba(21,21,22,1) 0%, rgba(13,13,13,0) 100%)",
+        backgroundColor: "rgba(0,0,0,0)",
+    },
+    // post section
+    createPostSection: {
+        display: "flex",
+        flexFlow: "row",
+        margin: "10px 0",
+        justifyContent: "flex-start",
+    },
     scrimmagePost: {
         display: "flex",
         flexFlow: "row",
         alignItems: "center",
         padding: "15px",
         margin: "10px 0",
-        maxWidth: 450,
+        backgroundImage: "linear-gradient(180deg, rgba(21,21,22,1) 0%, rgba(13,13,13,0) 100%)",
+    },
+    gameImageContainer: {
+        filter: "drop-shadow(2px 10px 3px rgba(0,0,0,0.6))",
+    },
+    image: {
+        maxWidth: "90px",
+        maxHeight: "60px",
     },
     avatar: {
         backgroundImage: "linear-gradient(145deg, rgba(57,62,70,1) 0%, rgba(26,28,32,1) 100%)",
@@ -44,6 +62,17 @@ export const useStyles = makeStyles((theme) => ({
         },
         "100%": {
             boxShadow: "1px 4px 10px hsl(287deg 80% 42%)",
+        },
+    },
+    // skill icon
+
+    cancelBtn: {
+        backgroundImage: "linear-gradient(to right, #eb3941, #f15e64, #e14e53, #e2373f)",
+        backgroundSize: "300% 300%",
+        color: "#fafafa",
+        transition: "all 0.5s ease-out",
+        "&:hover": {
+            backgroundPosition: "right center",
         },
     },
 }));

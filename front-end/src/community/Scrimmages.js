@@ -1,39 +1,25 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Box, Container, Dialog, Grid, Typography } from "../ui";
-import { IntrestedForScrimmage } from "./IntrestedForScrimmage";
+import { Box, Button, Container, Dialog, Grid, Typography } from "../ui";
+import { CreateScrimmagePage } from "./CreateScrimmagePage";
 import { ScrimmagePost } from "./ScrimmagePost";
-import { useOrganizations } from "../teams";
-import { del } from "../network";
 import { useStyles } from "./styles";
 import { ChevronRightIcon } from "../icons";
 
-export const Scrimmages = ({ isLoading, scrimmages, updateScrimmages }) => {
-    const [intrestedScrimmage, setIntrestedScrimmage] = useState({});
-    const [open, setOpen] = useState(false);
-    const { organizations } = useOrganizations();
+export const Scrimmages = ({ isLoading, scrimmages, updateScrimmages, isCoach }) => {
+    const [openCreateScrimmage, setOpenCreateScrimmage] = useState(false);
     const classes = useStyles();
-    const onClose = () => {
-        setIntrestedScrimmage({});
-        setOpen(false);
+
+    const onCloseCreatescrimmage = () => {
+        setOpenCreateScrimmage(false);
+    };
+
+    const onPostScrimmage = () => {
+        setOpenCreateScrimmage(true);
     };
 
     const onSuccess = () => {
         updateScrimmages(true);
-    };
-
-    const deleteRequest = async (scrimmageId) => {
-        await del(`/api/scrimmage/${scrimmageId}/${organizations._id}/interested/`);
-        updateScrimmages(true);
-    };
-
-    const clickIntrested = async (scrimmage) => {
-        if (!scrimmage.intrested) {
-            setIntrestedScrimmage(scrimmage);
-            setOpen(true);
-        } else {
-            await deleteRequest(scrimmage._id);
-        }
     };
 
     return (
@@ -45,17 +31,30 @@ export const Scrimmages = ({ isLoading, scrimmages, updateScrimmages }) => {
                     <>
                         <Grid item xs={12}>
                             <Link to='/scrimmages'>
-                                <Typography className={classes.link}>
+                                <Button variant='outlined' color='primary' className={classes.link}>
                                     View my scrimmage <ChevronRightIcon />
-                                </Typography>
+                                </Button>
                             </Link>
                         </Grid>
+                        {isCoach && (
+                            <Grid item xs={12}>
+                                <Box className={classes.createPostSection}>
+                                    <Button
+                                        variant='contained'
+                                        color='primary'
+                                        onClick={onPostScrimmage}>
+                                        Post Scrimmage
+                                    </Button>
+                                </Box>
+                            </Grid>
+                        )}
                         {scrimmages.length > 0 ? (
                             scrimmages.map((scrimmage) => (
-                                <Grid key={scrimmage._id} item xs={12} lg={10} xl={8}>
+                                <Grid key={scrimmage._id} item xs={12}>
                                     <ScrimmagePost
+                                        isCoach={isCoach}
                                         scrimmage={scrimmage}
-                                        onClickIntrested={clickIntrested}
+                                        updateScrimmages={onSuccess}
                                     />
                                 </Grid>
                             ))
@@ -68,13 +67,14 @@ export const Scrimmages = ({ isLoading, scrimmages, updateScrimmages }) => {
                     </>
                 )}
             </Grid>
-            <Dialog open={open} onClose={onClose}>
-                <IntrestedForScrimmage
-                    scrimmage={intrestedScrimmage}
-                    onSuccess={onSuccess}
-                    organizationId={organizations._id}
-                    onClose={onClose}
-                />
+
+            <Dialog open={openCreateScrimmage} onClose={onCloseCreatescrimmage}>
+                <Box p={2}>
+                    <Box my={1}>
+                        <Typography variant='h5'>Make your scrimmage</Typography>
+                    </Box>
+                    <CreateScrimmagePage whenComplete={onCloseCreatescrimmage} />
+                </Box>
             </Dialog>
         </Container>
     );

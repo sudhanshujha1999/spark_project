@@ -73,7 +73,7 @@ export const LeagueRecords = ({
                     <Box
                         className={`${classes.leagueContainer} ${classes.customScrollY}`}
                         style={{
-                            height: height ? height - 80 : "auto",
+                            height: height && height > 150 ? height - 80 : "auto",
                         }}>
                         <Grid container>
                             {leagues.length > 0 ? (

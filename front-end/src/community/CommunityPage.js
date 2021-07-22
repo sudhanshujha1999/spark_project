@@ -2,12 +2,17 @@ import { Box, Tabs, Tab } from "../ui";
 import { usePosts } from "./usePosts";
 import { useState } from "react";
 import { Scrimmages } from "./Scrimmages";
-import { ComingSoon } from "./ComingSoon";
+import { AllPosts } from "./AllPosts";
+import { useIsCoach } from "../users/useIsCoach";
 
-const tabLabel = ["All", "Scrimmages"];
+const tabLabel = ["Home", "Scrimmages"];
 
 export const CommunityPage = () => {
-    const { isLoading, otherScrimmages, updateScrimmages } = usePosts();
+    const { posts, isLoading, otherScrimmages, updateScrimmages } = usePosts();
+    const { isCoach } = useIsCoach();
+    const onUpdateScrimmage = () => {
+        updateScrimmages(true);
+    };
 
     const [value, setValue] = useState(0);
     const handleChange = (event, newValue) => {
@@ -15,8 +20,14 @@ export const CommunityPage = () => {
     };
 
     const TABS = [
-        <ComingSoon />,
+        <AllPosts
+            isCoach={isCoach}
+            posts={posts}
+            isLoading={isLoading}
+            updateScrimmages={onUpdateScrimmage}
+        />,
         <Scrimmages
+            isCoach={isCoach}
             isLoading={isLoading}
             scrimmages={otherScrimmages}
             updateScrimmages={updateScrimmages}

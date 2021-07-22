@@ -51,7 +51,7 @@ const navSections = [
             {
                 name: "Community",
                 icon: SupervisedUserCircleIcon,
-                // link: '/community',
+                link: "/community",
             },
         ],
     },

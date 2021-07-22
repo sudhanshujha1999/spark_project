@@ -16,7 +16,7 @@ const validations = [
     },
 ];
 
-export const CreateScrimmagePage = () => {
+export const CreateScrimmagePage = ({ whenComplete = () => console.log("complete") }) => {
     const [game, setGame] = useState("");
     const [skillLevel, setSkillLevel] = useState(4);
     const [startDate, setStartDate] = useState("");
@@ -45,6 +45,7 @@ export const CreateScrimmagePage = () => {
             data: { scrimmageId },
         } = await post(`/api/scrimmage/`, reqObject);
         // push to that id page or community
+        whenComplete();
         console.log(scrimmageId);
     };
 

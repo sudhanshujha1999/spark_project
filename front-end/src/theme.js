@@ -10,7 +10,7 @@ export const theme = createMuiTheme({
             main: "#ffd369",
         },
         background: {
-            paper: "#393e46",
+            paper: "#171717",
             default: "#222831",
         },
     },
@@ -21,6 +21,11 @@ export const theme = createMuiTheme({
         borderRadius: 2,
     },
     overrides: {
+        MuiPaper: {
+            elevation2: {
+                boxShadow: "0px 3px 15px rgba(139,21,178,0.3)",
+            },
+        },
         MuiFab: {
             primary: {
                 backgroundImage: "linear-gradient(to right, #895cf2 0%, #ffabf4 50%, #895cf2 100%)",
