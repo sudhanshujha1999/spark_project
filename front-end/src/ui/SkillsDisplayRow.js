@@ -2,7 +2,7 @@ import { Box, Tooltip } from "../ui";
 import highSkill from "../img/high-skill.svg";
 import midSkill from "../img/mid-skill.svg";
 import lowSkill from "../img/low-skill.svg";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 
 const skillIconArray = [
     ...new Array(3).fill(lowSkill),

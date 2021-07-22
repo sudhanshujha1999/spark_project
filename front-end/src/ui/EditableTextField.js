@@ -1,5 +1,5 @@
 import { TextField } from "./";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 
 export const EditableTextField = ({
     value,
@@ -16,6 +16,7 @@ export const EditableTextField = ({
         <TextField
             disabled={!editable}
             value={value}
+            variant='standard'
             multiline={multi}
             rows={multi ? 4 : 1}
             fullWidth

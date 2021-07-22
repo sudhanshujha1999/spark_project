@@ -36,7 +36,11 @@ export const CommunityPage = () => {
     return (
         <Box>
             <Box>
-                <Tabs value={value} onChange={handleChange}>
+                <Tabs
+                    textColor='secondary'
+                    indicatorColor='secondary'
+                    value={value}
+                    onChange={handleChange}>
                     {tabLabel.map((item) => (
                         <Tab label={item} />
                     ))}

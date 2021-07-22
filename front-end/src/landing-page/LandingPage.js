@@ -1,4 +1,4 @@
-import { Box, Typography, Grid, CircularProgress } from "../ui";
+import { Box, Button, Typography, Grid, CircularProgress } from "../ui";
 import Zoom from "@material-ui/core/Zoom";
 import { Banner } from "./Banner";
 import { useStyles } from "./styles";
@@ -12,7 +12,7 @@ import img2 from "../img/border.svg";
 // import SparkLogo from "../img/logo.svg";
 import { useCurrentUserInfo } from "../users";
 import { HeadingForLoggedInUser } from "./HeadingForLoggedInUser";
-import { Hidden } from "@material-ui/core";
+import { Container, Hidden } from "@material-ui/core";
 
 export const LandingPage = () => {
     const classes = useStyles();
@@ -51,58 +51,77 @@ export const LandingPage = () => {
                     <Box>{steps[step]}</Box>
                 )}
             </Zoom>
-            <Grid className={classes.featuresContainer} container spacing={10}>
-                {feature.map((item, index) => (
-                    <Grid item xs={12} xl={6}>
-                        <Box className={classes.cardContainer}>
-                            <img
-                                src={item.image}
-                                alt='testImag'
-                                className={
-                                    index % 2 !== 0
-                                        ? `${classes.cardBg} ${classes.cardBgRight}`
-                                        : `${classes.cardBg} ${classes.cardBgLeft}`
-                                }
-                            />
-                            <Hidden xlUp>
+            <Container maxWidth='xl'>
+                <Box mt={5} mb={18}>
+                    <Typography align='center' variant='h3' color='secondary'>
+                        Bring your esports program to the next level
+                    </Typography>
+                </Box>
+                <Grid className={classes.featuresContainer} container spacing={10}>
+                    {feature.map((item, index) => (
+                        <Grid item xs={12} xl={6}>
+                            <Box className={classes.cardContainer}>
                                 <img
-                                    src={border[index % 2 === 0 ? 0 : 1]}
+                                    src={item.image}
                                     alt='testImag'
                                     className={
-                                        index % 2 === 0
-                                            ? `${classes.cardBorder} ${classes.cardBorderLeft}`
-                                            : `${classes.cardBorder} ${classes.cardBorderRight}`
+                                        index % 2 !== 0
+                                            ? `${classes.cardBg} ${classes.cardBgRight}`
+                                            : `${classes.cardBg} ${classes.cardBgLeft}`
                                     }
                                 />
-                            </Hidden>
-                            <Hidden lgDown>
-                                <img
-                                    src={borderLg[[0, 3, 4].includes(index) ? 0 : 1]}
-                                    alt='testImag'
+                                <Hidden xlUp>
+                                    <img
+                                        src={border[index % 2 === 0 ? 0 : 1]}
+                                        alt='testImag'
+                                        className={
+                                            index % 2 === 0
+                                                ? `${classes.cardBorder} ${classes.cardBorderLeft}`
+                                                : `${classes.cardBorder} ${classes.cardBorderRight}`
+                                        }
+                                    />
+                                </Hidden>
+                                <Hidden lgDown>
+                                    <img
+                                        src={borderLg[[0, 3, 4].includes(index) ? 0 : 1]}
+                                        alt='testImag'
+                                        className={
+                                            [0, 3, 4].includes(index)
+                                                ? `${classes.cardBorder} ${classes.cardBorderLeft}`
+                                                : `${classes.cardBorder} ${classes.cardBorderRight}`
+                                        }
+                                    />
+                                </Hidden>
+                                <Box
                                     className={
-                                        [0, 3, 4].includes(index)
-                                            ? `${classes.cardBorder} ${classes.cardBorderLeft}`
-                                            : `${classes.cardBorder} ${classes.cardBorderRight}`
-                                    }
-                                />
-                            </Hidden>
-                            <Box
-                                className={
-                                    index % 2 !== 0
-                                        ? classes.infoContainerRight
-                                        : classes.infoContainerLeft
-                                }>
-                                <Typography className={classes.cardHeading}>
-                                    {item.heading}
-                                </Typography>
-                                <Typography>{item.details}</Typography>
+                                        index % 2 !== 0
+                                            ? classes.infoContainerRight
+                                            : classes.infoContainerLeft
+                                    }>
+                                    <Typography className={classes.cardHeading}>
+                                        {item.heading}
+                                    </Typography>
+                                    <Typography>
+                                        <Typography component='span' color='secondary'>
+                                            {item.strongDesc}{" "}
+                                        </Typography>
+                                        {item.details}
+                                    </Typography>
+                                </Box>
                             </Box>
+                        </Grid>
+                    ))}
+                    <Grid item xs={12}>
+                        <Box width='fit-content' mx={"auto"}>
+                            <Button variant='contained' color='primary' disabled={true}>
+                                Start for free
+                            </Button>
                         </Box>
                     </Grid>
-                ))}
-                {/* Log at the back of the bg */}
-                {/* <img className={classes.bgBehind} src={SparkLogo} alt='Company-Logo' /> */}
-            </Grid>
+                    {/* Log at the back of the bg */}
+                    {/* <img className={classes.bgBehind} src={SparkLogo} alt='Company-Logo' /> */}
+                </Grid>
+            </Container>
         </Box>
     );
 };

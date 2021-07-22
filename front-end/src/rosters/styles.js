@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import addRosterContainerBackground from "../img/tornadoBg.svg";
 import purple from "@material-ui/core/colors/purple";
 import teamPic from "../img/teamPic.jpg";
@@ -56,7 +56,6 @@ export const useStyles = makeStyles((theme) => ({
         color: "#eaeaea",
         backgroundImage: "linear-gradient(to right, #eb3941, #f15e64, #e14e53, #e2373f)",
         backgroundSize: "300% 300%",
-        color: "#fafafa",
         transition: "all 0.5s ease-out",
         "&:hover": {
             backgroundPosition: "right center",
@@ -75,8 +74,8 @@ export const useStyles = makeStyles((theme) => ({
         },
     },
     accordianConatiner: {
-        backgroundColor: "transparent",
-        boxShadow: "0px 0px 15px 2px rgb(255 255 255 / 10%)",
+        backgroundColor: "rgba(0,0,0,0)",
+        // boxShadow: "0px 0px 15px 2px rgb(255 255 255 / 10%)",
     },
     accordianDetails: {
         flexFlow: "column",
@@ -91,7 +90,7 @@ export const useStyles = makeStyles((theme) => ({
         padding: "0 20px",
         flexFlow: "column",
         backgroundImage: `url(${addRosterContainerBackground})`,
-        backgroundColor: "#7b7b7b",
+        // backgroundColor: "#7b7b7b",
         backgroundSize: "cover",
         backgroundPosition: "bottom",
         backgroundBlendMode: "multiply",

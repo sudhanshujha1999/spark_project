@@ -2,13 +2,13 @@ import { Link } from 'react-router-dom'
 import { Card, Grid, Fab, Typography } from '../ui'
 import { AddIcon } from '../icons'
 import { TeamItemCard } from './TeamItemCard'
-import { useStyles } from './Styles'
+import { useStyles } from './styles'
 
 export const TeamsList = ({ school, teams, isCoach, editTeam }) => {
   const classes = useStyles()
   return school && teams && teams.length > 0 ? (
     <Grid container spacing={2}>
-      <Grid item xs={12}>
+      <Grid style={{ marginBottom: '30px' }} item xs={12}>
         <Typography variant='h5'>Your teams</Typography>
       </Grid>
       {teams.map((team, index) => {
@@ -24,14 +24,14 @@ export const TeamsList = ({ school, teams, isCoach, editTeam }) => {
           </>
         )
       })}
-      {isCoach && (
+      {/* {isCoach && (
         <Link to={`/new-team/${school._id}?n1x=xj67bdsne12sxmlse`}>
           <Fab variant='extended' color='primary' className={classes.fab}>
             <AddIcon />
             Add Team
           </Fab>
         </Link>
-      )}
+      )} */}
     </Grid>
   ) : (
     <>
@@ -39,7 +39,7 @@ export const TeamsList = ({ school, teams, isCoach, editTeam }) => {
         Looks like you haven't {!isCoach && 'been'} added {!isCoach && 'to'} any
         teams yet.
       </p>
-      <Grid container>
+      {/* <Grid container>
         {isCoach && (
           <Grid item xs={3}>
             {school && (
@@ -51,7 +51,7 @@ export const TeamsList = ({ school, teams, isCoach, editTeam }) => {
             )}
           </Grid>
         )}
-      </Grid>
+      </Grid> */}
     </>
   )
 }

@@ -1,7 +1,7 @@
 import { CreateAccountPage, EmailVerificationResult, PleaseVerifyEmail, SignInPage } from "./auth";
 import { DashboardPage, CreateOrganizationPage } from "./dashboard";
 import { CommunityPage } from "./community";
-import { GoalSettingPage } from "./goal-setting";
+import { GoalSettingPage, ChoosePlayer, ChooseTeam } from "./goal-setting";
 import { InvitationLandingPage } from "./invitations";
 import { TermsAndPrivacy } from "./legal";
 import { MemberDetailPage, ProfilePage } from "./members";
@@ -11,6 +11,7 @@ import { RostersPage } from "./rosters";
 import { SchedulingPage } from "./scheduling";
 import { TeamInfoForm, EditTeamInfo } from "./teams";
 import { WarRoom, SessionDetails, Scrimmages } from "./war-room";
+import { CreateGoal } from "./goal-setting/CreateGoal";
 
 export const createTeamRoute = {
     path: "/new-team/:id",
@@ -44,6 +45,18 @@ export const emailVerificationResultRoute = {
 export const goalSettingRoute = {
     path: "/goals",
     component: GoalSettingPage,
+};
+export const goalChooseTeamRoute = {
+    path: "/goals/chooseteam",
+    component: ChooseTeam,
+};
+export const goalChoosePlayerRoute = {
+    path: "/goals/chooseplayer",
+    component: ChoosePlayer,
+};
+export const goalCreateRoute = {
+    path: "/goals/create-goal",
+    component: CreateGoal,
 };
 
 export const invitationLandingRoute = {

@@ -4,7 +4,7 @@ import Accordion from "@material-ui/core/Accordion";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
-// import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
+import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
 import Alert from "@material-ui/lab/Alert";
 import Avatar from "@material-ui/core/Avatar";
 import Badge from "@material-ui/core/Badge";
@@ -17,6 +17,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import CardActions from "@material-ui/core/CardActions";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Container from "@material-ui/core/Container";
+import DateRangePicker from "@material-ui/lab/DateRangePicker";
 import Dialog from "@material-ui/core/Dialog";
 import Divider from "@material-ui/core/Divider";
 import Fade from "@material-ui/core/Fade";
@@ -30,7 +31,7 @@ import Grow from "@material-ui/core/Grow";
 import IconButton from "@material-ui/core/IconButton";
 import Icon from "@material-ui/core/Icon";
 import InputLabel from "@material-ui/core/InputLabel";
-// import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
+import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
 import MaterialLink from "@material-ui/core/Link";
 import MenuItem from "@material-ui/core/MenuItem";
 import Paper from "@material-ui/core/Paper";
@@ -42,7 +43,6 @@ import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
 import Slide from "@material-ui/core/Slide";
 import Select from "@material-ui/core/Select";
 import Snackbar from "@material-ui/core/Snackbar";
-import Switch from "@material-ui/core/Switch";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import TextField from "@material-ui/core/TextField";
@@ -59,16 +59,15 @@ export { Modal } from "./Modal";
 export { NavBar } from "./NavBar";
 export { SideNav } from "./SideNav";
 export { StateForm } from "./StateForm";
+export { SkillsDisplayRow } from "./SkillsDisplayRow";
 export { TabPanel } from "./TabPanel";
 export { CustomSnackbar } from "./CustomSnackbar";
 export { DatePicker } from "./DatePicker";
-export { SkillsDisplayRow } from "./SkillsDisplayRow";
-
 export {
     Accordion,
     AccordionSummary,
     AccordionDetails,
-    // AdapterDateFns,
+    AdapterDateFns,
     Alert,
     Avatar,
     Autocomplete,
@@ -82,6 +81,7 @@ export {
     Chip,
     Checkbox,
     Container,
+    DateRangePicker,
     Dialog,
     Divider,
     FormControl,
@@ -97,7 +97,7 @@ export {
     InputLabel,
     Link,
     MenuItem,
-    // LocalizationProvider,
+    LocalizationProvider,
     MaterialLink,
     Paper,
     Radio,
@@ -114,5 +114,4 @@ export {
     Tabs,
     Tooltip,
     Snackbar,
-    Switch,
 };

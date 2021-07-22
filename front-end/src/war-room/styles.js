@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import { red, blue, purple, yellow, orange, green, grey } from "@material-ui/core/colors";
 import bg from "../img/background.jpg";
 const bezierValue = "cubic-bezier(0.26, 1, 0.43, 0.93)";

@@ -4,7 +4,7 @@ import Box from "@material-ui/core/Box";
 import { Icon, Typography } from "./";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import SparkLogo from "../img/logo.svg";
 import { useCurrentUser, SignOutButton } from "../auth";
 
