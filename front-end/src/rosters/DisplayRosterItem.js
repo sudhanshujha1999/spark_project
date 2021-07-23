@@ -114,7 +114,7 @@ export const DisplayRosterItem = ({
                 </AccordionSummary>
                 <AccordionDetails className={classes.accordianDetails}>
                     {players && players.length > 0 ? (
-                        <Grid container spacing={4} justify='center' alignItems='center'>
+                        <Grid container spacing={4} justifyContent='center' alignItems='center'>
                             {players.map(
                                 (
                                     {
