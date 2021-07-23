@@ -7,6 +7,7 @@ import 'firebase/firestore';
 import "firebase/storage";
 import './index.css';
 import { App } from './App';
+import { initializeAnalytics } from './analytics';
 import reportWebVitals from './reportWebVitals';
 
 var firebaseConfig = {
@@ -22,6 +23,8 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
+
+initializeAnalytics();
 
 if (process.env.NODE_ENV === 'development') {
     firebase.auth().useEmulator("http://localhost:9099");
