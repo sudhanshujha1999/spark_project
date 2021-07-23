@@ -17,6 +17,7 @@
     "chart.js": "^2.9.4",
     "date-fns": "^2.22.1",
     "firebase": "8.0.1",
+    "mixpanel-browser": "2.41.0",
     "path-match": "1.2.4",
     "react": "^17.0.1",
     "react-chartjs-2": "2.11.1",

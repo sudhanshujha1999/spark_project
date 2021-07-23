@@ -1,4 +1,5 @@
 import { Box, Button, Typography, Grid, CircularProgress } from "../ui";
+import { sendEvent } from '../analytics';
 import Zoom from "@material-ui/core/Zoom";
 import { Banner } from "./Banner";
 import { useStyles } from "./styles";
@@ -15,6 +16,8 @@ import { HeadingForLoggedInUser } from "./HeadingForLoggedInUser";
 import { Container, Hidden } from "@material-ui/core";
 
 export const LandingPage = () => {
+	sendEvent('Landing Page Visited');
+
     const classes = useStyles();
     const [visible, setVisible] = useState(true);
     const [step, setStep] = useState(0);
