@@ -7,10 +7,13 @@ import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/styles'
 import SparkLogo from '../img/logo.svg'
 import { useCurrentUser, SignOutButton } from '../auth'
+import { useLoadNotifications, NotificationsButton } from '../notifications'
 
 export const NavBar = () => {
   const classes = useStyles()
   const { isLoading, user: currentUser } = useCurrentUser()
+
+  useLoadNotifications();
 
   return (
     <AppBar
@@ -50,6 +53,7 @@ export const NavBar = () => {
               }}
             >
               <p>Logged in as {currentUser.email}</p>
+			  <NotificationsButton />
               <Box ml={2}>
                 <SignOutButton variant='outlined' />
               </Box>

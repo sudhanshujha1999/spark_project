@@ -31,8 +31,11 @@ import Grow from '@material-ui/core/Grow'
 import IconButton from '@material-ui/core/IconButton'
 import Icon from '@material-ui/core/Icon'
 import InputLabel from '@material-ui/core/InputLabel'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
 import LocalizationProvider from '@material-ui/lab/LocalizationProvider'
 import MaterialLink from '@material-ui/core/Link'
+import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import Paper from '@material-ui/core/Paper'
 import Radio from '@material-ui/core/Radio'
@@ -96,7 +99,10 @@ export {
   IconButton,
   InputLabel,
   Link,
+  Menu,
   MenuItem,
+  ListItemIcon,
+  ListItemText,
   LocalizationProvider,
   MaterialLink,
   Paper,

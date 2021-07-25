@@ -14,6 +14,10 @@ const NotificationsSchema = new Schema(
             type: Date,
 			require: true,
         },
+		isRead: {
+			type: Boolean,
+			default: false,
+		},
     },
     {
         timestamps: true,
