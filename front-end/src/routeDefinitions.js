@@ -9,6 +9,7 @@ import { GoalSettingPage } from './goal-setting'
 import { InvitationLandingPage } from './invitations'
 import { TermsAndPrivacy } from './legal'
 import { MemberDetailPage, ProfilePage } from './members'
+import { NotificationsPage } from './notifications';
 import { UserInfo, OnboardingComplete } from './onboarding'
 import { LandingPage } from './landing-page'
 import { RostersPage } from './rosters'
@@ -106,6 +107,11 @@ export const onboardingUserInfoRoute = {
   component: UserInfo,
   isOnboarding: true,
   hideNav: true,
+}
+
+export const notificationsRoute = {
+	path: "/notifications",
+	component: NotificationsPage,
 }
 
 export const pleaseVerifyEmailRoute = {

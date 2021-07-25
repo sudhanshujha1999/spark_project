@@ -34,7 +34,10 @@ if (!FIREBASE_CREDENTIALS) {
     store.settings({ ignoreUndefinedProperties: true });
 }
 
-const MONGO_URI = `mongodb+srv://${process.env.MONGO_DB_USERNAME}:${process.env.MONGO_DB_PASSWORD}@${process.env.MONGO_DB_CLUSTER}.mongodb.net/${process.env.MONGO_DB_NAME}?retryWrites=true&w=majority`;
+const MONGO_URI = process.env.IS_PRODUCTION || process.env.IS_QA
+	? `mongodb+srv://${process.env.MONGO_DB_USERNAME}:${process.env.MONGO_DB_PASSWORD}@${process.env.MONGO_DB_CLUSTER}.mongodb.net/${process.env.MONGO_DB_NAME}?retryWrites=true&w=majority`
+	: `mongodb://localhost:27017/spark`;
+
 const connectDatabase = async () => {
     await mongoose.connect(MONGO_URI, {
         useNewUrlParser: true,

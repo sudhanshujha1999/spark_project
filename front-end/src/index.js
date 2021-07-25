@@ -28,7 +28,6 @@ initializeAnalytics();
 
 if (process.env.NODE_ENV === 'development') {
     firebase.auth().useEmulator("http://localhost:9099");
-    firebase.firestore().useEmulator("localhost", 8000);
 }
 
 ReactDOM.render(
