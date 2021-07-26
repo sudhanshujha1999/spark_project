@@ -81,7 +81,7 @@ export const LandingPage = () => {
                                         }
                                     />
                                 </Hidden>
-                                <Hidden lgDown>
+                                <Hidden xlDown>
                                     <img
                                         src={borderLg[[0, 3, 4].includes(index) ? 0 : 1]}
                                         alt='testImag'

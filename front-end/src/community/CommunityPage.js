@@ -4,12 +4,14 @@ import { useState } from "react";
 import { Scrimmages } from "./Scrimmages";
 import { AllPosts } from "./AllPosts";
 import { useIsCoach } from "../users/useIsCoach";
+import { useOrganizations } from "../teams";
 
 const tabLabel = ["Home", "Scrimmages"];
 
 export const CommunityPage = () => {
     const { posts, isLoading, otherScrimmages, updateScrimmages } = usePosts();
-    const { isCoach } = useIsCoach();
+    const { organizations } = useOrganizations();
+    const { isCoach } = useIsCoach(organizations._id);
     const onUpdateScrimmage = () => {
         updateScrimmages(true);
     };

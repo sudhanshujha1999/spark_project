@@ -114,7 +114,7 @@ export const DisplayRosterItem = ({
                 </AccordionSummary>
                 <AccordionDetails className={classes.accordianDetails}>
                     {players && players.length > 0 ? (
-                        <Grid container spacing={4} justifyContent='center' alignItems='center'>
+                        <Grid container justifyContent='center' alignItems='center'>
                             {players.map(
                                 (
                                     {
@@ -123,16 +123,18 @@ export const DisplayRosterItem = ({
                                         gamerName: gamerName,
                                         bio,
                                         email,
+                                        profile_img,
                                     },
                                     index
                                 ) => (
                                     <>
-                                        <Grid item xs={12} md={4} lg={3}>
+                                        <Grid item xs={12}>
                                             <PlayerCard
                                                 teamId={teamId}
                                                 rosterId={rosterId}
                                                 playerId={playerId}
                                                 bio={bio}
+                                                profileImage={profile_img}
                                                 clickable={isCoach || playerId === currentUserId}
                                                 playerName={playerName}
                                                 gamerName={gamerName}
@@ -198,7 +200,7 @@ export const DisplayRosterItem = ({
                                 ) : (
                                     <Button
                                         color='primary'
-                                        variant='contained'
+                                        variant='outlined'
                                         onClick={() => setAddPlayer(true)}>
                                         + Add Member
                                     </Button>

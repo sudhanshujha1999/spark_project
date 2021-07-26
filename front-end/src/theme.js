@@ -14,6 +14,15 @@ export const theme = createTheme({
             default: "#222831",
         },
     },
+    breakpoints: {
+        values: {
+            xs: 0,
+            sm: 600,
+            md: 960,
+            lg: 1280,
+            xl: 1920,
+        },
+    },
     typography: {
         fontFamily: ["Roboto", "Helvetica", "Arial", "Josefin Sans", "sans-serif"].join(","),
     },
@@ -22,8 +31,13 @@ export const theme = createTheme({
     },
     components: {
         MuiPaper: {
-            elevation2: {
-                boxShadow: "0px 3px 15px rgba(139,21,178,0.3)",
+            styleOverrides: {
+                root: {
+                    backgroundImage: "unset",
+                },
+                elevation2: {
+                    boxShadow: "0px 3px 15px rgba(139,21,178,0.3)",
+                },
             },
         },
         MuiFab: {

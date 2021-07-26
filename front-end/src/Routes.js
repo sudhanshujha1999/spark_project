@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
         height: "110vh",
         position: "fixed",
         zIndex: "-100000",
+        top: 0,
         opacity: "0.8",
         backgroundImage: `url(${background})`,
         backgroundSize: "cover",
