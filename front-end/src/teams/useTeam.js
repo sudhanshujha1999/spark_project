@@ -12,7 +12,6 @@ export const useTeam = (teamId) => {
         const loadTeam = async () => {
             try {
                 if (teamId) {
-                    console.log(teamId);
                     const currentTeamInfo = allTeamsInfo.filter((team) => team._id === teamId);
                     if (currentTeamInfo.length > 0) {
                         setTeam(currentTeamInfo[0]);

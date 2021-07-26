@@ -135,7 +135,7 @@ export const ProfilePic = ({ user }) => {
     return (
         <Box>
             <Badge
-                overlap='circle'
+                overlap='circular'
                 anchorOrigin={{
                     vertical: "bottom",
                     horizontal: "right",

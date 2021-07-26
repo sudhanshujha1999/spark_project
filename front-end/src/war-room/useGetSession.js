@@ -58,7 +58,7 @@ export const useGetSession = (sessionId) => {
         if (session) {
             setPaths(session.session.stages);
         }
-    }, [session]);
+    }, [session, setPaths]);
 
     return { session, isLoading, setPaths };
 };

@@ -5,6 +5,7 @@ import AssignmentIcon from "@material-ui/icons/Assignment";
 import BackupIcon from "@material-ui/icons/Backup";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import CheckIcon from "@material-ui/icons/Check";
 import CircleXIcon from "@material-ui/icons/HighlightOff";
 import ClearIcon from "@material-ui/icons/Clear";
@@ -35,6 +36,7 @@ export {
     BackupIcon,
     CalendarTodayIcon,
     CheckCircleIcon,
+    ChevronRightIcon,
     CheckIcon,
     CircleXIcon,
     ClearAllIcon,
