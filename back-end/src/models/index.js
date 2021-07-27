@@ -5,10 +5,12 @@ export { Events } from "./EventsSchema";
 export { Permissions } from "./PermissionsSchema";
 export { Notes } from "./NotesSchema";
 export { League } from "./LeagueSchema";
+export { Notifications } from './NotificationsSchema';
 export { StatsEntry } from "./PlayerStatsEntrySchema";
 export { StatsInformation, VALID_FIELD_TYPES } from "./StatsInformationSchema";
 export { Scrimmage } from "./ScrimmageSchema";
 export { WarRoom } from "./WarRoomSchema";
+
 // <-----------War room sample object----------->
 // {
 //     session_name: 'War-rooom Session',

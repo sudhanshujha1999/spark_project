@@ -1,5 +1,6 @@
 import { routes as emailVerificationRoutes } from "./email-verification";
 import { routes as invitationRoutes } from "./invitations";
+import { routes as notificationRoutes } from "./notifications";
 import { routes as onboardingRoutes } from "./onboarding";
 import { routes as permissionsRoutes } from "./permissions";
 import { routes as playerRoutes } from "./players";
@@ -16,6 +17,7 @@ import { routes as scrimmageRoutes } from "./scrimmage";
 export const routes = [
     ...emailVerificationRoutes,
     ...invitationRoutes,
+	...notificationRoutes,
     ...onboardingRoutes,
     ...permissionsRoutes,
     ...playerRoutes,

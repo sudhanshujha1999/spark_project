@@ -1,4 +1,4 @@
-import { CreateAccountPage, EmailVerificationResult, PleaseVerifyEmail, SignInPage } from "./auth";
+import { EmailVerificationResult, PleaseVerifyEmail, SignInPage } from "./auth";
 import { DashboardPage, CreateOrganizationPage } from "./dashboard";
 import { CommunityPage } from "./community";
 import { GoalSettingPage, ChoosePlayer, ChooseTeam } from "./goal-setting";

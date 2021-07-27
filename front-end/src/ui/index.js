@@ -33,7 +33,10 @@ import Icon from "@material-ui/core/Icon";
 import InputLabel from "@material-ui/core/InputLabel";
 import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
 import MaterialLink from "@material-ui/core/Link";
+import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
 import Paper from "@material-ui/core/Paper";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -96,7 +99,10 @@ export {
     IconButton,
     InputLabel,
     Link,
-    MenuItem,
+	Menu,
+	MenuItem,
+	ListItemIcon,
+	ListItemText, 
     LocalizationProvider,
     MaterialLink,
     Paper,
