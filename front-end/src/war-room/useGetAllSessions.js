@@ -8,6 +8,7 @@ export const useGetAllSessions = () => {
     const { user } = useCurrentUser();
     const [isLoading, setIsLoading] = useState(true);
     const [sessions, setSessions] = useRecoilState(sessionState);
+
     useEffect(() => {
         const getSessions = async () => {
             setIsLoading(true);

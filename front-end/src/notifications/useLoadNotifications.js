@@ -12,8 +12,7 @@ import { notificationsState } from "./notificationsState";
 export const useLoadNotifications = () => {
 	const [, setNotifications] = useRecoilState(notificationsState);
 	const { isLoading: isLoadingCurrentUser, user } = useCurrentUser();
-	console.log(user)
-	const { uid: userId } = user;
+	const { uid: userId } = user || {};
 
 	useEffect(() => {
 		const loadNotifications = async () => {

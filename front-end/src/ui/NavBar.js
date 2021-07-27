@@ -10,14 +10,13 @@ import { useCurrentUser, SignOutButton } from '../auth'
 import { useLoadNotifications, NotificationsButton } from '../notifications'
 
 export const NavBar = () => {
-  const classes = useStyles()
-  const { isLoading, user: currentUser } = useCurrentUser()
+    const classes = useStyles();
+    const { isLoading, user: currentUser } = useCurrentUser();
 
   useLoadNotifications();
 
   return (
     <AppBar
-      backgroundColor='#304964'
       swid='nav-bar'
       position='fixed'
       className={classes.appBar}
@@ -70,40 +69,39 @@ export const NavBar = () => {
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  appBar: {
-    zIndex: 500,
-    opacity: 0.4,
-    transition: 'all 0.2s ease-out',
-    backgroundColor: 'rgba(34,40,49,0.5)',
-    '&:hover': {
-      opacity: 1,
-      backgroundColor: 'rgba(34,40,49,1)',
+    root: {
+        flexGrow: 1,
     },
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  logo: {
-    cursor: 'pointer',
-    width: 'fit-content',
-    display: 'flex',
-    flexFlow: 'row nowrap',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    filter: 'grayscale(1)',
-  },
-  logoName: {
-    margin: '4px 0px 0px 18px',
-    letterSpacing: 2,
-    fontSize: '1.3em',
-    fontWeight: 700,
-    fontFamily: "'Josefin Sans'",
-    color: '#fafafa',
-  },
-  title: {
-    flexGrow: 1,
-  },
-}))
+    appBar: {
+        zIndex: 500,
+        opacity: 0.4,
+        transition: "all 0.2s ease-out",
+        backgroundImage: "linear-gradient(145deg, rgba(57,62,70,1) 0%, rgba(26,28,32,1) 100%)",
+        "&:hover": {
+            opacity: 1,
+        },
+    },
+    menuButton: {
+        marginRight: theme.spacing(2),
+    },
+    logo: {
+        cursor: "pointer",
+        width: "fit-content",
+        display: "flex",
+        flexFlow: "row nowrap",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        filter: "grayscale(1)",
+    },
+    logoName: {
+        margin: "4px 0px 0px 18px",
+        letterSpacing: 2,
+        fontSize: "1.3em",
+        fontWeight: 700,
+        fontFamily: "'Josefin Sans'",
+        color: "#fafafa",
+    },
+    title: {
+        flexGrow: 1,
+    },
+}));

@@ -320,7 +320,7 @@ export const NewTeamInfo = () => {
                     </Box>
                     <Divider />
                     <Box py={2}>
-                        <Grid container justify='space-between'>
+                        <Grid container justifyContent='space-between'>
                             <Grid item>
                                 <Button variant='contained' onClick={onPrevious}>
                                     Back

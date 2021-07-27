@@ -1,4 +1,4 @@
-import { Box, Typography, Button, Icon } from "../ui";
+import { Box, Typography, Button } from "../ui";
 import SparkLogo from "../img/logo.svg";
 import { useStyles } from "./styles";
 
@@ -7,17 +7,8 @@ export const HeadingContent = ({ nextStep }) => {
     return (
         <Box className={classes.headingContainer}>
             <Box display='flex' alignItems='center' justifyContent='space-between'>
-                <Box className={classes.logo} mr={2}>
-                    <Icon fontSize='large'>
-                        <img
-                            style={{
-                                width: "100%",
-                                height: "100%",
-                            }}
-                            alt='Spark Logo'
-                            src={SparkLogo}
-                        />
-                    </Icon>
+                <Box mr={2}>
+                    <img className={classes.logo} alt='Spark Logo' src={SparkLogo} />
                 </Box>
                 <Typography className={classes.orgName}>SPARK</Typography>
             </Box>

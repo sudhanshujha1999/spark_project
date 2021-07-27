@@ -12,6 +12,7 @@ import { routes as userRoutes } from "./users";
 import { routes as testRoutes } from "./test";
 import { routes as warRoomRoutes } from "./war-room";
 import { routes as statsRoutes } from "./stats";
+import { routes as scrimmageRoutes } from "./scrimmage";
 
 export const routes = [
     ...emailVerificationRoutes,
@@ -28,4 +29,5 @@ export const routes = [
     ...testRoutes,
     ...warRoomRoutes,
     ...statsRoutes,
+    ...scrimmageRoutes,
 ];

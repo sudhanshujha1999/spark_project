@@ -4,7 +4,7 @@ import { useIsCoach } from "../users/useIsCoach";
 import { AllSessions } from "./AllSessions";
 import { useStyles } from "./styles";
 import { AddWarRoomSession } from "./AddWarRoomSession";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useGetAllSessions } from "./useGetAllSessions";
 import { LeagueRecords } from "./LeagueRecords";
 
@@ -13,6 +13,7 @@ export const WarRoom = () => {
     const { isCoach } = useIsCoach(organizations._id);
     const { sessions, isLoading: isLoadingSessions } = useGetAllSessions();
     const [addSession, setAddSession] = useState(false);
+    const heightRef = useRef(null);
     const classes = useStyles();
     const handleAdd = () => {
         setAddSession(true);
@@ -20,7 +21,6 @@ export const WarRoom = () => {
     const handleCancel = () => {
         setAddSession(false);
     };
-
     return (
         <Container maxWidth='xl'>
             {isLoadingSessions || isLoadingOrganizations || !organizations ? (
@@ -31,7 +31,7 @@ export const WarRoom = () => {
                 <>
                     <Grid container>
                         <Grid item xs={12} md={7}>
-                            <AllSessions sessions={sessions} />
+                            <AllSessions height={heightRef} sessions={sessions} />
                             {isCoach && (
                                 <Fade in={!addSession}>
                                     <Box>
@@ -48,6 +48,7 @@ export const WarRoom = () => {
                         </Grid>
                         <Grid item xs={12} md={5}>
                             <LeagueRecords
+                                height={heightRef.current?.clientHeight}
                                 teams={organizations.teams}
                                 organizationId={organizations._id}
                                 isCoach={isCoach}
