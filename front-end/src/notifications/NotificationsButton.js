@@ -56,14 +56,20 @@ export const NotificationsButton = () => {
 				horizontal: 'right',
 			}}
 		>
-			{notifications.map(notification => (
+			{notifications.length > 0 ? notifications.map(notification => (
 				<MenuItem style={{ minWidth: 300, borderBottom: '1px solid #777' }}>
 					<Box>
 						<h3>{new Date(notification.createdAt).toLocaleDateString()}</h3>
 						<p>{notification.message}</p>
 					</Box>
 				</MenuItem>
-			))}
+			)) : (
+				<MenuItem style={{ minWidth: 300, borderBottom: '1px solid #777' }}>
+					<Box>
+						<p>You have no notifications at this time</p>
+					</Box>
+				</MenuItem>
+			)}
 		</Menu>
 		</>
 	);
