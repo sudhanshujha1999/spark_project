@@ -9,6 +9,8 @@ export const ChooseTeam = () => {
     useOrganizations()
   const { isCoach } = useIsCoach(organizations._id)
 
+  console.log(organizations.teams)
+
   return (
     <Box
       style={{

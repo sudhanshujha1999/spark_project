@@ -26,10 +26,6 @@ const GoalSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'groups',
     },
-    created_by: {
-      type: Schema.Types.ObjectId,
-      ref: 'users',
-    },
     startDate: {
       type: Date,
       required: true,
@@ -49,6 +45,10 @@ const GoalSchema = new Schema(
     result: {
       type: Number,
       required: true,
+    },
+    createdById: {
+      type: Schema.Types.ObjectId,
+      ref: 'users',
     },
     // time: {
     //   type: String,

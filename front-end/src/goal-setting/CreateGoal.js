@@ -12,36 +12,68 @@ import {
   LocalizationProvider,
   InputLabel,
   FormControl,
+  CircularProgress,
 } from '../ui'
+import { post } from '../network'
+import { useLocation, useHistory } from 'react-router-dom'
+import { useOrganizations } from '../teams'
+
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search)
+}
 
 export const CreateGoal = () => {
+  let query = useQuery()
+  const selectedTeamId = query.get('team')
+  const selectedPlayerId = query.get('player')
+
   const [goalName, setGoalName] = useState('')
   const [metric, setMetric] = useState('')
   const [result, setResult] = useState('')
   const [value, setValue] = useState([null, null])
+  const [saving, setSaving] = useState(false)
 
-  //   const handleCreate = async () => {
-  //     if (!goalName || !metric || !result || !value ) {
-  //         console.log("fill All fields");
-  //         return;
-  //     }
-  //     const goalObject = {
-  //       goalName,
+  const history = useHistory()
 
-  //     };
-  //     setSaving(true);
-  //     try {
-  //         const {
-  //             data: { sessionId },
-  //         } = await post("/api/war-room", warRoomObject);
-  //         console.log(sessionId);
-  //         // REGISTER THE WAR ROOM SESSION AND MAKE INVITES FOR ALL THE PLAYERS
-  //         history.push(`/war-room/${sessionId}/session`);
-  //     } catch (error) {
-  //         console.log(error.message);
-  //     }
-  //     setSaving(false);
-  // };
+  const { organizations, isLoading: isLoadingOrganizations } =
+    useOrganizations()
+  let selectedTeam = {}
+  if (!isLoadingOrganizations) {
+    console.log(organizations.teams)
+    selectedTeam = organizations.teams.find(
+      (team) => team._id === selectedTeamId
+    )
+    console.log(selectedTeam)
+  }
+
+  const handleCreate = async () => {
+    if (!goalName || !metric || !result || !value) {
+      console.log('fill All fields')
+      return
+    }
+    const goalObject = {
+      goalName,
+      teamId: selectedTeamId,
+      game: selectedTeam ? selectedTeam.game : 'unknown',
+      startDate: value[0],
+      endDate: value[1],
+      player: selectedPlayerId,
+      metric,
+      result,
+    }
+    setSaving(true)
+    try {
+      const {
+        data: { goalId },
+      } = await post('/api/create-goal', goalObject)
+      console.log(goalId)
+      // // REGISTER THE WAR ROOM SESSION AND MAKE INVITES FOR ALL THE PLAYERS
+      history.push(`/goals`)
+    } catch (error) {
+      console.log(error.message)
+    }
+    setSaving(false)
+  }
 
   return (
     <CenteredContainer>
@@ -130,15 +162,16 @@ export const CreateGoal = () => {
             } */}
       <Box mb={2}>
         <Button
-          onClick={(e) => e.preventDefault()}
           fullWidth
           variant='contained'
           size='large'
-          // disabled={isProcessing}
+          color='primary'
+          disabled={saving}
+          onClick={handleCreate}
+          variant='contained'
           color='primary'
         >
-          Create Goal
-          {/* {isProcessing ? <CircularProgress /> : 'Create Account'} */}
+          {saving ? <CircularProgress color='secondary' /> : 'Create Goal'}
         </Button>
       </Box>
     </CenteredContainer>

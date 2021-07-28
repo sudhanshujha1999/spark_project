@@ -270,6 +270,121 @@ export const useStyles = makeStyles((theme) => ({
     marginTop: '20px',
   },
 
+  //goal styles
+
+  goalCard: {
+    position: 'relative',
+    zIndex: '10',
+    width: '300px',
+    zIndex: '15',
+    backgroundColor: theme.palette.background.paper,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    borderRadius: '10px',
+    '&:hover': {
+      transition: `all 500ms ${bezierValue}`,
+      transform: 'scale(1.05)',
+      '& $goalCardImg': {
+        boxShadow: '0px 5px 10px rgba(0,0,0,0.3)',
+        transition: `all 500ms ${bezierValue}`,
+        transform: 'scale(1.05)',
+      },
+    },
+  },
+  goalCardImg: {
+    zIndex: '5',
+    position: 'relative',
+    top: '10%',
+    width: '200px',
+    height: '250px',
+    alignSelf: 'center',
+    backgroundSize: 'cover',
+    backgroundPosition: 'top',
+    borderRadius: '10px',
+    boxShadow: '0px 3px 10px rgba(0,0,0,0.2)',
+  },
+  goalCardGameName: {
+    position: 'relative',
+    zIndex: '5',
+    margin: '10px 0',
+    fontSize: '1.3em',
+    color: '#fff',
+    textAlign: 'left',
+    opacity: 1,
+    textAlign: 'center',
+  },
+  goalCardPlayerName: {
+    position: 'relative',
+    zIndex: '5',
+    margin: '10px 0',
+    fontSize: '1.3em',
+    color: '#fff',
+    textAlign: 'left',
+    opacity: 1,
+    textAlign: 'center',
+
+    cursor: 'pointer',
+  },
+
+  //goal page styles
+
+  goalName: {
+    position: 'relative',
+    width: 'fit-content',
+    '&:before': {
+      position: 'absolute',
+      content: '""',
+      width: '110%',
+      height: '110%',
+      top: '-5%',
+      left: '-5%',
+      borderRadius: '1px',
+      border: '2px solid',
+      borderColor: theme.palette.secondary.main,
+      clipPath:
+        'polygon(20% 0%, 100% 0, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0 100%, 0% 20%)',
+      animation: '$animateClipPath 7s linear infinite alternate',
+    },
+  },
+  '@keyframes animateClipPath': {
+    '0%': {
+      borderRadius: '1px',
+      filter: 'hue-rotate(0deg)',
+      clipPath:
+        'polygon(100% 0%, 100% 0, 100% 0%, 100% 0%, 0% 100%, 0% 100%, 0 100%, 0% 100%)',
+    },
+    '100%': {
+      filter: 'hue-rotate(180deg)',
+      borderRadius: '10px',
+      clipPath:
+        'polygon(20% 0%, 100% 0, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0 100%, 0% 20%)',
+    },
+  },
+  headingMedium: {
+    fontSize: '2em',
+    width: 'fit-content',
+    position: 'relative',
+    '&:before': {
+      position: 'absolute',
+      content: '""',
+      width: '150%',
+      height: '3px',
+      bottom: '-6px',
+      left: 0,
+      borderRadius: '0px 5px 5px 15px',
+      zIndex: '2',
+      background:
+        'linear-gradient(90deg, rgba(213,105,255,1) 0%, rgba(68,161,240,1) 30%, rgba(250,250,250,0) 60%)',
+    },
+  },
+
+  goalText: {
+    position: 'relative',
+    fontSize: '1.5em',
+    margin: '1em',
+  },
+
   dialog: {
     padding: '20px 50px',
   },

@@ -5,7 +5,7 @@ import {
   SignInPage,
 } from './auth'
 import { DashboardPage, CreateOrganizationPage } from './dashboard'
-import { GoalSettingPage } from './goal-setting'
+import { GoalPage, GoalSettingPage } from './goal-setting'
 import { InvitationLandingPage } from './invitations'
 import { TermsAndPrivacy } from './legal'
 import { MemberDetailPage, ProfilePage } from './members'
@@ -46,6 +46,10 @@ export const emailVerificationResultRoute = {
 export const goalSettingRoute = {
   path: '/goals',
   component: GoalSettingPage,
+}
+export const goalRoute = {
+  path: '/:goalId/goals/',
+  component: GoalPage,
 }
 export const goalChooseTeamRoute = {
   path: '/goals/chooseteam',
