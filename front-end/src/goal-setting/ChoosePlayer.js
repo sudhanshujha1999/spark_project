@@ -67,7 +67,7 @@ export const ChoosePlayer = () => {
         </Grid>
       ) : (
         <Box>
-          <Typography variant='h5'>No player is the roster</Typography>
+          <Typography variant='h5'>You haven't added any players to this roster yet</Typography>
         </Box>
       )}
     </Box>

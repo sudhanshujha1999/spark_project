@@ -1,4 +1,4 @@
-import { EmailVerificationResult, PleaseVerifyEmail, SignInPage } from "./auth";
+import { CreateAccountPage, EmailVerificationResult, PleaseVerifyEmail, SignInPage } from "./auth";
 import { DashboardPage, CreateOrganizationPage } from "./dashboard";
 import { CommunityPage } from "./community";
 import { GoalSettingPage, ChoosePlayer, ChooseTeam } from "./goal-setting";
@@ -95,7 +95,7 @@ export const createOrganization = {
 
 export const createAccountRoute = {
     path: "/create-account",
-    component: SignInPage,
+    component: CreateAccountPage,
     isPublic: true,
     hideNav: true,
 };
