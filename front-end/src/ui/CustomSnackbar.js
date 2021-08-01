@@ -29,7 +29,11 @@ export const CustomSnackbar = ({ message, setMessage, type }) => {
     }, [view, setMessageEmpty]);
 
     return (
-        <Snackbar open={view} autoHideDuration={3000} onClose={handleClose}>
+        <Snackbar
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            open={view}
+            autoHideDuration={3000}
+            onClose={handleClose}>
             <Alert onClose={handleClose} variant='filled' severity={type}>
                 {message}
             </Alert>

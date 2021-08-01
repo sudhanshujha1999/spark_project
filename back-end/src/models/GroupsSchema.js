@@ -54,6 +54,11 @@ const GroupsSchema = new Schema(
                 gamerName: String,
                 profile_img: String,
                 bio: String,
+                player_role: {
+                    type: String,
+                    default: "PLAYER",
+                    required: true,
+                },
             },
         ],
     },

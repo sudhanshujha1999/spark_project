@@ -10,17 +10,20 @@ import { LeagueRecords } from "./LeagueRecords";
 
 export const WarRoom = () => {
     const { organizations, isLoading: isLoadingOrganizations } = useOrganizations();
-    const { isCoach } = useIsCoach(organizations._id);
+    const { canEditEvents, teamsForEvents } = useIsCoach(organizations._id);
     const { sessions, isLoading: isLoadingSessions } = useGetAllSessions();
     const [addSession, setAddSession] = useState(false);
     const heightRef = useRef(null);
     const classes = useStyles();
+
     const handleAdd = () => {
         setAddSession(true);
     };
+
     const handleCancel = () => {
         setAddSession(false);
     };
+
     return (
         <Container maxWidth='xl'>
             {isLoadingSessions || isLoadingOrganizations || !organizations ? (
@@ -32,7 +35,7 @@ export const WarRoom = () => {
                     <Grid container>
                         <Grid item xs={12} md={7}>
                             <AllSessions height={heightRef} sessions={sessions} />
-                            {isCoach && (
+                            {canEditEvents && (
                                 <Fade in={!addSession}>
                                     <Box>
                                         <Box my={5} />
@@ -51,7 +54,8 @@ export const WarRoom = () => {
                                 height={heightRef.current?.clientHeight}
                                 teams={organizations.teams}
                                 organizationId={organizations._id}
-                                isCoach={isCoach}
+                                hasPermission={canEditEvents}
+                                allowedTeams={teamsForEvents}
                             />
                         </Grid>
                     </Grid>
@@ -66,6 +70,7 @@ export const WarRoom = () => {
                                 <AddWarRoomSession
                                     handleCancel={handleCancel}
                                     teams={organizations.teams}
+                                    allowedTeams={teamsForEvents}
                                 />
                             </Box>
                         </Fade>

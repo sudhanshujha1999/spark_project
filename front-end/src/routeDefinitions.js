@@ -95,7 +95,7 @@ export const createOrganization = {
 
 export const createAccountRoute = {
     path: "/create-account",
-    component: SignInPage,
+    component: CreateAccountPage,
     isPublic: true,
     hideNav: true,
 };

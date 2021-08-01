@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { GroupAddIcon, ClearIcon } from "../icons";
-// import { EditableTextField } from "../ui";
 import { useStyles } from "./styles";
 import { post, del } from "../network";
 import { useTeam, useOrganizations } from "../teams";
@@ -27,7 +26,7 @@ export const RostersPage = () => {
     const classes = useStyles();
     const history = useHistory();
     const { teamId } = useParams();
-    const { organizations } = useOrganizations();
+    const { organizations, updateOrganizations } = useOrganizations();
     const { isLoading: isLoadingTeam, team } = useTeam(teamId);
     const { userInfo } = useCurrentUserInfo();
     const { isCoach } = useIsCoach(teamId);
@@ -41,6 +40,19 @@ export const RostersPage = () => {
     const [deleteProgress, setDeleteProgress] = useState(false);
     const [message, setMessage] = useState("");
     const [snackbarType, setSnackbarType] = useState("error");
+
+    const hasCaptian = useMemo(() => {
+        if (team) {
+            if (team.admins.filter((admin) => admin.admin_type === "CAPTIAN").length) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }, [team]);
+
     useEffect(() => {
         if (team.rosters) {
             setRosters(team.rosters);
@@ -122,8 +134,9 @@ export const RostersPage = () => {
             try {
                 console.log(teamId);
                 const { data } = await del(`/api/teams/${teamId}`);
+                updateOrganizations();
                 console.log({ data });
-                history.push("/");
+                history.push("/dashboard");
             } catch (e) {
                 console.log(e);
             }
@@ -162,7 +175,7 @@ export const RostersPage = () => {
                                             profile_img ? (
                                                 <Avatar alt={coachName} src={profile_img} />
                                             ) : (
-                                                <Avatar>{coachName.charAt(0)}</Avatar>
+                                                <Avatar>{coachName?.charAt(0)}</Avatar>
                                             )
                                         }
                                         label={coachName}
@@ -228,6 +241,7 @@ export const RostersPage = () => {
                                                 rosterName={rosterName}
                                                 players={players}
                                                 isCoach={isCoach}
+                                                hasCaptian={hasCaptian}
                                                 newPlayerEmailsForRoster={newPlayerEmailsForRoster}
                                                 onAddPlayer={onAddPlayer}
                                                 currentUserId={currentUserId}

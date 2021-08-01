@@ -46,7 +46,6 @@ export const CreateScrimmagePage = ({ whenComplete = () => console.log("complete
         } = await post(`/api/scrimmage/`, reqObject);
         // push to that id page or community
         whenComplete();
-        console.log(scrimmageId);
     };
 
     return (

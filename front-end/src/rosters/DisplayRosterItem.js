@@ -15,7 +15,6 @@ import {
     CircularProgress,
 } from "../ui";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { ClearIcon, CheckIcon, EditIcon, ExpandMoreIcon } from "../icons";
 import { isEmail } from "../util";
 import { PlayerCard } from "./PlayerCard";
@@ -30,6 +29,7 @@ export const DisplayRosterItem = ({
     currentUserId,
     onDeleteRoster,
     teamId,
+    hasCaptian,
     onAddPlayer = async () => {},
 }) => {
     const [expanded, setExpanded] = useState(false);
@@ -120,10 +120,11 @@ export const DisplayRosterItem = ({
                                     {
                                         id: playerId,
                                         name: playerName,
-                                        gamerName: gamerName,
+                                        gamerName,
                                         bio,
                                         email,
                                         profile_img,
+                                        player_role,
                                     },
                                     index
                                 ) => (
@@ -131,13 +132,16 @@ export const DisplayRosterItem = ({
                                         <Grid item xs={12}>
                                             <PlayerCard
                                                 teamId={teamId}
+                                                playerRole={player_role}
                                                 rosterId={rosterId}
                                                 playerId={playerId}
                                                 bio={bio}
+                                                hasCaptian={hasCaptian}
                                                 profileImage={profile_img}
                                                 clickable={isCoach || playerId === currentUserId}
                                                 playerName={playerName}
                                                 gamerName={gamerName}
+                                                isCoach={isCoach}
                                                 email={email}
                                                 show={expanded}
                                                 index={index}

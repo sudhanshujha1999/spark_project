@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 import Accordion from "@material-ui/core/Accordion";
-import Autocomplete from "@material-ui/lab/Autocomplete";
+import Autocomplete from "@material-ui/core/Autocomplete";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import AdapterDateFns from "@material-ui/lab/AdapterDateFns";

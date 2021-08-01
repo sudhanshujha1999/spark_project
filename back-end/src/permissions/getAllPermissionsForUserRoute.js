@@ -22,7 +22,10 @@ export const getAllPermissionsForUserRoute = {
                 } else {
                     // assign the default value ie. all false in beggening and then
                     // turn the permission type to true
-                    groupedByGroupId[`${permission.groupId}`] = { ...basicAllPermissionObject };
+                    groupedByGroupId[`${permission.groupId}`] = {
+                        ...basicAllPermissionObject,
+                        id: permission.groupId,
+                    };
                     // then got to that group.permissiontype and ssign boolean;
                     groupedByGroupId[`${permission.groupId}`][`${permissionType}`] = true;
                 }

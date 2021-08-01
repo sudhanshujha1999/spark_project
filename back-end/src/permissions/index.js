@@ -1,10 +1,14 @@
 import { addPermissionsRoute } from "./addPermissionsRoute";
+import { changePermissionRoute } from "./changePermissionRoute";
 import { removePermissionsRoute } from "./removePermissionsRoute";
 import { getAllPermissionsForUserRoute } from "./getAllPermissionsForUserRoute";
 
 export {
     ADMIN,
     PLAYER,
+    CAPTIAN,
+    CAN_EDIT_GOALS,
+    CAN_VIEW_GOALS,
     CAN_VIEW_MEMBERS,
     CAN_EDIT_MEMBERS,
     CAN_VIEW_EVENTS,
@@ -13,7 +17,12 @@ export {
     CAN_EDIT_NOTES,
 } from "./permissionTypes";
 
-export const routes = [addPermissionsRoute, removePermissionsRoute, getAllPermissionsForUserRoute];
+export const routes = [
+    addPermissionsRoute,
+    changePermissionRoute,
+    removePermissionsRoute,
+    getAllPermissionsForUserRoute,
+];
 
 export { addPermission } from "./addPermission";
 export { hasPermission } from "./hasPermission";
