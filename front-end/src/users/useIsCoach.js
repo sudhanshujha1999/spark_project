@@ -26,6 +26,7 @@ export const useIsCoach = (groupId) => {
         // eslint-disable-next-line
     }, [user]);
 
+    // when permissions are fetched check for the allowed teams for certain criteria
     useEffect(() => {
         if (permissions) {
             const editEventForGroups = [];

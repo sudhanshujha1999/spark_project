@@ -49,7 +49,7 @@ export const changePermissionRoute = {
                 }
             }
 
-            return res.send(200).json({
+            return res.status(200).json({
                 success: true,
             });
         } catch (e) {

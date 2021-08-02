@@ -87,6 +87,9 @@ export const useOrganizations = () => {
         // eslint-disable-next-line
     }, [update]);
 
+    // fetches all the fields from useIsCoach of allowed team,
+    // and construct a valid data object,
+    // by that we don't have to fetch valid teams everytime
     useEffect(() => {
         // this will help us to return the selected org if more than one org are there
         if (organizations && organizations.length > 0) {

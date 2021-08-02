@@ -53,7 +53,11 @@ export const HeadingForm = ({ nextStep }) => {
     };
 
     return (
-        <Box className={classes.headingContainer}>
+        <Box
+            className={classes.headingContainer}
+            style={{
+                paddingTop: "20px",
+            }}>
             <Typography className={classes.bannerHeading}>We are in closed beta!</Typography>
             <Typography className={classes.body}>
                 Please submit your email and tell us a little bit about your team if you haven't

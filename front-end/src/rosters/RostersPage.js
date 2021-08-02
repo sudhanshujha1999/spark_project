@@ -42,7 +42,7 @@ export const RostersPage = () => {
     const [snackbarType, setSnackbarType] = useState("error");
 
     const hasCaptian = useMemo(() => {
-        if (team) {
+        if (team.admins) {
             if (team.admins.filter((admin) => admin.admin_type === "CAPTIAN").length) {
                 return true;
             } else {

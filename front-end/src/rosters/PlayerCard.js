@@ -46,7 +46,7 @@ export const PlayerCard = ({
             if (playerPermission === playerRole) {
                 console.log("same");
             } else {
-                if (hasCaptian) {
+                if (hasCaptian && playerPermission === "CAPTIAN") {
                     console.log("return");
                     handleClose();
                     setError("There can be only one captian");
