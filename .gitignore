@@ -3,4 +3,4 @@ credentials.json
 build
 qa-app.yaml
 prod-app.yaml
-emulator-storage/
+test-storage/
