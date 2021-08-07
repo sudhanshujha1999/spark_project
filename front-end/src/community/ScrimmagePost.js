@@ -80,6 +80,11 @@ export const ScrimmagePost = ({
                     <Box display='flex' flexDirection='row' alignItems='center'>
                         <Box>
                             <Typography variant='h5'>{scrimmage.organization_name}</Typography>
+                            {!GAMES.filter(
+                                (game) => game.name.toLowerCase() === scrimmage.game.toLowerCase()
+                            )[0]?.logo && (
+                                <Typography variant='caption'>{`(${scrimmage.game})`}</Typography>
+                            )}
                         </Box>
                     </Box>
                     <Box>
