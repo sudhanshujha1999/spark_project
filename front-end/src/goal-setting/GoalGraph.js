@@ -4,6 +4,7 @@ import moment from 'moment'
 import { Line } from 'react-chartjs-2'
 
 export const GoalGraph = (props) => {
+  console.log(props.desired)
   var startDate = moment(props.startDate).format('MM/DD/YYYY')
   var endDate = moment(props.endDate).format('MM/DD/YYYY')
   let sum = 0
@@ -29,8 +30,42 @@ export const GoalGraph = (props) => {
             return new Date(a.x) - new Date(b.x)
           }),
         fill: false,
-        backgroundColor: 'rgba(75,192,192,0.2)',
-        borderColor: 'rgba(75,192,192,1)',
+        backgroundColor: '#9b59b6',
+        borderColor: '#9b59b6',
+      },
+      {
+        label: `Avg (${avg})`,
+        data: [
+          {
+            x: startDate,
+            y: avg,
+          },
+          {
+            x: endDate,
+            y: avg,
+          },
+        ],
+        fill: false,
+        backgroundColor: avg < props.result ? '#e74c3c' : '#2ecc71',
+        borderColor: avg < props.result ? '#e74c3c' : '#2ecc71',
+        borderWidth: 1,
+      },
+      {
+        label: `Desired (${props.result})`,
+        data: [
+          {
+            x: startDate,
+            y: props.result,
+          },
+          {
+            x: endDate,
+            y: props.result,
+          },
+        ],
+        fill: false,
+        backgroundColor: '#f39c12',
+        borderColor: '#f39c12',
+        borderWidth: 1,
       },
     ],
   }
@@ -50,7 +85,7 @@ export const GoalGraph = (props) => {
       ],
       yAxes: [
         {
-          stacked: true,
+          stacked: false,
           gridLines: {
             display: false,
           },
@@ -63,35 +98,16 @@ export const GoalGraph = (props) => {
     },
     legend: {
       display: true,
-    },
-    tooltips: {
-      enabled: true,
-      mode: 'nearest',
-    },
-    animations: {
-      tension: {
-        duration: 1000,
-        easing: 'linear',
-        from: 1,
-        to: 0,
-        loop: true,
+      labels: {
+        fontSize: 12,
       },
     },
-    annotation: {
-      annotations: [
-        {
-          type: 'line',
-          mode: 'horizontal',
-          scaleID: 'y-axis-0',
-          value: 2,
-          borderColor: 'rgb(75, 192, 192)',
-          borderWidth: 4,
-          label: {
-            enabled: false,
-            content: 'Test label',
-          },
-        },
-      ],
+    // tooltips: {
+    //   enabled: true,
+    //   mode: 'nearest',
+    // },
+    interaction: {
+      mode: 'x',
     },
   }
   return (

@@ -7,14 +7,21 @@ import { useCurrentUser } from '../auth'
 import { useRecoilState } from 'recoil'
 import { goalsState } from './recoilState'
 import { GoalCard } from './GoalCard'
+import { useOrganizations } from '../teams'
+import { useIsCoach } from '../users/useIsCoach'
 
 export const GoalSettingPage = () => {
   const history = useHistory()
   const classes = useStyles()
+  const { organizations, isLoading: isLoadingOrganizations } =
+    useOrganizations()
+  const { isCoach } = useIsCoach(organizations._id)
   const { user } = useCurrentUser()
   const [isLoading, setIsLoading] = useState(true)
   const [goals, setGoals] = useRecoilState(goalsState)
-  console.log(goals)
+
+  console.log(isCoach)
+
   useEffect(() => {
     const getGoals = async () => {
       setIsLoading(true)
@@ -31,6 +38,7 @@ export const GoalSettingPage = () => {
     }
     // eslint-disable-next-line
   }, [user])
+
   let sortedGoals = {
     leagueOfLegends: [],
     valorant: [],
@@ -48,36 +56,48 @@ export const GoalSettingPage = () => {
 
   return (
     <Box>
-      <Grid
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Button
-          style={{ width: '300px', height: '50px' }}
-          variant='contained'
-          onClick={(e) => {
-            e.preventDefault()
-            history.push('/goals/chooseteam')
-          }}
-        >
-          Create New Goal
-        </Button>
-      </Grid>
-      <Divider style={{ margin: '50px 0' }} />
+      {isCoach && (
+        <Box>
+          <Grid
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Button
+              style={{ width: '300px', height: '50px' }}
+              variant='contained'
+              onClick={(e) => {
+                e.preventDefault()
+                history.push('/goals/chooseteam')
+              }}
+            >
+              Create New Goal
+            </Button>
+            <Divider style={{ margin: '50px 0', width: '100%' }} />
+          </Grid>
+        </Box>
+      )}
       {isLoading ? (
         <Box className={classes.loading}>
           <CircularProgress color='secondary' />
         </Box>
       ) : (
-        <Grid container spacing={2}>
+        <Grid container spacing={3}>
           {sortedGoals.leagueOfLegends.length > 0 && (
-            <GoalCard goals={sortedGoals.leagueOfLegends} />
+            <GoalCard
+              goals={sortedGoals.leagueOfLegends}
+              organizations={organizations}
+              isLoadingOrganizations={isLoadingOrganizations}
+            />
           )}
           {sortedGoals.valorant.length > 0 && (
-            <GoalCard goals={sortedGoals.valorant} />
+            <GoalCard
+              goals={sortedGoals.valorant}
+              organizations={organizations}
+              isLoadingOrganizations={isLoadingOrganizations}
+            />
           )}
         </Grid>
       )}

@@ -6,7 +6,13 @@ import {
 } from './auth'
 import { DashboardPage, CreateOrganizationPage } from './dashboard'
 import { CommunityPage } from './community'
-import { GoalSettingPage, ChoosePlayer, ChooseTeam, CreateGoal } from './goal-setting'
+import {
+  GoalSettingPage,
+  ChoosePlayer,
+  ChooseTeam,
+  CreateGoal,
+  GoalPage,
+} from './goal-setting'
 import { InvitationLandingPage } from './invitations'
 import { TermsAndPrivacy } from './legal'
 import { MemberDetailPage, ProfilePage } from './members'

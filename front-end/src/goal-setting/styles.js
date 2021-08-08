@@ -295,7 +295,7 @@ export const useStyles = makeStyles((theme) => ({
   goalCardImg: {
     zIndex: '5',
     position: 'relative',
-    top: '10%',
+    top: '0%',
     width: '200px',
     height: '250px',
     alignSelf: 'center',

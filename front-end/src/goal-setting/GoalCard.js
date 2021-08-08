@@ -2,19 +2,19 @@ import React, { useState, useEffect } from 'react'
 import { Box, Grid, Typography, Button, IconButton, Divider } from '../ui'
 import { useHistory, Link } from 'react-router-dom'
 import { useStyles } from './styles'
-import { useOrganizations } from '../teams'
 import banner from '../img/default-image.jpg'
 
-export const GoalCard = ({ goals }) => {
+export const GoalCard = ({ goals, isLoadingOrganizations, organizations }) => {
   const classes = useStyles()
   const history = useHistory()
   const [gameDetails, setGameDetails] = useState({})
 
-  const { organizations, isLoading: isLoadingOrganizations } =
-    useOrganizations()
-
   useEffect(() => {
-    if (!isLoadingOrganizations && goals.length > 0) {
+    if (
+      !isLoadingOrganizations &&
+      goals.length > 0 &&
+      Object.keys(organizations).length > 0
+    ) {
       console.log(organizations)
       console.log(goals)
       const data = organizations.teams.find(
@@ -29,7 +29,7 @@ export const GoalCard = ({ goals }) => {
   }
 
   return (
-    <Grid item mb={4} xs={12} sm={4} lg={3} key={gameDetails._id}>
+    <Grid item container mb={4} xs={12} sm={4} lg={3} key={gameDetails._id}>
       <Box className={classes.goalCard}>
         <Box>
           <Box

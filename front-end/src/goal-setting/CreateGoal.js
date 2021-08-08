@@ -114,9 +114,9 @@ export const CreateGoal = () => {
               getContentAnchorEl: null,
             }}
           >
-            <MenuItem value='kill'>kill</MenuItem>
-            <MenuItem value='kd'>Kill/Death</MenuItem>
-            <MenuItem value='wins/match'>Win %</MenuItem>
+            <MenuItem value='Kills'>Kills</MenuItem>
+            <MenuItem value='Kd'>Kill/Death</MenuItem>
+            <MenuItem value='Wins/Match'>Win %</MenuItem>
           </Select>
         </FormControl>
       </Box>

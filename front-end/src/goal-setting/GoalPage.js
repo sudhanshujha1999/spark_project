@@ -76,6 +76,7 @@ export const GoalPage = () => {
                       endDate={goal.endDate}
                       metric={goal.metric}
                       goalData={goal.data}
+                      result={goal.result}
                     />
                   </Grid>
                 </Grid>
