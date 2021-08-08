@@ -6,7 +6,8 @@ import { EventDetailForm } from "./EventDetailForm";
 import { NewEventForm } from "./NewEventForm";
 import { useEvents } from "./useEvents";
 import { useCurrentUserInfo } from "../users/useCurrentUserInfo";
-
+import { useIsCoach } from "../users/useIsCoach";
+import { useOrganizations } from "../teams";
 const monthNames = [
     "January",
     "February",
@@ -32,19 +33,14 @@ export const SchedulingPage = () => {
     const [showEventDetailModal, setShowEventDetailModal] = useState(false);
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedEvent, setSelectedEvent] = useState(null);
-    const {
-        events,
-        setEvents,
-        isLoading: isLoadingEvents,
-    } = useEvents(selectedYear, selectedMonth);
-    // console.log(events);
-
+    const { events, setEvents } = useEvents(selectedYear, selectedMonth);
+    const { organizations } = useOrganizations();
+    const { isCoach } = useIsCoach(organizations._id);
     const nextMonth = () => {
         const nextMonth = selectedMonth + 1;
         if (nextMonth >= 12) setSelectedYear(selectedYear + 1);
         setSelectedMonth(nextMonth % 12);
     };
-
     const previousMonth = () => {
         const previousMonth = selectedMonth - 1;
         if (previousMonth < 0) setSelectedYear(selectedYear - 1);
@@ -100,6 +96,7 @@ export const SchedulingPage = () => {
                     selectedDate={selectedDate}
                     onSubmitEvent={addNewEvent}
                     sending={sending}
+                    isCoach={isCoach}
                     userId={user._id}
                 />
             </Modal>
@@ -114,6 +111,7 @@ export const SchedulingPage = () => {
                         <EventDetailForm
                             selectedEvent={selectedEvent}
                             userId={user._id}
+                            isCoach={isCoach}
                             deleteEvent={deleteEvent}
                         />
                     </Box>
@@ -133,9 +131,12 @@ export const SchedulingPage = () => {
                         month={selectedMonth}
                         events={events}
                         currentDate={today.setHours(0, 0, 0, 0) / 10000}
+                        isCoach={isCoach}
                         onClickCell={(date) => {
                             setSelectedDate(date);
-                            setShowNewEventModal(true);
+                            if (isCoach) {
+                                setShowNewEventModal(true);
+                            }
                         }}
                         onClickEvent={(event) => {
                             setSelectedEvent(event);

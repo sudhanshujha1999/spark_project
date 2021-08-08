@@ -152,7 +152,7 @@ export const CreateOrganizationPage = () => {
                     </Box>
                     <Divider />
                     <Box py={2}>
-                        <Grid container justify='space-between'>
+                        <Grid container justifyContent='space-between'>
                             <Grid item>
                                 <Button
                                     color='primary'

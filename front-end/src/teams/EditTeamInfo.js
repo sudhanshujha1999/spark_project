@@ -202,7 +202,7 @@ export const EditTeamInfo = () => {
                             </Box>
                             <Box my={3} />
                             <Box py={2}>
-                                <Grid container justify='space-between'>
+                                <Grid container justifyContent='space-between'>
                                     <Grid item xs={12}>
                                         <Button
                                             color='primary'

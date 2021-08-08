@@ -15,6 +15,7 @@ export const useCurrentUserInfo = () => {
       try {
         console.log('User api called')
         const { data } = await get(`/api/users/${user.uid}`)
+        console.log(data)
         setUserInfoFromDb(data)
       } catch (e) {
         setError(e.message)

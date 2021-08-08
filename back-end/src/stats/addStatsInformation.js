@@ -6,14 +6,14 @@ export const addStatsInformation = async ({
     game,
     teamId,
     createdBy,
-    isTeamStat = false,
+    forTeam = false,
     userAllowedId,
     interval,
     time,
     players = [],
     fields = [],
 }) => {
-    if (isTeamStat && !userAllowedId) {
+    if (forTeam && !userAllowedId) {
         throw new Error("no-allowed-user");
     }
     if (players.length === 0) {
@@ -30,8 +30,10 @@ export const addStatsInformation = async ({
         name,
         teamId,
         game,
+        is_stat: true,
+        is_goal: false,
         created_by: createdBy,
-        is_team_stat: isTeamStat,
+        for_team: forTeam,
         user_allowed: userAllowedId,
         interval,
         time,

@@ -35,6 +35,8 @@ export const addStatInformationRoute = {
                 time,
                 players,
                 fields,
+                // ifwant to create for a team
+                // forTeam:
             });
             return res.status(200).json({
                 success: true,

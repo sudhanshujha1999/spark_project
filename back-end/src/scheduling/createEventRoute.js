@@ -1,4 +1,5 @@
 import { DISCUSSION } from "../models/validEventTypes";
+import { createNotification } from "../notifications";
 import { getUserByAuthId } from "../users";
 import { createEvent } from "./createEvent";
 import { sendEventEmail } from "./sendEventEmail";
@@ -34,10 +35,10 @@ export const createEventRoute = {
                     },
                 ],
             });
+
             // no invitations we can create task to check if the player exist or not
             // if exists then add him if not then create him in db and send invite
             // for (let invitee of invitees) {
-            //     console.log(invitee);
             //     sendEventEmail({
             //         email: invitee,
             //         eventDetails: {
@@ -50,6 +51,14 @@ export const createEventRoute = {
             //         eventCreatorEmail: user.email,
             //     });
             // }
+
+			for (let invitee in invitees) {
+				await createNotification({
+					userId: invitee.id,
+					message: `You have been added to event "${name}" at ${time}`,
+					createdAt: Date.now(),
+				});
+			}
 
             return res.status(200).json({
                 eventId: eventId,

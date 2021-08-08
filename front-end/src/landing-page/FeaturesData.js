@@ -3,37 +3,37 @@ import war from "../img/char-5.png";
 import scheduling from "../img/char-4.png";
 import stats from "../img/char-3.png";
 import recruting from "../img/char-1.png";
-import community from "../img/char-2.png";
+// import community from "../img/char-2.png";
 
 export const feature = [
     {
-        heading: `Roster management`,
-        details: ` This is where your team will live. Spark is the easiest way to manage your lineups, rosters, player profiles and more.`,
+        heading: `Strategy and Team Unity `,
+        strongDesc: "Promote team bonding and a winning culture.",
+        details: `Engage in map and game strategy sessions in Spark’s War Room. Record your organizaton’s match results for all to see. Index your opponent’s game approach and video clips, and more!`,
         image: roster,
     },
     {
-        heading: `War Room `,
-        details: ` Organize your league information and standings. Find scrimmages of other teams at your skill level! Strategize through map analysis and next-match planning.`,
+        heading: `Communication and Productivity `,
+        strongDesc: "Communicate effectively!",
+        details: `Coaches and captains have a lot to manage. Spark allows you to organize your teams, rosters, and players with simple profiles and easy to make line ups all through your dashboard. Delegate captains to carry out certain tasks for a team. Have Players and Captains give full transparency into their activities and schedules.`,
         image: war,
     },
     {
-        heading: `Player Stats`,
-        details: ` Elevate your team's coaching. Set goals for your players that you can track real-time and gauge improvement as it happens. Analyze statics directly pulled from matches to see the ever-changing skill levels of each member of your team.`,
+        heading: `Time Managment`,
+        strongDesc: "Stay Organized.",
+        details: `Keep up to date on your team's events and activities through your organization’s central calendar. Receive alerts and notifications through your dashboard and our discord integration.`,
         image: stats,
     },
     {
-        heading: `Scheduling`,
-        details: ` Never miss a beat. Keep up to date on your team's events and activities through your central calendar and alert through discord integration.`,
+        heading: `Player Development`,
+        strongDesc: " Players should always be improving.",
+        details: ` Gauge player and team improvement as it happens with our goal setting structure. Analyze data directly pulled from games to see team progression and inividiual player trends.`,
         image: scheduling,
     },
     {
-        heading: `Recruiting`,
-        details: `Whether you're a player looking for your University next team, or a recruiter looking for the right fit, Spark can make the connection.`,
-        image: recruting,
-    },
-    {
         heading: `Community`,
-        details: ` Interact with Spark's community. Get relevant updates on games, esports news, and Spark features. Get your program's name out there!`,
-        image: community,
+        strongDesc: `Interact with other schools and Spark’s community.`,
+        details: ` Join or create local groups of schools to interact and compete with. Find better scrimmages, explore college scholarships, post game clips, promote your program, and more!`,
+        image: recruting,
     },
 ];
