@@ -7,6 +7,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns'
 import Alert from '@material-ui/lab/Alert'
 import Avatar from '@material-ui/core/Avatar'
+import Backdrop from '@material-ui/core/Backdrop'
 import Badge from '@material-ui/core/Badge'
 import Box from '@material-ui/core/Box'
 import Breadcrumbs from '@material-ui/core/Breadcrumbs'
@@ -71,6 +72,7 @@ export {
   Alert,
   Avatar,
   Autocomplete,
+  Backdrop,
   Badge,
   Box,
   Breadcrumbs,

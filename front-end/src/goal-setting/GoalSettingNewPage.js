@@ -14,7 +14,7 @@ export const GoalSettingPage = () => {
   const { user } = useCurrentUser()
   const [isLoading, setIsLoading] = useState(true)
   const [goals, setGoals] = useRecoilState(goalsState)
-
+  console.log(goals)
   useEffect(() => {
     const getGoals = async () => {
       setIsLoading(true)

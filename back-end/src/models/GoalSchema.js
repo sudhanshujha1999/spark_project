@@ -53,13 +53,18 @@ const GoalSchema = new Schema(
     // time: {
     //   type: String,
     // },
-    // fields: [
-    //   {
-    //     name: String,
-    //     field_type: String,
-    //     is_required: Boolean,
-    //   },
-    // ],
+    data: [
+      {
+        date: {
+          type: Date,
+          required: true,
+        },
+        value: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
   },
   {
     timestamps: true,

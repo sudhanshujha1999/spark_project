@@ -29,7 +29,7 @@ export const GoalCard = ({ goals }) => {
   }
 
   return (
-    <Grid item xs={12} sm={4} lg={3} key={gameDetails._id}>
+    <Grid item mb={4} xs={12} sm={4} lg={3} key={gameDetails._id}>
       <Box className={classes.goalCard}>
         <Box>
           <Box
@@ -45,15 +45,24 @@ export const GoalCard = ({ goals }) => {
           </Typography>
         </Box>
         <Divider style={{ width: '90%', margin: '10px 0 30px 0' }} />
-        <Box>
+        <Box
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           {goals.map((goal) => (
-            <Typography
-              className={classes.goalCardPlayerName}
-              key={goal._id}
-              onClick={() => goalClickHandler(goal._id)}
-            >
-              {goal.goalName}
-            </Typography>
+            <Box mb={2} key={goal._id}>
+              <Button
+                variant='contained'
+                color='secondary'
+                onClick={() => goalClickHandler(goal._id)}
+              >
+                {goal.goalName.charAt(0).toUpperCase() + goal.goalName.slice(1)}
+              </Button>
+            </Box>
           ))}
         </Box>
       </Box>

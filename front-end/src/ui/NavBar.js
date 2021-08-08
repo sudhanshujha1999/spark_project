@@ -14,7 +14,9 @@ export const NavBar = () => {
 
   return (
     <AppBar
-      backgroundColor='#304964'
+      style={{
+        backgroundColor: '#304964',
+      }}
       swid='nav-bar'
       position='fixed'
       className={classes.appBar}

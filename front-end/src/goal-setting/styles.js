@@ -277,7 +277,7 @@ export const useStyles = makeStyles((theme) => ({
     zIndex: '10',
     width: '300px',
     zIndex: '15',
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: 'rgb(23, 23, 23)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -325,6 +325,9 @@ export const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
 
     cursor: 'pointer',
+    '&:hover': {
+      color: theme.palette.primary.main,
+    },
   },
 
   //goal page styles
@@ -332,35 +335,35 @@ export const useStyles = makeStyles((theme) => ({
   goalName: {
     position: 'relative',
     width: 'fit-content',
-    '&:before': {
-      position: 'absolute',
-      content: '""',
-      width: '110%',
-      height: '110%',
-      top: '-5%',
-      left: '-5%',
-      borderRadius: '1px',
-      border: '2px solid',
-      borderColor: theme.palette.secondary.main,
-      clipPath:
-        'polygon(20% 0%, 100% 0, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0 100%, 0% 20%)',
-      animation: '$animateClipPath 7s linear infinite alternate',
-    },
+    // '&:before': {
+    //   position: 'absolute',
+    //   content: '""',
+    //   width: '110%',
+    //   height: '110%',
+    //   top: '-5%',
+    //   left: '-5%',
+    //   borderRadius: '1px',
+    //   border: '2px solid',
+    //   borderColor: theme.palette.secondary.main,
+    //   // clipPath:
+    //   //   'polygon(20% 0%, 100% 0, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0 100%, 0% 20%)',
+    //   // animation: '$animateClipPath 7s linear infinite alternate',
+    // },
   },
-  '@keyframes animateClipPath': {
-    '0%': {
-      borderRadius: '1px',
-      filter: 'hue-rotate(0deg)',
-      clipPath:
-        'polygon(100% 0%, 100% 0, 100% 0%, 100% 0%, 0% 100%, 0% 100%, 0 100%, 0% 100%)',
-    },
-    '100%': {
-      filter: 'hue-rotate(180deg)',
-      borderRadius: '10px',
-      clipPath:
-        'polygon(20% 0%, 100% 0, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0 100%, 0% 20%)',
-    },
-  },
+  // '@keyframes animateClipPath': {
+  //   '0%': {
+  //     borderRadius: '1px',
+  //     filter: 'hue-rotate(0deg)',
+  //     clipPath:
+  //       'polygon(100% 0%, 100% 0, 100% 0%, 100% 0%, 0% 100%, 0% 100%, 0 100%, 0% 100%)',
+  //   },
+  //   '100%': {
+  //     filter: 'hue-rotate(180deg)',
+  //     borderRadius: '10px',
+  //     clipPath:
+  //       'polygon(20% 0%, 100% 0, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0 100%, 0% 20%)',
+  //   },
+  // },
   headingMedium: {
     fontSize: '2em',
     width: 'fit-content',
@@ -383,6 +386,27 @@ export const useStyles = makeStyles((theme) => ({
     position: 'relative',
     fontSize: '1.5em',
     margin: '1em',
+  },
+
+  //data modal
+
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '400px',
+    height: '400px',
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    borderRadius: '10px',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
   },
 
   dialog: {
