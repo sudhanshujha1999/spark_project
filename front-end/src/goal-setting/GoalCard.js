@@ -56,6 +56,11 @@ export const GoalCard = ({ goals, isLoadingOrganizations, organizations }) => {
               <Button
                 variant='contained'
                 color='secondary'
+                style={{
+                  fontSize: '12px',
+                  padding: '4px 8px',
+                  borderRadius: '0px',
+                }}
                 onClick={() => goalClickHandler(goal._id)}
               >
                 {goal.goalName.charAt(0).toUpperCase() + goal.goalName.slice(1)}

@@ -93,23 +93,23 @@ export const GoalPage = () => {
                 </Typography>
                 <Grid item xs={12}>
                   <Typography className={classes.goalText} variant='h6'>
-                    <strong style={{ color: '#895cf2' }}>Game:</strong>{' '}
+                    <strong style={{ color: '#474787' }}>Game:</strong>{' '}
                     {goal.game}
                   </Typography>
                   <Typography className={classes.goalText} variant='h6'>
-                    <strong style={{ color: '#895cf2' }}>Player:</strong>{' '}
+                    <strong style={{ color: '#474787' }}>Player:</strong>{' '}
                     {goal.player.full_name}
                   </Typography>
                   <Typography className={classes.goalText} variant='h6'>
-                    <strong style={{ color: '#895cf2' }}>Metric:</strong>{' '}
+                    <strong style={{ color: '#474787' }}>Metric:</strong>{' '}
                     {goal.metric}
                   </Typography>
                   <Typography className={classes.goalText} variant='h6'>
-                    <strong style={{ color: '#895cf2' }}>Start:</strong>{' '}
+                    <strong style={{ color: '#474787' }}>Start:</strong>{' '}
                     {goal.startDate.split('T')[0]}
                   </Typography>
                   <Typography className={classes.goalText} variant='h6'>
-                    <strong style={{ color: '#895cf2' }}>End:</strong>{' '}
+                    <strong style={{ color: '#474787' }}>End:</strong>{' '}
                     {goal.endDate.split('T')[0]}
                   </Typography>
                 </Grid>

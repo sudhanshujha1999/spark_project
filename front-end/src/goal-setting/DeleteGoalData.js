@@ -94,7 +94,7 @@ export const DeleteGoalData = ({
               }}
               onClick={handleClose}
             >
-              No
+              Back
             </Button>
           </Grid>
         </Box>

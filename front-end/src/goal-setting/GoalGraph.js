@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import moment from 'moment'
 import { Line } from 'react-chartjs-2'
 import { SliderPicker } from 'react-color'
-import { Box, Button, Grid } from '../ui'
+import { Box, Button, Grid, Typography } from '../ui'
 import { useStyles } from './styles'
 import PaletteIcon from '@material-ui/icons/Palette'
 import CloseIcon from '@material-ui/icons/Close'
@@ -108,6 +108,7 @@ export const GoalGraph = (props) => {
       align: 'start',
       labels: {
         fontSize: 12,
+        color: 'inherit',
       },
     },
     // tooltips: {
@@ -124,26 +125,41 @@ export const GoalGraph = (props) => {
         style={{
           display: 'flex',
           flexDirection: 'row',
-          justifyContent: 'flex-end',
+          alignItems: 'center',
         }}
       >
+        <Box style={{ flex: '8' }}>
+          <Typography
+            style={{ margin: '0', textAlign: 'center', fontSize: '1.2em' }}
+            className={classes.goalText}
+            variant='h6'
+          >
+            <strong style={{ color: '#78e08f' }}>Current Avg:</strong>{' '}
+            {Math.round(avg * 100) / 100}
+          </Typography>
+        </Box>
+
         <Box
           className={classes.swatch}
           onClick={() => setPickColor(!pickColor)}
-          style={{ backgroundColor: `${color}`, border: `3px solid ${color}` }}
+          style={{
+            backgroundColor: `${color}`,
+            border: `3px solid ${color}`,
+            flex: '1',
+          }}
         >
           {pickColor ? <CloseIcon /> : <PaletteIcon />}
-        </Box>
-        {pickColor && (
-          <Box className={classes.popover}>
-            <Box className={classes.cover}>
-              <SliderPicker
-                color={color}
-                onChange={(color) => setColor(color.hex)}
-              />
+          {pickColor && (
+            <Box className={classes.popover}>
+              <Box className={classes.cover}>
+                <SliderPicker
+                  color={color}
+                  onChange={(color) => setColor(color.hex)}
+                />
+              </Box>
             </Box>
-          </Box>
-        )}
+          )}
+        </Box>
       </Box>
       <Line data={data} options={lineOptions} />
     </Box>

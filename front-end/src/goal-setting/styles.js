@@ -282,7 +282,7 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    borderRadius: '10px',
+    borderRadius: '5px',
     '&:hover': {
       transition: `all 500ms ${bezierValue}`,
       transform: 'scale(1.05)',
@@ -336,6 +336,7 @@ export const useStyles = makeStyles((theme) => ({
   goalName: {
     position: 'relative',
     width: 'fit-content',
+    fontSize: '45px',
   },
 
   headingMedium: {
@@ -366,6 +367,7 @@ export const useStyles = makeStyles((theme) => ({
 
   swatch: {
     width: '30px',
+    maxWidth: '30px',
     zIndex: '3',
     height: '30px',
     borderRadius: '50%',
@@ -375,14 +377,16 @@ export const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
   },
   popover: {
-    opacity: 0.8,
-    position: 'absolute',
+    opacity: 1,
+    position: 'relative',
+    right: '275px',
     padding: '20px',
     width: '300px',
     height: '100px',
     zIndex: '2',
-    background: '#2c3e50',
+    background: '#2f3640',
     borderRadius: '10px',
+    border: '1px solid #fff',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -409,7 +413,7 @@ export const useStyles = makeStyles((theme) => ({
     width: '400px',
     height: '400px',
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    border: '2px solid #fff',
     borderRadius: '10px',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
@@ -419,10 +423,9 @@ export const useStyles = makeStyles((theme) => ({
 
   datasContainer: {
     width: '100%',
-    background: '#222f3e',
     opacity: '0.8',
     padding: '30px',
-    borderRadius: '10px',
+    borderRadius: '0',
   },
 
   dataContainer: {
@@ -431,12 +434,12 @@ export const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     margin: '10px',
     alignItems: 'center',
-    border: '1px solid #82589F',
-    borderRadius: '5px',
+    border: '1px solid #895cf2',
+    borderRadius: '0',
     padding: '10px 20px',
     transition: 'box-shadow .3s',
     '&:hover': {
-      boxShadow: '0 0 5px #f5f6fa',
+      boxShadow: '0 0 8px #ffd369',
     },
   },
 
