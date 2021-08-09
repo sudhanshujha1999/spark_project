@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import moment from 'moment'
-
 import { Line } from 'react-chartjs-2'
+import { SliderPicker } from 'react-color'
+import { Box, Button, Grid } from '../ui'
+import { useStyles } from './styles'
+import PaletteIcon from '@material-ui/icons/Palette'
+import CloseIcon from '@material-ui/icons/Close'
 
 export const GoalGraph = (props) => {
-  console.log(props.desired)
+  const [color, setColor] = useState('#9b59b6')
+  const [pickColor, setPickColor] = useState(false)
+  const classes = useStyles()
+
   var startDate = moment(props.startDate).format('MM/DD/YYYY')
   var endDate = moment(props.endDate).format('MM/DD/YYYY')
   let sum = 0
@@ -30,19 +37,19 @@ export const GoalGraph = (props) => {
             return new Date(a.x) - new Date(b.x)
           }),
         fill: false,
-        backgroundColor: '#9b59b6',
-        borderColor: '#9b59b6',
+        backgroundColor: color,
+        borderColor: color,
       },
       {
-        label: `Avg (${avg})`,
+        label: `Avg (${Math.round(avg * 100) / 100})`,
         data: [
           {
             x: startDate,
-            y: avg,
+            y: Math.round(avg * 100) / 100,
           },
           {
             x: endDate,
-            y: avg,
+            y: Math.round(avg * 100) / 100,
           },
         ],
         fill: false,
@@ -90,14 +97,15 @@ export const GoalGraph = (props) => {
             display: false,
           },
           ticks: {
-            suggestedMin: 100,
-            suggestedMax: 0,
+            suggestedMin: 0,
+            suggestedMax: 1,
           },
         },
       ],
     },
     legend: {
       display: true,
+      align: 'start',
       labels: {
         fontSize: 12,
       },
@@ -111,8 +119,33 @@ export const GoalGraph = (props) => {
     },
   }
   return (
-    <div className='App'>
+    <Box mt={4}>
+      <Box
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'flex-end',
+        }}
+      >
+        <Box
+          className={classes.swatch}
+          onClick={() => setPickColor(!pickColor)}
+          style={{ backgroundColor: `${color}`, border: `3px solid ${color}` }}
+        >
+          {pickColor ? <CloseIcon /> : <PaletteIcon />}
+        </Box>
+        {pickColor && (
+          <Box className={classes.popover}>
+            <Box className={classes.cover}>
+              <SliderPicker
+                color={color}
+                onChange={(color) => setColor(color.hex)}
+              />
+            </Box>
+          </Box>
+        )}
+      </Box>
       <Line data={data} options={lineOptions} />
-    </div>
+    </Box>
   )
 }

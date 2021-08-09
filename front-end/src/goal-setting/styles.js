@@ -178,12 +178,13 @@ export const useStyles = makeStyles((theme) => ({
     left: '50%',
     transform: 'translateX(-50%)',
     display: 'flex',
-    flexFlow: 'column',
+    flexDirection: 'column',
     alignItems: 'center',
   },
   gameName: {
     fontSize: '1.4em',
     fontWeight: 700,
+    textAlign: 'center',
   },
   teamCardBtn: {
     marginTop: '50px',
@@ -335,35 +336,8 @@ export const useStyles = makeStyles((theme) => ({
   goalName: {
     position: 'relative',
     width: 'fit-content',
-    // '&:before': {
-    //   position: 'absolute',
-    //   content: '""',
-    //   width: '110%',
-    //   height: '110%',
-    //   top: '-5%',
-    //   left: '-5%',
-    //   borderRadius: '1px',
-    //   border: '2px solid',
-    //   borderColor: theme.palette.secondary.main,
-    //   // clipPath:
-    //   //   'polygon(20% 0%, 100% 0, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0 100%, 0% 20%)',
-    //   // animation: '$animateClipPath 7s linear infinite alternate',
-    // },
   },
-  // '@keyframes animateClipPath': {
-  //   '0%': {
-  //     borderRadius: '1px',
-  //     filter: 'hue-rotate(0deg)',
-  //     clipPath:
-  //       'polygon(100% 0%, 100% 0, 100% 0%, 100% 0%, 0% 100%, 0% 100%, 0 100%, 0% 100%)',
-  //   },
-  //   '100%': {
-  //     filter: 'hue-rotate(180deg)',
-  //     borderRadius: '10px',
-  //     clipPath:
-  //       'polygon(20% 0%, 100% 0, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0 100%, 0% 20%)',
-  //   },
-  // },
+
   headingMedium: {
     fontSize: '2em',
     width: 'fit-content',
@@ -388,7 +362,39 @@ export const useStyles = makeStyles((theme) => ({
     margin: '1em',
   },
 
-  //data modal
+  //goal page- color picker
+
+  swatch: {
+    width: '30px',
+    zIndex: '3',
+    height: '30px',
+    borderRadius: '50%',
+
+    boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
+    display: 'inline-block',
+    cursor: 'pointer',
+  },
+  popover: {
+    opacity: 0.8,
+    position: 'absolute',
+    padding: '20px',
+    width: '300px',
+    height: '100px',
+    zIndex: '2',
+    background: '#2c3e50',
+    borderRadius: '10px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cover: {
+    position: 'relative',
+    width: '80%',
+    height: '80%',
+  },
+
+  //goal page - data modal
 
   modal: {
     display: 'flex',
@@ -407,6 +413,38 @@ export const useStyles = makeStyles((theme) => ({
     borderRadius: '10px',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+  },
+
+  //goal-page show data
+
+  datasContainer: {
+    width: '100%',
+    background: '#222f3e',
+    opacity: '0.8',
+    padding: '30px',
+    borderRadius: '10px',
+  },
+
+  dataContainer: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    margin: '10px',
+    alignItems: 'center',
+    border: '1px solid #82589F',
+    borderRadius: '5px',
+    padding: '10px 20px',
+    transition: 'box-shadow .3s',
+    '&:hover': {
+      boxShadow: '0 0 5px #f5f6fa',
+    },
+  },
+
+  dataDeleteButton: {
+    transition: 'box-shadow .3s',
+    '&:hover': {
+      boxShadow: '0 0 2px #e84118',
+    },
   },
 
   dialog: {

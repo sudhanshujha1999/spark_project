@@ -20,8 +20,6 @@ export const GoalSettingPage = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [goals, setGoals] = useRecoilState(goalsState)
 
-  console.log(isCoach)
-
   useEffect(() => {
     const getGoals = async () => {
       setIsLoading(true)
@@ -43,7 +41,6 @@ export const GoalSettingPage = () => {
     leagueOfLegends: [],
     valorant: [],
   }
-
   if (goals.length > 0) {
     goals.forEach((goal) => {
       if (goal.game === 'League Of Legends') {

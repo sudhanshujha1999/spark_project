@@ -15,8 +15,6 @@ export const GoalCard = ({ goals, isLoadingOrganizations, organizations }) => {
       goals.length > 0 &&
       Object.keys(organizations).length > 0
     ) {
-      console.log(organizations)
-      console.log(goals)
       const data = organizations.teams.find(
         (team) => team.game === goals[0].game
       )

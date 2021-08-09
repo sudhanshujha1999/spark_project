@@ -5,20 +5,23 @@ import { useStyles } from './styles'
 import { useRecoilState } from 'recoil'
 import { useCurrentUser } from '../auth'
 import { goalState } from './recoilState'
-import { Box, Divider, Grid, Typography, Fade, Button } from '../ui'
+import { Box, Divider, Grid, Typography, Fade, Button, Alert } from '../ui'
 import { GoalGraph } from './GoalGraph'
 import { useCurrentUserInfo } from '../users'
 import { AddGoalData } from './AddGoalData'
+import { DataCard } from './DataCard'
+import { Collapse, IconButton } from '@material-ui/core'
+import CloseIcon from '@material-ui/icons/Close'
 
 export const GoalPage = () => {
   const { goalId } = useParams()
   const classes = useStyles()
   const [isLoading, setIsLoading] = useState(true)
   const [addData, setAddData] = useState(false)
+  const [showData, setShowData] = useState(false)
   const [goal, setGoal] = useRecoilState(goalState)
+  const [showDeleteAlert, setShowDeleteAlert] = useState(null)
   const { userInfo } = useCurrentUserInfo()
-  console.log(isLoading)
-  console.log(goal)
 
   useEffect(() => {
     const getGoal = async () => {
@@ -36,7 +39,6 @@ export const GoalPage = () => {
     }
   }, [userInfo._id, goalId])
 
-  console.log(goal)
   const handleAdd = () => {
     setAddData(true)
   }
@@ -57,7 +59,7 @@ export const GoalPage = () => {
                   goal.goalName.slice(1) ||
                   '')}
             </Typography>
-            <Box mt={2} mb={7}>
+            <Box mt={2} mb={4}>
               <Divider />
             </Box>
             <Grid container spacing={2}>
@@ -91,25 +93,30 @@ export const GoalPage = () => {
                 </Typography>
                 <Grid item xs={12}>
                   <Typography className={classes.goalText} variant='h6'>
-                    Game: {goal.game}
+                    <strong style={{ color: '#895cf2' }}>Game:</strong>{' '}
+                    {goal.game}
                   </Typography>
                   <Typography className={classes.goalText} variant='h6'>
-                    Player: {goal.player.full_name}
+                    <strong style={{ color: '#895cf2' }}>Player:</strong>{' '}
+                    {goal.player.full_name}
                   </Typography>
                   <Typography className={classes.goalText} variant='h6'>
-                    Metric: {goal.metric}
+                    <strong style={{ color: '#895cf2' }}>Metric:</strong>{' '}
+                    {goal.metric}
                   </Typography>
                   <Typography className={classes.goalText} variant='h6'>
-                    Start: {goal.startDate.split('T')[0]}
+                    <strong style={{ color: '#895cf2' }}>Start:</strong>{' '}
+                    {goal.startDate.split('T')[0]}
                   </Typography>
                   <Typography className={classes.goalText} variant='h6'>
-                    End: {goal.endDate.split('T')[0]}
+                    <strong style={{ color: '#895cf2' }}>End:</strong>{' '}
+                    {goal.endDate.split('T')[0]}
                   </Typography>
                 </Grid>
               </Grid>
             </Grid>
             {goal.player._id === userInfo._id && (
-              <Fade in={!addData} mb={5}>
+              <Fade in={!addData} mb={2}>
                 <Box>
                   <Box my={5} />
                   <Button
@@ -130,6 +137,64 @@ export const GoalPage = () => {
                 goalId={goal._id}
                 goalData={goal.data}
               />
+            )}
+
+            <Box mb={2}>
+              <Box my={5} />
+              <Button
+                variant='contained'
+                color={showData ? 'secondary' : 'primary'}
+                onClick={() => setShowData(!showData)}
+              >
+                {showData ? 'Hide Data' : 'Show Data'}
+              </Button>
+            </Box>
+            {showDeleteAlert && (
+              <Collapse
+                in={Boolean(showDeleteAlert)}
+                timeout='auto'
+                unmountOnExit={true}
+              >
+                <Alert
+                  variant='outlined'
+                  severity='success'
+                  style={{
+                    borderRadius: '10px',
+                    margin: '10px 10%',
+                    textAlign: 'center',
+                  }}
+                  action={
+                    <IconButton
+                      aria-label='close'
+                      color='inherit'
+                      size='small'
+                      onClick={() => {
+                        setShowDeleteAlert('')
+                      }}
+                    >
+                      <CloseIcon fontSize='inherit' />
+                    </IconButton>
+                  }
+                >
+                  {showDeleteAlert}
+                </Alert>
+              </Collapse>
+            )}
+            {showData && (
+              <Box className={classes.datasContainer}>
+                {goal.data.length > 0
+                  ? goal.data.map((data, index) => (
+                      <DataCard
+                        data={data}
+                        index={index + 1}
+                        goalId={goal._id}
+                        key={data._id}
+                        canDelete={goal.player._id === userInfo._id}
+                        setShowDeleteAlert={setShowDeleteAlert}
+                      />
+                    ))
+                  : 'No data so far. Please add some data to see it here.'}
+              </Box>
             )}
           </Box>
         )

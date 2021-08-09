@@ -31,14 +31,12 @@ export const AddGoalData = ({
   const [isLoading, setIsLoading] = useState(false)
   const setGoal = useSetRecoilState(goalState)
 
-  console.log(open)
-
   const addData = async () => {
     setIsLoading(true)
     const data = [...goalData, { date, value }]
     let updatedGoal = {}
     try {
-      updatedGoal = await post(`/api/goal/${goalId}`, data)
+      updatedGoal = await post(`/api/goal/add/${goalId}`, data)
     } catch (error) {
       console.log(error.message)
     }

@@ -4,17 +4,34 @@ import { useHistory, Link } from 'react-router-dom'
 import { useStyles } from './styles'
 import banner from '../img/default-image.jpg'
 
-export const TeamItemCard = ({ team, isCoach, index }) => {
+export const TeamItemCard = ({ team, isCoach, index, setShowAlert }) => {
   const classes = useStyles()
   const history = useHistory()
   const handleClick = () => {
-    history.push(`/goals/chooseplayer/?team=${team._id}`)
+    if (team.game === 'Valorant' || team.game === 'League Of Legends') {
+      history.push(`/goals/chooseplayer/?team=${team._id}`)
+    } else {
+      setShowAlert({
+        type: 'warning',
+        message: `Goal functions has not been added for ${team.game} so far, please stay tuned!`,
+      })
+    }
   }
-  const editTeam = () => {
-    history.push(`/teams/${team._id}/edit`)
-  }
+
   return (
-    <Grid item xs={12} sm={4} lg={3} key={team.id}>
+    <Grid
+      item
+      xs={12}
+      sm={4}
+      lg={3}
+      key={team._id}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        height: 'auto',
+      }}
+    >
       <Box className={classes.teamCard} onClick={handleClick}>
         <Box className={classes.rank}>{index}</Box>
         <Box className={classes.background} />
@@ -27,40 +44,12 @@ export const TeamItemCard = ({ team, isCoach, index }) => {
                 : `url(${banner})`,
             }}
           />
-          <Typography className={classes.teamName}>
-            {team.name}
-            {/* {isCoach && (
-              <Link to={`/teams/${team.id}/edit`}>
-                <IconButton
-                  className={classes.iconBtn}
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    editTeam()
-                  }}
-                >
-                  <SettingsIcon size='small' className={classes.btnIcon} />
-                </IconButton>
-              </Link>
-            )} */}
-          </Typography>
+          <Typography className={classes.teamName}>{team.name}</Typography>
         </Box>
         <Box className={classes.back}>
           <Typography gutterBottom className={classes.gameName}>
             {team.game}
           </Typography>
-          {/* <Button
-            variant='contained'
-            className={classes.teamCardBtn}
-            disableElevation
-            color='primary'
-            onClick={(e) => {
-              e.stopPropagation()
-              handleClick()
-              console.log('btn')
-            }}
-          >
-            See Team
-          </Button> */}
         </Box>
       </Box>
     </Grid>

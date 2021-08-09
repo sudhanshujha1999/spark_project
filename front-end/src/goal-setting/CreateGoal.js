@@ -23,6 +23,7 @@ const useQuery = () => {
 }
 
 export const CreateGoal = () => {
+  const history = useHistory()
   let query = useQuery()
   const selectedTeamId = query.get('team')
   const selectedPlayerId = query.get('player')
@@ -32,18 +33,14 @@ export const CreateGoal = () => {
   const [result, setResult] = useState('')
   const [value, setValue] = useState([null, null])
   const [saving, setSaving] = useState(false)
-
-  const history = useHistory()
-
   const { organizations, isLoading: isLoadingOrganizations } =
     useOrganizations()
+
   let selectedTeam = {}
-  if (!isLoadingOrganizations) {
-    console.log(organizations.teams)
+  if (!isLoadingOrganizations && Object.keys(organizations).length > 0) {
     selectedTeam = organizations.teams.find(
       (team) => team._id === selectedTeamId
     )
-    console.log(selectedTeam)
   }
 
   const handleCreate = async () => {
