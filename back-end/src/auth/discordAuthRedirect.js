@@ -4,11 +4,15 @@ import passport from "passport";
 export const discordAuthRedirectRoute = {
     path: "/discord/auth/redirect/",
     method: "get",
+    // if we don't use serializeUser then i don't use this middleware of authenticate
     // middleware: passport.authenticate("discord", {
     //     failureRedirect: "/",
     // }),
     handler: async (req, res) => {
         try {
+            // to make a work around, i madethe redirect to the frontend ie. client
+            // and got the response_code, by whiich we can get the users access token and by which we can access his data
+            // some how the redirect url is not working tried to send them as data as option setting header as client_id and secret,
             const { code } = req.query;
             // const code = 'TQr8GBXKjFsKvGYVy5EfzjEHuWMzR9'
             const baseUrl = `https://discord.com/api/oauth2/token`;

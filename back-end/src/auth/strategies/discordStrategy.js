@@ -25,6 +25,7 @@ export const discordStrategy = (app) => {
         console.log(refreshToken);
         // according to othere tuts they make the usee here in db and
         // serializeUser and the server endpoint is called where we get the serialized User and redirect
+        // can we save user from in req.user here and make our own middleware hat checks authentication
     };
     passport.use(new DiscordStrategy(strategyOptions, verifyCallback));
     return app;
