@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Redirect, useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import firebase from "firebase/app";
 import { useQueryParams } from "../routing";
 import { Alert, Box, Button, CenteredContainer, TextField, Typography } from "../ui";
@@ -12,7 +12,6 @@ export const SignInPage = () => {
     const [password, setPassword] = useState("");
     const [networkError, setNetworkError] = useState("");
     const { userInfo, isLoading } = useCurrentUserInfo();
-    const history = useHistory();
 
     const onSignIn = async () => {
         setNetworkError("");
@@ -38,7 +37,7 @@ export const SignInPage = () => {
     }
 
     if (userInfo) {
-        return <Redirect to={dest || "/"} />;
+        return <Redirect to={dest || "/dashboard"} />;
     }
 
     return (

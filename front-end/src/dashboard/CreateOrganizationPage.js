@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
+import { UsaStates } from 'usa-states';
 import {
     Alert,
-    Autocomplete,
     Box,
     Button,
     CircularProgress,
@@ -21,10 +21,12 @@ import { useHistory } from "react-router-dom";
 import { addOrganizationToUser } from "../users/userState";
 import { useCurrentUserInfo } from "../users";
 import { useSetRecoilState } from "recoil";
-import { city_names } from "../util/allCitiesArray";
+
+const usaStates = new UsaStates();
+
 const validations = [
     {
-        test: ({ name }) => name.length > 1,
+        test: ({ orgName }) => orgName.length > 1,
         errorMessage: "School name must be 2 characters or longer",
     },
     {
@@ -42,9 +44,11 @@ export const CreateOrganizationPage = () => {
     const history = useHistory();
     const addOrganization = useSetRecoilState(addOrganizationToUser);
     const [canCreateOrganization, setCanCreateOrganization] = useState(false);
-    const [name, setName] = useState("");
+    const [orgName, setOrgName] = useState("");
     const [orgType, setOrgType] = useState("");
-    const [location, setLoaction] = useState(city_names[0]);
+	const [city, setCity] = useState("");
+	const [zipCode, setZipCode] = useState("");
+	const [selectedState, setSelectedState] = useState(""); // As in "USA State", NOT "React state"
     const [isUpdating, setIsUpdating] = useState(false);
     const [validationErrors, setValidationErrors] = useState([]);
     const [networkError, setNetworkError] = useState("");
@@ -52,7 +56,7 @@ export const CreateOrganizationPage = () => {
     const classes = useStyles();
 
     const getValidationErrors = () => {
-        const fields = { name, orgType, location };
+        const fields = { orgName, orgType, city, selectedState, zipCode };
         const errors = validations
             .filter((validation) => !validation.test(fields))
             .map((validation) => validation.errorMessage);
@@ -66,7 +70,7 @@ export const CreateOrganizationPage = () => {
 
         setIsUpdating(true);
         try {
-            const schoolInfo = { name, organization_level: orgType, location: location };
+            const schoolInfo = { orgName, orgType, city, state: selectedState, zipCode };
             const { data } = await post(`/api/organization`, schoolInfo);
             // Need to update the user after the org is created
             addOrganization(data.groupId);
@@ -93,6 +97,13 @@ export const CreateOrganizationPage = () => {
             ) : canCreateOrganization ? (
                 <>
                     <h1>Add Organization Info</h1>
+                    <Typography
+                        variant='h6'
+                        style={{
+                            marginBottom: 20,
+                        }}>
+							Your "organization" is the institution you belong to. This should be the official name of your school if you are a school
+                    </Typography>
                     <Box mb={2}>
                         {networkError && <Alert severity='error'>{networkError}</Alert>}
                     </Box>
@@ -103,10 +114,10 @@ export const CreateOrganizationPage = () => {
                     ))}
                     <Box mb={2}>
                         <TextField
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            value={orgName}
+                            onChange={(e) => setOrgName(e.target.value)}
                             fullWidth
-                            label='Organization Name'
+                            label='Organization Name (i.e. "Springfield High School")'
                             variant='outlined'
                         />
                         <Box my={2} />
@@ -137,19 +148,48 @@ export const CreateOrganizationPage = () => {
                             </Select>
                         </FormControl>
                     </Box>
-                    <Box mb={2}>
-                        <Autocomplete
-                            value={location}
-                            id='cities'
-                            onChange={(e, data) => setLoaction(data)}
-                            options={city_names}
-                            getOptionLabel={(option) => option}
-                            style={{ width: 300 }}
-                            renderInput={(params) => (
-                                <TextField {...params} label='Select City' variant='outlined' />
-                            )}
+					<Box mb={2}>
+                        <TextField
+                            value={city}
+                            onChange={(e) => setCity(e.target.value)}
+                            fullWidth
+                            label='City'
+                            variant='outlined'
                         />
-                    </Box>
+					</Box>
+					<Box mb={2}>
+						<FormControl variant='outlined' fullWidth>
+                            <InputLabel
+                                id='-select-filled-label'
+                                style={{
+                                    padding: "2px 5px",
+                                    backgroundColor: "#222831",
+                                }}>
+                                State
+                            </InputLabel>
+                            <Select
+                                disableUnderline
+                                MenuProps={{ disableScrollLock: true }}
+                                labelId='select-filled-label'
+                                value={selectedState}
+                                onChange={(e) => setSelectedState(e.target.value)}>
+								{usaStates.states.map(usaState => (
+									<MenuItem key={usaState.name} value={usaState.name}>
+										{usaState.name}
+									</MenuItem>
+								))}
+                            </Select>
+                        </FormControl>
+					</Box>
+					<Box mb={2}>
+                        <TextField
+                            value={zipCode}
+                            onChange={(e) => setZipCode(e.target.value)}
+                            fullWidth
+                            label='Organization Zip/Postal Code'
+                            variant='outlined'
+                        />
+					</Box>
                     <Divider />
                     <Box py={2}>
                         <Grid container justifyContent='space-between'>
@@ -168,7 +208,7 @@ export const CreateOrganizationPage = () => {
             ) : (
                 <Box className={classes.loadScreenFull}>
                     <Typography variant='h3' align='center'>
-                        You cannot create more organization
+                        You cannot create more organizations
                     </Typography>
                 </Box>
             )}

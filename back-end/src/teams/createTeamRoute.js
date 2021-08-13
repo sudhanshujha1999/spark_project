@@ -10,7 +10,11 @@ export const createTeamRoute = {
     method: "post",
     protectors: [isLoggedInProtector, isVerifiedProtector],
     handler: async (req, res) => {
-        const { name, game, organizationId, rosters, url } = req.body;
+        const { game, name: nameRaw, organizationId, rosters, url } = req.body;
+
+		// We're making the "name" field optional - if they don't enter it, the team name should be the game name
+		const name = nameRaw || game; 
+
         const { user_id: coachAuthId } = req.user;
 
         try {
@@ -18,8 +22,9 @@ export const createTeamRoute = {
             const coachId = coachUser._id;
 
             const isCoach = await isCoachForSchool(coachId, organizationId);
-            if (!isCoach)
+            if (!isCoach) {
                 return res.status(403).json({ message: "Only coaches can add teams to schools" });
+			}
 
             let teamId;
             try {
@@ -42,11 +47,6 @@ export const createTeamRoute = {
                 for (let roster of rosters) {
                     const { name: rosterName = "" } = roster;
                     // create a roster for team and then a default roster
-                    createDefaultRoster({
-                        organizationId: organizationId,
-                        teamId: teamId,
-                        coach: coachUser,
-                    });
                     await createRoster({
                         name: rosterName,
                         teamId,
@@ -54,6 +54,12 @@ export const createTeamRoute = {
                         coach: coachUser,
                     });
                 }
+
+				await createDefaultRoster({
+					organizationId: organizationId,
+					teamId: teamId,
+					coach: coachUser,
+				});
             } else {
                 return res.status(400).json({
                     error: error.message,

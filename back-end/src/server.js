@@ -74,9 +74,15 @@ routes.forEach((route) => {
 })
 app.use('/api', apiRouter)
 
+<<<<<<< HEAD
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "build", "index.html"), { lastModified: false, etag: false });
+});
+=======
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'))
 })
+>>>>>>> main
 
 const start = async () => {
   app.listen(PORT, () => {

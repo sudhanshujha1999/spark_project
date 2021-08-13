@@ -104,7 +104,7 @@ export const DisplayRosterItem = ({
                     className={classes.accordianSummary}>
                     <Box py={1} className={classes.rosterName}>
                         <EditableTextField
-                            value={isDefaultRoster ? "Players with no roster" : name}
+                            value={isDefaultRoster ? "Default" : name}
                             setValue={setName}
                             editable={isDefaultRoster ? false : editable}
                             onPressEnter={editRosterName}
@@ -120,7 +120,7 @@ export const DisplayRosterItem = ({
                                     {
                                         id: playerId,
                                         name: playerName,
-                                        gamerName: gamerName,
+                                        gamerName,
                                         bio,
                                         email,
                                         profile_img,
@@ -149,7 +149,7 @@ export const DisplayRosterItem = ({
                         </Grid>
                     ) : (
                         <Box>
-                            <Typography variant='h5'>No player is the roster</Typography>
+                            <Typography variant='h5'>You haven't added any players to this roster yet</Typography>
                         </Box>
                     )}
                     {invitations.map(({ email }) => (
