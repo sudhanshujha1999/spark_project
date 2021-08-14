@@ -128,7 +128,6 @@ export const AddWarRoomSession = ({ handleCancel, teams }) => {
         });
         return groupedMaps;
     }, []);
-    console.log(memoizedGroupedMaps);
 
     return (
         <Box className={classes.addSessionContainer}>

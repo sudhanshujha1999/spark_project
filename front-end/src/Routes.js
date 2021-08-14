@@ -3,7 +3,7 @@ import { OnboardingRoute, PrivateRoute } from "./routing";
 import { Box, NavBar, SideNav } from "./ui";
 import * as routeDefinitions from "./routeDefinitions";
 import { useCurrentUserInfo } from "./users";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import background from "./img/bg-2.svg";
 
 const routes = Object.values(routeDefinitions);
@@ -25,10 +25,7 @@ export const Routes = () => {
                         <NavBar />
                         {(!route.hideNav || (userInfo && userInfo.isOnboarded)) && <SideNav />}
                         <Box className={classes.background} />
-                        <Box
-                            ml={route.hideNav ? 0 : "64px"}
-                            mt={route.hideNav ? 0 : "64px"}
-                            p={route.hideNav ? 0 : 4}>
+                        <Box ml={route.hideNav ? 0 : "64px"} mt={"64px"} p={route.hideNav ? 0 : 4}>
                             <route.component />
                         </Box>
                     </RouteType>
@@ -41,11 +38,10 @@ export const Routes = () => {
 const useStyles = makeStyles((theme) => ({
     background: {
         width: "110vw",
-        top: 0,
-        left: 0,
         height: "110vh",
         position: "fixed",
         zIndex: "-100000",
+        top: 0,
         opacity: "0.8",
         backgroundImage: `url(${background})`,
         backgroundSize: "cover",

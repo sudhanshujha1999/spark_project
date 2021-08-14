@@ -9,6 +9,7 @@ import {
     Avatar,
     Box,
     Button,
+    Container,
     Card,
     Chip,
     CircularProgress,
@@ -142,113 +143,115 @@ export const RostersPage = () => {
                 }}
                 className={classes.teamBanner}
             />
-            <Box
-                style={{
-                    position: "relative",
-                    minHeight: "83vh",
-                    paddingBottom: "50px",
-                    marginTop: "150px",
-                }}>
-                <Typography variant='h2'>{teamName}</Typography>
-                <h1>Coaches</h1>
-                <Box mb={2}>
-                    <Card>
-                        {admins.map(({ name: coachName, profile_img }) => (
-                            <Box width='fit-content' m={2}>
-                                <Chip
-                                    avatar={
-                                        profile_img ? (
-                                            <Avatar alt={coachName} src={profile_img} />
-                                        ) : (
-                                            <Avatar>{coachName.charAt(0)}</Avatar>
-                                        )
-                                    }
-                                    label={coachName}
-                                    // onClick={handleClick}
-                                    variant='outlined'
-                                    color='secondary'
-                                />
-                            </Box>
-                        ))}
-                    </Card>
-                </Box>
-                <Divider />
-                <h1>Rosters</h1>
-                {isCoach && (
-                    <>
-                        <Button
-                            startIcon={<GroupAddIcon />}
-                            color='primary'
-                            onClick={() => {
-                                setShowAddRosterDialog(true);
-                            }}
-                            variant='contained'>
-                            Add Roster
-                        </Button>
-                        <AddRosterDialog
-                            open={showAddRosterDialog}
-                            setOpen={setShowAddRosterDialog}
-                            createRoster={createRoster}
-                            progress={progress}
-                        />
-                        {/* DELETE FUNCTIONALITY TO BE DISSCUSSED */}
-                        <Fab
-                            variant='extended'
-                            size='small'
-                            aria-label='add'
-                            className={classes.fabDelete}
-                            onClick={handleDeleteTeam}>
-                            {deleteProgress ? (
-                                <CircularProgress color='primary' size='1.8em' />
-                            ) : (
-                                <>
-                                    <ClearIcon />
-                                    Delete Team
-                                </>
-                            )}
-                        </Fab>
-                    </>
-                )}
-                {/* {false && */}
-                {rosters &&
-                    rosters.map(
-                        (
-                            { _id: rosterId, name: rosterName, players, invitations = [] },
-                            rosterIndex
-                        ) => {
-                            const newPlayerEmailsForRoster = newPlayerEmails[rosterId] || [];
-                            return (
-                                <>
-                                    {rosterName && (
-                                        <DisplayRosterItem
-                                            rosterId={rosterId}
-                                            isDefaultRoster={rosterName === "DEFAULT_ROSTER"}
-                                            rosterName={rosterName}
-                                            players={players}
-                                            isCoach={isCoach}
-                                            newPlayerEmailsForRoster={newPlayerEmailsForRoster}
-                                            onAddPlayer={onAddPlayer}
-                                            currentUserId={currentUserId}
-                                            invitations={invitations}
-                                            onDeleteRoster={onDeleteRoster}
-                                            teamId={teamId}
-                                        />
-                                    )}
-                                </>
-                            );
-                        }
-                    )}
-
-                {invitations.map(({ email }) => (
-                    <Box mt={3} mb={2}>
+            <Container maxWidth='lg'>
+                <Box
+                    style={{
+                        position: "relative",
+                        minHeight: "83vh",
+                        paddingBottom: "50px",
+                        marginTop: "150px",
+                    }}>
+                    <Typography variant='h2'>{teamName}</Typography>
+                    <h1>Coaches</h1>
+                    <Box mb={2}>
                         <Card>
-                            <Box p={2}>
-                                <p>{email} - Invitation Pending</p>
-                            </Box>
+                            {admins.map(({ name: coachName, profile_img }) => (
+                                <Box width='fit-content' m={2}>
+                                    <Chip
+                                        avatar={
+                                            profile_img ? (
+                                                <Avatar alt={coachName} src={profile_img} />
+                                            ) : (
+                                                <Avatar>{coachName.charAt(0)}</Avatar>
+                                            )
+                                        }
+                                        label={coachName}
+                                        // onClick={handleClick}
+                                        variant='outlined'
+                                        color='secondary'
+                                    />
+                                </Box>
+                            ))}
                         </Card>
                     </Box>
-                ))}
-            </Box>
+                    <Divider />
+                    <h1>Rosters</h1>
+                    {isCoach && (
+                        <>
+                            <Button
+                                startIcon={<GroupAddIcon />}
+                                color='primary'
+                                onClick={() => {
+                                    setShowAddRosterDialog(true);
+                                }}
+                                variant='contained'>
+                                Add Roster
+                            </Button>
+                            <AddRosterDialog
+                                open={showAddRosterDialog}
+                                setOpen={setShowAddRosterDialog}
+                                createRoster={createRoster}
+                                progress={progress}
+                            />
+                            {/* DELETE FUNCTIONALITY TO BE DISSCUSSED */}
+                            <Fab
+                                variant='extended'
+                                size='small'
+                                aria-label='add'
+                                className={classes.fabDelete}
+                                onClick={handleDeleteTeam}>
+                                {deleteProgress ? (
+                                    <CircularProgress color='primary' size='1.8em' />
+                                ) : (
+                                    <>
+                                        <ClearIcon />
+                                        Delete Team
+                                    </>
+                                )}
+                            </Fab>
+                        </>
+                    )}
+                    {/* {false && */}
+                    {rosters &&
+                        rosters.map(
+                            (
+                                { _id: rosterId, name: rosterName, players, invitations = [] },
+                                rosterIndex
+                            ) => {
+                                const newPlayerEmailsForRoster = newPlayerEmails[rosterId] || [];
+                                return (
+                                    <>
+                                        {rosterName && (
+                                            <DisplayRosterItem
+                                                rosterId={rosterId}
+                                                isDefaultRoster={rosterName === "DEFAULT_ROSTER"}
+                                                rosterName={rosterName}
+                                                players={players}
+                                                isCoach={isCoach}
+                                                newPlayerEmailsForRoster={newPlayerEmailsForRoster}
+                                                onAddPlayer={onAddPlayer}
+                                                currentUserId={currentUserId}
+                                                invitations={invitations}
+                                                onDeleteRoster={onDeleteRoster}
+                                                teamId={teamId}
+                                            />
+                                        )}
+                                    </>
+                                );
+                            }
+                        )}
+
+                    {invitations.map(({ email }) => (
+                        <Box mt={3} mb={2}>
+                            <Card>
+                                <Box p={2}>
+                                    <p>{email} - Invitation Pending</p>
+                                </Box>
+                            </Card>
+                        </Box>
+                    ))}
+                </Box>
+            </Container>
             <CustomSnackbar message={message} setMessage={setMessage} type={snackbarType} />
         </>
     );

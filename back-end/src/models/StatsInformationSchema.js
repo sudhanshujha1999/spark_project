@@ -7,11 +7,19 @@ const StatsInformationSchema = new Schema(
             type: String,
             required: true,
         },
+        is_goal: {
+            type: Boolean,
+            required: true,
+        },
+        is_stat: {
+            type: Boolean,
+            required: true,
+        },
         game: {
             type: String,
             required: true,
         },
-        is_team_stat: {
+        for_team: {
             type: Boolean,
             default: false,
         },

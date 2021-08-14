@@ -5,7 +5,14 @@ import {
   SignInPage,
 } from './auth'
 import { DashboardPage, CreateOrganizationPage } from './dashboard'
-import { GoalSettingPage } from './goal-setting'
+import { CommunityPage } from './community'
+import {
+  GoalSettingPage,
+  ChoosePlayer,
+  ChooseTeam,
+  CreateGoal,
+  GoalPage,
+} from './goal-setting'
 import { InvitationLandingPage } from './invitations'
 import { TermsAndPrivacy } from './legal'
 import { MemberDetailPage, ProfilePage } from './members'
@@ -14,13 +21,16 @@ import { LandingPage } from './landing-page'
 import { RostersPage } from './rosters'
 import { SchedulingPage } from './scheduling'
 import { TeamInfoForm, EditTeamInfo } from './teams'
-import { WarRoom, SessionDetails } from './war-room'
-import { ChooseTeam } from './goal-setting'
-import { ChoosePlayer } from './goal-setting'
+import { WarRoom, SessionDetails, Scrimmages } from './war-room'
 
 export const createTeamRoute = {
   path: '/new-team/:id',
   component: TeamInfoForm,
+}
+
+export const communityPageRoute = {
+  path: '/community',
+  component: CommunityPage,
 }
 
 export const dashboardRoute = {
@@ -46,6 +56,10 @@ export const goalSettingRoute = {
   path: '/goals',
   component: GoalSettingPage,
 }
+export const goalRoute = {
+  path: '/:goalId/goals/',
+  component: GoalPage,
+}
 export const goalChooseTeamRoute = {
   path: '/goals/chooseteam',
   component: ChooseTeam,
@@ -53,6 +67,10 @@ export const goalChooseTeamRoute = {
 export const goalChoosePlayerRoute = {
   path: '/goals/chooseplayer',
   component: ChoosePlayer,
+}
+export const goalCreateRoute = {
+  path: '/goals/create-goal',
+  component: CreateGoal,
 }
 
 export const invitationLandingRoute = {
@@ -125,6 +143,11 @@ export const signInRoute = {
   component: SignInPage,
   isPublic: true,
   hideNav: true,
+}
+
+export const allScrimmageRoute = {
+  path: '/scrimmages',
+  component: Scrimmages,
 }
 
 export const termsAndPrivacyRoute = {

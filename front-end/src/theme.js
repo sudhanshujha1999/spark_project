@@ -1,8 +1,8 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
 
-export const theme = createMuiTheme({
+export const theme = createTheme({
     palette: {
-        type: "dark",
+        mode: "dark",
         primary: {
             main: "#7289da",
         },
@@ -10,8 +10,17 @@ export const theme = createMuiTheme({
             main: "#ffd369",
         },
         background: {
-            paper: "#393e46",
+            paper: "#171717",
             default: "#222831",
+        },
+    },
+    breakpoints: {
+        values: {
+            xs: 0,
+            sm: 600,
+            md: 960,
+            lg: 1280,
+            xl: 1920,
         },
     },
     typography: {
@@ -20,42 +29,59 @@ export const theme = createMuiTheme({
     shape: {
         borderRadius: 2,
     },
-    overrides: {
+    components: {
+        MuiPaper: {
+            styleOverrides: {
+                root: {
+                    backgroundImage: "unset",
+                },
+                elevation2: {
+                    boxShadow: "0px 3px 15px rgba(139,21,178,0.3)",
+                },
+            },
+        },
         MuiFab: {
-            primary: {
-                backgroundImage: "linear-gradient(to right, #895cf2 0%, #ffabf4 50%, #895cf2 100%)",
-                color: "#fafafa",
-                transition: "all 0.5s ease-out",
-                backgroundSize: "300% 300%",
-                "&:hover": {
-                    backgroundPosition: "right center",
+            styleOverrides: {
+                primary: {
+                    backgroundImage:
+                        "linear-gradient(to right, #895cf2 0%, #ffabf4 50%, #895cf2 100%)",
+                    color: "#fafafa",
+                    transition: "all 0.5s ease-out",
+                    backgroundSize: "300% 300%",
+                    "&:hover": {
+                        backgroundPosition: "right center",
+                    },
                 },
             },
         },
         MuiButton: {
-            root: {
-                fontWeight: 600,
-                letterSpacing: "1.2px",
-                "&.Mui-disabled": {
-                    backgroundImage: "none",
+            styleOverrides: {
+                root: {
+                    fontWeight: 600,
+                    letterSpacing: "1.2px",
+                    "&.Mui-disabled": {
+                        backgroundImage: "none",
+                    },
                 },
-            },
-            containedPrimary: {
-                backgroundImage: "linear-gradient(to right, #895cf2 0%, #ffabf4 50%, #895cf2 100%)",
-                color: "#fafafa",
-                transition: "all 0.5s ease-out",
-                backgroundSize: "300% 300%",
-                "&:hover": {
-                    backgroundPosition: "right center",
+                containedPrimary: {
+                    backgroundImage:
+                        "linear-gradient(to right, #895cf2 0%, #ffabf4 50%, #895cf2 100%)",
+                    color: "#fafafa",
+                    transition: "all 0.5s ease-out",
+                    backgroundSize: "300% 300%",
+                    "&:hover": {
+                        backgroundPosition: "right center",
+                    },
                 },
-            },
-            containedSecondary: {
-                backgroundImage: "linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%)",
-                color: "#464646",
-                transition: "all 0.5s ease-out",
-                backgroundSize: "300% 300%",
-                "&:hover": {
-                    backgroundPosition: "right center",
+                containedSecondary: {
+                    backgroundImage:
+                        "linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%)",
+                    color: "#464646",
+                    transition: "all 0.5s ease-out",
+                    backgroundSize: "300% 300%",
+                    "&:hover": {
+                        backgroundPosition: "right center",
+                    },
                 },
             },
         },

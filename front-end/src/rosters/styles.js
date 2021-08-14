@@ -1,7 +1,11 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import addRosterContainerBackground from "../img/tornadoBg.svg";
 import purple from "@material-ui/core/colors/purple";
 import teamPic from "../img/teamPic.jpg";
+
+const bezierValue = "cubic-bezier(.41,-0.31,.64,1.43)";
+const duration = "0.35s";
+const cardHeight = 65;
 
 export const useStyles = makeStyles((theme) => ({
     // orgName: {
@@ -33,7 +37,7 @@ export const useStyles = makeStyles((theme) => ({
             top: 0,
             left: 0,
             zIndex: "-998",
-            background: "linear-gradient(0deg, rgba(34,40,49,1) 30%, rgba(255,255,255,0) 100%)",
+            background: "linear-gradient(0deg, rgb(28 30 35) 30%, rgba(255,255,255,0) 100%)",
         },
         [theme.breakpoints.down("sm")]: {
             width: "120%",
@@ -56,7 +60,6 @@ export const useStyles = makeStyles((theme) => ({
         color: "#eaeaea",
         backgroundImage: "linear-gradient(to right, #eb3941, #f15e64, #e14e53, #e2373f)",
         backgroundSize: "300% 300%",
-        color: "#fafafa",
         transition: "all 0.5s ease-out",
         "&:hover": {
             backgroundPosition: "right center",
@@ -75,7 +78,7 @@ export const useStyles = makeStyles((theme) => ({
         },
     },
     accordianConatiner: {
-        backgroundColor: "transparent",
+        backgroundColor: "rgba(0,0,0,0)",
         boxShadow: "0px 0px 15px 2px rgb(255 255 255 / 10%)",
     },
     accordianDetails: {
@@ -91,7 +94,7 @@ export const useStyles = makeStyles((theme) => ({
         padding: "0 20px",
         flexFlow: "column",
         backgroundImage: `url(${addRosterContainerBackground})`,
-        backgroundColor: "#7b7b7b",
+        // backgroundColor: "#7b7b7b",
         backgroundSize: "cover",
         backgroundPosition: "bottom",
         backgroundBlendMode: "multiply",
@@ -117,66 +120,182 @@ export const useStyles = makeStyles((theme) => ({
             backgroundColor: purple[800],
         },
     },
+    // PLAYER CARD
     playerCardConatiner: {
-        maxWidth: "200px",
-        height: "250px",
         position: "relative",
+        display: "flex",
+        alignItems: "center",
+        backgroundColor: "rgba(48,48,48,0.6)",
+        backdropFilter: "blur(30px)",
+        boxShadow: "0px 0px 10px 2px rgba(0,0,0,0.4)",
+        width: "100%",
+        margin: "10px auto",
+        transition: "all .2s ease-in",
         "&:hover": {
             "& $playerCard": {
                 boxShadow: "0px 5px 15px 2px rgba(255,255,255,0.2)",
             },
         },
     },
-    // PLAYER CARD
+
     playerCard: {
         display: "flex",
-        flexFlow: "column",
         position: "relative",
         zIndex: "3",
+        alignItems: "center",
         height: "100%",
-        margin: "10px auto",
-        backgroundColor: "#303030",
-        padding: "5px 10px",
-        borderRadius: "5px",
-        boxShadow: "0px 0px 10px 2px rgba(0,0,0,0.4)",
         cursor: "pointer",
-        transition: "all .2s ease-in",
     },
-    gradient: {
+    avatar: {
+        height: cardHeight,
+        width: cardHeight,
+        fontSize: "1.5em",
+        color: "#fafafa",
+        backgroundColor: "#000000",
+        backgroundImage: "linear-gradient(315deg, #000000 0%, #2d3436 74%)",
+    },
+    playerDetails: {
+        display: "flex",
+        flexFlow: "column",
+        paddingLeft: "25px",
+        justifyContent: "center",
+        width: "300px",
+        height: cardHeight,
+        backgroundColor: "#5f72be",
+        backgroundImage: "linear-gradient(315deg, #5f72be 0%, #9921e8 74%)",
+    },
+    subHeading: {
+        color: "#c5c5c5",
+    },
+    playerExtraInfo: {
+        display: "flex",
+        flexFlow: "column",
+        padding: "0 25px",
+        justifyContent: "center",
+        height: cardHeight,
+        filter: "drop-shadow(2px 4px 6px rgba(0,0,0,0.5))",
+        position: "relative",
+        "&:before, &:after": {
+            position: "absolute",
+            top: "50%",
+            width: "5px",
+            height: "100%",
+            content: "''",
+            backgroundColor: "#484848",
+            transform: "translateY(-50%) ",
+            left: 0,
+        },
+    },
+    permission: {
+        margin: "0 25px 0 auto",
+        overflow: "hidden",
+        height: cardHeight,
+        display: "flex",
+        alignItems: "center",
+    },
+    permissionContainer: {
+        position: "relative",
+    },
+    currentPermission: {
+        display: "block",
+        fontWeight: 900,
+        transform: "translateY(-100px)",
         position: "absolute",
-        maxWidth: "290px",
-        content: '""',
-        top: "50%",
-        borderRadius: "5px",
-        left: "50%",
-        transform: "translate(-50%,-50%)",
-        width: "102%",
-        height: "102%",
-        zIndex: "-100",
-        backgroundImage:
-            "linear-gradient(460deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)",
-        backgroundSize: "300%",
-        backgroundPosition: "right",
-        animation: "$animate 20s infinite alternate",
     },
-    "@keyframes animate": {
+    newPermission: {
+        transform: "translateY(100px)",
+        display: "block",
+        fontWeight: 900,
+    },
+    entryUp: {
+        animationDelay: duration,
+        animation: `$entryUp ${duration} forwards ${bezierValue}`,
+    },
+    entryDown: {
+        animationDelay: duration,
+        animation: `$entryDown ${duration} forwards ${bezierValue}`,
+    },
+    exitDown: {
+        animation: `$exitDown ${duration} forwards ${bezierValue}`,
+    },
+    exitUp: {
+        animation: `$exitUp ${duration} forwards ${bezierValue}`,
+    },
+    "@keyframes entryUp": {
         "0%": {
-            backgroundPosition: "right",
+            transform: "translateY(-100px)",
         },
-        "25%": {
-            backgroundPosition: "bottom",
-        },
-        "50%": {
-            backgroundPosition: "left",
+        "70%": {
+            transform: "translateY(10px)",
         },
         "100%": {
-            backgroundPosition: "top",
+            transform: "translateY(0px)",
         },
     },
-    breakWord: {
-        wordWrap: "break-word",
-        width: "90%",
+    "@keyframes entryDown": {
+        "0%": {
+            transform: "translateY(100px)",
+        },
+        "70%": {
+            transform: "translateY(-10px)",
+        },
+        "100%": {
+            transform: "translateY(0px)",
+        },
     },
+    "@keyframes exitUp": {
+        "0%": {
+            transform: "translateY(0)",
+        },
+        "30%": {
+            transform: "translateY(10px)",
+        },
+        "100%": {
+            transform: "translateY(-100px)",
+        },
+    },
+    "@keyframes exitDown": {
+        "0%": {
+            transform: "translateY(0)",
+        },
+        "30%": {
+            transform: "translateY(-10px)",
+        },
+        "100%": {
+            transform: "translateY(100px)",
+        },
+    },
+    // gradient: {
+    //     width: "100%",
+    //     height: "100%",
+    //     position: "absolute",
+    //     content: '""',
+    //     top: "50%",
+    //     borderRadius: "5px",
+    //     left: "50%",
+    //     transform: "translate(-50%,-50%)",
+    //     zIndex: "-100",
+    //     backgroundImage:
+    //         "linear-gradient(460deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)",
+    //     backgroundSize: "300%",
+    //     backgroundPosition: "right",
+    //     animation: "$animate 20s infinite alternate",
+    // },
+    // "@keyframes animate": {
+    //     "0%": {
+    //         backgroundPosition: "right",
+    //     },
+    //     "25%": {
+    //         backgroundPosition: "bottom",
+    //     },
+    //     "50%": {
+    //         backgroundPosition: "left",
+    //     },
+    //     "100%": {
+    //         backgroundPosition: "top",
+    //     },
+    // },
+
     teamImage: {
         position: "absolute",
         top: "-30px",
@@ -189,11 +308,9 @@ export const useStyles = makeStyles((theme) => ({
         backgroundImage: `url(${teamPic})`,
         backgroundPosition: "center",
         backgroundSize: "cover",
-        boxShadow: "0px 5px 10px 2px rgba(0,0,0,0.2)",
+        boxShadow: "0px 0px 10px 2px rgba(0,0,0,0.2)",
     },
-    playerName: {
-        marginTop: "20px",
-    },
+
     email: {
         position: "absolute",
         bottom: "10px",

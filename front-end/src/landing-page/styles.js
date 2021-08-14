@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import banner from "../img/1624.jpg";
 import addRosterContainerBackground from "../img/tornadoBg.svg";
 import purple from "@material-ui/core/colors/purple";
@@ -56,24 +56,38 @@ export const useStyles = makeStyles((theme) => ({
     // },
 
     // ORG NAME
-
+    logo: {
+        width: "max(50px, 6vw)",
+        animation: "$animateLogo 15s infinite linear",
+    },
+    "@keyframes animateLogo": {
+        "0%": {
+            filter: "hue-rotate(0deg) drop-shadow(2px 4px 6px rgba(0,0,0,0.5))",
+        },
+        "50%": {
+            filter: "hue-rotate(100deg) drop-shadow(2px 4px 6px rgba(0,0,0,0.5))",
+        },
+        "100%": {
+            filter: "hue-rotate(0deg) drop-shadow(2px 4px 6px rgba(0,0,0,0.5))",
+        },
+    },
     orgName: {
-        fontSize: "min(3em, 11vw)",
+        fontSize: "max(3em, 5vw)",
         fontWeight: 700,
         fontFamily: "'Josefin Sans'",
-        color: theme.palette.secondary.main,
+        color: "#fff",
         filter: "drop-shadow(2px 4px 6px rgba(0,0,0,0.5))",
     },
 
     // HEADING
     headingContainer: {
-        width: "min(95vw, 700px)",
+        width: "max(65vw, 700px)",
         minHeight: "90vh",
         margin: "0 auto",
         display: "flex",
         flexFlow: "column",
         justifyContent: "center",
-        alignItems: "flex-start",
+        alignItems: "center",
     },
     formHeading: {
         margin: "20px 0",
@@ -84,15 +98,19 @@ export const useStyles = makeStyles((theme) => ({
         lineHeight: "1em",
         maxWidth: "700px",
         marginBottom: "15px",
-        fontSize: "min(4em, 14vw)",
+        fontSize: "min(3em, 14vw)",
+        alignSelf: "center",
     },
     body: {
         marginBottom: "15px",
-        fontSize: "min(1.4em,8vw)",
-        color: "#dedede",
+        fontSize: "max(1.7em,2vw)",
+        fontWeight: 500,
+        filter: "drop-shadow(2px 4px 6px rgba(0,0,0,0.4))",
+        color: "#e5e5e5",
     },
     nameOrg: {
         position: "relative",
+        color: "#fff",
         fontFamily: "'Josefin Sans'",
         "&::before": {
             position: "absolute",
@@ -143,15 +161,14 @@ export const useStyles = makeStyles((theme) => ({
         },
     },
     btn: {
+        zIndex: 10000,
         position: "relative",
         borderRadius: 2,
         transition: "all 100ms ease-in",
         marginTop: 10,
-        background: "#ffd369",
         animation: "$pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1)",
         "&:hover": {
             animation: "none",
-            background: "#cba956",
         },
     },
     "@keyframes pulse": {
@@ -252,12 +269,13 @@ export const useStyles = makeStyles((theme) => ({
 
     // CARD STYLES
     cardContainer: {
-        width: "min(500px, 95vw)",
+        width: "min(600px, 95vw)",
         minHeight: 350,
         display: "flex",
         flexFlow: "column",
         margin: "50px auto 0",
         padding: "30px",
+        paddingTop: 0,
         position: "relative",
         "&:hover": {
             "& $cardHeading": {
@@ -270,27 +288,27 @@ export const useStyles = makeStyles((theme) => ({
     },
     cardBorder: {
         position: "absolute",
-        top: "-40%",
+        top: "-35%",
         width: "104%",
-        height: "160%",
+        height: "140%",
         zIndex: "0",
         filter: "drop-shadow(2px 4px 6px black)",
         transform: "scale(1)",
         transition: "all 0.2s ease-out",
     },
     cardBorderLeft: {
-        top: "-52%",
+        top: "-42%",
         left: "-40%",
-        height: "170%",
+        height: "140%",
     },
     cardBorderRight: {
-        top: "-22%",
+        top: "-10%",
         right: "-40%",
     },
     cardBg: {
         position: "absolute",
         top: 12,
-        height: "300px",
+        height: "80%",
         objectPosition: "center",
         transform: "scale(1)",
         filter: "drop-shadow(3px 5px 10px rgb(0 0 0 / 90%))",
@@ -298,10 +316,11 @@ export const useStyles = makeStyles((theme) => ({
         transition: "all 0.2s ease-out",
     },
     cardBgRight: {
-        right: "-20%",
+        right: "-10%",
+        top: "5%",
     },
     cardBgLeft: {
-        left: "-15%",
+        left: "-8%",
     },
     infoContainerLeft: {
         marginLeft: "30%",
@@ -310,7 +329,7 @@ export const useStyles = makeStyles((theme) => ({
         marginRight: "30%",
     },
     cardHeading: {
-        fontSize: "1.8em",
+        fontSize: "1.3em",
         width: "fit-content",
         margin: "25px 0",
         border: "1px solid white",

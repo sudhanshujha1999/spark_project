@@ -12,7 +12,7 @@ import {
     Typography,
 } from "@material-ui/core";
 import SparkLogo from "../img/logo.svg";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import { SignOutButton } from "../auth";
 import {
     AccountCircleIcon,
@@ -51,7 +51,7 @@ const navSections = [
             {
                 name: "Community",
                 icon: SupervisedUserCircleIcon,
-                // link: '/community',
+                link: "/community",
             },
         ],
     },
@@ -107,7 +107,9 @@ export const SideNav = () => {
                             />
                         </Icon>
                         {/* <WhatshotIcon fontSize='large' color='primary' /> */}
-                        <Typography className={classes.logoName}>SPARK ESPORTS</Typography>
+                        <Typography className={open ? classes.logoName : classes.close}>
+                            SPARK ESPORTS
+                        </Typography>
                     </Box>
                 </Link>
                 <List>
@@ -115,7 +117,8 @@ export const SideNav = () => {
                     <Box my={2} />
                     {navSections.map((section) => (
                         <>
-                            <ListSubheader className={!open ? classes.close : ""}>
+                            <ListSubheader
+                                className={!open ? classes.close : classes.sectionNameOpen}>
                                 {section.name}
                             </ListSubheader>
                             {section.items.map((item, index) =>
@@ -193,9 +196,9 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
     },
     logoName: {
-        marginLeft: "18px",
+        marginLeft: "15px",
         letterSpacing: 2,
-        fontSize: "1.25em",
+        fontSize: "1.15em",
         fontWeight: 700,
         fontFamily: "'Josefin Sans'",
         color: "#fafafa",
@@ -225,6 +228,11 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.default,
         borderRadius: "30px 0 0 30px",
     },
+    sectionNameOpen: {
+        fontSize: "1.2em",
+        margin: "5px 0",
+        backgroundColor: "transparent",
+    },
     close: {
         opacity: 0,
     },
@@ -239,7 +247,7 @@ const useStyles = makeStyles((theme) => ({
         borderRight: "none",
         backgroundImage: "linear-gradient(183deg, rgba(57,62,70,1) 0%, rgba(26,28,32,1) 100%)",
         // boxShadow:
-        //     "rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px",
+        //   'rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px',
     },
     drawerPaperClose: {
         backgroundImage: "linear-gradient(183deg, rgba(57,62,70,1) 0%, rgba(26,28,32,1) 100%)",

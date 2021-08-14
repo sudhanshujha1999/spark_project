@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { SessionItem } from "./SessionItem";
 
-export const AllSessions = ({ sessions = [] }) => {
+export const AllSessions = ({ sessions = [], height }) => {
     const classes = useStyles();
     const history = useHistory();
     const [upcoming, setUpcoming] = useState([]);
@@ -49,7 +49,7 @@ export const AllSessions = ({ sessions = [] }) => {
     }, [sessions]);
 
     return (
-        <Box>
+        <Box ref={height}>
             <Grid container>
                 <Grid item xs={12}>
                     <Box mb={4}>
@@ -58,7 +58,7 @@ export const AllSessions = ({ sessions = [] }) => {
                         </Typography>
                     </Box>
                 </Grid>
-                {upcoming.lenght > 0 ? (
+                {upcoming.length > 0 ? (
                     <>
                         <Grid item className={classes.eventGradient} xs={12}>
                             <Box className={`${classes.eventsContainer} ${classes.customScrollX}`}>

@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
 import { red, blue, purple, yellow, orange, green, grey } from "@material-ui/core/colors";
 import bg from "../img/background.jpg";
 const bezierValue = "cubic-bezier(0.26, 1, 0.43, 0.93)";
@@ -47,6 +47,60 @@ export const useStyles = makeStyles((theme) => ({
             background:
                 "linear-gradient(90deg, #ffef2e 0%, rgb(240 100 68) 30%, rgba(250,250,250,0) 60%)",
         },
+    },
+    // SCRIMMAGE ITEM
+    gameImageContainer: {
+        filter: "drop-shadow(2px 10px 3px rgba(0,0,0,0.6))",
+    },
+    image: {
+        maxWidth: "90px",
+        maxHeight: "60px",
+    },
+    scrimmagePost: {
+        display: "flex",
+        flexFlow: "row",
+        alignItems: "center",
+        padding: "15px",
+        margin: "10px 0",
+        maxWidth: 650,
+    },
+    avatar: {
+        backgroundImage: "linear-gradient(145deg, rgba(57,62,70,1) 0%, rgba(26,28,32,1) 100%)",
+        color: theme.palette.secondary.main,
+        boxShadow: "0px 4px 10px hsl(287deg 68% 42%)",
+        animation: `$animateShadow 5s linear infinite`,
+        width: "60px",
+        fontSize: "1.8em",
+        height: "60px",
+    },
+    "@keyframes animateShadow": {
+        "0%": {
+            boxShadow: "1px 4px 10px hsl(287deg 80% 42%)",
+        },
+        "20%": {
+            boxShadow: "-4px 1px 10px hsl(207deg 80% 42%)",
+        },
+        "40%": {
+            boxShadow: "1px -4px 10px hsl(17deg 80% 42%)",
+        },
+        "80%": {
+            boxShadow: "4px 1px 10px hsl(57deg 80% 42%)",
+        },
+        "100%": {
+            boxShadow: "1px 4px 10px hsl(287deg 80% 42%)",
+        },
+    },
+    requestBox: {
+        padding: "10px",
+        margin: "10px 0",
+        border: "1px solid rgba(0,0,0,0.6)",
+        boxShadow: `0px 0px 10px 2px rgba(255,255,255, 0.1)`,
+        borderRadius: theme.shape.borderRadius,
+        backgroundColor: theme.palette.background.default,
+        display: "flex",
+        flexFlow: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
     },
     // ADD SESSION DIALOG
     addSessionContainer: {
@@ -225,6 +279,10 @@ export const useStyles = makeStyles((theme) => ({
     },
 
     // leagure Records
+    leagueContainer: {
+        overflowY: "auto",
+        width: "100%",
+    },
     newsContainer: {
         marginRight: "20px",
         position: "relative",
@@ -251,21 +309,6 @@ export const useStyles = makeStyles((theme) => ({
     label: {
         padding: "0 5px",
         backgroundColor: theme.palette.background.paper,
-    },
-    overlay: {
-        height: 20,
-        position: "relative",
-        "&:before": {
-            position: "absolute",
-            content: '""',
-            width: "100%",
-            height: 10,
-            bottom: 0,
-            left: 0,
-            zIndex: "2",
-            pointerEvents: "none",
-            background: "linear-gradient(0deg, rgba(34,40,49,1) 0%, rgba(255,255,255,0) 100%)",
-        },
     },
 
     newsBox: {

@@ -60,8 +60,8 @@ export const HeadingForm = ({ nextStep }) => {
                 spoke with us already!
             </Typography>
             <TextField
-                variant="filled"
-                label="Email"
+                variant='filled'
+                label='Email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className={classes.textfield}
@@ -71,17 +71,17 @@ export const HeadingForm = ({ nextStep }) => {
                 InputProps={{ disableUnderline: true }}
             />
             <Box className={classes.selectContainer}>
-                <FormControl variant="filled" className={`${classes.textfield} ${classes.select}`}>
-                    <InputLabel id="-select-filled-label" className={classes.label}>
+                <FormControl variant='filled' className={`${classes.textfield} ${classes.select}`}>
+                    <InputLabel id='-select-filled-label' className={classes.label}>
                         Who are you
                     </InputLabel>
                     <Select
                         disableUnderline
                         MenuProps={{ disableScrollLock: true }}
-                        labelId="select-filled-label"
+                        labelId='select-filled-label'
                         value={userType}
                         onChange={(e) => setUserType(e.target.value)}>
-                        <MenuItem value="">
+                        <MenuItem value=''>
                             <em>None</em>
                         </MenuItem>
                         <MenuItem value={"Coach"}>Coach</MenuItem>
@@ -89,17 +89,17 @@ export const HeadingForm = ({ nextStep }) => {
                         <MenuItem value={"Captain"}>Captain</MenuItem>
                     </Select>
                 </FormControl>
-                <FormControl variant="filled" className={`${classes.textfield} ${classes.select}`}>
-                    <InputLabel id="-select-filled-label" className={classes.label}>
+                <FormControl variant='filled' className={`${classes.textfield} ${classes.select}`}>
+                    <InputLabel id='-select-filled-label' className={classes.label}>
                         Organization Level
                     </InputLabel>
                     <Select
                         disableUnderline
                         MenuProps={{ disableScrollLock: true }}
-                        labelId="select-filled-label"
+                        labelId='select-filled-label'
                         value={userLevel}
                         onChange={(e) => setUserLevel(e.target.value)}>
-                        <MenuItem value="">
+                        <MenuItem value=''>
                             <em>None</em>
                         </MenuItem>
                         <MenuItem value={"Pro"}>Pro</MenuItem>
@@ -109,8 +109,8 @@ export const HeadingForm = ({ nextStep }) => {
                 </FormControl>
             </Box>
             <TextField
-                variant="filled"
-                label="Organization Name"
+                variant='filled'
+                label='Organization Name'
                 value={organisation}
                 onChange={(e) => setOrganisation(e.target.value)}
                 className={classes.textfield}
@@ -120,8 +120,8 @@ export const HeadingForm = ({ nextStep }) => {
                 InputProps={{ disableUnderline: true }}
             />
             <TextField
-                variant="filled"
-                label="Did someone refer you? If so who?"
+                variant='filled'
+                label='Did someone refer you? If so who?'
                 value={refer}
                 onChange={(e) => setRefer(e.target.value)}
                 className={classes.textfield}
@@ -131,12 +131,12 @@ export const HeadingForm = ({ nextStep }) => {
                 InputProps={{ disableUnderline: true }}
             />
             <Button
-                disableElevation
+                color='secondary'
                 className={classes.btn}
-                variant="contained"
+                variant='contained'
                 disabled={sending}
                 onClick={handleSubmit}>
-                {sending ? <CircularProgress size="2em" /> : "Submit"}
+                {sending ? <CircularProgress size='2em' /> : "Submit"}
             </Button>
             {error && <Box className={classes.error}>{error}</Box>}
         </Box>

@@ -1,5 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/styles'
 import blue from '@material-ui/core/colors/blue'
+import teamPic from '../img/teamPic.jpg'
 const bezierValue = 'cubic-bezier(0.26, 1, 0.43, 0.93)'
 
 export const useStyles = makeStyles((theme) => ({
@@ -58,7 +59,7 @@ export const useStyles = makeStyles((theme) => ({
         boxShadow: '0px 5px 10px rgba(0,0,0,0.3)',
       },
       '& $rank': {
-        top: '-15%',
+        top: '-11%',
         right: '-7%',
         backgroundColor: 'rgba(0,0,0,0.6)',
       },
@@ -173,22 +174,279 @@ export const useStyles = makeStyles((theme) => ({
     opacity: 0,
     position: 'absolute',
     width: '100%',
-    top: '60%',
+    top: '70%',
     left: '50%',
     transform: 'translateX(-50%)',
     display: 'flex',
-    flexFlow: 'column',
+    flexDirection: 'column',
     alignItems: 'center',
   },
   gameName: {
     fontSize: '1.4em',
     fontWeight: 700,
+    textAlign: 'center',
   },
   teamCardBtn: {
     marginTop: '50px',
     borderRadius: '20px',
     '&:hover': {
       boxShadow: '0px 5px 10px rgba(0,0,0,0.4)',
+    },
+  },
+  // PLAYER CARD
+  playerCardConatiner: {
+    maxWidth: '200px',
+    height: '250px',
+    position: 'relative',
+    '&:hover': {
+      '& $playerCard': {
+        boxShadow: '0px 5px 15px 2px rgba(255,255,255,0.2)',
+      },
+    },
+  },
+  playerCard: {
+    display: 'flex',
+    flexFlow: 'column',
+    position: 'relative',
+    zIndex: '3',
+    height: '100%',
+    margin: '10px auto',
+    backgroundColor: '#303030',
+    padding: '5px 10px',
+    borderRadius: '5px',
+    boxShadow: '0px 0px 10px 2px rgba(0,0,0,0.4)',
+    cursor: 'pointer',
+    transition: 'all .2s ease-in',
+  },
+  gradient: {
+    position: 'absolute',
+    maxWidth: '290px',
+    content: '""',
+    top: '50%',
+    borderRadius: '5px',
+    left: '50%',
+    transform: 'translate(-50%,-50%)',
+    width: '102%',
+    height: '102%',
+    zIndex: '-100',
+    backgroundImage:
+      'linear-gradient(460deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)',
+    backgroundSize: '300%',
+    backgroundPosition: 'right',
+    animation: '$animate 20s infinite alternate',
+  },
+  '@keyframes animate': {
+    '0%': {
+      backgroundPosition: 'right',
+    },
+    '25%': {
+      backgroundPosition: 'bottom',
+    },
+    '50%': {
+      backgroundPosition: 'left',
+    },
+    '100%': {
+      backgroundPosition: 'top',
+    },
+  },
+  breakWord: {
+    wordWrap: 'break-word',
+    width: '90%',
+  },
+  teamImage: {
+    position: 'absolute',
+    top: '-30px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    width: '50px',
+    height: '50px',
+    zIndex: '200',
+    borderRadius: '50%',
+    backgroundImage: `url(${teamPic})`,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    boxShadow: '0px 5px 10px 2px rgba(0,0,0,0.2)',
+  },
+  playerName: {
+    marginTop: '20px',
+  },
+
+  //goal styles
+
+  goalCard: {
+    position: 'relative',
+    zIndex: '10',
+    width: '300px',
+    zIndex: '15',
+    backgroundColor: 'rgb(23, 23, 23)',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    borderRadius: '5px',
+    '&:hover': {
+      transition: `all 500ms ${bezierValue}`,
+      transform: 'scale(1.05)',
+      '& $goalCardImg': {
+        boxShadow: '0px 5px 10px rgba(0,0,0,0.3)',
+        transition: `all 500ms ${bezierValue}`,
+        transform: 'scale(1.05)',
+      },
+    },
+  },
+  goalCardImg: {
+    zIndex: '5',
+    position: 'relative',
+    top: '0%',
+    width: '200px',
+    height: '250px',
+    alignSelf: 'center',
+    backgroundSize: 'cover',
+    backgroundPosition: 'top',
+    borderRadius: '10px',
+    boxShadow: '0px 3px 10px rgba(0,0,0,0.2)',
+  },
+  goalCardGameName: {
+    position: 'relative',
+    zIndex: '5',
+    margin: '10px 0',
+    fontSize: '1.3em',
+    color: '#fff',
+    textAlign: 'left',
+    opacity: 1,
+    textAlign: 'center',
+  },
+  goalCardPlayerName: {
+    position: 'relative',
+    zIndex: '5',
+    margin: '10px 0',
+    fontSize: '1.3em',
+    color: '#fff',
+    textAlign: 'left',
+    opacity: 1,
+    textAlign: 'center',
+
+    cursor: 'pointer',
+    '&:hover': {
+      color: theme.palette.primary.main,
+    },
+  },
+
+  //goal page styles
+
+  goalName: {
+    position: 'relative',
+    width: 'fit-content',
+    fontSize: '45px',
+  },
+
+  headingMedium: {
+    fontSize: '2em',
+    width: 'fit-content',
+    position: 'relative',
+    '&:before': {
+      position: 'absolute',
+      content: '""',
+      width: '150%',
+      height: '3px',
+      bottom: '-6px',
+      left: 0,
+      borderRadius: '0px 5px 5px 15px',
+      zIndex: '2',
+      background:
+        'linear-gradient(90deg, rgba(213,105,255,1) 0%, rgba(68,161,240,1) 30%, rgba(250,250,250,0) 60%)',
+    },
+  },
+
+  goalText: {
+    position: 'relative',
+    fontSize: '1.5em',
+    margin: '1em',
+  },
+
+  //goal page- color picker
+
+  swatch: {
+    width: '30px',
+    maxWidth: '30px',
+    zIndex: '3',
+    height: '30px',
+    borderRadius: '50%',
+
+    boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
+    display: 'inline-block',
+    cursor: 'pointer',
+  },
+  popover: {
+    opacity: 1,
+    position: 'relative',
+    right: '275px',
+    padding: '20px',
+    width: '300px',
+    height: '100px',
+    zIndex: '2',
+    background: '#2f3640',
+    borderRadius: '10px',
+    border: '1px solid #fff',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cover: {
+    position: 'relative',
+    width: '80%',
+    height: '80%',
+  },
+
+  //goal page - data modal
+
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '400px',
+    height: '400px',
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #fff',
+    borderRadius: '10px',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+
+  //goal-page show data
+
+  datasContainer: {
+    width: '100%',
+    opacity: '0.8',
+    padding: '30px',
+    borderRadius: '0',
+  },
+
+  dataContainer: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    margin: '10px',
+    alignItems: 'center',
+    border: '1px solid #895cf2',
+    borderRadius: '0',
+    padding: '10px 20px',
+    transition: 'box-shadow .3s',
+    '&:hover': {
+      boxShadow: '0 0 8px #ffd369',
+    },
+  },
+
+  dataDeleteButton: {
+    transition: 'box-shadow .3s',
+    '&:hover': {
+      boxShadow: '0 0 2px #e84118',
     },
   },
 
