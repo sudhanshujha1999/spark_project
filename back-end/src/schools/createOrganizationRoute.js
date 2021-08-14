@@ -11,10 +11,10 @@ export const createOrganizationRoute = {
     method: "post",
     protectors: [isLoggedInProtector, isVerifiedProtector, isOnboardedProtector],
     handler: async (req, res) => {
-        const { name, image_url, location, organization_level } = req.body;
+		const { orgName, orgType, city, state, zipCode, image_url } = req.body;
         const { user_id: userId } = req.user;
         try {
-            if (name === "" || organization_level === "") {
+            if (orgName === "" || orgType === "") {
                 return res.status(401).json({ message: "fileds-not-filled" });
             }
             const user = await getUserByAuthId(userId);
@@ -22,11 +22,13 @@ export const createOrganizationRoute = {
                 return res.status(404).json({ message: "no-user-found" });
             }
             const groupId = await createOrganization({
-                name: name,
+                name: orgName,
+                orgType,
+				city,
+				state,
+				zipCode,
                 creatorId: user._id,
                 image_url,
-                location,
-                organization_level,
             });
             const newUser = await user.updateOne(
                 { $push: { organizations: groupId } },

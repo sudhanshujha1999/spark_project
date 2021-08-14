@@ -30,6 +30,7 @@
     "react-scripts": "4.0.0",
     "recoil": "0.1.2",
     "recoil-persist": "0.7.0",
+    "usa-states": "0.0.5",
     "web-vitals": "0.2.4"
   },
   "scripts": {

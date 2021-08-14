@@ -43,8 +43,10 @@ const GroupsSchema = new Schema(
         image_url: String,
         // Filled only orgs
         organization_code: String,
-        organization_level: String,
-        location: String,
+        orgType: String,
+		city: String,
+		state: String,
+		zipCode: String,
         // TAKEN PLAYERS AND DUPLICATING DATA CAUSE WE WILL NEED TO GET THAT PLAYER EVERY TIME A GROUP IS CALLED, THIS WILL BE POPULATED ONLY FOR TEAMS AND ROSTER
         players: [
             {
