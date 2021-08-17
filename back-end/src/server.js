@@ -59,7 +59,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "build")));
 
 // initialize discord startegy
-// app.use(passport.initialize());
+app.use(passport.initialize());
 discordStrategy(app);
 
 const apiRouter = express.Router();
@@ -71,10 +71,6 @@ routes.forEach((route) => {
           };
     apiRouter[route.method](
         route.path,
-        (req, res, next) => {
-            res.header("Access-Control-Allow-Origin", "*");
-            next();
-        },
         middleware,
         addUserToRoute,
         protectRoute(route.protectors),

@@ -143,6 +143,7 @@ export const UserInfo = () => {
                             <Button
                                 color='primary'
                                 variant='contained'
+                                size='small'
                                 endIcon={<EditIcon fontSize='small' />}
                                 component='label'
                                 className={classes.editBtn}>

@@ -12,7 +12,10 @@ export const routes = [
     updateUserRoute,
 ];
 
+export { createUserInAuth } from "./createUserInAuth";
 export { createUserInDB } from "./createUserInDB";
+export { createUserCustomToken } from "./createUserCustomToken";
+export { updateDiscordInfo } from "./updateDiscordInfo";
 export { getUserByEmail } from "./getUserByEmail";
 export { getUserById } from "./getUserById";
 export { getUserByAuthId } from "./getUserByAuthId";
