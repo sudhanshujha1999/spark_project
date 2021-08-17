@@ -5,10 +5,12 @@ import { createAdminPermissionForGroup } from "../permissions";
 
 export const createOrganization = async ({
     name,
+    orgType,
+	city,
+	state,
+	zipCode,
     creatorId,
     image_url,
-    location,
-    organization_level,
 }) => {
     const userDetails = await Users.findById(creatorId);
     const findIfGroupExist = await Groups.findOne({ name: name, group_type: ORGANIZATION });
@@ -32,12 +34,14 @@ export const createOrganization = async ({
         },
     ];
     const newOrganization = new Groups({
-        name: name,
+        name,
+		orgType,
+		city,
+		state,
+		zipCode,
         image_url,
         group_type: ORGANIZATION,
         created_by: creatorId,
-        location,
-        organization_level: organization_level,
         organization_code: organization_code,
         admins: admin,
     });

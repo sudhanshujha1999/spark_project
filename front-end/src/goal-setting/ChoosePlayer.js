@@ -22,11 +22,9 @@ export const ChoosePlayer = () => {
     useOrganizations()
   let selectedTeam = {}
   if (!isLoadingOrganizations) {
-    console.log(organizations.teams)
     selectedTeam = organizations.teams.find(
       (team) => team._id === selectedTeamId
     )
-    console.log(selectedTeam)
   }
 
   return (
@@ -36,7 +34,7 @@ export const ChoosePlayer = () => {
       }}
     >
       {selectedTeam.players && selectedTeam.players.length > 0 ? (
-        <Grid container spacing={4} alignItems='center'>
+        <Grid container spacing={4}>
           {selectedTeam.players.map(
             (
               {
@@ -48,26 +46,24 @@ export const ChoosePlayer = () => {
               },
               index
             ) => (
-              <>
-                <Grid item xs={12} md={4} lg={3}>
-                  <PlayerCard
-                    teamId={selectedTeamId}
-                    playerId={playerId}
-                    bio={bio}
-                    clickable={isCoach || playerId === currentUserId}
-                    playerName={playerName}
-                    gamerName={gamerName}
-                    email={email}
-                    index={index}
-                  />
-                </Grid>
-              </>
+              <Grid item xs={12} sm={6} md={4} lg={3} key={playerId}>
+                <PlayerCard
+                  teamId={selectedTeamId}
+                  playerId={playerId}
+                  bio={bio}
+                  clickable={isCoach || playerId === currentUserId}
+                  playerName={playerName}
+                  gamerName={gamerName}
+                  email={email}
+                  index={index}
+                />
+              </Grid>
             )
           )}
         </Grid>
       ) : (
         <Box>
-          <Typography variant='h5'>No player is the roster</Typography>
+          <Typography variant='h5'>You haven't added any players to this roster yet</Typography>
         </Box>
       )}
     </Box>

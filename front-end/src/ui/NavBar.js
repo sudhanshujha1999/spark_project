@@ -1,60 +1,72 @@
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Box from "@material-ui/core/Box";
-import { Icon, Typography } from "./";
-import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/styles";
-import SparkLogo from "../img/logo.svg";
-import { useCurrentUser, SignOutButton } from "../auth";
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Box from '@material-ui/core/Box'
+import { Icon, Typography } from './'
+import { Link } from 'react-router-dom'
+import Button from '@material-ui/core/Button'
+import { makeStyles } from '@material-ui/styles'
+import SparkLogo from '../img/logo.svg'
+import { useCurrentUser, SignOutButton } from '../auth'
+import { useLoadNotifications, NotificationsButton } from '../notifications'
 
 export const NavBar = () => {
     const classes = useStyles();
     const { isLoading, user: currentUser } = useCurrentUser();
 
-    return (
-        <AppBar swid='nav-bar' position='fixed' className={classes.appBar} p={2}>
-            <Toolbar>
-                <Box className={classes.logo} style={{ flex: 10 }}>
-                    {!currentUser && (
-                        <>
-                            <Icon fontSize='large'>
-                                <img
-                                    style={{
-                                        width: "100%",
-                                        height: "100%",
-                                    }}
-                                    alt='Spark Logo'
-                                    src={SparkLogo}
-                                />
-                            </Icon>
-                            <Typography className={classes.logoName}>SPARK ESPORTS</Typography>
-                        </>
-                    )}
-                </Box>
-                <Box>
-                    {!isLoading && currentUser ? (
-                        <Box
-                            style={{
-                                display: "flex",
-                                flexFlow: "row",
-                                alignItems: "center",
-                            }}>
-                            <p>Logged in as {currentUser.email}</p>
-                            <Box ml={2}>
-                                <SignOutButton variant='outlined' />
-                            </Box>
-                        </Box>
-                    ) : (
-                        <Link to='/sign-in'>
-                            <Button variant='outlined'>Sign In</Button>
-                        </Link>
-                    )}{" "}
-                </Box>
-            </Toolbar>
-        </AppBar>
-    );
-};
+  useLoadNotifications();
+
+  return (
+    <AppBar
+      swid='nav-bar'
+      position='fixed'
+      className={classes.appBar}
+      p={2}
+    >
+      <Toolbar>
+        <Box className={classes.logo} style={{ flex: 10 }}>
+          {!currentUser && (
+            <>
+              <Icon fontSize='large'>
+                <img
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                  }}
+                  alt='Spark Logo'
+                  src={SparkLogo}
+                />
+              </Icon>
+              <Typography className={classes.logoName}>
+                SPARK ESPORTS
+              </Typography>
+            </>
+          )}
+        </Box>
+        <Box>
+          {!isLoading && currentUser ? (
+            <Box
+              style={{
+                display: 'flex',
+                flexFlow: 'row',
+                alignItems: 'center',
+              }}
+            >
+              <p>Logged in as {currentUser.email}</p>
+			  <NotificationsButton />
+              <Box ml={2}>
+                <SignOutButton variant='outlined' />
+              </Box>
+            </Box>
+          ) : (
+            <Link to='/sign-in'>
+              <Button variant='outlined'>Sign In</Button>
+            </Link>
+          )}{' '}
+        </Box>
+      </Toolbar>
+    </AppBar>
+  )
+}
 
 const useStyles = makeStyles((theme) => ({
     root: {

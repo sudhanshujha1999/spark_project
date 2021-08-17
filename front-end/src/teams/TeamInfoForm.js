@@ -24,10 +24,6 @@ import controller from "../img/controller.png";
 
 const validations = [
     {
-        test: ({ name }) => name.length > 1,
-        errorMessage: "Team name must be 2 characters or longer",
-    },
-    {
         test: ({ game }) => game.length > 1,
         errorMessage: "Please specify what game your team will be playing",
     },
@@ -226,15 +222,6 @@ export const TeamInfoForm = () => {
                     ))}
                     <Box mb={2}>
                         <TextField
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            fullWidth
-                            label='Team Name'
-                            variant='outlined'
-                        />
-                    </Box>
-                    <Box mb={2}>
-                        <TextField
                             value={game}
                             onChange={(e) => {
                                 if (Object.keys(active).length !== 0) {
@@ -262,6 +249,15 @@ export const TeamInfoForm = () => {
                                 {game.name}
                             </Box>
                         ))}
+                    </Box>
+                    <Box mb={2}>
+                        <TextField
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            fullWidth
+                            label='Team Name (if different from game name)'
+                            variant='outlined'
+                        />
                     </Box>
                     <Divider />
                     <Box my={2}>

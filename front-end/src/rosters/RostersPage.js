@@ -143,6 +143,8 @@ export const RostersPage = () => {
         }
     };
 
+	console.log(invitations);
+
     return isLoadingTeam ? (
         <Box className={classes.load}>
             <CircularProgress color='secondary' />
