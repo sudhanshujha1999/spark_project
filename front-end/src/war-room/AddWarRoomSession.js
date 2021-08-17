@@ -71,7 +71,7 @@ export const AddWarRoomSession = ({ handleCancel, teams }) => {
 
     useEffect(() => {
         if (teams) {
-            let arrayTeam = [];
+            let arrayTeam = {};
             teams.forEach((item) => (arrayTeam[`${item.name}`] = item));
             setSearchTeam(arrayTeam);
         }
@@ -147,7 +147,9 @@ export const AddWarRoomSession = ({ handleCancel, teams }) => {
                     />
                     <Autocomplete
                         value={teamName}
-                        options={teams.map((option) => option.name)}
+                        options={teams
+                            .filter((option) => option.editEvents)
+                            .map((option) => option.name)}
                         onChange={(e, option) => {
                             if (option) {
                                 setTeamName(option);
@@ -169,7 +171,9 @@ export const AddWarRoomSession = ({ handleCancel, teams }) => {
                     />
                     <Autocomplete
                         value={gameName}
-                        options={teams.map((option) => option.game)}
+                        options={teams
+                            .filter((option) => option.editEvents)
+                            .map((option) => option.game)}
                         onChange={(e, option) => {
                             if (option) {
                                 setGameName(option);
@@ -199,7 +203,7 @@ export const AddWarRoomSession = ({ handleCancel, teams }) => {
                         value={description}
                         className={classes.sessionTextfield}
                         onChange={(e) => setDescription(e.target.value)}
-                        label='Strategy'
+                        label='Description'
                         multiline
                         placeholder='What will be main topic of this sesson'
                         defaultValue=''
@@ -244,7 +248,11 @@ export const AddWarRoomSession = ({ handleCancel, teams }) => {
                                                 my={2}
                                                 onClick={() => onClickRoster(roster)}
                                                 className={classes.rosterName}>
-                                                <Typography>{roster.name}</Typography>
+                                                <Typography>
+                                                    {roster.name === "DEFAULT_ROSTER"
+                                                        ? "Free Players"
+                                                        : roster.name}
+                                                </Typography>
                                             </Box>
                                         )
                                 )

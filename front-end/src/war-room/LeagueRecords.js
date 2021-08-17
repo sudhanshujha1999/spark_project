@@ -12,7 +12,7 @@ export const LeagueRecords = ({
     teams = [],
     organizationId,
     showActions = true,
-    isCoach = false,
+    hasPermission = false,
     height,
 }) => {
     const classes = useStyles();
@@ -91,7 +91,7 @@ export const LeagueRecords = ({
                                             score={scoreMemo[index]}
                                             updateLeagues={updateLeagues}
                                             handleRemove={handleRemove}
-                                            showActions={showActions && isCoach}
+                                            showActions={showActions && hasPermission}
                                         />
                                     </Grid>
                                 ))
@@ -104,7 +104,7 @@ export const LeagueRecords = ({
                             )}
                         </Grid>
                     </Box>
-                    {showActions && isCoach && (
+                    {showActions && hasPermission && (
                         <Box my={2}>
                             <Button color='secondary' onClick={handleClick} variant='contained'>
                                 Add a league

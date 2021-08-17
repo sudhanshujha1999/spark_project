@@ -9,9 +9,10 @@ import { useOrganizations } from "../teams";
 const tabLabel = ["Home", "Scrimmages"];
 
 export const CommunityPage = () => {
-    const { posts, isLoading, otherScrimmages, updateScrimmages } = usePosts();
+    const { posts, isLoading, updateScrimmages } = usePosts();
     const { organizations } = useOrganizations();
     const { isCoach } = useIsCoach(organizations._id);
+
     const onUpdateScrimmage = () => {
         updateScrimmages(true);
     };
@@ -28,12 +29,7 @@ export const CommunityPage = () => {
             isLoading={isLoading}
             updateScrimmages={onUpdateScrimmage}
         />,
-        <Scrimmages
-            isCoach={isCoach}
-            isLoading={isLoading}
-            scrimmages={otherScrimmages}
-            updateScrimmages={updateScrimmages}
-        />,
+        <Scrimmages isCoach={isCoach} />,
     ];
     return (
         <Box>

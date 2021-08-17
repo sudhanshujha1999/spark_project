@@ -17,9 +17,7 @@ import {
 import { makeStyles } from '@material-ui/styles'
 import { AddPlayersInEvent } from './AddPlayersInEvent'
 import { ColorPicker } from './ColorPicker'
-import moment from 'moment'
 import AddIcon from '@material-ui/icons/Add'
-import CloseIcon from '@material-ui/icons/Close'
 
 const validations = [
   {
@@ -38,6 +36,7 @@ export const NewEventForm = ({
   onSubmitEvent = () => {},
   sending,
   userId,
+  allowedTeams,
 }) => {
   const [date, setDate] = useState(selectedDate)
   const [name, setName] = useState('')
@@ -183,6 +182,7 @@ export const NewEventForm = ({
         userId={userId}
         invitees={invitees}
         setInvitees={setInvitees}
+        allowedTeams={allowedTeams}
       />
       <Button
         onClick={onClick}

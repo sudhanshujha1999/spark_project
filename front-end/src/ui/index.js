@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom'
-
 import Accordion from '@material-ui/core/Accordion'
 import Autocomplete from '@material-ui/core/Autocomplete'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns'
-import Alert from '@material-ui/core/Alert'
+import Alert from '@material-ui/lab/Alert'
 import Avatar from '@material-ui/core/Avatar'
 import Backdrop from '@material-ui/core/Backdrop'
 import Badge from '@material-ui/core/Badge'

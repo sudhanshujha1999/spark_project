@@ -1,13 +1,29 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Box, Button, Container, Dialog, Grid, Typography } from "../ui";
 import { CreateScrimmagePage } from "./CreateScrimmagePage";
 import { ScrimmagePost } from "./ScrimmagePost";
 import { useStyles } from "./styles";
 import { ChevronRightIcon } from "../icons";
+import { GAMES as allGames, defaultLogo } from "../teams/defaultGames";
+import { useScrimmages } from "./useScrimmages";
 
-export const Scrimmages = ({ isLoading, scrimmages, updateScrimmages, isCoach }) => {
+export const Scrimmages = ({ isCoach }) => {
     const [openCreateScrimmage, setOpenCreateScrimmage] = useState(false);
+    // we can passfilter as argument and can get filtered scrimmages
+    const { isLoading, otherScrimmages: scrimmages, setUpdate: updateScrimmages } = useScrimmages();
+    const [filterByGames, setByGamesFilter] = useState([]);
+
+    const scrimmagesToDisplay = useMemo(() => {
+        if (filterByGames.length) {
+            const scrimmagesForGames = scrimmages.filter(({ game }) =>
+                filterByGames.includes(game.toLowerCase())
+            );
+            return scrimmagesForGames;
+        } else {
+            return scrimmages;
+        }
+    }, [scrimmages, filterByGames]);
     const classes = useStyles();
 
     const onCloseCreatescrimmage = () => {
@@ -20,6 +36,14 @@ export const Scrimmages = ({ isLoading, scrimmages, updateScrimmages, isCoach })
 
     const onSuccess = () => {
         updateScrimmages(true);
+    };
+
+    const addFilter = (game) => {
+        if (filterByGames.includes(game.name.toLowerCase())) {
+            setByGamesFilter(filterByGames.filter((name) => name !== game.name.toLowerCase()));
+        } else {
+            setByGamesFilter([...filterByGames, game.name.toLowerCase()]);
+        }
     };
 
     return (
@@ -48,8 +72,37 @@ export const Scrimmages = ({ isLoading, scrimmages, updateScrimmages, isCoach })
                                 </Box>
                             </Grid>
                         )}
-                        {scrimmages.length > 0 ? (
-                            scrimmages.map((scrimmage) => (
+                        <Grid item xs={12}>
+                            <Box mb={2} display='flex' flexDirection='column'>
+                                <Typography variant='h6'>Filter by games</Typography>
+                                <Box display='flex' flexWrap='wrap'>
+                                    {allGames.map((game) => (
+                                        <Box
+                                            className={`${classes.filterContainer} ${
+                                                filterByGames.includes(game.name.toLowerCase())
+                                                    ? classes.active
+                                                    : ""
+                                            }`}
+                                            mr={1}
+                                            onClick={() => addFilter(game)}
+                                            key={game.name}>
+                                            <Box
+                                                className={classes.filterGameImageContainer}
+                                                mr={2}>
+                                                <img
+                                                    className={classes.imageSmall}
+                                                    src={game.logo ? game.logo : defaultLogo}
+                                                    alt='game'
+                                                />
+                                            </Box>
+                                            <Typography variant='body1'>{game.name}</Typography>
+                                        </Box>
+                                    ))}
+                                </Box>
+                            </Box>
+                        </Grid>
+                        {scrimmagesToDisplay.length > 0 ? (
+                            scrimmagesToDisplay.map((scrimmage) => (
                                 <Grid key={scrimmage._id} item xs={12}>
                                     <ScrimmagePost
                                         isCoach={isCoach}

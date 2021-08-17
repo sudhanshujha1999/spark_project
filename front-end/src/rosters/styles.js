@@ -195,17 +195,20 @@ export const useStyles = makeStyles((theme) => ({
     },
     permissionContainer: {
         position: "relative",
+        width: "200px",
     },
     currentPermission: {
-        display: "block",
-        fontWeight: 900,
+        fontWeight: 600,
         transform: "translateY(-100px)",
         position: "absolute",
+        top: "22%",
+        right: "0",
     },
     newPermission: {
         transform: "translateY(100px)",
         display: "block",
-        fontWeight: 900,
+        fontWeight: 600,
+        width: "100%",
     },
     entryUp: {
         animationDelay: duration,
