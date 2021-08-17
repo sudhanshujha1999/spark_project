@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { COLOR_CODES as colors } from '../util/colorCodes'
+import { COLOR_CODES } from '../util/colorCodes'
 import {
   Alert,
   Box,
@@ -10,19 +10,23 @@ import {
   TextField,
   Tooltip,
   Typography,
+  TimePicker,
+  LocalizationProvider,
+  AdapterDateFns,
 } from '../ui'
 import { makeStyles } from '@material-ui/styles'
 import { AddPlayersInEvent } from './AddPlayersInEvent'
+import { ColorPicker } from './ColorPicker'
+import moment from 'moment'
+import AddIcon from '@material-ui/icons/Add'
+import CloseIcon from '@material-ui/icons/Close'
 
 const validations = [
   {
     test: ({ name }) => name.length > 1,
     errorMessage: 'Name must be 2 characters or longer',
   },
-  {
-    test: ({ time }) => time.length > 1,
-    errorMessage: 'Please specify the time for event',
-  },
+
   {
     test: ({ description }) => description.length > 0,
     errorMessage: 'You must add a description',
@@ -37,11 +41,17 @@ export const NewEventForm = ({
 }) => {
   const [date, setDate] = useState(selectedDate)
   const [name, setName] = useState('')
+  const [colors, setColors] = useState(COLOR_CODES)
   const [description, setDescription] = useState('')
-  const [time, setTime] = useState('')
+  const [time, setTime] = useState(new Date())
   const [backgroundColor, setBackgroundColor] = useState(colors[0])
   const [validationErrors, setValidationErrors] = useState([])
   const [invitees, setInvitees] = useState([])
+  const [pickColor, setPickColor] = useState(false)
+
+  // console.log(moment(now).format('HH:mm'))
+  // console.log( moment(selectedDate).format('ddd MMM DD YYYY'))
+
   const classes = useStyles()
 
   const getValidationErrors = () => {
@@ -82,20 +92,26 @@ export const NewEventForm = ({
         />
       </Box>
       <Box mb={2}>
-        <TextField
-          value={time}
-          onChange={(e) => setTime(e.target.value)}
-          label='Time'
-          variant='outlined'
-          fullWidth
-        />
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <TimePicker
+            label='Select Time'
+            value={time}
+            onChange={(newValue) => {
+              setTime(newValue)
+            }}
+            style={{ width: '100%' }}
+            variant='outlined'
+            renderInput={(params) => <TextField {...params} />}
+          />
+        </LocalizationProvider>
       </Box>
       <Box mb={2} className={classes.displayRow}>
         {colors.map((color, i) => {
           return (
             <Box
+              key={i}
               className={
-                backgroundColor === color
+                backgroundColor.background === color.background
                   ? `${classes.active} ${classes.color}`
                   : classes.color
               }
@@ -107,16 +123,44 @@ export const NewEventForm = ({
             />
           )
         })}
+        <Box
+          className={classes.color}
+          style={{
+            color: '#fff',
+            margin: '0',
+          }}
+          onClick={() => setPickColor(!pickColor)}
+          component='div'
+          mb={2}
+        >
+          <AddIcon
+            className={pickColor ? classes.closeIcon : ''}
+            style={{
+              transition: 'transform 0.5s',
+              position: 'relative',
+              bottom: '1.5px',
+              right: '1.5px',
+            }}
+          />
+        </Box>
       </Box>
+      {pickColor && (
+        <ColorPicker
+          setBackgroundColor={setBackgroundColor}
+          setColors={setColors}
+          colors={colors}
+          setPickColor={setPickColor}
+        />
+      )}
       <Divider />
       <Box my={2}>
-        <Typography variant='h6'>Invite players and/or coaches:</Typography>
+        <Typography variant='h6'>Invite players and/or captains:</Typography>
       </Box>
       <Box mb={2}>
         {invitees.length > 0 && (
           <>
             <Box ml={2} mb={2}>
-              <Typography variant='subtitle2'>Players/Coach invited</Typography>
+              <Typography variant='subtitle2'>Invitees</Typography>
             </Box>
             {invitees.map((invitee) => (
               <Tooltip title={invitee.email}>
@@ -161,7 +205,8 @@ export const NewEventForm = ({
 const useStyles = makeStyles((theme) => ({
   displayRow: {
     display: 'flex',
-    flexFlow: 'row wrap',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   color: {
     borderRadius: '50%',
@@ -199,7 +244,11 @@ const useStyles = makeStyles((theme) => ({
     '&::-webkit-scrollbar-thumb': {
       borderRadius: 10,
       opacity: '0.8',
-      backgroundColor: theme.palette.secondary.main,
+      backgroundColor: '#895cf2',
     },
+  },
+  closeIcon: {
+    transform: 'rotate(45deg)',
+    color: 'red',
   },
 }))

@@ -50,6 +50,7 @@ export const GoalSettingPage = () => {
       }
     })
   }
+  console.log(goals)
 
   return (
     <Box>

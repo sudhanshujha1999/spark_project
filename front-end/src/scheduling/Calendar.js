@@ -38,7 +38,7 @@ export const Calendar = ({
                                 return datesAreEqual(date, event.date);
                             });
                         return (
-                            <Box style={{ flex: 1 }} p={1}>
+                            <Box style={{ flex: 1, maxWidth:'14.29%' }} p={1}>
                                 <CalendarCell
                                     date={date}
                                     events={dateEvents}

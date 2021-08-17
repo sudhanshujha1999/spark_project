@@ -23,11 +23,11 @@ import { SchedulingPage } from './scheduling'
 import { TeamInfoForm, EditTeamInfo } from './teams'
 import { WarRoom, SessionDetails, Scrimmages } from './war-room'
 
+
 export const createTeamRoute = {
   path: '/new-team/:id',
   component: TeamInfoForm,
 }
-
 export const communityPageRoute = {
   path: '/community',
   component: CommunityPage,

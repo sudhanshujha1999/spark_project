@@ -7,7 +7,8 @@
     "dev": "nodemon --exec babel-node -r dotenv/config src/server.js",
     "build": "babel src --out-dir build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node build/server.js"
+    "start": "node build/server.js",
+    "firebase":"firebase emulators:start --import=./test-storage --export-on-exit=./test-storage"
   },
   "keywords": [],
   "author": "",

@@ -51,9 +51,9 @@ import Snackbar from '@material-ui/core/Snackbar'
 import Tab from '@material-ui/core/Tab'
 import Tabs from '@material-ui/core/Tabs'
 import TextField from '@material-ui/core/TextField'
+import TimePicker from '@material-ui/lab/TimePicker'
 import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
-// import TimePicker from "@material-ui/lab/TimePicker";
 
 export { AddableList } from './AddableList'
 export { CenteredContainer } from './CenteredContainer'
@@ -119,7 +119,7 @@ export {
   SpeedDialAction,
   TextField,
   Typography,
-  // TimePicker,
+  TimePicker,
   Tab,
   Tabs,
   Tooltip,
