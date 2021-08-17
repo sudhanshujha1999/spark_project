@@ -35,7 +35,7 @@ export const SchedulingPage = () => {
     const [selectedEvent, setSelectedEvent] = useState(null);
     const { events, setEvents } = useEvents(selectedYear, selectedMonth);
     const { organizations } = useOrganizations();
-    const { isCoach } = useIsCoach(organizations._id);
+    const { canEditEvents, teamsForEvents } = useIsCoach(organizations._id);
     const nextMonth = () => {
         const nextMonth = selectedMonth + 1;
         if (nextMonth >= 12) setSelectedYear(selectedYear + 1);
@@ -96,8 +96,9 @@ export const SchedulingPage = () => {
                     selectedDate={selectedDate}
                     onSubmitEvent={addNewEvent}
                     sending={sending}
-                    isCoach={isCoach}
+                    isCoach={canEditEvents}
                     userId={user._id}
+                    allowedTeams={teamsForEvents}
                 />
             </Modal>
             <Dialog
@@ -111,7 +112,7 @@ export const SchedulingPage = () => {
                         <EventDetailForm
                             selectedEvent={selectedEvent}
                             userId={user._id}
-                            isCoach={isCoach}
+                            isCoach={canEditEvents}
                             deleteEvent={deleteEvent}
                         />
                     </Box>
@@ -131,10 +132,10 @@ export const SchedulingPage = () => {
                         month={selectedMonth}
                         events={events}
                         currentDate={today.setHours(0, 0, 0, 0) / 10000}
-                        isCoach={isCoach}
+                        isCoach={canEditEvents}
                         onClickCell={(date) => {
                             setSelectedDate(date);
-                            if (isCoach) {
+                            if (canEditEvents) {
                                 setShowNewEventModal(true);
                             }
                         }}

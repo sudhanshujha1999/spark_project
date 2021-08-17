@@ -1,11 +1,12 @@
 import { isLoggedInProtector, isVerifiedProtector } from "../route-protectors";
 import { getUserByAuthId } from "../users";
-import { addPermission } from './addPermission';
-import { ADMIN, hasPermission } from './hasPermission';
+import { addPermission } from "./addPermission";
+import { hasPermission } from "./hasPermission";
+import { ADMIN } from "./permissionTypes";
 
 export const addPermissionsRoute = {
-    path: '/permissions',
-    method: 'post',
+    path: "/permissions",
+    method: "post",
     protectors: [isLoggedInProtector, isVerifiedProtector],
     handler: async (req, res) => {
         // 1. Who's sending this request? (We need to translate their authId to an actual userId)
@@ -21,7 +22,7 @@ export const addPermissionsRoute = {
 
         // 2. Are they allowed to add permissions for this group? i.e. are they an ADMIN?
         const canAddPermission = await hasPermission({
-            userId: requesterId, 
+            userId: requesterId,
             groupId,
             permissionType: ADMIN,
         });
@@ -31,7 +32,7 @@ export const addPermissionsRoute = {
         // 3. If everything else checks out, add the permissions
         try {
             await Promise.all(
-                permissionTypes.map(permissionType =>
+                permissionTypes.map((permissionType) =>
                     addPermission({
                         userId: targetUserId,
                         groupId,
@@ -43,5 +44,5 @@ export const addPermissionsRoute = {
         } catch (e) {
             res.status(500).json(e.message);
         }
-    }
-}
+    },
+};

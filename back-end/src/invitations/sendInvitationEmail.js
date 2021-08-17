@@ -1,5 +1,5 @@
-import { sendEmail, FROM_CUSTOMER_SERVICE } from '../emails';
-import { getById } from '../util';
+import { sendEmail, FROM_CUSTOMER_SERVICE } from "../emails";
+import { getById } from "../util";
 
 export const sendInvitationEmail = async ({
     email,
@@ -27,4 +27,4 @@ export const sendInvitationEmail = async ({
         subject,
         body: emailText,
     });
-}
+};

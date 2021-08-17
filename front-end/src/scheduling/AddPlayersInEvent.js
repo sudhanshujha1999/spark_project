@@ -1,9 +1,9 @@
 import { Box, Typography } from "../ui";
 import { useOrganizations } from "../teams";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { TeamPlayerSelect } from "./TeamPlayerSelect";
 
-export const AddPlayersInEvent = ({ userId, setInvitees, invitees }) => {
+export const AddPlayersInEvent = ({ userId, setInvitees, invitees, allowedTeams = [] }) => {
     const { allOrganizations: organizations } = useOrganizations();
     const [allTeams, setAllTeams] = useState([]);
 
@@ -13,6 +13,13 @@ export const AddPlayersInEvent = ({ userId, setInvitees, invitees }) => {
         }
     }, [organizations]);
 
+    const teamForEvents = useMemo(() => {
+        if (allTeams.length) {
+            return allTeams.filter((team) => allowedTeams.includes(team._id));
+        } else {
+            return [];
+        }
+    }, [allTeams, allowedTeams]);
     return (
         <Box>
             <Box pl={2}>
@@ -20,7 +27,7 @@ export const AddPlayersInEvent = ({ userId, setInvitees, invitees }) => {
                     Your Teams
                 </Typography>
             </Box>
-            {allTeams.map((team) => (
+            {teamForEvents.map((team) => (
                 <TeamPlayerSelect
                     userId={userId}
                     team={team}

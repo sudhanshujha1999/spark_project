@@ -86,7 +86,8 @@ export const useStyles = makeStyles((theme) => ({
         margin: "0 auto",
         display: "flex",
         flexFlow: "column",
-        justifyContent: "center",
+        paddingTop: "100px",
+        justifyContent: "flex-start",
         alignItems: "center",
     },
     formHeading: {

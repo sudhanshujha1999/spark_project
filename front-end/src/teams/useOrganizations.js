@@ -1,18 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useCurrentUserInfo } from "../users";
 import { get } from "../network";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 import { getOrganizationsState, setOrganizationsState } from "./recoil";
+import { useIsCoach } from "../users/useIsCoach";
 
-export const useOrganizations = (update = false) => {
+export const useOrganizations = () => {
     const { userInfo = {} } = useCurrentUserInfo();
     const authId = userInfo.auth_id;
     const [isLoading, setIsLoading] = useState(true);
+    const [update, setUpdate] = useState(false);
     const organizations = useRecoilValue(getOrganizationsState);
     const setOrganizations = useSetRecoilState(setOrganizationsState);
     const [selectedOrganization, setSelectedOrganization] = useState({});
-
+    const { teamsForEvents, teamsForGoals } = useIsCoach();
     const [error, setError] = useState([]);
+
+    const updateOrganizations = useCallback(() => {
+        setUpdate(true);
+    }, []);
+
     useEffect(() => {
         const loadOrganization = async () => {
             // if no organizations call it ie. if organization is null at the beggining
@@ -80,12 +87,29 @@ export const useOrganizations = (update = false) => {
         // eslint-disable-next-line
     }, [update]);
 
+    // fetches all the fields from useIsCoach of allowed team,
+    // and construct a valid data object,
+    // by that we don't have to fetch valid teams everytime
     useEffect(() => {
         // this will help us to return the selected org if more than one org are there
         if (organizations && organizations.length > 0) {
-            setSelectedOrganization(organizations[0]);
+            // get the teams from selected organization
+            const { teams, ...rest } = organizations[0];
+            // add permissions to the objects
+            const teamsInfoWithPermission = teams.map((team) => ({
+                ...team,
+                editEvents: teamsForEvents.includes(team._id),
+                editGoals: teamsForGoals.includes(rest._id),
+            }));
+            const oragnizationWithPermission = {
+                ...rest,
+                editEvents: teamsForEvents.includes(rest._id),
+                editGoals: teamsForGoals.includes(rest._id),
+                teams: teamsInfoWithPermission,
+            };
+            setSelectedOrganization(oragnizationWithPermission);
         }
-    }, [organizations]);
+    }, [organizations, teamsForEvents, teamsForGoals]);
 
     return {
         organizations: selectedOrganization,
@@ -93,5 +117,6 @@ export const useOrganizations = (update = false) => {
         isLoading,
         error,
         setOrganizations,
+        updateOrganizations,
     };
 };

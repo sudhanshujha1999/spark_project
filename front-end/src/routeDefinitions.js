@@ -107,12 +107,21 @@ export const createOrganization = {
   component: CreateOrganizationPage,
 }
 
+<<<<<<< HEAD
+export const createAccountRoute = {
+    path: "/create-account",
+    component: CreateAccountPage,
+    isPublic: true,
+    hideNav: true,
+};
+=======
 // export const createAccountRoute = {
 //     path: "/create-account",
 //     component: CreateAccountPage,
 //     isPublic: true,
 //     hideNav: true,
 // };
+>>>>>>> main
 
 export const onboardingUserInfoRoute = {
   path: '/onboarding/user-info',

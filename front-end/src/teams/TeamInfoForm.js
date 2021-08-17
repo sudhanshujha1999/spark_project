@@ -18,7 +18,6 @@ import {
     TextField,
     Typography,
 } from "../ui";
-import { useCurrentUserInfo } from "../users";
 import { defaultImage } from "./defaultGames";
 import { GAMES as games } from "./defaultGames";
 import controller from "../img/controller.png";
@@ -45,8 +44,6 @@ export const TeamInfoForm = () => {
     const [rosters, setRosters] = useState([]);
     const [loading, setLoading] = useState(false);
     const [img, setImg] = useState(null);
-    const { userInfo } = useCurrentUserInfo();
-    const [update, setUpadate] = useState(false);
 
     // FOR DISPLAY PURPOSE
     const [active, setActive] = useState({});
@@ -55,7 +52,7 @@ export const TeamInfoForm = () => {
     const [validationErrors, setValidationErrors] = useState([]);
     const classes = useStyles();
 
-    const { organizations, allOrganizations } = useOrganizations(update);
+    const { organizations, allOrganizations, updateOrganizations } = useOrganizations();
     const history = useHistory();
     const { id: organizationId } = useParams();
 
@@ -133,8 +130,8 @@ export const TeamInfoForm = () => {
                 const {
                     data: { id },
                 } = await post("/api/teams", newTeamInfo);
+                updateOrganizations();
                 history.push(`/teams/${id}`);
-                setUpadate(true);
                 setLoading(false);
             } catch (error) {
                 setLoading(false);

@@ -16,6 +16,28 @@ export const useStyles = makeStyles((theme) => ({
         backgroundImage: "linear-gradient(180deg, rgba(21,21,22,1) 0%, rgba(13,13,13,0) 100%)",
         backgroundColor: "rgba(0,0,0,0)",
     },
+    // scrimmage filters
+    filterContainer: {
+        padding: "10px 20px",
+        marginTop: "10px",
+        cursor: "pointer",
+        display: "flex",
+        borderRadius: theme.shape.borderRadius,
+        backgroundImage: "linear-gradient(180deg, rgba(21,21,22,1) 0%, rgba(13,13,13,0.3) 100%)",
+    },
+    active: {
+        boxShadow: "0px 0px 5px 1px rgba(200,200,200,0.3)",
+    },
+    filterGameImageContainer: {
+        filter: "drop-shadow(2px 5px 3px rgba(0,0,0,0.6))",
+        minWidth: "35px",
+    },
+    imageSmall: {
+        maxWidth: "35px",
+        maxHeight: "20px",
+        margin: "0 auto",
+        display: "block",
+    },
     // post section
     createPostSection: {
         display: "flex",
@@ -33,10 +55,13 @@ export const useStyles = makeStyles((theme) => ({
     },
     gameImageContainer: {
         filter: "drop-shadow(2px 10px 3px rgba(0,0,0,0.6))",
+        minWidth: "100px",
     },
     image: {
         maxWidth: "90px",
         maxHeight: "60px",
+        margin: "0 auto",
+        display: "block",
     },
     avatar: {
         backgroundImage: "linear-gradient(145deg, rgba(57,62,70,1) 0%, rgba(26,28,32,1) 100%)",

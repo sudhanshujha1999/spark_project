@@ -74,7 +74,9 @@ export const AddLeagueDialog = ({
                     <Grid item xs={12} sm={6}>
                         <Autocomplete
                             value={teamName}
-                            options={teams.map((option) => option.name)}
+                            options={teams
+                                .filter((option) => option.editEvents)
+                                .map((option) => option.name)}
                             onChange={(e, option) => {
                                 if (option) {
                                     setTeamName(option);
@@ -96,7 +98,9 @@ export const AddLeagueDialog = ({
                         />
                         <Autocomplete
                             value={gameName}
-                            options={teams.map((option) => option.game)}
+                            options={teams
+                                .filter((option) => option.editEvents)
+                                .map((option) => option.game)}
                             onChange={(e, option) => {
                                 if (option) {
                                     setGameName(option);

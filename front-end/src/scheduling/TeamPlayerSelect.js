@@ -8,14 +8,27 @@ export const TeamPlayerSelect = ({ team, userId, setInvitees, invitees }) => {
     const [selectedMembers, setSelectedMembers] = useState([]);
     useEffect(() => {
         if (team.players.length > 0 || team.admins.length > 1) {
-            const playersWithoutCurrentUser = team.players.filter((player) => player.id !== userId);
-            const adminsWithoutCurrentUser = team.admins.filter((admin) => admin.id !== userId);
+            const allMembers = {};
+            team.players.forEach((player) => {
+                if (player.id !== userId) {
+                    if (!allMembers[player.id]) {
+                        allMembers[player.id] = player;
+                    }
+                }
+            });
+            team.admins.forEach((admin) => {
+                if (admin.id !== userId) {
+                    if (!allMembers[admin.id]) {
+                        allMembers[admin.id] = admin;
+                    }
+                }
+            });
             const selectAll = {
                 id: "000",
                 value: "SELECT_ALL",
                 name: "Select All",
             };
-            setMembers([selectAll, ...playersWithoutCurrentUser, ...adminsWithoutCurrentUser]);
+            setMembers([selectAll, ...Object.values(allMembers)]);
         }
     }, [team, userId]);
 
@@ -39,7 +52,6 @@ export const TeamPlayerSelect = ({ team, userId, setInvitees, invitees }) => {
                 <Autocomplete
                     value={selectedMembers}
                     multiple
-                    id='checkboxes'
                     disableCloseOnSelect
                     options={members}
                     onChange={(e, data) => {
@@ -63,9 +75,9 @@ export const TeamPlayerSelect = ({ team, userId, setInvitees, invitees }) => {
                         }
                     }}
                     getOptionLabel={(option) => option.name}
-                    renderOption={(option, { selected }) => {
+                    renderOption={(props, option, { selected }) => {
                         return (
-                            <>
+                            <Box {...props}>
                                 <Checkbox
                                     icon={icon}
                                     checkedIcon={checkedIcon}
@@ -78,11 +90,11 @@ export const TeamPlayerSelect = ({ team, userId, setInvitees, invitees }) => {
                                         style={{
                                             color: "#c5c5c5",
                                         }}
-                                        variant='subtitle1'>
+                                        variant='caption'>
                                         &nbsp; {`(${option.email})`}
                                     </Typography>
                                 )}
-                            </>
+                            </Box>
                         );
                     }}
                     renderInput={(params) => {

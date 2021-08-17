@@ -28,7 +28,7 @@ export const SkillsDisplayRow = ({ skillLevel = 0 }) => {
                                     filter:
                                         skillLevel >= index + 1
                                             ? `hue-rotate(${
-                                                  230 - index * 25
+                                                  230 - index * 30
                                               }deg) drop-shadow(2px 4px 6px black)`
                                             : "grayscale(1) drop-shadow(2px 4px 6px black)",
                                 }}
