@@ -60,8 +60,7 @@ export const DashboardPage = () => {
                             marginBottom: 20,
                             width: "max(300px, 60vw)",
                         }}>
-                        Currently you don't have any organization, you can create one or ask your
-                        coach to invite in an existing organization
+						Before you can invite players, you need to create a profile for your school or organization.
                     </Typography>
                     <Button variant='contained' onClick={makeOrganization}>
                         Create Organization

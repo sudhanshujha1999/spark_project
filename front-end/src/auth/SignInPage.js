@@ -14,6 +14,7 @@ export const SignInPage = () => {
     const [password, setPassword] = useState("");
     const [networkError, setNetworkError] = useState("");
     const { userInfo, isLoading } = useCurrentUserInfo();
+  
     const classes = useStyles();
 
     const onSignIn = async () => {
@@ -40,7 +41,7 @@ export const SignInPage = () => {
     }
 
     if (userInfo) {
-        return <Redirect to={dest || "/"} />;
+        return <Redirect to={dest || "/dashboard"} />;
     }
 
     return (
