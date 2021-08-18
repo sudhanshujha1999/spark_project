@@ -1,12 +1,12 @@
-import { Container, Grid, Button, Box, CircularProgress, Fade } from '../ui'
-import { useOrganizations } from '../teams'
-import { useIsCoach } from '../users/useIsCoach'
-import { AllSessions } from './AllSessions'
-import { useStyles } from './styles'
-import { AddWarRoomSession } from './AddWarRoomSession'
-import { useRef, useState } from 'react'
-import { useGetAllSessions } from './useGetAllSessions'
-import { LeagueRecords } from './LeagueRecords'
+import { Container, Grid, Button, Box, CircularProgress, Fade } from '../ui';
+import { useOrganizations } from '../teams';
+import { useIsCoach } from '../users/useIsCoach';
+import { AllSessions } from './AllSessions';
+import { useStyles } from './styles';
+import { AddWarRoomSession } from './AddWarRoomSession';
+import { useRef, useState } from 'react';
+import { useGetAllSessions } from './useGetAllSessions';
+import { LeagueRecords } from './LeagueRecords';
 
 export const WarRoom = () => {
     const { organizations, isLoading: isLoadingOrganizations } = useOrganizations();
@@ -63,8 +63,8 @@ export const WarRoom = () => {
                         <Fade
                             in={addSession}
                             style={{
-                                height: addSession ? "auto" : 0,
-                                transitionDelay: addSession ? "100ms" : "0ms",
+                                height: addSession ? 'auto' : 0,
+                                transitionDelay: addSession ? '100ms' : '0ms',
                             }}>
                             <Box>
                                 <AddWarRoomSession
