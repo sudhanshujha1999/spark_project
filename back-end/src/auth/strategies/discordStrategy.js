@@ -32,20 +32,30 @@ export const discordStrategy = (app) => {
         callbackURL: "http://localhost:8080/api/discord/auth/redirect/",
         // callbackURL: "http://localhost:3000/discord/auth/redirect/",
         scope: scopes,
+        passReqToCallback: true,
     };
 
-    const verifyCallback = async (accessToken, refreshToken, profile, done) => {
+    const verifyCallback = async (req, accessToken, refreshToken, profile, done) => {
         // TODO
         try {
+            const linkEmail = req.cookies["savedEmail"];
             console.log("Todo on profile");
             const { email, verified, id, username, discriminator } = profile;
             //  first check if user exist or not
             console.log("Finding user...");
-            const user = await getUserByEmail(email);
-            let userId = user?._id;
-            console.log(user ? "User found!" : "User not found!");
+            let userId;
+            if (linkEmail !== undefined) {
+                console.log("Linking email:" + linkEmail);
+                const user = await getUserByEmail(linkEmail);
+                userId = user?._id;
+            } else {
+                console.log("Email:" + email);
+                const user = await getUserByEmail(email);
+                userId = user?._id;
+            }
+            console.log(userId ? "User found!" : "User not found!");
             // if not then create a user
-            if (!user) {
+            if (!userId) {
                 console.log("Create new user");
                 // a. in firebase
                 const password = uuidV4();

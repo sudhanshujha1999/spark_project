@@ -8,8 +8,9 @@ import { useUser, useCurrentUserInfo } from "../users";
 import { useGetTeamsForUser } from "../teams";
 import { Overview } from "./Overview";
 import { Notes } from "./Notes";
-import { Box, CircularProgress, Divider, Grid, Tabs, Tab, Typography } from "../ui";
+import { Box, Button, CircularProgress, Divider, Grid, Tabs, Tab, Typography } from "../ui";
 import { useStyles } from "./styles";
+import { DiscordSvgIcon } from "../img/DiscordSvgIcon";
 
 export const MemberDetailPage = ({ currentUserId }) => {
     const { memberId: memberIdFromParams, teamId } = useParams();
@@ -20,7 +21,11 @@ export const MemberDetailPage = ({ currentUserId }) => {
     const teams = useGetTeamsForUser(user);
     const [value, setValue] = useState(0);
     const tabLabel = ["Overview", "Notes"];
-
+    const baseURL = process.env.IS_PRODUCTION
+        ? `https://sparkesports.gg/api`
+        : process.env.IS_QA
+        ? `https://dev.sparkesports.gg/api`
+        : `http://localhost:8080/api`;
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -64,7 +69,6 @@ export const MemberDetailPage = ({ currentUserId }) => {
             viewingOwnProfile={currentUserId === memberId}
         />,
     ];
-
     return isLoading ? (
         <p>Loading...</p>
     ) : (
@@ -73,15 +77,39 @@ export const MemberDetailPage = ({ currentUserId }) => {
                 <Grid item xs={12}>
                     <Box className={classes.profileDetails}>
                         {user && currentUser && (
-                            <ProfilePic user={user.id === currentUser.id ? user : null} />
+                            <ProfilePic isCuurentUser={user._id === currentUser._id} user={user} />
                         )}
                         <Box className={classes.detailsContent}>
                             <Typography className={classes.name} gutterBottom variant='h2'>
                                 {user.full_name}
                             </Typography>
-                            <Box className={classes.gamerName}>
-                                <img style={{ width: 20 }} src={gamerIcon} alt={gamerIcon} />
-                                <Typography variant='h3'>{user.gamer_name}</Typography>
+                            <Box display='flex' alignItems='center' justifyContent='center'>
+                                <Box className={classes.gamerName}>
+                                    <img style={{ width: 20 }} src={gamerIcon} alt={gamerIcon} />
+                                    <Typography variant='h3'>{user.gamer_name}</Typography>
+                                </Box>
+                                <Box mr={1}>
+                                    {user?.discord.linked ? (
+                                        <Box className={classes.gamerName}>
+                                            <DiscordSvgIcon />
+                                            <Typography variant='h3'>
+                                                {`${user.discord.username}`}
+                                            </Typography>
+                                        </Box>
+                                    ) : user?._id === currentUser?._id ? (
+                                        <Button
+                                            href={`${baseURL}/discord/link/?dest=profile&email=${user.email}`}
+                                            className={classes.discordBtn}
+                                            startIcon={<DiscordSvgIcon />}>
+                                            Link discord
+                                        </Button>
+                                    ) : (
+                                        <Box className={classes.gamerName}>
+                                            <DiscordSvgIcon />
+                                            <Typography variant='h6'>Discord</Typography>
+                                        </Box>
+                                    )}
+                                </Box>
                             </Box>
                         </Box>
                     </Box>
