@@ -34,6 +34,7 @@ export const TeamItemCard = ({ team, isCoach, index }) => {
                                 <IconButton
                                     className={classes.iconBtn}
                                     onClick={(e) => {
+                                        e.preventDefault()
                                         e.stopPropagation();
                                         editTeam();
                                     }}>

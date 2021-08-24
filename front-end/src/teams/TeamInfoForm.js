@@ -7,6 +7,7 @@ import { useOrganizations } from "../teams";
 import { useQueryParams } from "../routing/useQueryParams";
 import {
     Alert,
+    Autocomplete,
     Box,
     Button,
     CircularProgress,
@@ -23,6 +24,10 @@ import { GAMES as games } from "./defaultGames";
 import controller from "../img/controller.png";
 
 const validations = [
+    {
+        test: ({ name }) => name.length > 1,
+        errorMessage: "Team name must be 2 characters or longer",
+    },
     {
         test: ({ game }) => game.length > 1,
         errorMessage: "Please specify what game your team will be playing",
@@ -170,6 +175,7 @@ export const TeamInfoForm = () => {
         }, 500);
     };
 
+    console.log(game);
     return (
         <Container maxWidth='lg'>
             <Grid
@@ -222,16 +228,38 @@ export const TeamInfoForm = () => {
                     ))}
                     <Box mb={2}>
                         <TextField
-                            value={game}
-                            onChange={(e) => {
-                                if (Object.keys(active).length !== 0) {
-                                    setActive({});
-                                }
-                                setGame(e.target.value);
-                            }}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                             fullWidth
-                            label='Game'
+                            label='Team Name'
                             variant='outlined'
+                        />
+                    </Box>
+                    <Box mb={2}>
+                        <Autocomplete
+                            id='combo-box-demo'
+                            value={game}
+                            options={games}
+                            onChange={(e, data) => {
+                                if (data && Object.keys(data).length > 0) {
+                                    onSelectGame(data);
+                                }
+                            }}
+                            getOptionLabel={(option) => {
+                                console.log(option);
+                                if (typeof option === "string") {
+                                    return option;
+                                } else {
+                                    return option.name;
+                                }
+                            }}
+                            style={{ width: "100%" }}
+                            renderInput={(params) => {
+                                console.log(params);
+                                return (
+                                    <TextField {...params} label='Select Game' variant='outlined' />
+                                );
+                            }}
                         />
                     </Box>
                     <Box mb={2} className={classes.gamesContainer}>
@@ -249,15 +277,6 @@ export const TeamInfoForm = () => {
                                 {game.name}
                             </Box>
                         ))}
-                    </Box>
-                    <Box mb={2}>
-                        <TextField
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            fullWidth
-                            label='Team Name (if different from game name)'
-                            variant='outlined'
-                        />
                     </Box>
                     <Divider />
                     <Box my={2}>

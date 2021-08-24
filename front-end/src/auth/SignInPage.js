@@ -1,25 +1,26 @@
-import { useState } from 'react';
-import { Redirect } from 'react-router-dom';
-import firebase from 'firebase/app';
-import { useQueryParams } from '../routing';
-import { Alert, Box, Button, CenteredContainer, Grid, TextField, Typography } from '../ui';
-import { signIn } from './signIn';
-import { useCurrentUserInfo } from '../users';
-import { DiscordSvgIcon } from '../img/DiscordSvgIcon';
-import { useStyles } from './styles';
-import video from '../img/video0.mp4';
+import { useState } from "react";
+import { Redirect } from "react-router-dom";
+import firebase from "firebase/app";
+import { useQueryParams } from "../routing";
+import { Alert, Box, Button, CenteredContainer, Grid, TextField, Typography } from "../ui";
+import { signIn } from "./signIn";
+import { useCurrentUserInfo } from "../users";
+import { DiscordSvgIcon } from "../img/DiscordSvgIcon";
+import { useStyles } from "./styles";
+import video from "../img/video0.mp4";
+import bg from "../img/signInBg.png";
 
 export const SignInPage = () => {
     const { dest, email: emailFromInvitation } = useQueryParams();
-    const [email, setEmail] = useState(emailFromInvitation || '');
-    const [password, setPassword] = useState('');
-    const [networkError, setNetworkError] = useState('');
+    const [email, setEmail] = useState(emailFromInvitation || "");
+    const [password, setPassword] = useState("");
+    const [networkError, setNetworkError] = useState("");
     const { userInfo, isLoading } = useCurrentUserInfo();
 
     const classes = useStyles();
 
     const onSignIn = async () => {
-        setNetworkError('');
+        setNetworkError("");
         try {
             await signIn(email, password);
         } catch (e) {
@@ -42,7 +43,7 @@ export const SignInPage = () => {
     }
 
     if (userInfo) {
-        return <Redirect to={dest || '/dashboard'} />;
+        return <Redirect to={dest || "/dashboard"} />;
     }
 
     return (
@@ -50,7 +51,13 @@ export const SignInPage = () => {
             <Grid item xs={12} sm={5} md={5}>
                 {/* background image */}
                 <Box className={classes.backgroundContainer}>
-                    <Box className={classes.bgImage}>
+                    <img
+                        className={classes.bgImage}
+                        rel='preload'
+                        src={bg}
+                        alt='Sign-in-page-background'
+                    />
+                    <Box>
                         {/* <video
                             // src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
                             src={video}
@@ -83,7 +90,7 @@ export const SignInPage = () => {
                         <Box mb={2}>
                             <TextField
                                 value={email}
-                                onChange={e => setEmail(e.target.value)}
+                                onChange={(e) => setEmail(e.target.value)}
                                 fullWidth
                                 label='Email address'
                                 variant='outlined'
@@ -93,7 +100,7 @@ export const SignInPage = () => {
                         <Box mb={2}>
                             <TextField
                                 value={password}
-                                onChange={e => setPassword(e.target.value)}
+                                onChange={(e) => setPassword(e.target.value)}
                                 fullWidth
                                 label='Password'
                                 type='password'

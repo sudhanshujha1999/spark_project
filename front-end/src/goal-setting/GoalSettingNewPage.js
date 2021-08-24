@@ -50,6 +50,7 @@ export const GoalSettingPage = () => {
       }
     })
   }
+  console.log(goals)
 
   return (
     <Box>
@@ -82,6 +83,19 @@ export const GoalSettingPage = () => {
         </Box>
       ) : (
         <Grid container spacing={3}>
+          {/* {
+            Object.entries(sortedGoals).map(goals => {
+              if(goals.length > 0){
+                return(
+                  <GoalCard
+              goals={goals}
+              organizations={organizations}
+              isLoadingOrganizations={isLoadingOrganizations}
+            />
+                )
+              }
+            })
+          } */}
           {sortedGoals.leagueOfLegends.length > 0 && (
             <GoalCard
               goals={sortedGoals.leagueOfLegends}
