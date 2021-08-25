@@ -1,4 +1,11 @@
-import { CreateAccountPage, EmailVerificationResult, PleaseVerifyEmail, SignInPage } from "./auth";
+import {
+    CreateAccountPage,
+    DiscordRedirect,
+    Final,
+    EmailVerificationResult,
+    PleaseVerifyEmail,
+    SignInPage,
+} from "./auth";
 import { DashboardPage, CreateOrganizationPage } from "./dashboard";
 import { CommunityPage } from "./community";
 import { GoalSettingPage, ChoosePlayer, ChooseTeam, CreateGoal, GoalPage } from "./goal-setting";
@@ -99,6 +106,13 @@ export const createOrganization = {
 export const createAccountRoute = {
     path: "/create-account",
     component: CreateAccountPage,
+    isPublic: true,
+    hideNav: true,
+};
+
+export const DiscordRedirectRoute = {
+    path: "/discord/auth/redirect/",
+    component: DiscordRedirect,
     isPublic: true,
     hideNav: true,
 };

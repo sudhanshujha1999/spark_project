@@ -18,7 +18,7 @@ import { useStyles } from "./styles";
 
 const TYPES = ["image/jgp", "image/jpeg", "image/png"];
 
-export const ProfilePic = ({ user }) => {
+export const ProfilePic = ({ user, isCuurentUser }) => {
     const [open, setOpen] = useState(false);
     const [imageUpload, setImageUpload] = useState(false);
     const [profileImage, setProfileImage] = useState(user ? user.url : null);
@@ -141,7 +141,7 @@ export const ProfilePic = ({ user }) => {
                     horizontal: "right",
                 }}
                 badgeContent={
-                    user && (
+                    isCuurentUser && (
                         <SpeedDial
                             ariaLabel='SpeedDial openIcon example'
                             className={classes.speedDial}

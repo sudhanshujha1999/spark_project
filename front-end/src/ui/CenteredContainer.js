@@ -1,7 +1,7 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 
-export const CenteredContainer = ({ children }) => {
+export const CenteredContainer = ({ children, maxWidth }) => {
     return (
         <Grid
             container
@@ -9,9 +9,11 @@ export const CenteredContainer = ({ children }) => {
             direction='column'
             alignItems='center'
             justifyContent='center'
-            style={{ minHeight: "70vh" }}>
+            style={{ minHeight: "85vh" }}>
             <Grid>
-                <Box style={{ minWidth: 600 }}>{children}</Box>
+                <Box style={{ minWidth: 450, maxWidth: maxWidth ? maxWidth : "100vw" }}>
+                    {children}
+                </Box>
             </Grid>
         </Grid>
     );

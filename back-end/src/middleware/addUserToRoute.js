@@ -1,4 +1,4 @@
-import * as admin from 'firebase-admin';
+import * as admin from "firebase-admin";
 
 export const addUserToRoute = async (req, res, next) => {
     try {

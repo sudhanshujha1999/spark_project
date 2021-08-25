@@ -23,25 +23,25 @@ import { EditIcon } from "../icons";
 const TYPES = ["image/jgp", "image/jpeg", "image/png"];
 
 export const EditTeamInfo = () => {
-    const classes = useStyles();
-    const { teamId } = useParams();
+    console.log('coming here')
+    const classes = useStyles()
+    const { teamId } = useParams()
     const { team, isLoading } = useTeam(teamId);
     const [saving, setSaving] = useState(false);
     const [name, setName] = useState(team);
-    const [game, setGame] = useState("");
     const [img, setImg] = useState(null);
     const [newImg, setNewImg] = useState(null);
     const [message, setMessage] = useState("");
     const [type, setType] = useState("success");
 
+console.log(team)
     useEffect(() => {
         if (team) {
             console.log(team);
             setName(team.name);
-            setGame(team.game);
             setImg(team.image_url);
         }
-    }, [team]);
+    }, [team, isLoading]);
 
     const imgfunction = async (e) => {
         let selectedFile = e.target.files[0];
@@ -53,7 +53,7 @@ export const EditTeamInfo = () => {
 
     const handleSave = async () => {
         setSaving(true);
-        if (name === "" || game === "") {
+        if (name === "") {
             setMessage("Please fill all value");
             setType("error");
             return;
@@ -96,7 +96,6 @@ export const EditTeamInfo = () => {
                         .then(async (url) => {
                             const newTeamInfo = {
                                 name,
-                                game,
                                 image_url: url,
                             };
                             try {
@@ -119,10 +118,9 @@ export const EditTeamInfo = () => {
                         })
             );
         } else {
-            if (name !== team.name || game !== team.game) {
+            if (name !== team.name) {
                 const newTeamInfo = {
                     name,
-                    game,
                     image_url: img,
                 };
                 try {
@@ -189,7 +187,7 @@ export const EditTeamInfo = () => {
                                     variant='outlined'
                                 />
                             </Box>
-                            <Box mb={2}>
+                            {/* <Box mb={2}>
                                 <TextField
                                     value={game}
                                     onChange={(e) => {
@@ -199,7 +197,7 @@ export const EditTeamInfo = () => {
                                     label='Game'
                                     variant='outlined'
                                 />
-                            </Box>
+                            </Box> */}
                             <Box my={3} />
                             <Box py={2}>
                                 <Grid container justifyContent='space-between'>

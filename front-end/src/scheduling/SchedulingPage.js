@@ -123,8 +123,8 @@ export const SchedulingPage = () => {
                     {monthNames[selectedMonth]} {selectedYear}
                 </Typography>
                 <Box style={{ width: 500, margin: "auto", textAlign: "center" }}>
-                    <Button onClick={previousMonth}>&lt; Previous</Button>
-                    <Button onClick={nextMonth}>Next &gt;</Button>
+                    <Button style={{color:'#895cf2'}} onClick={previousMonth}>&lt; Previous</Button>
+                    <Button style={{color:'#895cf2'}} onClick={nextMonth}>Next &gt;</Button>
                 </Box>
                 <Box>
                     <Calendar

@@ -7,7 +7,8 @@
     "dev": "nodemon --exec babel-node -r dotenv/config src/server.js",
     "build": "babel src --out-dir build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node build/server.js"
+    "start": "node build/server.js",
+    "firebase": "firebase emulators:start --import=./test-storage --export-on-exit=./test-storage"
   },
   "keywords": [],
   "author": "",
@@ -20,12 +21,15 @@
     "@sendgrid/mail": "7.4.2",
     "axios": "^0.21.1",
     "body-parser": "1.19.0",
+    "cookie-parser": "^1.4.5",
     "dotenv": "9.0.0",
     "express": "4.17.1",
     "firebase-admin": "9.7.0",
     "mongodb": "3.6.5",
     "mongoose": "^5.12.8",
     "nodemon": "2.0.6",
+    "passport": "^0.4.1",
+    "passport-discord": "^0.1.4",
     "regenerator-runtime": "0.13.7",
     "uuid": "8.3.1"
   }
