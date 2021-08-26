@@ -1,21 +1,21 @@
-import { useState, useEffect } from "react";
-import { Box, FormControl, InputLabel, Select, MenuItem } from "./";
+import { useState, useEffect } from 'react';
+import { Box, FormControl, InputLabel, Select, MenuItem } from './';
 
 export const DatePicker = ({ value, setValue }) => {
     const startYear = new Date().getFullYear();
     const monthOption = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
     ];
 
     const currentDate = new Date();
@@ -25,16 +25,17 @@ export const DatePicker = ({ value, setValue }) => {
 
     useEffect(() => {
         if (value) {
-            const yymmdd = value.split("-");
+            const yymmdd = value.split('-');
             setYear(yymmdd[0]);
             setMonth(monthOption[parseInt(yymmdd[1]) - 1]);
             setDate(yymmdd[2]);
         } else {
-            const newDate = `${year}-${monthOption.indexOf(month) + 1 < 10 ? "0" : ""}${
+            const newDate = `${year}-${monthOption.indexOf(month) + 1 < 10 ? '0' : ''}${
                 monthOption.indexOf(month) + 1
-            }-${date < 10 ? "0" : ""}${date}`;
+            }-${date < 10 ? '0' : ''}${date}`;
             setValue(newDate);
         }
+        // eslint-disable-next-line
     }, []);
 
     function isLeapYear(year) {
@@ -80,15 +81,16 @@ export const DatePicker = ({ value, setValue }) => {
             }
         } else {
             // IF THE MONTH IS OF 30 DAYS
-            const thiryDaysMonths = ["April", "June", "September", "November"];
+            const thiryDaysMonths = ['April', 'June', 'September', 'November'];
             if (thiryDaysMonths.includes(month) && date > 30) {
                 setDate(30);
             }
         }
-        const newDate = `${year}-${monthOption.indexOf(month) + 1 < 10 ? "0" : ""}${
+        const newDate = `${year}-${monthOption.indexOf(month) + 1 < 10 ? '0' : ''}${
             monthOption.indexOf(month) + 1
-        }-${date < 10 ? "0" : ""}${date}`;
+        }-${date < 10 ? '0' : ''}${date}`;
         setValue(newDate);
+        // eslint-disable-next-line
     }, [date, month, year, setValue]);
 
     return (
@@ -102,9 +104,9 @@ export const DatePicker = ({ value, setValue }) => {
                         labelId='month-label'
                         value={month}
                         MenuProps={{ disableScrollLock: true }}
-                        onChange={(e) => setMonth(e.target.value)}
+                        onChange={e => setMonth(e.target.value)}
                         label='Month'>
-                        {monthOption.map((item) => (
+                        {monthOption.map(item => (
                             <MenuItem key={item} value={item}>
                                 {item}
                             </MenuItem>
@@ -122,7 +124,7 @@ export const DatePicker = ({ value, setValue }) => {
                         labelId='year-label'
                         value={date}
                         MenuProps={{ disableScrollLock: true }}
-                        onChange={(e) => setDate(e.target.value)}
+                        onChange={e => setDate(e.target.value)}
                         label='Month'>
                         {new Array(31).fill(1).map((item, index) => (
                             <MenuItem key={index} value={1 + index}>
@@ -142,7 +144,7 @@ export const DatePicker = ({ value, setValue }) => {
                         labelId='year-label'
                         value={year}
                         MenuProps={{ disableScrollLock: true }}
-                        onChange={(e) => setYear(e.target.value)}
+                        onChange={e => setYear(e.target.value)}
                         label='Month'>
                         {new Array(10).fill(1).map((item, index) => (
                             <MenuItem key={index} value={startYear + index}>

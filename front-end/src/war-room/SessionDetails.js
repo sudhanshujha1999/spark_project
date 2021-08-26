@@ -1,21 +1,21 @@
-import { useParams, Prompt } from "react-router-dom";
-import { SaveIcon } from "../icons";
-import { post } from "../network";
-import { Box, Button, CircularProgress, Container, Typography } from "../ui";
-import { useGetSession } from "./useGetSession";
-import { useStyles } from "./styles";
-import { SessionRoom } from "./SessionRoom";
-import { useState } from "react";
-import { useOrganizations } from "../teams";
-import { useIsCoach } from "../users/useIsCoach";
-import { SessionInformation } from "./SessionInformation";
-import { useRecoilValue } from "recoil";
-import { pathsState, variableDataState } from "./recoilState";
+import { useParams, Prompt } from 'react-router-dom';
+import { SaveIcon } from '../icons';
+import { post } from '../network';
+import { Box, Button, CircularProgress, Container, Typography } from '../ui';
+import { useGetSession } from './useGetSession';
+import { useStyles } from './styles';
+import { SessionRoom } from './SessionRoom';
+import { useState } from 'react';
+import { useOrganizations } from '../teams';
+import { useIsCoach } from '../users/useIsCoach';
+import { SessionInformation } from './SessionInformation';
+import { useRecoilValue } from 'recoil';
+import { pathsState, variableDataState } from './recoilState';
 
 export const SessionDetails = () => {
     const { sessionId } = useParams();
     const { organizations } = useOrganizations();
-    const { isCoach } = useIsCoach(organizations._id);
+    const { canEditEvents: isCoach } = useIsCoach(organizations._id);
     const { session, isLoading } = useGetSession(sessionId);
     const [startSession, setStartSession] = useState(false);
     const [isChanged, setIsChanged] = useState(false);
@@ -76,7 +76,7 @@ export const SessionDetails = () => {
                             {saving ? (
                                 <CircularProgress color='secondary' size='2em' />
                             ) : (
-                                "save session"
+                                'save session'
                             )}
                         </Button>
                     )}
