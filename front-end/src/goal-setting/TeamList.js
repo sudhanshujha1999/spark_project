@@ -3,6 +3,7 @@ import { Card, Grid, Fab, Typography } from '../ui'
 import { AddIcon } from '../icons'
 import { TeamItemCard } from './TeamItemCard'
 import { useStyles } from './styles'
+import { metricData } from './metricData'
 
 export const TeamsList = ({
   school,
@@ -27,6 +28,7 @@ export const TeamsList = ({
               isCoach={isCoach}
               index={index + 1}
               setShowAlert={setShowAlert}
+              metricData={metricData}
             />
           )
         })}

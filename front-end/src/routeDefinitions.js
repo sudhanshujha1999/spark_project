@@ -21,7 +21,7 @@ import { LandingPage } from './landing-page'
 import { RostersPage } from './rosters'
 import { SchedulingPage } from './scheduling'
 import { TeamInfoForm, EditTeamInfo } from './teams'
-import { WarRoom, SessionDetails, Scrimmages } from './war-room'
+import { WarRoom, MatchDetails, Scrimmages } from './war-room'
 
 export const createTeamRoute = {
   path: '/new-team/:id',
@@ -163,6 +163,6 @@ export const warRoomRoute = {
 }
 
 export const warRoomSessionRoute = {
-  path: '/war-room/:sessionId/session',
-  component: SessionDetails,
+  path: '/war-room/:matchId/match',
+  component: MatchDetails,
 }

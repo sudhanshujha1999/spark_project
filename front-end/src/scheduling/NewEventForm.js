@@ -13,6 +13,7 @@ import {
   TimePicker,
   LocalizationProvider,
   AdapterDateFns,
+  Modal,
 } from '../ui'
 import { makeStyles } from '@material-ui/styles'
 import { AddPlayersInEvent } from './AddPlayersInEvent'
@@ -33,6 +34,9 @@ const validations = [
 
 export const NewEventForm = ({
   selectedDate,
+  setSelectedDate,
+  setShowNewEventModal,
+  showNewEventModal,
   onSubmitEvent = () => {},
   sending,
   userId,
@@ -40,10 +44,16 @@ export const NewEventForm = ({
 }) => {
   const [date, setDate] = useState(selectedDate)
   const [name, setName] = useState('')
-  const [colors, setColors] = useState(COLOR_CODES)
+  const [colors, setColors] = useState(
+    localStorage.getItem('colors')
+      ? JSON.parse(localStorage.getItem('colors'))
+      : COLOR_CODES
+  )
   const [description, setDescription] = useState('')
   const [time, setTime] = useState(new Date())
-  const [backgroundColor, setBackgroundColor] = useState(colors[0])
+  const [backgroundColor, setBackgroundColor] = useState(
+    colors[colors.length - 1]
+  )
   const [validationErrors, setValidationErrors] = useState([])
   const [invitees, setInvitees] = useState([])
   const [pickColor, setPickColor] = useState(false)
@@ -70,135 +80,145 @@ export const NewEventForm = ({
   }
 
   return (
-    <Box className={`${classes.form} ${classes.customScroll}`}>
-      <h1>New Event For {date.toLocaleDateString()}</h1>
-      <Box mb={2}>
-        <TextField
-          label='Event Name'
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          variant='outlined'
-          fullWidth
-        />
-      </Box>
-      <Box mb={2}>
-        <TextField
-          label='Description'
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          variant='outlined'
-          fullWidth
-        />
-      </Box>
-      <Box mb={2}>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <TimePicker
-            label='Select Time'
-            value={time}
-            onChange={(newValue) => {
-              setTime(newValue)
-            }}
-            style={{ width: '100%' }}
+    <Modal
+      open={showNewEventModal}
+      onClose={() => {
+        setSelectedDate(null)
+        localStorage.setItem('colors', JSON.stringify(colors))
+        setShowNewEventModal(false)
+      }}
+      disableScrollLock='true'
+    >
+      <Box className={`${classes.form} ${classes.customScroll}`}>
+        <h1>New Event For {date.toLocaleDateString()}</h1>
+        <Box mb={2}>
+          <TextField
+            label='Event Name'
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             variant='outlined'
-            renderInput={(params) => <TextField {...params} />}
+            fullWidth
           />
-        </LocalizationProvider>
-      </Box>
-      <Box mb={2} className={classes.displayRow}>
-        {colors.map((color, i) => {
-          return (
-            <Box
-              key={i}
-              className={
-                backgroundColor.background === color.background
-                  ? `${classes.active} ${classes.color}`
-                  : classes.color
-              }
-              style={{
-                background: color.background,
+        </Box>
+        <Box mb={2}>
+          <TextField
+            label='Description'
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            variant='outlined'
+            fullWidth
+          />
+        </Box>
+        <Box mb={2}>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <TimePicker
+              label='Select Time'
+              value={time}
+              onChange={(newValue) => {
+                setTime(newValue)
               }}
-              onClick={() => setBackgroundColor(color)}
-              component='div'
+              style={{ width: '100%' }}
+              variant='outlined'
+              renderInput={(params) => <TextField {...params} />}
             />
-          )
-        })}
-        <Box
-          className={classes.color}
-          style={{
-            color: '#fff',
-            margin: '0',
-          }}
-          onClick={() => setPickColor(!pickColor)}
-          component='div'
-          mb={2}
-        >
-          <AddIcon
-            className={pickColor ? classes.closeIcon : ''}
+          </LocalizationProvider>
+        </Box>
+        <Box mb={2} className={classes.displayRow}>
+          {colors.map((color, i) => {
+            return (
+              <Box
+                key={i}
+                className={
+                  backgroundColor.background === color.background
+                    ? `${classes.active} ${classes.color}`
+                    : classes.color
+                }
+                style={{
+                  background: color.background,
+                }}
+                onClick={() => setBackgroundColor(color)}
+                component='div'
+              />
+            )
+          })}
+          <Box
+            className={classes.color}
             style={{
-              transition: 'transform 0.5s',
-              position: 'relative',
-              bottom: '1.5px',
-              right: '1.5px',
+              color: '#fff',
+              margin: '0',
             }}
+            onClick={() => setPickColor(!pickColor)}
+            component='div'
+            mb={2}
+          >
+            <AddIcon
+              className={pickColor ? classes.closeIcon : ''}
+              style={{
+                transition: 'transform 0.5s',
+                position: 'relative',
+                bottom: '1.5px',
+                right: '1.5px',
+              }}
+            />
+          </Box>
+        </Box>
+        {pickColor && (
+          <ColorPicker
+            setBackgroundColor={setBackgroundColor}
+            setColors={setColors}
+            colors={colors}
+            setPickColor={setPickColor}
           />
-        </Box>
-      </Box>
-      {pickColor && (
-        <ColorPicker
-          setBackgroundColor={setBackgroundColor}
-          setColors={setColors}
-          colors={colors}
-          setPickColor={setPickColor}
-        />
-      )}
-      <Divider />
-      <Box my={2}>
-        <Typography variant='h6'>Invite players and/or captains:</Typography>
-      </Box>
-      <Box mb={2}>
-        {invitees.length > 0 && (
-          <>
-            <Box ml={2} mb={2}>
-              <Typography variant='subtitle2'>Invitees</Typography>
-            </Box>
-            {invitees.map((invitee) => (
-              <Tooltip title={invitee.email}>
-                <Chip
-                  label={invitee.name}
-                  onDelete={() =>
-                    setInvitees((prevState) =>
-                      prevState.filter((value) => value.id !== invitee.id)
-                    )
-                  }
-                  color='secondary'
-                  variant='outlined'
-                />
-              </Tooltip>
-            ))}
-          </>
         )}
-      </Box>
-      <AddPlayersInEvent
-        userId={userId}
-        invitees={invitees}
-        setInvitees={setInvitees}
-        allowedTeams={allowedTeams}
-      />
-      <Button
-        onClick={onClick}
-        color='primary'
-        fullWidth
-        disabled={sending}
-        variant='contained'
-      >
-        {sending ? <CircularProgress color='primary' /> : 'Create New Event'}
-      </Button>
-      {validationErrors.map((error) => (
-        <Box mt={1}>
-          <Alert severity='error'>{error}</Alert>
+        <Divider />
+        <Box my={2}>
+          <Typography variant='h6'>Invite players and/or captains:</Typography>
         </Box>
-      ))}
-    </Box>
+        <Box mb={2}>
+          {invitees.length > 0 && (
+            <>
+              <Box ml={2} mb={2}>
+                <Typography variant='subtitle2'>Invitees</Typography>
+              </Box>
+              {invitees.map((invitee) => (
+                <Tooltip title={invitee.email}>
+                  <Chip
+                    label={invitee.name}
+                    onDelete={() =>
+                      setInvitees((prevState) =>
+                        prevState.filter((value) => value.id !== invitee.id)
+                      )
+                    }
+                    color='secondary'
+                    variant='outlined'
+                  />
+                </Tooltip>
+              ))}
+            </>
+          )}
+        </Box>
+        <AddPlayersInEvent
+          userId={userId}
+          invitees={invitees}
+          setInvitees={setInvitees}
+          allowedTeams={allowedTeams}
+        />
+        <Button
+          onClick={onClick}
+          color='primary'
+          fullWidth
+          disabled={sending}
+          variant='contained'
+        >
+          {sending ? <CircularProgress color='primary' /> : 'Create New Event'}
+        </Button>
+        {validationErrors.map((error) => (
+          <Box mt={1}>
+            <Alert severity='error'>{error}</Alert>
+          </Box>
+        ))}
+      </Box>
+    </Modal>
   )
 }
 
@@ -220,6 +240,20 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '80vh',
     padding: '0px 15px',
     overflowY: 'scroll',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  customScroll: {
+    '&::-webkit-scrollbar': {
+      width: '8px',
+      backgroundColor: 'rgba(0,0,0,0.5)',
+      borderRadius: 10,
+    },
+    '&::-webkit-scrollbar-thumb': {
+      borderRadius: 10,
+      opacity: '0.8',
+      backgroundColor: '#895cf2',
+    },
   },
   active: {
     transform: 'scale(1.3)',
@@ -233,18 +267,6 @@ const useStyles = makeStyles((theme) => ({
       height: '100%',
       border: '2px solid #eaeaea',
       borderRadius: '50%',
-    },
-  },
-  customScroll: {
-    '&::-webkit-scrollbar': {
-      width: '8px',
-      backgroundColor: 'rgba(0,0,0,0.5)',
-      borderRadius: 10,
-    },
-    '&::-webkit-scrollbar-thumb': {
-      borderRadius: 10,
-      opacity: '0.8',
-      backgroundColor: '#895cf2',
     },
   },
   closeIcon: {

@@ -30,6 +30,7 @@ export const AddGoalData = ({
   const [date, setDate] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const setGoal = useSetRecoilState(goalState)
+  console.log(date)
 
   const addData = async () => {
     setIsLoading(true)

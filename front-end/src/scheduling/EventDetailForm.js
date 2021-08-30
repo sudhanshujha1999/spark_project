@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { DeleteIcon } from '../icons'
+import { DeleteIcon, EditIcon } from '../icons'
 import {
   Alert,
   Avatar,
@@ -8,6 +8,7 @@ import {
   IconButton,
   Divider,
   Typography,
+  Grid,
 } from '../ui'
 import { useStyles } from './styles'
 import moment from 'moment'
@@ -37,6 +38,22 @@ export const EventDetailForm = ({
       setError(error.message)
     }
   }
+  const onclickEdit = async () => {
+    // try {
+    //   console.log(userId)
+    //   console.log(selectedEvent.created_by)
+    //   setError('')
+    //   if (selectedEvent.created_by !== userId) {
+    //     // check user permission
+    //     setError("You don't have the permission to delete this event")
+    //     return
+    //   }
+    //   await deleteEvent(selectedEvent._id)
+    //   // console.log("send-req");
+    // } catch (error) {
+    //   setError(error.message)
+    // }
+  }
   return (
     <Box className={classes.eventDetailsForm}>
       <Box
@@ -47,9 +64,14 @@ export const EventDetailForm = ({
         }}
       />
       {isCoach && (
-        <IconButton className={classes.deleteButton} onClick={onclickDelete}>
-          <DeleteIcon />
-        </IconButton>
+        <Grid className={classes.actionButtonContainer}>
+          <IconButton className={classes.actionButton} onClick={onclickEdit}>
+            <EditIcon />
+          </IconButton>
+          <IconButton className={classes.actionButton} onClick={onclickDelete}>
+            <DeleteIcon />
+          </IconButton>
+        </Grid>
       )}
       <Box mb={2}>
         <Typography variant='h4'>{name}</Typography>
@@ -60,12 +82,20 @@ export const EventDetailForm = ({
         }}
       />
       <Box mt={2} mb={3}>
-        <Typography variant='h6'>
-          Date: {moment(date).format('ddd DD MMM YYYY')}
-        </Typography>
-        <Typography variant='h6'>
-          Time: {moment(time).format('hh:mm A')}
-        </Typography>
+        <Grid container>
+          <Box mb={2} mr={3} className={classes.eventDetailsDateTimeBox}>
+            <Typography variant='h6'>Date:</Typography>
+            <Typography variant='h6'>
+              {moment(date).format('DD MMM YYYY ddd')}
+            </Typography>
+          </Box>
+          <Box mb={2} className={classes.eventDetailsDateTimeBox}>
+            <Typography variant='h6'>Time:</Typography>
+            <Typography variant='h6'>
+              {moment(time).format('hh:mm A')}
+            </Typography>
+          </Box>
+        </Grid>
         <Typography variant='h6' gutterBottom>
           Description:
         </Typography>

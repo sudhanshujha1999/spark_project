@@ -1,5 +1,6 @@
 import { Box, Typography } from '../ui'
 import { makeStyles } from '@material-ui/styles'
+import swordsIcon from './swords.png'
 
 export const CalendarCell = ({
   date,
@@ -41,10 +42,19 @@ export const CalendarCell = ({
             onClickEvent(event)
           }}
           mb={1}
+          className={
+            event.event_type === 'WAR_ROOM' && `${classes.warroomEvent}`
+          }
           style={{
-            background: event.hasOwnProperty('background_color')
-              ? `${event.background_color.background}`
-              : '#7289da',
+            position: 'relative',
+            background:
+              event.event_type === 'WAR_ROOM'
+                ? `linear-gradient(
+              225deg
+              , rgb(196, 29, 29) 0%, rgb(237, 84, 20) 100%)`
+                : event.hasOwnProperty('background_color')
+                ? `${event.background_color.background}`
+                : '#7289da',
             borderRadius: '11px',
             boxShadow:
               'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px',
@@ -59,6 +69,17 @@ export const CalendarCell = ({
             textAlign: 'center',
           }}
         >
+          {event.event_type === 'WAR_ROOM' && (
+            <img
+              style={{
+                position: 'absolute',
+                left: '6px',
+                width: '15px',
+                height: '15px',
+              }}
+              src={swordsIcon}
+            ></img>
+          )}
           {event.name}
         </Box>
       ))}
@@ -118,6 +139,35 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: '50%',
       zIndex: '-1',
       background: 'inherit',
+    },
+  },
+  warroomEvent: {
+    '&:before': {
+      position: 'absolute',
+      content: '""',
+      width: '100%',
+      height: '100%',
+      top: '0',
+      left: '0',
+      border: '2px solid',
+      borderColor: theme.palette.secondary.main,
+      clipPath:
+        'polygon(20% 0%, 100% 0, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0 100%, 0% 20%)',
+      animation: '$animateClipPath 3s linear infinite alternate',
+    },
+  },
+  '@keyframes animateClipPath': {
+    '0%': {
+      borderRadius: '11px',
+      filter: 'hue-rotate(0deg)',
+      clipPath:
+        'polygon(100% 0%, 100% 0, 100% 0%, 100% 0%, 0% 100%, 0% 100%, 0 100%, 0% 100%)',
+    },
+    '100%': {
+      filter: 'hue-rotate(180deg)',
+      borderRadius: '11px',
+      clipPath:
+        'polygon(0% 0%, 100% 0, 100% 20%, 100% 100%, 100% 100%, 20% 100%, 0 100%, 0% 0%)',
     },
   },
   scrollbar: {

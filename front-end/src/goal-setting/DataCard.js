@@ -11,7 +11,9 @@ export const DataCard = ({
   goalId,
   setShowDeleteAlert,
   canDelete,
+  test,
 }) => {
+  console.log(test)
   const classes = useStyles()
   const [toDelete, setToDelete] = useState(false)
   const dateTime = moment(data.date).format('DD-MM-YYYY HH:mm:ss')
