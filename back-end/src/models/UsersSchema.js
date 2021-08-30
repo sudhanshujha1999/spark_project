@@ -24,6 +24,18 @@ const UsersSchema = new Schema(
         isOnboarded: Boolean,
         bio: String,
         organizations: [{ type: Schema.Types.ObjectId, ref: "groups" }],
+        // discord information
+        discord: {
+            linked: {
+                type: Boolean,
+                default: false,
+                reuired: true,
+            },
+            email: String,
+            username: String,
+            discriminator: String,
+            id: String,
+        },
     },
     {
         timestamps: true,

@@ -5,7 +5,10 @@ import mongoose from "mongoose";
 import * as firebaseAdmin from "firebase-admin";
 import { addUserToRoute, protectRoute } from "./middleware";
 import { routes } from "./routes";
+import passport from "passport";
+import { discordStrategy } from "./auth/strategies/discordStrategy";
 // import { initializeDbConnection } from "./util";
+import cookieParser from "cookie-parser";
 
 const PORT = process.env.PORT || 8080;
 const FIREBASE_CREDENTIALS =
@@ -60,11 +63,18 @@ app.set("baseBackEndUrl", BASE_BACK_END_URL);
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "build")));
 
+// initialize discord startegy
+app.use(cookieParser());
+app.use(passport.initialize());
+discordStrategy(app);
+
 const apiRouter = express.Router();
 routes.forEach((route) => {
+    const middleware = route.middleware ? route.middleware : [];
     apiRouter[route.method](
         route.path,
         addUserToRoute,
+        ...middleware,
         protectRoute(route.protectors),
         route.handler
     );

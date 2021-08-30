@@ -1,5 +1,7 @@
 import {
   CreateAccountPage,
+  DiscordRedirect,
+  Final,
   EmailVerificationResult,
   PleaseVerifyEmail,
   SignInPage,
@@ -27,6 +29,7 @@ export const createTeamRoute = {
   path: '/new-team/:id',
   component: TeamInfoForm,
 }
+
 export const communityPageRoute = {
   path: '/community',
   component: CommunityPage,
@@ -106,12 +109,19 @@ export const createOrganization = {
   component: CreateOrganizationPage,
 }
 
-// export const createAccountRoute = {
-//     path: "/create-account",
-//     component: CreateAccountPage,
-//     isPublic: true,
-//     hideNav: true,
-// };
+export const createAccountRoute = {
+  path: '/create-account',
+  component: CreateAccountPage,
+  isPublic: true,
+  hideNav: true,
+}
+
+export const DiscordRedirectRoute = {
+  path: '/discord/auth/redirect/',
+  component: DiscordRedirect,
+  isPublic: true,
+  hideNav: true,
+}
 
 export const onboardingUserInfoRoute = {
   path: '/onboarding/user-info',
