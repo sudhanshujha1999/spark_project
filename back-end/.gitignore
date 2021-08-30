@@ -67,3 +67,4 @@ node_modules/
 
 #emulator storage
 emulator-storage/
+test-storage/
