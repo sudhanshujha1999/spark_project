@@ -18,6 +18,7 @@ import { RostersPage } from "./rosters";
 import { SchedulingPage } from "./scheduling";
 import { TeamInfoForm, EditTeamInfo } from "./teams";
 import { WarRoom, SessionDetails, Scrimmages } from "./war-room";
+import { GroupsPage, GroupDetailPage } from "./groups";
 
 export const createTeamRoute = {
     path: "/new-team/:id",
@@ -67,6 +68,16 @@ export const goalChoosePlayerRoute = {
 export const goalCreateRoute = {
     path: "/goals/create-goal",
     component: CreateGoal,
+};
+
+export const groupsPage = {
+    path: "/groups/",
+    component: GroupsPage,
+};
+
+export const groupsDetailPage = {
+    path: "/:groupId/groups/",
+    component: GroupDetailPage,
 };
 
 export const invitationLandingRoute = {

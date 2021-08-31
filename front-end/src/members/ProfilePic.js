@@ -65,7 +65,7 @@ export const ProfilePic = ({ user, isCuurentUser }) => {
                             .getDownloadURL()
                             .then(async (url) => {
                                 const updates = { profile_img: url };
-                                await post(`/api/users/${user.id}`, { updates });
+                                await post(`/api/users/${user._id}`, { updates });
                                 setProfileImage(url);
                                 setImageUpload(false);
                             })

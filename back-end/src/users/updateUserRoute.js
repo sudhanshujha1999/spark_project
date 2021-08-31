@@ -15,6 +15,8 @@ export const updateUserRoute = {
         const { updates } = req.body;
         const user = req.user;
         const userFromDocumnet = await getUserById(userId);
+        console.log(user);
+        console.log(userFromDocumnet);
         if (user.user_id === userFromDocumnet.authId) {
             const updatedUser = await updateUser(userId, updates);
             res.send(updatedUser);
