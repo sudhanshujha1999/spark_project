@@ -15,6 +15,7 @@ export const useGroupDetails = (groupId) => {
             setIsLoading(false);
         } catch (error) {
             console.log(error.message);
+            setIsLoading(false);
         }
     }, []);
 

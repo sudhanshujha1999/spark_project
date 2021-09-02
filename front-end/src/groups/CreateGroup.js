@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Alert, Box, Button, Grid, MenuItem, TextField, Typography } from "../ui";
+import { Alert, Box, Button, Grid, Loading, MenuItem, TextField, Typography } from "../ui";
 import { UsaStates } from "usa-states";
 import { getValidationErrors } from "../util/getValidationErrors";
 import { post } from "../network";
@@ -27,6 +27,8 @@ export const CreateGroup = ({ onClose }) => {
     const [selectedState, setSelectedState] = useState(""); // As in "USA State", NOT "React state"
     // error
     const [validationErrors, setValidationErrors] = useState([]);
+    // loading
+    const [loading, setLoading] = useState(false);
 
     const handleCreate = async () => {
         const deatils = {
@@ -38,6 +40,7 @@ export const CreateGroup = ({ onClose }) => {
         setValidationErrors(validationErrors);
         if (validationErrors.length > 0) return;
         // loading
+        setLoading(true);
         try {
             const { data } = await post("/api/community-group/", deatils);
             console.log(data);
@@ -45,6 +48,7 @@ export const CreateGroup = ({ onClose }) => {
         } catch (error) {
             console.log(error);
         }
+        setLoading(false);
         // loading
     };
 
@@ -100,8 +104,13 @@ export const CreateGroup = ({ onClose }) => {
                     ))}
                 </Grid>
                 <Grid item xs={12}>
-                    <Button onClick={handleCreate} fullWidth color='primary' variant='contained'>
-                        Create
+                    <Button
+                        disabled={loading}
+                        onClick={handleCreate}
+                        fullWidth
+                        color='primary'
+                        variant='contained'>
+                        {loading ? <Loading height='fit-content' size='2em' /> : "Create"}
                     </Button>
                 </Grid>
             </Grid>

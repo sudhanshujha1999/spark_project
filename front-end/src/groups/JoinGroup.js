@@ -1,6 +1,5 @@
 import { useState, useMemo } from "react";
-import { Alert, Box, Button, Grid, MenuItem, NavigationTab, TextField, Typography } from "../ui";
-import { post } from "../network";
+import { Box, Grid, NavigationTab, Typography } from "../ui";
 import { JoinWithCode } from "./JoinWithCode";
 
 const tabLabel = [

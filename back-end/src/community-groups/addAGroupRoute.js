@@ -4,6 +4,7 @@ import { createCommunityGroup } from "./createCommunityGroup";
 
 export const addAGroupRoute = {
     method: "post",
+    // fix to take organizationId as param
     path: "/community-group/",
     protectors: [isLoggedInProtector, isVerifiedProtector],
     handler: async (req, res) => {

@@ -8,6 +8,7 @@ import { routes } from "./routes";
 import passport from "passport";
 import { discordStrategy } from "./auth/strategies/discordStrategy";
 // import { initializeDbConnection } from "./util";
+import nocache from "nocache";
 import cookieParser from "cookie-parser";
 
 const PORT = process.env.PORT || 8080;
@@ -38,7 +39,7 @@ if (!FIREBASE_CREDENTIALS) {
 }
 
 const MONGO_URI =
-    process.env.IS_PRODUCTION || process.env.IS_DEV
+    process.env.IS_PRODUCTION || process.env.IS_QA
         ? `mongodb+srv://${process.env.MONGO_DB_USERNAME}:${process.env.MONGO_DB_PASSWORD}@${process.env.MONGO_DB_CLUSTER}.mongodb.net/${process.env.MONGO_DB_NAME}?retryWrites=true&w=majority`
         : `mongodb://localhost:27017/spark`;
 
@@ -53,10 +54,15 @@ const connectDatabase = async () => {
 
 connectDatabase()
     .then(() => console.log("MongoDb Connected..."))
-    .catch((error) => console.log(`Cannot connect mongo Db. Error: ${error.message}`));
+    .catch((error) =>
+        console.log(
+            `Cannot connect mongo Db. Error: ${error.message}, connection string is : ${MONGO_URI}`
+        )
+    );
 
 const app = express();
 
+app.use(nocache());
 app.set("baseFrontEndUrl", BASE_FRONT_END_URL);
 app.set("baseBackEndUrl", BASE_BACK_END_URL);
 

@@ -2,35 +2,36 @@ runtime: nodejs14
 env: standard
 instance_class: F1
 handlers:
-  - url: .*
-    script: auto
+    - url: .*
+      script: auto
 env_variables:
-  FIREBASE_CREDENTIALS: >-
-    { "type": "service_account", "project_id": "spark-esport", "private_key_id":
-    "42e5e84fa2776019f3c1fc4c9bce3fcf0c640a6e", "private_key": "-----BEGIN
-    PRIVATE
-    KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCqsloheQ+vu2Nu\nrTP6/STu4Gna1EX9gAziuwuul1CaNZSFsKP9NsEHeJsMZxF7EZ3W5YKcF8uihKa5\nI+U/KwfNAVKZKErr01m8Pd/KhbISV5BMAB70fp+TKjvlqK1ZKR9WKCxTgS+wSMzz\nZF1UOcWk969eFh7sJCdYbu0UjSKa85+p6ToN+CgmOFxLDMzRMsnTtNWebFAMCfdn\nWP8aRLG0HvNZV83uJPXu225iNuNGWwTQq0bBtRY7upY9WygSpKMtF9ncfLWWqsia\niHVzu1yKKuZOtdTkdGncK1WrQhGfaCQn6pH4INVOVHaPc7qj9n0dLia1gFkho0ai\nz2vKz1shAgMBAAECggEAUEuii0Fj6CHpZZwzKftfnsDQ+p/FJrjQFu2u0puaTlgq\n+/J6SbgyeB27LcvkFLTWP0rqNBwbbeEhflDM23iV7FEVdjdWevWKLjsa5S0b9XXc\nSmv6I7/Wt8bzsxY0KQ9njsNKCqPn93BffJS3NFISz4W1qDgWprVhDr/rZTH419NC\nat0byOVJ2xxKKXK2bKzLavLd+VGPpWPDOJuz52BgLWjKgyf7FVaC2DyFRcpvCkzE\nybYzKrEZ2ybIiPhq0652dMIYtVH9TJl8ToRxMH3xI6SyBceURkXq8o+U7jvUYgyW\nu5dFjnf1VXqTr8NEDS9Gu1I07shVCGTxX/zeYSR7ewKBgQDaUyiKQ27z7qEnQR20\n3JhKc9fzF2sxxzLnIqu7ktJ9456KfCFYZBHGzw8iGwuJsbJzni7gcNRB2ZNYdd/j\n1QsvJTAEsvjmma0t0/yA9nMXjejtPF9A8icSCk3/Vi7lhczCpxqxsv9tquNcZjxw\nh/Dq4j+sfBCDM+8mtcP8DsAriwKBgQDIJyVGqISbCcWoU1JXBnv/BYeNtn6jQPif\njhBnus/2ZDrn39H7m+gxVt3+ZGTAtMi6VM1l32B7h0mijOSb04esWMgx1vaPgv6A\nkF+bFKnIRV8m3lEhSkkdTkiDT/+9a83rvQp555LDsnkJCQrhl23TFFsWahq7zWBW\n10YRZ7mZgwKBgQCGlCgzQmoMd5ZjKiJzsF831bzSHid3ocDg9WBC2bhi3YKG/wlX\nAShsEorTjTRJhn3oAyQGOca9aK8JInAGcvbX8uZsnx4Kl8RGsZu+qyw64sEoK8TT\ntfEbj7qQoMF7vkR/4J31187X/TT1ahfrjgCV6S0y168eEU9j3zuWDkmrDQKBgC6X\nrj28jOHqbHC6tLg9ci/zgZKjoOcwALBjyb3b5v1cZ7oCiEciC/MwXY0SocGaU//M\nLeRBE5yt6Z5FXhJIM5UTNcckW1EdFVGoShk3vi44t+W8avZs7Ig96PNodAgMSGtQ\nHlgyaB/WNAa+bCIHtjEk0+9r071UGdEdW9pBYxsxAoGAS7BTDz0bo/SgrROgieAu\nmTLTK/0n9HQLeorUJoF9Tb/WXtEGw+DGiDvx5RVmh0PvjVw7QIVq7j941y96xFIl\nhp1UivdGQSuwZ55hvenr4lyW18I1Q3Uignb8uKRyVWMZe9nFcIE2kV0MVmZmQb6r\npNMlN7FO+U9ObTVlS2mGzCA=\n-----END
-    PRIVATE KEY-----\n", "client_email":
-    "firebase-adminsdk-dmkrs@spark-esport.iam.gserviceaccount.com", "client_id":
-    "114376061243919166595", "auth_uri":
-    "https://accounts.google.com/o/oauth2/auth", "token_uri":
-    "https://oauth2.googleapis.com/token", "auth_provider_x509_cert_url":
-    "https://www.googleapis.com/oauth2/v1/certs", "client_x509_cert_url":
-    "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-dmkrs%40spark-esport.iam.gserviceaccount.com"
-    }
-  IS_QA: 'True'
-  MONGO_DB_CLUSTER: cluster0.al0a8
-  MONGO_DB_NAME: spark
-  MONGO_DB_PASSWORD: PkQHmXe9TKheKFSI
-  MONGO_DB_USERNAME: server-user
-  SENDGRID_API_KEY: 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
-  DISCORD_CLIENT_ID: 873464886611550280
-  DISCORD_CLIENT_SECRET: XsPMdMghY3-Im1tywCKy2ZU8Bska7UE5
-  REACT_APP_DISCORD_REDIRECT_URL: http://localhost:8080/api/discord/login/
-  DISCORD_CALLBACK_URL: https://dev.sparkesports.gg/api/discord/auth/redirect/
+    FIREBASE_CREDENTIALS: >-
+        { "type": "service_account", "project_id": "spark-esport", "private_key_id":
+        "42e5e84fa2776019f3c1fc4c9bce3fcf0c640a6e", "private_key": "-----BEGIN
+        PRIVATE
+        KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCqsloheQ+vu2Nu\nrTP6/STu4Gna1EX9gAziuwuul1CaNZSFsKP9NsEHeJsMZxF7EZ3W5YKcF8uihKa5\nI+U/KwfNAVKZKErr01m8Pd/KhbISV5BMAB70fp+TKjvlqK1ZKR9WKCxTgS+wSMzz\nZF1UOcWk969eFh7sJCdYbu0UjSKa85+p6ToN+CgmOFxLDMzRMsnTtNWebFAMCfdn\nWP8aRLG0HvNZV83uJPXu225iNuNGWwTQq0bBtRY7upY9WygSpKMtF9ncfLWWqsia\niHVzu1yKKuZOtdTkdGncK1WrQhGfaCQn6pH4INVOVHaPc7qj9n0dLia1gFkho0ai\nz2vKz1shAgMBAAECggEAUEuii0Fj6CHpZZwzKftfnsDQ+p/FJrjQFu2u0puaTlgq\n+/J6SbgyeB27LcvkFLTWP0rqNBwbbeEhflDM23iV7FEVdjdWevWKLjsa5S0b9XXc\nSmv6I7/Wt8bzsxY0KQ9njsNKCqPn93BffJS3NFISz4W1qDgWprVhDr/rZTH419NC\nat0byOVJ2xxKKXK2bKzLavLd+VGPpWPDOJuz52BgLWjKgyf7FVaC2DyFRcpvCkzE\nybYzKrEZ2ybIiPhq0652dMIYtVH9TJl8ToRxMH3xI6SyBceURkXq8o+U7jvUYgyW\nu5dFjnf1VXqTr8NEDS9Gu1I07shVCGTxX/zeYSR7ewKBgQDaUyiKQ27z7qEnQR20\n3JhKc9fzF2sxxzLnIqu7ktJ9456KfCFYZBHGzw8iGwuJsbJzni7gcNRB2ZNYdd/j\n1QsvJTAEsvjmma0t0/yA9nMXjejtPF9A8icSCk3/Vi7lhczCpxqxsv9tquNcZjxw\nh/Dq4j+sfBCDM+8mtcP8DsAriwKBgQDIJyVGqISbCcWoU1JXBnv/BYeNtn6jQPif\njhBnus/2ZDrn39H7m+gxVt3+ZGTAtMi6VM1l32B7h0mijOSb04esWMgx1vaPgv6A\nkF+bFKnIRV8m3lEhSkkdTkiDT/+9a83rvQp555LDsnkJCQrhl23TFFsWahq7zWBW\n10YRZ7mZgwKBgQCGlCgzQmoMd5ZjKiJzsF831bzSHid3ocDg9WBC2bhi3YKG/wlX\nAShsEorTjTRJhn3oAyQGOca9aK8JInAGcvbX8uZsnx4Kl8RGsZu+qyw64sEoK8TT\ntfEbj7qQoMF7vkR/4J31187X/TT1ahfrjgCV6S0y168eEU9j3zuWDkmrDQKBgC6X\nrj28jOHqbHC6tLg9ci/zgZKjoOcwALBjyb3b5v1cZ7oCiEciC/MwXY0SocGaU//M\nLeRBE5yt6Z5FXhJIM5UTNcckW1EdFVGoShk3vi44t+W8avZs7Ig96PNodAgMSGtQ\nHlgyaB/WNAa+bCIHtjEk0+9r071UGdEdW9pBYxsxAoGAS7BTDz0bo/SgrROgieAu\nmTLTK/0n9HQLeorUJoF9Tb/WXtEGw+DGiDvx5RVmh0PvjVw7QIVq7j941y96xFIl\nhp1UivdGQSuwZ55hvenr4lyW18I1Q3Uignb8uKRyVWMZe9nFcIE2kV0MVmZmQb6r\npNMlN7FO+U9ObTVlS2mGzCA=\n-----END
+        PRIVATE KEY-----\n", "client_email":
+        "firebase-adminsdk-dmkrs@spark-esport.iam.gserviceaccount.com", "client_id":
+        "114376061243919166595", "auth_uri":
+        "https://accounts.google.com/o/oauth2/auth", "token_uri":
+        "https://oauth2.googleapis.com/token", "auth_provider_x509_cert_url":
+        "https://www.googleapis.com/oauth2/v1/certs", "client_x509_cert_url":
+        "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-dmkrs%40spark-esport.iam.gserviceaccount.com"
+        }
+    IS_QA: "True"
+    MONGO_DB_CLUSTER: cluster0.al0a8
+    MONGO_DB_NAME: spark
+    MONGO_DB_PASSWORD: PkQHmXe9TKheKFSI
+    MONGO_DB_USERNAME: server-user
+    SENDGRID_API_KEY: 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
+    DISCORD_CLIENT_ID: 873464886611550280
+    DISCORD_CLIENT_SECRET: XsPMdMghY3-Im1tywCKy2ZU8Bska7UE5
+    REACT_APP_DISCORD_LOGIN_URL: https://dev.sparkesports.gg/api/discord/login/
+    REACT_APP_DISCORD_LINK_URL: https://dev.sparkesports.gg/api/discord/link/
+    DISCORD_CALLBACK_URL: https://dev.sparkesports.gg/api/discord/auth/redirect/
 automatic_scaling:
-  min_idle_instances: automatic
-  max_idle_instances: automatic
-  min_pending_latency: automatic
-  max_pending_latency: automatic
+    min_idle_instances: automatic
+    max_idle_instances: automatic
+    min_pending_latency: automatic
+    max_pending_latency: automatic
 network: {}

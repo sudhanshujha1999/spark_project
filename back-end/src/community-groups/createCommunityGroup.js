@@ -30,6 +30,6 @@ export const createCommunityGroup = async ({ name, state, description, creatorId
     return newGroup._id;
 };
 
-const getLocationFromGroup = ({ city, state, zipcode }) => {
-    return `${city ? city : ""},${state ? state : ""},${zipcode ? zipcode : ""}`;
+const getLocationFromGroup = ({ city, state, zipCode }) => {
+    return `${city ? city : ""},${state ? state : ""},${zipCode ? zipCode : ""}`;
 };

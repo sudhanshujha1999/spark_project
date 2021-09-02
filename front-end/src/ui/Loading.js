@@ -8,11 +8,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const Loading = ({ height = "75vh", size = "2.5em" }) => {
+export const Loading = ({ height = "75vh", size = "2.5em", color = "primary" }) => {
     const classes = useStyles();
     return (
         <Box height={height} className={classes.loadScreenFull}>
-            <CircularProgress size={size} />
+            <CircularProgress size={size} color={color} />
         </Box>
     );
 };

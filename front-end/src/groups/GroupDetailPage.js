@@ -14,7 +14,10 @@ export const GroupDetailPage = () => {
                 <Loading />
             ) : groupDetails._id ? (
                 <Box>
-                    <Typography className={classes.medHeading}>{groupDetails.name}</Typography>
+                    <Typography className={classes.medHeading} gutterBottom>
+                        {groupDetails.name}
+                    </Typography>
+                    <Typography variant='h6'>{groupDetails.group_code}</Typography>
                     <Button color='secondary' variant='contained'>
                         share
                     </Button>

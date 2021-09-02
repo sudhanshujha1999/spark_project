@@ -17,6 +17,12 @@ export const SignInPage = () => {
     const [networkError, setNetworkError] = useState("");
     const { userInfo, isLoading } = useCurrentUserInfo();
 
+    const baseURL = process.env.IS_PRODUCTION
+        ? `https://sparkesports.gg/api`
+        : process.env.IS_QA
+        ? `https://dev.sparkesports.gg/api`
+        : `http://localhost:8080/api`;
+
     const classes = useStyles();
 
     const onSignIn = async () => {
@@ -120,7 +126,7 @@ export const SignInPage = () => {
                         <Box mb={2}>
                             <Button
                                 // need to make a env variable for it
-                                href='http://localhost:8080/api/discord/login/'
+                                href={`${baseURL}/discord/login`}
                                 fullWidth
                                 className={classes.discordBtn}
                                 variant='contained'

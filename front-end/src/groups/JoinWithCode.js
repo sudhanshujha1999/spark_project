@@ -1,23 +1,40 @@
 import { useState } from "react";
-import { Alert, Box, Button, TextField, Typography } from "../ui";
+import { Alert, Box, Button, Loading, TextField, Typography } from "../ui";
 import { post } from "../network";
+import { useOrganizations } from "../teams";
+import { useHistory } from "react-router-dom";
 
 export const JoinWithCode = ({ onClose = () => {} }) => {
-    const [code, setCode] = useState("");
+    const { organizations } = useOrganizations();
+    const [code, setCode] = useState("1A7D2F9A");
     const [error, setError] = useState("");
-
+    const [loading, setLoading] = useState(false);
+    const history = useHistory();
     const handleJoin = async () => {
         setError("");
         if (!code) {
             setError("Please enter a group code");
             return;
         }
+        if (!organizations._id) {
+            setError("You are not a part of an Oragnization, please join a organization first!");
+            return;
+        }
         // loading
+        setLoading(true);
         try {
             console.log(code);
-
+            const {
+                data: { groupId },
+            } = await post(`/api/community-group/${organizations._id}/join/`, {
+                groupCode: code,
+            });
+            history.push(`/${groupId}/groups/`);
             onClose();
-        } catch (error) {}
+        } catch (error) {
+            console.log(error);
+        }
+        setLoading(false);
         // loading
     };
 
@@ -43,8 +60,13 @@ export const JoinWithCode = ({ onClose = () => {} }) => {
                 </Box>
             )}
             <Box mb={2}>
-                <Button onClick={handleJoin} fullWidth color='primary' variant='contained'>
-                    Join
+                <Button
+                    disabled={loading}
+                    onClick={handleJoin}
+                    fullWidth
+                    color='primary'
+                    variant='contained'>
+                    {loading ? <Loading height='fit-content' size='2em' /> : "Join"}
                 </Button>
             </Box>
         </Box>
