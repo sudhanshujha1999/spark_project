@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/styles";
+import { purple } from "@material-ui/core/colors";
 
 export const useStyles = makeStyles((theme) => ({
     heading: {
@@ -53,5 +54,12 @@ export const useStyles = makeStyles((theme) => ({
         "&:hover": {
             fontSize: "1.2em",
         },
+    },
+    groupCode: {
+        padding: "5px 10px",
+        width: "fit-content",
+        border: `1px solid ${purple[600]}`,
+        margin: "10px 0",
+        cursor: "pointer",
     },
 }));

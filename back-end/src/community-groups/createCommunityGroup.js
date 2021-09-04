@@ -2,8 +2,14 @@ import { CommunityGroups } from "../models";
 import { getOrganizationCreatedBy } from "../groups/getGroupCreatedBy";
 import { v4 as uuidv4 } from "uuid";
 
-export const createCommunityGroup = async ({ name, state, description, creatorId }) => {
-    const group = await getOrganizationCreatedBy(creatorId);
+export const createCommunityGroup = async ({
+    name,
+    state,
+    description,
+    creatorId,
+    organizationId,
+}) => {
+    const group = await getOrganizationCreatedBy(creatorId, organizationId);
     if (!group) {
         throw new Error("no-org-found");
     }

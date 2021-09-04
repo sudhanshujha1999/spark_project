@@ -1,9 +1,14 @@
 import { CommunityGroups } from "../models";
 import { getGroupById } from "../groups";
+import { exceedeGroupsLimit } from "./exceedeGroupsLimit";
 
 export const joinGroup = async ({ organizaitonId, groupCode }) => {
     if (!organizaitonId) {
         throw new Error("no-org-found");
+    }
+    const groupExceededLimit = await exceedeGroupsLimit({ organizationId });
+    if (groupExceededLimit) {
+        throw new Error("group-limit-exceeded");
     }
     const group = await CommunityGroups.findOne({
         group_code: groupCode,

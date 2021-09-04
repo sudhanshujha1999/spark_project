@@ -3,6 +3,7 @@ import { Alert, Box, Button, Grid, Loading, MenuItem, TextField, Typography } fr
 import { UsaStates } from "usa-states";
 import { getValidationErrors } from "../util/getValidationErrors";
 import { post } from "../network";
+import { useOrganizations } from "../teams";
 
 const usaStates = new UsaStates();
 
@@ -25,6 +26,8 @@ export const CreateGroup = ({ onClose }) => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [selectedState, setSelectedState] = useState(""); // As in "USA State", NOT "React state"
+    // organizations
+    const { organizations } = useOrganizations();
     // error
     const [validationErrors, setValidationErrors] = useState([]);
     // loading
@@ -35,6 +38,7 @@ export const CreateGroup = ({ onClose }) => {
             name,
             description,
             state: selectedState,
+            organizationId: organizations._id,
         };
         const validationErrors = getValidationErrors(deatils, validations);
         setValidationErrors(validationErrors);
@@ -105,7 +109,7 @@ export const CreateGroup = ({ onClose }) => {
                 </Grid>
                 <Grid item xs={12}>
                     <Button
-                        disabled={loading}
+                        disabled={loading || !organizations._id}
                         onClick={handleCreate}
                         fullWidth
                         color='primary'

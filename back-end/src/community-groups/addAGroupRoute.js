@@ -8,7 +8,7 @@ export const addAGroupRoute = {
     path: "/community-group/",
     protectors: [isLoggedInProtector, isVerifiedProtector],
     handler: async (req, res) => {
-        const { name, state, description } = req.body;
+        const { name, state, description, organizationId } = req.body;
         const authUser = req.user;
         try {
             const user = await getUserByAuthId(authUser.user_id);
@@ -17,6 +17,7 @@ export const addAGroupRoute = {
                 state,
                 description,
                 creatorId: user._id,
+                organizationId,
             });
             return res.status(200).json({
                 success: true,

@@ -13,6 +13,7 @@ export const discordAuthRedirectRoute = {
         try {
             // the serialize and deserialize addes a userId or a userObject in req.user
             const baseUrl = req.app.get("baseFrontEndUrl");
+            console.log("Redirect base URl: " + baseUrl);
             const userId = req.user;
             const destination = req.dest;
             const user = await getUserById(userId);
