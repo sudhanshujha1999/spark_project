@@ -76,7 +76,7 @@ export const theme = createTheme({
                 containedSecondary: {
                     backgroundImage:
                         "linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%)",
-                    color: "#464646",
+                    color: "#000",
                     transition: "all 0.5s ease-out",
                     backgroundSize: "300% 300%",
                     "&:hover": {

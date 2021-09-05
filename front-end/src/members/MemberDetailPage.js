@@ -21,11 +21,13 @@ export const MemberDetailPage = ({ currentUserId }) => {
     const teams = useGetTeamsForUser(user);
     const [value, setValue] = useState(0);
     const tabLabel = ["Overview", "Notes"];
+
     const baseURL = process.env.IS_PRODUCTION
         ? `https://sparkesports.gg/api`
         : process.env.IS_QA
         ? `https://dev.sparkesports.gg/api`
         : `http://localhost:8080/api`;
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };

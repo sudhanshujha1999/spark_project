@@ -64,6 +64,8 @@ node_modules/
 
 # dotenv environment variables file
 .env
+dev-app.yaml
 
 #emulator storage
 emulator-storage/
+test-storage/

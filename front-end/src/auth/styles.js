@@ -45,7 +45,8 @@ export const useStyles = makeStyles((theme) => ({
     headingText: {
         opacity: 0,
         fontFamily: "'Josefin Sans'",
-        fontWeight: 700,
+        fontWeight: 600,
+        letterSpacing: "7px",
         animation: "$entryText 1s cubic-bezier(0.87, 0.29, 0.2, 0.97) forwards",
         animationDelay: "1s",
     },
