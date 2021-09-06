@@ -97,6 +97,7 @@ export const useStyles = makeStyles((theme) => ({
     clipPath: 'polygon(0 0, 100% 0%, 100% 20%, 0 46%)',
     transform: `translate(-0.025em, -0.0125em)`,
     animation: '$glitch 750ms infinite',
+    opacity: '0.99',
   },
   orgNameSecondSpan: {
     zIndex: 0,
@@ -107,6 +108,7 @@ export const useStyles = makeStyles((theme) => ({
     clipPath: 'polygon(0 100%, 100% 100%, 100% 40%, 0 60%)',
     transform: `translate(0.025em, 0.0125em)`,
     animation: '$glitch 375ms infinite',
+    opacity: '0.99',
   },
   '@keyframes glitch': {
     '0%': {
