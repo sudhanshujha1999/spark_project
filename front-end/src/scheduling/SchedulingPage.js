@@ -36,6 +36,9 @@ export const SchedulingPage = () => {
   const { events, setEvents } = useEvents(selectedYear, selectedMonth)
   const { organizations } = useOrganizations()
   const { canEditEvents, teamsForEvents } = useIsCoach(organizations._id)
+
+  console.log(canEditEvents)
+
   const nextMonth = () => {
     const nextMonth = selectedMonth + 1
     if (nextMonth >= 12) setSelectedYear(selectedYear + 1)

@@ -99,7 +99,7 @@ export const useOrganizations = () => {
             const teamsInfoWithPermission = teams.map((team) => ({
                 ...team,
                 editEvents: teamsForEvents.includes(team._id),
-                editGoals: teamsForGoals.includes(rest._id),
+                editGoals: teamsForGoals.includes(team._id),
             }));
             const oragnizationWithPermission = {
                 ...rest,
