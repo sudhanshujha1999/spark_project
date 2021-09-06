@@ -11,7 +11,6 @@ import { LeagueRecords } from "./LeagueRecords";
 export const WarRoom = () => {
     const { organizations, isLoading: isLoadingOrganizations } = useOrganizations();
     const { canEditEvents } = useIsCoach(organizations._id);
-    console.log(organizations);
     const { matches, isLoading: isLoadingMatches } = useGetAllMatches();
     const [addMatch, setAddMatch] = useState(false);
     const heightRef = useRef(null);
