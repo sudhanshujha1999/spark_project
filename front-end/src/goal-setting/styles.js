@@ -394,7 +394,6 @@ export const useStyles = makeStyles((theme) => ({
       'linear-gradient( to right, #f32170, #ff6b08, #cf23cf, #eedd44)',
     '-webkit-text-fill-color': 'transparent',
     '-webkit-background-clip': 'text',
-    textAlign: 'left',
     opacity: 1,
     textAlign: 'center',
   },

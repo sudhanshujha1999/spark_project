@@ -21,7 +21,9 @@ const TYPES = ['image/jgp', 'image/jpeg', 'image/png']
 export const ProfilePic = ({ user, isCuurentUser }) => {
   const [open, setOpen] = useState(false)
   const [imageUpload, setImageUpload] = useState(false)
-  const [profileImage, setProfileImage] = useState(user ? user.url : null)
+  const [profileImage, setProfileImage] = useState(
+    user.profile_img ? user.profile_img : null
+  )
   const [message, setMessage] = useState('')
 
   const deletePhoto = async (url) => {
@@ -34,7 +36,6 @@ export const ProfilePic = ({ user, isCuurentUser }) => {
       console.log(err, 'Failed')
     }
   }
-  console.log(user._id)
 
   const handleUpload = async (e) => {
     console.log('handleUpload')

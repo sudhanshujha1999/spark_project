@@ -7,6 +7,7 @@ import {
   Chip,
   CircularProgress,
   Divider,
+  Grid,
   TextField,
   Tooltip,
   Typography,
@@ -90,7 +91,29 @@ export const NewEventForm = ({
       disableScrollLock='true'
     >
       <Box className={`${classes.form} ${classes.customScroll}`}>
-        <h1>New Event For {date.toLocaleDateString()}</h1>
+        <Grid
+          container
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Box>
+            <h1>New Event For {date.toLocaleDateString()}</h1>
+          </Box>
+          <Box>
+            <Button
+              onClick={onClick}
+              color='primary'
+              disabled={sending}
+              variant='contained'
+            >
+              {sending ? <CircularProgress color='primary' /> : <AddIcon />}
+            </Button>
+          </Box>
+        </Grid>
         <Box mb={2}>
           <TextField
             label='Event Name'
@@ -210,7 +233,7 @@ export const NewEventForm = ({
           disabled={sending}
           variant='contained'
         >
-          {sending ? <CircularProgress color='primary' /> : 'Create New Event'}
+          {sending ? <CircularProgress color='primary' /> : <AddIcon />}
         </Button>
         {validationErrors.map((error) => (
           <Box mt={1}>

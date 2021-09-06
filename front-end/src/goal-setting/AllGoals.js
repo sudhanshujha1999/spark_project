@@ -43,7 +43,7 @@ export const AllGoals = ({
         <Grid container justifyContent='space-between' alignItems='center'>
           <Box mb={3}>
             <Typography className={classes.headingMedium}>
-              Ongoing Goals
+              Current Goals
             </Typography>
           </Box>
           {isCoach && (

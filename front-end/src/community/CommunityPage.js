@@ -1,50 +1,51 @@
-import { Box, Tabs, Tab } from "../ui";
-import { usePosts } from "./usePosts";
-import { useState } from "react";
-import { Scrimmages } from "./Scrimmages";
-import { AllPosts } from "./AllPosts";
-import { useIsCoach } from "../users/useIsCoach";
-import { useOrganizations } from "../teams";
+import { Box, Tabs, Tab, Typography } from '../ui'
+import { usePosts } from './usePosts'
+import { useState } from 'react'
+import { Scrimmages } from './Scrimmages'
+import { AllPosts } from './AllPosts'
+import { useIsCoach } from '../users/useIsCoach'
+import { useOrganizations } from '../teams'
 
-const tabLabel = ["Home", "Scrimmages"];
+const tabLabel = ['Home', 'Scrimmages']
 
 export const CommunityPage = () => {
-    const { posts, isLoading, updateScrimmages } = usePosts();
-    const { organizations } = useOrganizations();
-    const { isCoach } = useIsCoach(organizations._id);
+  const { posts, isLoading, updateScrimmages } = usePosts()
+  const { organizations } = useOrganizations()
+  const { isCoach } = useIsCoach(organizations._id)
 
-    const onUpdateScrimmage = () => {
-        updateScrimmages(true);
-    };
+  const onUpdateScrimmage = () => {
+    updateScrimmages(true)
+  }
 
-    const [value, setValue] = useState(0);
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
+  const [value, setValue] = useState(0)
+  const handleChange = (event, newValue) => {
+    setValue(newValue)
+  }
 
-    const TABS = [
-        <AllPosts
-            isCoach={isCoach}
-            posts={posts}
-            isLoading={isLoading}
-            updateScrimmages={onUpdateScrimmage}
-        />,
-        <Scrimmages isCoach={isCoach} />,
-    ];
-    return (
-        <Box>
-            <Box>
-                <Tabs
-                    textColor='secondary'
-                    indicatorColor='secondary'
-                    value={value}
-                    onChange={handleChange}>
-                    {tabLabel.map((item) => (
-                        <Tab label={item} />
-                    ))}
-                </Tabs>
-            </Box>
-            {TABS[value]}
-        </Box>
-    );
-};
+  const TABS = [
+    <AllPosts
+      isCoach={isCoach}
+      posts={posts}
+      isLoading={isLoading}
+      updateScrimmages={onUpdateScrimmage}
+    />,
+    <Scrimmages isCoach={isCoach} disabled={true} />,
+  ]
+  return (
+    <Box>
+      <Box>
+        <Tabs
+          textColor='secondary'
+          indicatorColor='secondary'
+          value={value}
+          onChange={handleChange}
+        >
+          {tabLabel.map((item) => (
+            <Tab label={item} />
+          ))}
+        </Tabs>
+      </Box>
+      {TABS[value]}
+    </Box>
+  )
+}

@@ -37,6 +37,8 @@ export const CreateGoal = () => {
   const { organizations, isLoading: isLoadingOrganizations } =
     useOrganizations()
 
+  const today = new Date()
+
   let selectedTeam = {}
   if (!isLoadingOrganizations && Object.keys(organizations).length > 0) {
     selectedTeam = organizations.teams.find(
@@ -126,6 +128,7 @@ export const CreateGoal = () => {
           <DateRangePicker
             calendars={1}
             value={value}
+            minDate={today}
             onChange={(newValue) => {
               setValue(newValue)
             }}
