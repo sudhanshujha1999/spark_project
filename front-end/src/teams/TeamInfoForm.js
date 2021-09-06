@@ -177,7 +177,6 @@ export const TeamInfoForm = () => {
     }, 500)
   }
 
-  console.log(game)
   return (
     <Container maxWidth='lg'>
       <Grid
@@ -253,7 +252,6 @@ export const TeamInfoForm = () => {
                 }
               }}
               getOptionLabel={(option) => {
-                console.log(option)
                 if (typeof option === 'string') {
                   return option
                 } else {
@@ -262,7 +260,6 @@ export const TeamInfoForm = () => {
               }}
               style={{ width: '100%' }}
               renderInput={(params) => {
-                console.log(params)
                 return (
                   <TextField
                     {...params}

@@ -1,16 +1,17 @@
-export { Users } from './UsersSchema'
-export { Groups } from './GroupsSchema'
-export { Invitation } from './InvitationSchema'
-export { Events } from './EventsSchema'
-export { Permissions } from './PermissionsSchema'
-export { Notes } from './NotesSchema'
-export { League } from './LeagueSchema'
-export { Notifications } from './NotificationsSchema'
-export { StatsEntry } from './PlayerStatsEntrySchema'
-export { StatsInformation, VALID_FIELD_TYPES } from './StatsInformationSchema'
-export { Scrimmage } from './ScrimmageSchema'
-export { WarRoom } from './WarRoomSchema'
-export { Goal } from './GoalSchema'
+export { CommunityGroups } from "./CommunityGroupSchema";
+export { Events } from "./EventsSchema";
+export { Groups } from "./GroupsSchema";
+export { Goal } from "./GoalSchema";
+export { Invitation } from "./InvitationSchema";
+export { League } from "./LeagueSchema";
+export { Notifications } from "./NotificationsSchema";
+export { Notes } from "./NotesSchema";
+export { Permissions } from "./PermissionsSchema";
+export { StatsEntry } from "./PlayerStatsEntrySchema";
+export { StatsInformation, VALID_FIELD_TYPES } from "./StatsInformationSchema";
+export { Scrimmage } from "./ScrimmageSchema";
+export { Users } from "./UsersSchema";
+export { WarRoom } from "./WarRoomSchema";
 
 // <-----------War room sample object----------->
 // {
@@ -38,6 +39,6 @@ export { Goal } from './GoalSchema'
 //      ];
 // }
 
-export { VALID_EVENTS, WAR_ROOM, DISCUSSION } from './validEventTypes'
-export { ORGANIZATION, TEAM, ROSTER } from './validGroups'
-export { VALID_PERMISSIONS } from './validPermission'
+export { VALID_EVENTS, WAR_ROOM, DISCUSSION } from "./validEventTypes";
+export { ORGANIZATION, TEAM, ROSTER } from "./validGroups";
+export { VALID_PERMISSIONS } from "./validPermission";

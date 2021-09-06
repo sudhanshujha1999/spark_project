@@ -29,8 +29,7 @@ export const discordStrategy = (app) => {
         // redirect uri,
         // if it's our server then the verifyCallback function runs
         // but if it's a client side callback it dosent work, but the authentication is done in both cases
-        callbackURL: "http://localhost:8080/api/discord/auth/redirect/",
-        // callbackURL: "http://localhost:3000/discord/auth/redirect/",
+        callbackURL: process.env.DISCORD_CALLBACK_URL,
         scope: scopes,
         passReqToCallback: true,
     };

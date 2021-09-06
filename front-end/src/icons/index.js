@@ -14,6 +14,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import DashboardIcon from '@material-ui/icons/Dashboard'
 import EditIcon from '@material-ui/icons/Edit'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import FileCopyIcon from '@material-ui/icons/FileCopy'
 import GroupAddIcon from '@material-ui/icons/GroupAdd'
 import GroupIcon from '@material-ui/icons/Group'
 import GpsFixedIcon from '@material-ui/icons/GpsFixed'
@@ -47,6 +48,7 @@ export {
   DashboardIcon,
   EditIcon,
   ExpandMoreIcon,
+  FileCopyIcon,
   GpsFixedIcon,
   GroupIcon,
   GroupAddIcon,

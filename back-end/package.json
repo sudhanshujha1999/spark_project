@@ -27,6 +27,7 @@
     "firebase-admin": "9.7.0",
     "mongodb": "3.6.5",
     "mongoose": "^5.12.8",
+    "nocache": "^3.0.1",
     "nodemon": "2.0.6",
     "passport": "^0.4.1",
     "passport-discord": "^0.1.4",

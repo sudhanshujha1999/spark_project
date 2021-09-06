@@ -5,6 +5,6 @@ export const hasPermission = async ({ userId, groupId, permissionType }) => {
         userId,
         groupId,
         permission_type: permissionType,
-    });
+    }).lean();
     return permissionExists;
 };
