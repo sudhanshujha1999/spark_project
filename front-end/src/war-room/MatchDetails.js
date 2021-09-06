@@ -12,7 +12,7 @@ import {
 import { useGetMatch } from './useGetMatch'
 import { useStyles } from './styles'
 import { MatchRoom } from './MatchRoom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useOrganizations } from '../teams'
 import { useIsCoach } from '../users/useIsCoach'
 import { MatchInformation } from './MatchInformation'
@@ -23,7 +23,7 @@ import { DeleteMatch } from './DeleteMatch'
 export const MatchDetails = () => {
   const { matchId } = useParams()
   const { organizations } = useOrganizations()
-  const { isCoach } = useIsCoach(organizations._id)
+  // const { canEditEvents } = useIsCoach(organizations._id)
   const { match, isLoading } = useGetMatch(matchId)
   const [startMatch, setStartMatch] = useState(false)
   const [isChanged, setIsChanged] = useState(false)
@@ -32,6 +32,17 @@ export const MatchDetails = () => {
   const classes = useStyles()
   const allStages = useRecoilValue(pathsState)
   const changedData = useRecoilValue(variableDataState)
+  const [canEditMatch, setCanEditMatch] = useState(false)
+
+  useEffect(() => {
+    if (match && Object.keys(organizations).length > 0) {
+      const team = organizations.teams.find(
+        (team) => team._id === match.match.team._id
+      )
+      setCanEditMatch(team.editEvents)
+    }
+  }, [match, organizations])
+
   const toggleMatch = () => {
     setStartMatch(!startMatch)
   }
@@ -48,8 +59,6 @@ export const MatchDetails = () => {
     setIsChanged(false)
   }
 
-  console.log(match)
-
   // const deleteMatch = async () => {}
 
   return (
@@ -62,7 +71,7 @@ export const MatchDetails = () => {
       ) : match ? (
         <Box>
           <MatchInformation
-            isCoach={isCoach}
+            isCoach={canEditMatch}
             match={match}
             startMatch={startMatch}
             toggleMatch={toggleMatch}
@@ -72,7 +81,7 @@ export const MatchDetails = () => {
           {startMatch &&
             (match.match.maps.length > 0 ? (
               <MatchRoom
-                isCoach={isCoach}
+                isCoach={canEditMatch}
                 hasChanged={isChanged}
                 setHasChanged={setIsChanged}
                 match={match}
@@ -85,7 +94,7 @@ export const MatchDetails = () => {
                 No maps added for this game yet. stay tuned.
               </Typography>
             ))}
-          {isCoach && (
+          {canEditMatch && (
             <Fade in={!deleteMatch} mb={2}>
               <Box>
                 <Box my={5} />
@@ -112,7 +121,7 @@ export const MatchDetails = () => {
               eventId={match._id}
             />
           )}
-          {isCoach && isChanged && (
+          {canEditMatch && isChanged && (
             <Button
               color='secondary'
               variant='contained'

@@ -20,17 +20,21 @@ export const TeamsList = ({
       </Grid>
       <Grid container spacing={4}>
         {teams.map((team, index) => {
-          return (
-            <TeamItemCard
-              key={index}
-              team={team}
-              editTeam={editTeam}
-              isCoach={isCoach}
-              index={index + 1}
-              setShowAlert={setShowAlert}
-              metricData={metricData}
-            />
-          )
+          if (team.editGoals) {
+            return (
+              <TeamItemCard
+                key={index}
+                team={team}
+                editTeam={editTeam}
+                isCoach={isCoach}
+                index={index + 1}
+                setShowAlert={setShowAlert}
+                metricData={metricData}
+              />
+            )
+          } else {
+            return
+          }
         })}
       </Grid>
     </Grid>

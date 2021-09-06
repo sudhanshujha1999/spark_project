@@ -15,7 +15,7 @@ export const GoalSettingPage = () => {
   const classes = useStyles()
   const { organizations, isLoading: isLoadingOrganizations } =
     useOrganizations()
-  const { isCoach } = useIsCoach(organizations._id)
+  const { canEditGoals } = useIsCoach(organizations._id)
   const { user } = useCurrentUser()
   const [isLoading, setIsLoading] = useState(true)
   const [goals, setGoals] = useRecoilState(goalsState)
@@ -37,8 +37,6 @@ export const GoalSettingPage = () => {
     // eslint-disable-next-line
   }, [user])
 
-  console.log(goals)
-
   return (
     <Box>
       {isLoading ? (
@@ -48,7 +46,7 @@ export const GoalSettingPage = () => {
       ) : (
         <AllGoals
           goals={goals}
-          isCoach={isCoach}
+          isCoach={canEditGoals}
           organizations={organizations}
           isLoadingOrganizations={isLoadingOrganizations}
         />
