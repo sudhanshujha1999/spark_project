@@ -4,11 +4,18 @@ import { useHistory, Link } from 'react-router-dom'
 import { useStyles } from './styles'
 import banner from '../img/default-image.jpg'
 
-export const TeamItemCard = ({ team, isCoach, index, setShowAlert }) => {
+export const TeamItemCard = ({
+  team,
+  isCoach,
+  index,
+  setShowAlert,
+  metricData,
+}) => {
   const classes = useStyles()
   const history = useHistory()
+
   const handleClick = () => {
-    if (team.game === 'Valorant' || team.game === 'League Of Legends') {
+    if (Object.keys(metricData).includes(team.game)) {
       history.push(`/goals/chooseplayer/?team=${team._id}`)
     } else {
       setShowAlert({

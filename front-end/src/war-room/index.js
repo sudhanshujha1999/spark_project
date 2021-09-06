@@ -1,4 +1,4 @@
-export { WarRoom } from "./WarRoom";
-export { SessionDetails } from "./SessionDetails";
-export { LeagueRecords } from "./LeagueRecords";
-export { Scrimmages } from "./Scrimmages";
+export { WarRoom } from './WarRoom'
+export { MatchDetails } from './MatchDetails'
+export { LeagueRecords } from './LeagueRecords'
+export { Scrimmages } from './Scrimmages'

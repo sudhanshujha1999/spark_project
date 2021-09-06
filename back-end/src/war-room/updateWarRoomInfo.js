@@ -1,13 +1,13 @@
-import { WarRoom } from "../models";
+import { WarRoom } from '../models'
 
-export const updateWarRoomInfo = async ({ sessionId, updateValues }) => {
-    const updated = await WarRoom.findByIdAndUpdate(
-        sessionId,
-        { $set: updateValues },
-        { new: true }
-    );
-    if (!updated) {
-        throw new Error("no-session-found");
-    }
-    return true;
-};
+export const updateWarRoomInfo = async ({ matchId, updateValues }) => {
+  const updated = await WarRoom.findByIdAndUpdate(
+    matchId,
+    { $set: updateValues },
+    { new: true }
+  )
+  if (!updated) {
+    throw new Error('no-session-found')
+  }
+  return true
+}

@@ -49,7 +49,7 @@ export const TeamPlayerSelect = ({ team, userId, setInvitees, invitees }) => {
   }
 
   return (
-    <Box ml={3}>
+    <Box ml={3} key={team._id}>
       <Box my={1}>
         <Typography variant='subtitle2' gutterBottom>
           {team.name}

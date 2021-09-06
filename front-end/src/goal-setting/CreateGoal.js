@@ -17,6 +17,7 @@ import {
 import { post } from '../network'
 import { useLocation, useHistory } from 'react-router-dom'
 import { useOrganizations } from '../teams'
+import { metricData } from './metricData'
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search)
@@ -35,6 +36,8 @@ export const CreateGoal = () => {
   const [saving, setSaving] = useState(false)
   const { organizations, isLoading: isLoadingOrganizations } =
     useOrganizations()
+
+  const today = new Date()
 
   let selectedTeam = {}
   if (!isLoadingOrganizations && Object.keys(organizations).length > 0) {
@@ -73,7 +76,7 @@ export const CreateGoal = () => {
   }
 
   return (
-    <CenteredContainer>
+    <CenteredContainer disableScrollLock={true}>
       <Typography align='center'>
         <h1>Create Goal</h1>
       </Typography>
@@ -111,9 +114,12 @@ export const CreateGoal = () => {
               getContentAnchorEl: null,
             }}
           >
-            <MenuItem value='Kills'>Kills</MenuItem>
-            <MenuItem value='Kd'>Kill/Death</MenuItem>
-            <MenuItem value='Wins/Match'>Win %</MenuItem>
+            {Object.keys(selectedTeam).length > 0 &&
+              metricData[`${selectedTeam.game}`].map((metric, index) => (
+                <MenuItem value={metric} key={index}>
+                  {metric}
+                </MenuItem>
+              ))}
           </Select>
         </FormControl>
       </Box>
@@ -122,6 +128,7 @@ export const CreateGoal = () => {
           <DateRangePicker
             calendars={1}
             value={value}
+            minDate={today}
             onChange={(newValue) => {
               setValue(newValue)
             }}

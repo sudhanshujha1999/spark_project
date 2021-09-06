@@ -70,11 +70,7 @@ export const LeagueRecords = ({
                         League Records
                     </Typography>
                     <Box mb={6} />
-                    <Box
-                        className={`${classes.leagueContainer} ${classes.customScrollY}`}
-                        style={{
-                            height: height && height > 150 ? height - 80 : "auto",
-                        }}>
+                    <Box className={`${classes.leagueContainer} ${classes.customScrollY}`}>
                         <Grid container>
                             {leagues.length > 0 ? (
                                 leagues.map((league, index) => (
@@ -97,7 +93,7 @@ export const LeagueRecords = ({
                                 ))
                             ) : (
                                 <Grid item xs={12}>
-                                    <Box className={`${classes.container} ${classes.newsBox}`}>
+                                    <Box className={`${classes.newsContainer} ${classes.newsBox}`}>
                                         <Typography variant='h5'>No league info</Typography>
                                     </Box>
                                 </Grid>

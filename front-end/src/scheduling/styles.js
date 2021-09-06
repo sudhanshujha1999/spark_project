@@ -48,10 +48,14 @@ export const useStyles = makeStyles((theme) => ({
       zIndex: '-1',
     },
   },
-  deleteButton: {
+  actionButtonContainer: {
     position: 'absolute',
-    right: 0,
-    top: 0,
+    right: '0',
+    top: '0',
+  },
+  actionButton: {
+    position: 'relative',
+    margin: '0 5px',
     zIndex: 1,
     opacity: 0,
     transform: 'scale(0) translate(-15px, 15px)',
@@ -67,5 +71,9 @@ export const useStyles = makeStyles((theme) => ({
       opacity: 1,
       transform: 'scale(1) translate(-15px, 15px)',
     },
+  },
+  eventDetailsDateTimeBox: {
+    padding: '10px',
+    boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
   },
 }))

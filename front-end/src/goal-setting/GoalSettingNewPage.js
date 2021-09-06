@@ -6,9 +6,9 @@ import { useStyles } from './styles'
 import { useCurrentUser } from '../auth'
 import { useRecoilState } from 'recoil'
 import { goalsState } from './recoilState'
-import { GoalCard } from './GoalCard'
 import { useOrganizations } from '../teams'
 import { useIsCoach } from '../users/useIsCoach'
+import { AllGoals } from './AllGoals'
 
 export const GoalSettingPage = () => {
   const history = useHistory()
@@ -37,80 +37,21 @@ export const GoalSettingPage = () => {
     // eslint-disable-next-line
   }, [user])
 
-  let sortedGoals = {
-    leagueOfLegends: [],
-    valorant: [],
-  }
-  if (goals.length > 0) {
-    goals.forEach((goal) => {
-      if (goal.game === 'League Of Legends') {
-        sortedGoals.leagueOfLegends.push(goal)
-      } else if (goal.game === 'Valorant') {
-        sortedGoals.valorant.push(goal)
-      }
-    })
-  }
   console.log(goals)
 
   return (
     <Box>
-      {isCoach && (
-        <Box>
-          <Grid
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <Button
-              style={{ width: '300px', height: '50px' }}
-              variant='contained'
-              onClick={(e) => {
-                e.preventDefault()
-                history.push('/goals/chooseteam')
-              }}
-            >
-              Create New Goal
-            </Button>
-            <Divider style={{ margin: '50px 0', width: '100%' }} />
-          </Grid>
-        </Box>
-      )}
       {isLoading ? (
         <Box className={classes.loading}>
           <CircularProgress color='secondary' />
         </Box>
       ) : (
-        <Grid container spacing={3}>
-          {/* {
-            Object.entries(sortedGoals).map(goals => {
-              if(goals.length > 0){
-                return(
-                  <GoalCard
-              goals={goals}
-              organizations={organizations}
-              isLoadingOrganizations={isLoadingOrganizations}
-            />
-                )
-              }
-            })
-          } */}
-          {sortedGoals.leagueOfLegends.length > 0 && (
-            <GoalCard
-              goals={sortedGoals.leagueOfLegends}
-              organizations={organizations}
-              isLoadingOrganizations={isLoadingOrganizations}
-            />
-          )}
-          {sortedGoals.valorant.length > 0 && (
-            <GoalCard
-              goals={sortedGoals.valorant}
-              organizations={organizations}
-              isLoadingOrganizations={isLoadingOrganizations}
-            />
-          )}
-        </Grid>
+        <AllGoals
+          goals={goals}
+          isCoach={isCoach}
+          organizations={organizations}
+          isLoadingOrganizations={isLoadingOrganizations}
+        />
       )}
     </Box>
   )

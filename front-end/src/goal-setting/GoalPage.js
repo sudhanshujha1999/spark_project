@@ -12,6 +12,7 @@ import { AddGoalData } from './AddGoalData'
 import { DataCard } from './DataCard'
 import { Collapse, IconButton } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
+import moment from 'moment'
 
 export const GoalPage = () => {
   const { goalId } = useParams()
@@ -93,24 +94,34 @@ export const GoalPage = () => {
                 </Typography>
                 <Grid item xs={12}>
                   <Typography className={classes.goalText} variant='h6'>
-                    <strong style={{ color: '#474787' }}>Game:</strong>{' '}
+                    <strong style={{ color: '#474787', fontSize: '1.4em' }}>
+                      Game:
+                    </strong>{' '}
                     {goal.game}
                   </Typography>
                   <Typography className={classes.goalText} variant='h6'>
-                    <strong style={{ color: '#474787' }}>Player:</strong>{' '}
+                    <strong style={{ color: '#474787', fontSize: '1.4em' }}>
+                      Player:
+                    </strong>{' '}
                     {goal.player.full_name}
                   </Typography>
                   <Typography className={classes.goalText} variant='h6'>
-                    <strong style={{ color: '#474787' }}>Metric:</strong>{' '}
+                    <strong style={{ color: '#474787', fontSize: '1.4em' }}>
+                      Metric:
+                    </strong>{' '}
                     {goal.metric}
                   </Typography>
                   <Typography className={classes.goalText} variant='h6'>
-                    <strong style={{ color: '#474787' }}>Start:</strong>{' '}
-                    {goal.startDate.split('T')[0]}
+                    <strong style={{ color: '#474787', fontSize: '1.4em' }}>
+                      Start:
+                    </strong>{' '}
+                    {moment(goal.startDate).format('DD MMM YYYY')}
                   </Typography>
                   <Typography className={classes.goalText} variant='h6'>
-                    <strong style={{ color: '#474787' }}>End:</strong>{' '}
-                    {goal.endDate.split('T')[0]}
+                    <strong style={{ color: '#474787', fontSize: '1.4em' }}>
+                      End:
+                    </strong>{' '}
+                    {moment(goal.endDate).format('DD MMM YYYY')}
                   </Typography>
                 </Grid>
               </Grid>

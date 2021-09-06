@@ -15,7 +15,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     // headings
     headingMedium: {
-        fontSize: "2.5em",
+        fontSize: "2.2em",
         width: "fit-content",
         position: "relative",
         "&:before": {
@@ -102,24 +102,22 @@ export const useStyles = makeStyles((theme) => ({
         justifyContent: "space-between",
         alignItems: "center",
     },
-    // ADD SESSION DIALOG
-    addSessionContainer: {
+    // ADD MATCH DIALOG
+    addMatchContainer: {
         marginTop: "30px",
         padding: "25px",
         borderRadius: 5,
     },
-    sessionHeading: {
+    matchHeading: {
         fontSize: "2.5em",
         width: "fit-content",
         margin: "0px auto",
         marginBottom: "50px",
     },
-    sessionTextfield: {
-        marginBottom: 20,
-    },
+    matchTextfield: {},
     subtitle: {
         color: "#898989",
-        margin: "10px 0 20px",
+        margin: "10px 0 10px",
     },
     rosterLoading: {
         height: "50px",
@@ -133,6 +131,17 @@ export const useStyles = makeStyles((theme) => ({
         borderRadius: "5px",
         cursor: "pointer",
         backgroundColor: theme.palette.background.paper,
+        boxShadow: "0 0 3px #e84118",
+        "&:hover": {
+            boxShadow: "0 0 2px #ffd369",
+        },
+    },
+    addPlayerContainer: {
+        boxShadow: "0 0 1px #fff",
+        padding: "10px",
+        "&:hover": {
+            boxShadow: "0 0 2px #fff",
+        },
     },
     players: {
         borderRadius: "5px",
@@ -159,6 +168,13 @@ export const useStyles = makeStyles((theme) => ({
         alignItems: "center",
         cursor: "pointer",
     },
+    mapUsedIcon: {
+        position: "absolute",
+        top: "-10px",
+        right: "-10px",
+        color: "#009432",
+        fontSize: "30px",
+    },
     activeMap: {
         boxShadow: "0px 5px 10px 3px rgba(255,255,255,0.2)",
     },
@@ -170,13 +186,33 @@ export const useStyles = makeStyles((theme) => ({
         backgroundPosition: "center",
     },
 
-    // SESSION
+    // Match
     eventsContainer: {
         display: "flex",
         flexFlow: "row no-wrap",
         width: "90%",
         overflowX: "auto",
         padding: "10px 0",
+    },
+    form: {
+        minWidth: 600,
+        maxHeight: "90vh",
+        padding: "0px 15px",
+        overflowY: "scroll",
+        display: "flex",
+        flexDirection: "column",
+    },
+    customScroll: {
+        "&::-webkit-scrollbar": {
+            width: "8px",
+            backgroundColor: "rgba(0,0,0,0.5)",
+            borderRadius: 10,
+        },
+        "&::-webkit-scrollbar-thumb": {
+            borderRadius: 10,
+            opacity: "0.8",
+            backgroundColor: "#895cf2",
+        },
     },
     eventGradient: {
         position: "relative",
@@ -191,46 +227,62 @@ export const useStyles = makeStyles((theme) => ({
             pointerEvents: "none",
             right: "10%",
             top: 0,
-            background: "linear-gradient(-90deg, rgb(28 31 35) 20%, rgba(51,51,51,0) 86%)",
+            // background:
+            //   'linear-gradient(-90deg, rgb(28 31 35) 1%, rgba(51,51,51,0) 100%)',
         },
     },
     container: {
-        padding: "15px 25px",
+        position: "relative",
+        padding: "15px 10px",
         borderRadius: 5,
-        width: "fit-content",
+        width: "170px",
+        height: "220px",
         cursor: "pointer",
         backgroundColor: "rgba(50,50,50, 0.3)",
         border: `1px solid ${theme.palette.background.paper}`,
         transition: "all 0.2s ease-in",
-        boxShadow: "0px 0px 0px 0px rgba(255,255,255,0.2)",
+        boxShadow: "0px 0px 1px 0px #fff",
+        overflow: "hidden",
         "&:hover": {
-            backgroundColor: "rgba(50,50,50, 0.9)",
-            boxShadow: "0px 0px 10px 1px rgba(255,255,255,0.2)",
+            backgroundColor: "rgba(50,50,50, 0.4)",
+            boxShadow: "0px 0px 4px 1px #fff",
             "& $vs": {
                 "&:nth-child(1)": {
-                    transform: "translateY(-20px)",
+                    transform: "translateY(-10px)",
                     "&::before": {
                         top: "20%",
                         height: "200%",
                     },
                 },
                 "&:nth-child(2)": {
-                    transform: "translateY(20px)",
+                    transform: "translateY(10px)",
                 },
             },
         },
+    },
+    matchCardImg: {
+        position: "absolute",
+        top: "0px",
+        left: "0px",
+        zIndex: "-10",
+        width: "170px",
+        height: "220px",
+        alignSelf: "center",
+        backgroundSize: "cover",
+        backgroundPosition: "top",
+        opacity: "0.6",
     },
     teams: {
         display: "flex",
         flexFlow: "row",
         justifyContent: "center",
         alignItems: "center",
-        width: 350,
-        margin: "30px 0",
+        width: 150,
+        margin: "70px 0",
     },
     vs: {
-        fontSize: "1.5em",
-        margin: "0 20px",
+        fontSize: "1em",
+        margin: "0 10px",
         position: "relative",
         transition: "all 0.2s ease-in",
         "&:nth-child(1)": {
@@ -241,7 +293,7 @@ export const useStyles = makeStyles((theme) => ({
                 top: "-5%",
                 borderRadius: "2px",
                 backgroundColor: theme.palette.secondary.main,
-                right: "-23px",
+                right: "-10px",
                 width: "2px",
                 height: "120%",
                 transition: "all 0.2s ease-in",
@@ -254,15 +306,26 @@ export const useStyles = makeStyles((theme) => ({
     },
     // scroll
     customScrollX: {
+        "&::-webkit-scrollbar-track": {
+            width: "100px",
+            webkitBoxShadow: "inset 0 0 6px rgba(0,0,0,0.3)",
+            borderRadius: "1px",
+            backgroundColor: "inherit",
+        },
         "&::-webkit-scrollbar": {
-            height: "8px",
-            backgroundColor: "rgba(0,0,0,0.5)",
-            borderRadius: 10,
+            height: "2px",
+            backgroundcolor: "inherit",
         },
         "&::-webkit-scrollbar-thumb": {
-            borderRadius: 10,
-            opacity: "0.8",
+            visibility: "hidden",
+            borderRadius: "1px",
+            boxShadow: "inset 0 0 6px rgba(0,0,0,.3)",
             backgroundColor: theme.palette.secondary.main,
+        },
+        "&:hover": {
+            "&::-webkit-scrollbar-thumb": {
+                visibility: "visible",
+            },
         },
     },
     customScrollY: {
@@ -285,6 +348,7 @@ export const useStyles = makeStyles((theme) => ({
     },
     newsContainer: {
         marginRight: "20px",
+        padding: "10px 20px",
         position: "relative",
     },
 
@@ -362,6 +426,7 @@ export const useStyles = makeStyles((theme) => ({
         borderRadius: 5,
         display: "block",
         marginTop: 5,
+        marginLeft: 15,
         width: "fit-content",
     },
     saveBtn: {
@@ -419,15 +484,15 @@ export const useStyles = makeStyles((theme) => ({
         margin: "20px 0px",
         display: "inline-block",
         padding: "10px 20px",
-        fontSize: "1.7em",
-        width: "250px",
+        fontSize: "1.3em",
+        width: "220px",
         backgroundImage: `url(${bg})`,
         backgroundSize: "cover",
         fontWeight: 600,
         backgroundBlendMode: "luminosity",
         borderRadius: "2px",
         "&:nth-child(2)": {
-            backgroundColor: purple[500],
+            backgroundColor: blue[500],
             textAlign: "right",
             backgroundPosition: "left",
             paddingRight: "60px",
@@ -437,7 +502,7 @@ export const useStyles = makeStyles((theme) => ({
             clipPath: "polygon(20% 0, 100% 0, 100% 100%, 0% 100%)",
         },
         "&:nth-child(3)": {
-            backgroundColor: theme.palette.secondary.main,
+            backgroundColor: red[500],
             // background: "linear-gradient(-90deg, rgba(255,211,105,1) 20%, rgba(51,51,51,1) 100%)",
             paddingLeft: "60px",
             backgroundPosition: "right",
@@ -447,11 +512,59 @@ export const useStyles = makeStyles((theme) => ({
             clipPath: "polygon(0 0, 100% 0, 80% 100%, 0% 100%)",
         },
     },
+    daysToGo: {
+        padding: "10px",
+        boxShadow: "0 0 3px #e84118",
+        // '&:hover': {
+        //   boxShadow: '0 0 2px #ffd369',
+        // },
+    },
     description: {
         padding: "10px",
         backgroundColor: "rgba(0,0,0,0.2)",
         width: "min(500px, 90%)",
         borderRadius: "4px",
+    },
+    multiLineTextField: {
+        "&::-webkit-scrollbar-track": {
+            webkitBoxShadow: "inset 0 0 6px rgba(0,0,0,0.3)",
+            borderRadius: "10px",
+            backgroundColor: "inherit",
+        },
+        "&::-webkit-scrollbar": {
+            width: "6px",
+            backgroundcolor: "inherit",
+        },
+        "&::-webkit-scrollbar-thumb": {
+            visibility: "hidden",
+            borderRadius: "3px",
+            boxShadow: "inset 0 0 6px rgba(0,0,0,.3)",
+            background: "#895cf2 ",
+        },
+        "&:hover": {
+            "&::-webkit-scrollbar-thumb": {
+                visibility: "visible",
+            },
+        },
+    },
+
+    modal: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    paper: {
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        width: "400px",
+        height: "400px",
+        backgroundColor: theme.palette.background.paper,
+        border: "2px solid #fff",
+        borderRadius: "10px",
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
     },
     // ALL STAGES LIST
     stagesContainer: {
@@ -471,6 +584,7 @@ export const useStyles = makeStyles((theme) => ({
         flexFlow: "row",
     },
     stageTitle: {
+        position: "relative",
         padding: "12px 25px 12px 15px",
         alignItems: "center",
         cursor: "pointer",
@@ -487,6 +601,11 @@ export const useStyles = makeStyles((theme) => ({
         fontSize: "1.5em",
         marginRight: "5px",
         marginBottom: "20px",
+    },
+
+    editButton: {
+        position: "absolute",
+        right: "10px",
     },
 
     // MULTI PURPOSE

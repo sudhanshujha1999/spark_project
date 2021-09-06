@@ -273,19 +273,99 @@ export const useStyles = makeStyles((theme) => ({
 
   //goal styles
 
-  goalCard: {
+  goalsContainer: {
+    margin: '20px 0',
+    maxHeight: '500px',
+    boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+    overflowY: 'auto',
+    padding: '20px',
+    backgroundColor: 'rgb(30 51 72 / 13%)',
+  },
+  customScrollX: {
+    '&::-webkit-scrollbar-track': {
+      width: '100px',
+      webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.3)',
+      borderRadius: '1px',
+      backgroundColor: 'inherit',
+    },
+    '&::-webkit-scrollbar': {
+      height: '2px',
+      backgroundcolor: 'inherit',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      visibility: 'hidden',
+      borderRadius: '1px',
+      boxShadow: 'inset 0 0 6px rgba(0,0,0,.3)',
+      backgroundColor: theme.palette.secondary.main,
+    },
+    '&:hover': {
+      '&::-webkit-scrollbar-thumb': {
+        visibility: 'visible',
+      },
+    },
+  },
+  customScrollY: {
+    '&::-webkit-scrollbar': {
+      width: '4px',
+      backgroundColor: 'rgba(0,0,0,0.5)',
+      borderRadius: '2px',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      borderRadius: '2px',
+      boxShadow: 'inset 0 0 6px rgba(0,0,0,.3)',
+      backgroundColor: theme.palette.secondary.main,
+    },
+  },
+  eventsContainer: {
+    display: 'flex',
+    flexFlow: 'row no-wrap',
+    width: '100%',
+    overflowX: 'auto',
+    padding: '10px 10px',
+  },
+  container: {
+    position: 'relative',
+    padding: '15px 10px',
+    borderRadius: 5,
+    width: '400px',
+    height: '220px',
+    cursor: 'pointer',
+    backgroundColor: 'rgba(50,50,50, 0.3)',
+    border: `1px solid ${theme.palette.background.paper}`,
+    transition: 'all 0.2s ease-in-out',
+    boxShadow: '0px 0px 1px 0px #fff',
+    overflow: 'hidden',
+    '&:hover': {
+      backgroundColor: 'rgba(50,50,50, 0.4)',
+      boxShadow: '0px 0px 2px 0px #fff',
+      '& $vs': {
+        '&:nth-child(1)': {
+          transform: 'translateY(-10px)',
+          '&::before': {
+            top: '20%',
+            height: '200%',
+          },
+        },
+        '&:nth-child(2)': {
+          transform: 'translateY(10px)',
+        },
+      },
+    },
+  },
+
+  goalbox: {
     position: 'relative',
     zIndex: '10',
-    width: '300px',
+    width: '98%',
     zIndex: '15',
+    margin: '10px 0',
     backgroundColor: 'rgb(23, 23, 23)',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
     borderRadius: '5px',
     '&:hover': {
       transition: `all 500ms ${bezierValue}`,
-      transform: 'scale(1.05)',
+      transform: 'scale(1.01)',
       '& $goalCardImg': {
         boxShadow: '0px 5px 10px rgba(0,0,0,0.3)',
         transition: `all 500ms ${bezierValue}`,
@@ -310,10 +390,17 @@ export const useStyles = makeStyles((theme) => ({
     zIndex: '5',
     margin: '10px 0',
     fontSize: '1.3em',
-    color: '#fff',
-    textAlign: 'left',
+    background:
+      'linear-gradient( to right, #f32170, #ff6b08, #cf23cf, #eedd44)',
+    '-webkit-text-fill-color': 'transparent',
+    '-webkit-background-clip': 'text',
     opacity: 1,
     textAlign: 'center',
+  },
+  goalCardGoalName: {
+    background: 'linear-gradient(60deg, #2e86de, #ff9f43)',
+    '-webkit-text-fill-color': 'transparent',
+    '-webkit-background-clip': 'text',
   },
   goalCardPlayerName: {
     position: 'relative',
@@ -359,7 +446,7 @@ export const useStyles = makeStyles((theme) => ({
 
   goalText: {
     position: 'relative',
-    fontSize: '1.5em',
+    fontSize: '1.3em',
     margin: '1em',
   },
 

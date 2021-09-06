@@ -53,6 +53,7 @@ export const DeleteGoalData = ({
         }}
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'
+        disableScrollLock='true'
       >
         <Box className={classes.paper} style={{ height: '250px' }}>
           <Typography id='modal-modal-title' variant='h6' component='h2'>

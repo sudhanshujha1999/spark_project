@@ -1,7 +1,7 @@
 import { getUserByAuthId } from "../users";
 import { getAllWarRoomEventsForUser } from "../scheduling";
 
-export const getAllSessionRoute = {
+export const getAllMatchesRoute = {
     path: "/war-room",
     method: "get",
     handler: async (req, res) => {
@@ -14,10 +14,10 @@ export const getAllSessionRoute = {
                     message: "no-user-found",
                 });
             }
-            const sessions = await getAllWarRoomEventsForUser(user._id);
+            const matches = await getAllWarRoomEventsForUser(user._id);
             return res.status(200).json({
                 success: true,
-                sessions,
+                matches,
             });
         } catch (error) {
             return res.status(500).json({

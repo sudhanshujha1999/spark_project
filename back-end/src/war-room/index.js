@@ -1,11 +1,11 @@
-import { createWarRoomSessionRoute } from "./createWarRoomSessionRoute";
-import { getAllSessionRoute } from "./getAllSessionsRoute";
-import { getSessionRoute } from "./getSessionRoute";
-import { saveSessionStageRoute } from "./saveSessionStageRoute";
+import { createWarRoomMatchRoute } from './createWarRoomMatchRoute'
+import { getAllMatchesRoute } from './getAllMatchesRoute'
+import { getWarRoomMatchRoute } from './getWarRoomMatchRoute'
+import { saveSessionStageRoute } from './saveSessionStageRoute'
 
 export const routes = [
-    getAllSessionRoute,
-    getSessionRoute,
-    createWarRoomSessionRoute,
-    saveSessionStageRoute,
-];
+  getAllMatchesRoute,
+  getWarRoomMatchRoute,
+  createWarRoomMatchRoute,
+  saveSessionStageRoute,
+]
