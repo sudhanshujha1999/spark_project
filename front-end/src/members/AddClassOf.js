@@ -67,7 +67,7 @@ export const AddClassOf = ({
         aria-describedby='modal-modal-description'
         disableScrollLock={true}
       >
-        <Box className={classes.twitchPaper} style={{ height: '350px' }}>
+        <Box className={classes.twitchPaper} style={{ height: 'auto' }}>
           <Typography id='modal-modal-title' variant='h6' component='h2'>
             Add {isCoach ? 'Coach since' : 'Class of'}
           </Typography>
@@ -78,7 +78,7 @@ export const AddClassOf = ({
             Note: Other can people can see this detail in your profile.
           </Typography>
 
-          <Grid mb={3}>
+          <Grid mb={1}>
             <Box
               className={classes.multiLineTextField}
               style={{ maxHeight: '150px', overflowY: 'scroll' }}
