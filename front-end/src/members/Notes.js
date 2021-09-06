@@ -29,7 +29,7 @@ export const Notes = ({ notes, addNote, deleteNote, viewingOwnProfile }) => {
 
     return (
         <div>
-            <Box className={`${classes.sectionHeading} ${classes.sectionBio}`}>
+            <Box width='fit-content' className={`${classes.sectionHeading}`}>
                 <SpeakerNotesIcon />
                 <Typography>Notes</Typography>
             </Box>
