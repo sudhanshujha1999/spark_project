@@ -13,15 +13,19 @@ import { DataCard } from './DataCard'
 import { Collapse, IconButton } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
 import moment from 'moment'
+import { useIsCoach } from '../users/useIsCoach'
+import { DeleteGoal } from './DeleteGoal'
 
 export const GoalPage = () => {
   const { goalId } = useParams()
   const classes = useStyles()
+  const [goal, setGoal] = useRecoilState(goalState)
+  const { canEditEvents: canEditGoal } = useIsCoach(goal?.teamId)
   const [isLoading, setIsLoading] = useState(true)
   const [addData, setAddData] = useState(false)
   const [showData, setShowData] = useState(false)
-  const [goal, setGoal] = useRecoilState(goalState)
   const [showDeleteAlert, setShowDeleteAlert] = useState(null)
+  const [deleteGoal, setDeleteGoal] = useState(false)
   const { userInfo } = useCurrentUserInfo()
 
   useEffect(() => {
@@ -145,6 +149,8 @@ export const GoalPage = () => {
                 metric={goal.metric}
                 open={Boolean(addData)}
                 handleClose={handleCancel}
+                startDate={goal.startDate}
+                endDate={goal.endDate}
                 goalId={goal._id}
                 goalData={goal.data}
               />
@@ -206,6 +212,33 @@ export const GoalPage = () => {
                     ))
                   : 'No data so far. Please add some data to see it here.'}
               </Box>
+            )}
+            {canEditGoal && (
+              <Fade in={!deleteGoal} mb={2}>
+                <Box>
+                  <Box my={5} />
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    style={{
+                      background: 'linear-gradient(to right, #e43a15, #e65245)',
+                      '-webkit-text-fill-color': 'transparent',
+                      '-webkit-background-clip': 'text',
+                      border: '1px solid #ff3f34',
+                    }}
+                    onClick={() => setDeleteGoal(true)}
+                  >
+                    Delete Goal
+                  </Button>
+                </Box>
+              </Fade>
+            )}
+            {deleteGoal && (
+              <DeleteGoal
+                open={deleteGoal}
+                setDeleteGoal={setDeleteGoal}
+                goalId={goal._id}
+              />
             )}
           </Box>
         )

@@ -85,6 +85,10 @@ export const AddWarRoomMatch = ({ handleCancel, teams, addMatch }) => {
   //     }
   //   }, [teams])
 
+  // console.log(maps)
+  // console.log(selectedTeam)
+  // console.log(mapsData)
+
   useEffect(() => {
     if (selectedTeam) {
       setTeamId(selectedTeam._id)

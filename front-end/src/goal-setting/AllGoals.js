@@ -28,7 +28,6 @@ export const AllGoals = ({
         }
       } else {
         //past goal
-        console.log('past goal')
         if (Object.keys(sortedPastGoals).includes(goal.game)) {
           sortedPastGoals[`${goal.game}`].push(goal)
         } else {
@@ -42,9 +41,13 @@ export const AllGoals = ({
       <Box>
         <Grid container justifyContent='space-between' alignItems='center'>
           <Box mb={3}>
-            <Typography className={classes.headingMedium}>
-              Current Goals
-            </Typography>
+            {Object.keys(sortedOngoingGoals).length > 0 ? (
+              <Typography className={classes.headingMedium}>
+                Current Goals
+              </Typography>
+            ) : (
+              <Typography>No ongoing goals right now!</Typography>
+            )}
           </Box>
           {isCoach && (
             <Box mb={2}>
@@ -60,7 +63,7 @@ export const AllGoals = ({
             </Box>
           )}
         </Grid>
-        {Object.keys(sortedOngoingGoals).length > 0 ? (
+        {Object.keys(sortedOngoingGoals).length > 0 && (
           <Box className={`${classes.goalsContainer} ${classes.customScrollY}`}>
             <Grid container spacing={2}>
               {Object.keys(sortedOngoingGoals).map((gameName) => (
@@ -72,19 +75,17 @@ export const AllGoals = ({
               ))}
             </Grid>
           </Box>
-        ) : (
-          <Typography>No ongoing goals right now!</Typography>
         )}
       </Box>
-      <Box mb={8}>
-        <Grid container>
-          <Box mb={2}>
-            <Typography className={classes.headingMedium}>
-              Past Goals
-            </Typography>
-          </Box>
-        </Grid>
-        {Object.keys(sortedPastGoals).length > 0 ? (
+      {Object.keys(sortedPastGoals).length > 0 && (
+        <Box mb={8}>
+          <Grid container>
+            <Box mb={2}>
+              <Typography className={classes.headingMedium}>
+                Past Goals
+              </Typography>
+            </Box>
+          </Grid>
           <Box className={`${classes.goalsContainer} ${classes.customScrollY}`}>
             <Grid container spacing={2}>
               {Object.keys(sortedPastGoals).map((gameName) => (
@@ -96,10 +97,8 @@ export const AllGoals = ({
               ))}
             </Grid>
           </Box>
-        ) : (
-          <Typography>No Past goals!</Typography>
-        )}
-      </Box>
+        </Box>
+      )}
     </Grid>
   )
 }

@@ -279,7 +279,7 @@ export const useStyles = makeStyles((theme) => ({
     boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
     overflowY: 'auto',
     padding: '20px',
-    backgroundColor: 'rgb(30 51 72 / 13%)',
+    backgroundColor: 'rgb(28 32 36 / 60%)',
   },
   customScrollX: {
     '&::-webkit-scrollbar-track': {
@@ -330,14 +330,15 @@ export const useStyles = makeStyles((theme) => ({
     width: '400px',
     height: '220px',
     cursor: 'pointer',
-    backgroundColor: 'rgba(50,50,50, 0.3)',
+    backgroundColor: 'rgb(13 13 19 / 40%)',
     border: `1px solid ${theme.palette.background.paper}`,
-    transition: 'all 0.2s ease-in-out',
+    transition: 'background-color 1000ms linear',
+    WebkitTransition: 'background-color 300ms linear',
     boxShadow: '0px 0px 1px 0px #fff',
     overflow: 'hidden',
     '&:hover': {
-      backgroundColor: 'rgba(50,50,50, 0.4)',
-      boxShadow: '0px 0px 2px 0px #fff',
+      backgroundColor: 'rgb(13 13 19 / 70%)',
+      // boxShadow: '0px 0px 2px 0px #fff',
       '& $vs': {
         '&:nth-child(1)': {
           transform: 'translateY(-10px)',
@@ -359,7 +360,7 @@ export const useStyles = makeStyles((theme) => ({
     width: '98%',
     zIndex: '15',
     margin: '10px 0',
-    backgroundColor: 'rgb(23, 23, 23)',
+    backgroundColor: 'inherit',
     display: 'flex',
     flexDirection: 'column',
     borderRadius: '5px',

@@ -3,6 +3,7 @@ import { getGoalRoute } from './getGoalRoute'
 import { getGoalsRoute } from './getGoalsRoute'
 import { addGoalDataRoute } from './addGoalDataRoute'
 import { deleteGoalDataRoute } from './deleteGoalDataRoute'
+import { deleteGoalRoute } from './deleteGoalRoute'
 
 export const routes = [
   createGoalRoute,
@@ -10,6 +11,7 @@ export const routes = [
   getGoalRoute,
   addGoalDataRoute,
   deleteGoalDataRoute,
+  deleteGoalRoute,
 ]
 
 export { createGoal } from './createGoal'
