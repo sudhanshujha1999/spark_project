@@ -4,7 +4,7 @@ import firebase from "firebase/app";
 import { useQueryParams } from "../routing";
 import { Alert, Box, Button, CenteredContainer, Grid, TextField, Typography } from "../ui";
 import { signIn } from "./signIn";
-import { useCurrentUserInfo } from "../users";
+import { useCurrentUserInfo, useDiscordUri } from "../users";
 import { DiscordSvgIcon } from "../img/DiscordSvgIcon";
 import { useStyles } from "./styles";
 import video from "../img/video0.mp4";
@@ -12,6 +12,7 @@ import bg from "../img/signInBg.png";
 
 export const SignInPage = () => {
     const { dest, email: emailFromInvitation } = useQueryParams();
+    const { discordLoginUrl } = useDiscordUri();
     const [email, setEmail] = useState(emailFromInvitation || "");
     const [password, setPassword] = useState("");
     const [networkError, setNetworkError] = useState("");
@@ -126,7 +127,7 @@ export const SignInPage = () => {
                         <Box mb={2}>
                             <Button
                                 // need to make a env variable for it
-                                href={`${baseURL}/discord/login`}
+                                href={`${discordLoginUrl}`}
                                 fullWidth
                                 className={classes.discordBtn}
                                 variant='contained'
