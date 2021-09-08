@@ -69,10 +69,9 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   classOfBtn: {
-    padding: '0px 0',
-    fontSize: '1.1em',
+    padding: '3px 8px',
+    fontSize: '1.0em',
     margin: '0 0 0.35em 0.3em',
-    padding: '3px',
     color: '#c7ecee',
     height: '37px',
     '&:hover': {
