@@ -14,7 +14,7 @@ import {
 import { goalState } from './recoilState'
 import { useStyles } from './styles'
 
-export const DeleteMatch = ({ open, setDeleteMatch, eventId }) => {
+export const DeleteGoal = ({ open, setDeleteGoal, goalId }) => {
   const classes = useStyles()
   const history = useHistory()
   const [isLoading, setIsLoading] = useState(false)
@@ -22,19 +22,19 @@ export const DeleteMatch = ({ open, setDeleteMatch, eventId }) => {
   const handleDelete = async () => {
     setIsLoading(true)
     try {
-      await del(`/api/events/${eventId}`)
+      await del(`/api/goals/${goalId}`)
     } catch (error) {
       console.log(error.message)
     }
     // setShowDeleteAlert('Successfully deleted selected match data!')
 
     handleClose()
-    history.push('/war-room')
+    history.push('/goals')
     setIsLoading(false)
   }
 
   const handleClose = () => {
-    setDeleteMatch(false)
+    setDeleteGoal(false)
   }
   return (
     <Box className={classes.modal}>
@@ -51,16 +51,18 @@ export const DeleteMatch = ({ open, setDeleteMatch, eventId }) => {
         disableScrollLock='true'
       >
         <Box className={classes.paper} style={{ height: '250px' }}>
-          <Typography id='modal-modal-title' variant='h6' component='h2'>
-            Delete Match
-          </Typography>
-          <Typography
-            id='modal-modal-description'
-            sx={{ mt: 0.5, opacity: '0.4' }}
-          >
-            Note: This match will be permanently deleted, please confirm if you
-            still want to delete all of match data.
-          </Typography>
+          <Box mb={2}>
+            <Typography id='modal-modal-title' variant='h6' component='h2'>
+              Delete Goal
+            </Typography>
+            <Typography
+              id='modal-modal-description'
+              sx={{ mt: 0.5, opacity: '0.4' }}
+            >
+              Note: This goal will be permanently deleted, please confirm if you
+              still want to delete all of goal data.
+            </Typography>
+          </Box>
 
           <Grid
             container

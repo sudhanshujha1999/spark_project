@@ -21,6 +21,8 @@ import { post } from '../network'
 export const AddGoalData = ({
   open,
   handleClose,
+  startDate,
+  endDate,
   metric,
   goalId,
   goalData,
@@ -30,6 +32,9 @@ export const AddGoalData = ({
   const [date, setDate] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const setGoal = useSetRecoilState(goalState)
+
+  const minDate = new Date(startDate)
+  const maxDate = new Date(endDate)
 
   const addData = async () => {
     setIsLoading(true)
@@ -84,6 +89,8 @@ export const AddGoalData = ({
                     <DatePicker
                       label='Date'
                       value={date}
+                      minDate={minDate}
+                      maxDate={maxDate}
                       required
                       onChange={(newValue) => {
                         setDate(newValue)

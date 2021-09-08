@@ -301,7 +301,7 @@ export const MemberDetailPage = ({ currentUserId }) => {
                           startIcon={<SchoolIcon />}
                           onClick={() => setAddClassOf(true)}
                         >
-                          Add class Of
+                          {isCoach ? 'Add coach since' : 'Add class of'}
                         </Button>
                       )
                     )}

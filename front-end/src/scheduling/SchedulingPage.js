@@ -37,8 +37,6 @@ export const SchedulingPage = () => {
   const { organizations } = useOrganizations()
   const { canEditEvents, teamsForEvents } = useIsCoach(organizations._id)
 
-  console.log(canEditEvents)
-
   const nextMonth = () => {
     const nextMonth = selectedMonth + 1
     if (nextMonth >= 12) setSelectedYear(selectedYear + 1)
@@ -71,6 +69,7 @@ export const SchedulingPage = () => {
           created_by: user._id,
         },
       ])
+      console.log('closing modal')
       setShowNewEventModal(false)
       setSending(false)
     } catch (e) {
