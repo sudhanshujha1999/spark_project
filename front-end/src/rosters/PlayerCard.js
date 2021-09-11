@@ -39,7 +39,7 @@ export const PlayerCard = ({
 
   const handleClick = () => {
     if (clickable) {
-      history.push(`/teams/${teamId}/rosters/${rosterId}/members/${playerId}`)
+      history.push(`/teams/${teamId}/members/${playerId}`)
     }
   }
   const classes = useStyles()

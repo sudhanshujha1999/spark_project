@@ -99,7 +99,7 @@ export const editTeamPageRoute = {
 }
 
 export const memberDetailRoute = {
-  path: '/teams/:teamId/rosters/:rosterId/members/:memberId',
+  path: '/teams/:teamId/members/:memberId', //'/teams/:teamId/rosters/:rosterId/members/:memberId'
   component: MemberDetailPage,
 }
 
