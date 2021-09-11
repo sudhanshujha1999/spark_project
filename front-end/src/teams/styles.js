@@ -63,17 +63,6 @@ export const useStyles = makeStyles((theme) => ({
     width: '320px',
     height: '410px',
     position: 'relative',
-    '&::before': {
-      content: '""',
-      position: 'absolute',
-      bottom: '-13%',
-      right: '-18%',
-      width: '70%',
-      height: '70%',
-      zIndex: '-5',
-      backgroundImage:
-        'linear-gradient(126deg, rgba(69,44,141,1) 0%, rgba(18,26,48,1) 100%)',
-    },
   },
   imgChangeButton: {
     position: 'absolute',

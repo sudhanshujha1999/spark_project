@@ -28,14 +28,13 @@ import { TwitchSvgIcon } from '../img/TwitchSvgIcon'
 import { AddTwitch } from './AddTwitch'
 import { DeleteIcon, EditIcon, SchoolIcon, SettingsIcon } from '../icons'
 import { AddClassOf } from './AddClassOf'
-import { useIsCoach } from '../users/useIsCoach'
+import { useMemberIsCoach } from './useMemberIsCoach'
 
 export const MemberDetailPage = ({ currentUserId }) => {
   const { memberId: memberIdFromParams, teamId } = useParams()
 
   const { organizations, isLoading: isLoadingOrganizations } =
     useOrganizations()
-  const { isCoach } = useIsCoach(organizations._id)
 
   const memberId = memberIdFromParams
     ? memberIdFromParams
@@ -43,6 +42,9 @@ export const MemberDetailPage = ({ currentUserId }) => {
     ? currentUserId
     : null
   const { isLoading, user } = useUser(memberId)
+  const { isCoach } = useMemberIsCoach(organizations._id, user)
+  console.log(user)
+  console.log(isCoach)
   const { userInfo: currentUser } = useCurrentUserInfo()
   const { notes, setNotes } = useNotes(memberId, teamId)
   const teams = useGetTeamsForUser(user)
@@ -133,7 +135,7 @@ export const MemberDetailPage = ({ currentUserId }) => {
 
   return isLoading ? (
     <p>Loading...</p>
-  ) : (
+  ) : user ? (
     <>
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -322,11 +324,7 @@ export const MemberDetailPage = ({ currentUserId }) => {
                           marginLeft: 5,
                           fontWeight: '700',
                           letterSpacing: '4px',
-                          color: '#ff7f50',
-                          // background:
-                          //   'linear-gradient( to right, #f32170, #ff6b08, #cf23cf, #eedd44)',
-                          // WebkitTextFillColor: 'transparent',
-                          // WebkitBackgroundClip: 'text',
+                          color: 'rgb(239 223 217)',
                           filter: 'drop-shadow(2px 4px 6px black)',
                         }}
                       >
@@ -356,5 +354,7 @@ export const MemberDetailPage = ({ currentUserId }) => {
         </Grid>
       </Grid>
     </>
+  ) : (
+    <Typography>User not found!</Typography>
   )
 }

@@ -279,6 +279,7 @@ export const useStyles = makeStyles((theme) => ({
     boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
     overflowY: 'auto',
     padding: '20px',
+    backdropFilter: 'blur(6px)',
     backgroundColor: 'rgb(28 32 36 / 60%)',
   },
   customScrollX: {
