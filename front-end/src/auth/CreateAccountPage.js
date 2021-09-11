@@ -16,6 +16,7 @@ import {
 import { getValidationErrors, validateLength, validateEmail } from "../util";
 import { RoleSelector } from "./RoleSelector";
 import { useStyles } from "./styles";
+import bg from "../img/signInBg.png";
 
 const validations = [
     validateEmail("email"),
@@ -92,8 +93,14 @@ export const CreateAccountPage = () => {
             <Grid item xs={12} sm={5} md={5}>
                 {/* background image */}
                 <Box className={classes.backgroundContainer}>
-                    <Box className={classes.bgImage}>
-                        {/* <video
+                    <img
+                        className={classes.bgImage}
+                        rel='preload'
+                        src={bg}
+                        alt='Sign-in-page-background'
+                    />
+
+                    {/* <video
                     // src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
                     src={video}
                     alt='clip'
@@ -101,7 +108,6 @@ export const CreateAccountPage = () => {
                     muted
                     loop
                 /> */}
-                    </Box>
                 </Box>
                 <Box height='100%' display='flex' alignItems='center' justifyContent='center'>
                     <Box display='flex' flexDirection='column'>

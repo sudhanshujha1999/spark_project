@@ -143,7 +143,7 @@ export const RostersPage = () => {
         }
     };
 
-	console.log(invitations);
+    console.log(invitations);
 
     return isLoadingTeam ? (
         <Box className={classes.load}>
@@ -152,12 +152,6 @@ export const RostersPage = () => {
     ) : (
         <>
             {/* Might have some elements in this component */}
-            <Box
-                style={{
-                    backgroundImage: `url(${team.image_url})`,
-                }}
-                className={classes.teamBanner}
-            />
             <Container maxWidth='lg'>
                 <Box
                     style={{
@@ -166,30 +160,42 @@ export const RostersPage = () => {
                         paddingBottom: "50px",
                         marginTop: "150px",
                     }}>
-                    <Typography variant='h2'>{teamName}</Typography>
-                    <h1>Coaches</h1>
-                    <Box mb={2}>
-                        <Card>
-                            {admins.map(({ name: coachName, profile_img }) => (
-                                <Box width='fit-content' m={2}>
-                                    <Chip
-                                        avatar={
-                                            profile_img ? (
-                                                <Avatar alt={coachName} src={profile_img} />
-                                            ) : (
-                                                <Avatar>{coachName?.charAt(0)}</Avatar>
-                                            )
-                                        }
-                                        label={coachName}
-                                        // onClick={handleClick}
-                                        variant='outlined'
-                                        color='secondary'
-                                    />
-                                </Box>
-                            ))}
-                        </Card>
+                    <Box
+                        style={{
+                            position: "relative",
+                        }}>
+                        <Box
+                            style={{
+                                backgroundImage: `url(${team.image_url})`,
+                            }}
+                            className={classes.teamBanner}
+                        />
+                        <Box>
+                            <Typography variant='h2'>{teamName}</Typography>
+                            <h1>Coaches</h1>
+                            <Box mb={2}>
+                                <Card className={classes.adminInfoContainer}>
+                                    {admins.map(({ name: coachName, profile_img }) => (
+                                        <Box width='fit-content' m={2}>
+                                            <Chip
+                                                avatar={
+                                                    profile_img ? (
+                                                        <Avatar alt={coachName} src={profile_img} />
+                                                    ) : (
+                                                        <Avatar>{coachName?.charAt(0)}</Avatar>
+                                                    )
+                                                }
+                                                label={coachName}
+                                                // onClick={handleClick}
+                                                variant='outlined'
+                                                color='secondary'
+                                            />
+                                        </Box>
+                                    ))}
+                                </Card>
+                            </Box>
+                        </Box>
                     </Box>
-                    <Divider />
                     <h1>Rosters</h1>
                     {isCoach && (
                         <>
