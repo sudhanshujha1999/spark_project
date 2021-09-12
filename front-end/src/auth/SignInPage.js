@@ -67,18 +67,15 @@ export const SignInPage = () => {
   return (
     <Box style={{ padding: '20px' }}>
       <BackButton goBack={() => history.push('/')} />
-      <Grid container>
-        <Grid item xs={12} sm={5} md={5}>
-          {/* background image */}
-          <Box className={classes.backgroundContainer}>
-            <img
-              className={classes.bgImage}
-              rel='preload'
-              src={bg}
-              alt='Sign-in-page-background'
-            />
-            <Box>
-              {/* <video
+      <Box className={classes.backgroundContainer}>
+        <img
+          className={classes.bgImage}
+          rel='preload'
+          src={bg}
+          alt='Sign-in-page-background'
+        />
+        <Box>
+          {/* <video
                             // src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
                             src={video}
                             alt='clip'
@@ -86,8 +83,11 @@ export const SignInPage = () => {
                             muted
                             loop
                         /> */}
-            </Box>
-          </Box>
+        </Box>
+      </Box>
+      <Grid container>
+        <Grid item xs={12} sm={5} md={5}>
+          {/* background image */}
           <Box
             height='100%'
             display='flex'

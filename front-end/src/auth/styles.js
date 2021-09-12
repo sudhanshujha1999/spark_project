@@ -3,11 +3,13 @@ import { makeStyles } from '@material-ui/styles'
 export const useStyles = makeStyles((theme) => ({
   // global signup page style
   backgroundContainer: {
-    position: 'absolute',
+    position: 'fixed',
     top: 0,
     left: 0,
+    bottom: '0',
+    right: '0',
     width: '100vw',
-    height: '99vh',
+    height: '100vh',
     zIndex: '-10',
   },
   bgImage: {

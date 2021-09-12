@@ -19,7 +19,7 @@ export const BackButton = ({ goBack }) => {
 const useStyles = makeStyles((theme) => ({
   button: {
     display: 'block',
-    backgroundColor: '#2c2c54',
+    backgroundColor: 'inherit',
     width: '100px',
     height: '40px',
     lineHeight: '40px',
@@ -31,13 +31,14 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
     overflow: 'hidden',
     borderRadius: '5px',
-    boxShadow: '0 0 10px 0 rgba(0,0,0,.3)',
+    boxShadow: 'rgb(0 0 0 / 24%) 0px 3px 8px',
     transition: 'all 0.25s cubic-bezier(0.310, -0.105, 0.430, 1.400)',
     borderColor: 'transparent',
     '&:hover': {
       opacity: '.9',
       '& $icon': {
         width: '100%',
+        color: '#895cf2',
       },
       '& $back': {
         fontSize: '35px',
