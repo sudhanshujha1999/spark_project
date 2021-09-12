@@ -6,12 +6,12 @@ export const CopyrightFooter = () => {
         width: '100%',
         boxSizing: 'border-box',
         margin: '40px 0 0 0',
-        padding: '20px 200px 40px 200px',
+        padding: '20px 200px',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         backdropFilter: 'blur(6px)',
-        backgroundColor: 'rgb(32 39 58 / 29%)',
+        backgroundColor: 'rgb(40 47 64 / 29%)',
       }}
     >
       <Typography>
