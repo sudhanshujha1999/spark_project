@@ -8,10 +8,15 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run build --prefix=front-end && npm run build --prefix=back-end",
     "build:copy": "copy  \"front-end\\build\" \"back-end\\build\\build\"",
+    "build:copy:mac": "cp -r front-end/build back-end/build/build",
     "release:only:dev": "gcloud config set project spark-esport && gcloud app deploy back-end/dev-app.yaml --quiet",
+    "release:only:dev:mac": "gcloud config set project spark-esport && gcloud app deploy back-end/dev-app.yaml --quiet",
     "release:only:prod": "gcloud config set project spark-esport-prod && gcloud app deploy back-end/prod-app.yaml --quiet",
+    "release:only:prod:mac": "gcloud config set project spark-esport-prod && gcloud app deploy back-end/prod-app.yaml --quiet",
     "release:dev": "npm run build && npm run build:copy && npm run release:only:dev",
-    "release:prod": "npm run build && npm run build:copy && npm run release:only:prod"
+    "release:dev:mac": "npm run build && npm run build:copy:mac && npm run release:only:dev:mac",
+    "release:prod": "npm run build && npm run build:copy && npm run release:only:prod",
+    "release:prod:mac": "npm run build && npm run build:copy:mac && npm run release:only:prod:mac"
   },
   "keywords": [],
   "author": "",
