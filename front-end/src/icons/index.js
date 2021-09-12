@@ -18,6 +18,7 @@ import FileCopyIcon from '@material-ui/icons/FileCopy'
 import GroupAddIcon from '@material-ui/icons/GroupAdd'
 import GroupIcon from '@material-ui/icons/Group'
 import GpsFixedIcon from '@material-ui/icons/GpsFixed'
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace'
 import NotificationsIcon from '@material-ui/icons/Notifications'
 import PlayArrowIcon from '@material-ui/icons/PlayArrow'
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera'
@@ -52,6 +53,7 @@ export {
   GpsFixedIcon,
   GroupIcon,
   GroupAddIcon,
+  KeyboardBackspaceIcon,
   NotificationsIcon,
   PlayArrowIcon,
   PhotoCameraIcon,

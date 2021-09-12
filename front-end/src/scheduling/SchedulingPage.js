@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { del, post } from '../network'
-import { Box, Button, Dialog, Typography } from '../ui'
+import { BackButton, Box, Button, Dialog, Typography } from '../ui'
 import { Calendar } from './Calendar'
 import { EventDetailForm } from './EventDetailForm'
 import { NewEventForm } from './NewEventForm'
@@ -8,6 +8,7 @@ import { useEvents } from './useEvents'
 import { useCurrentUserInfo } from '../users/useCurrentUserInfo'
 import { useIsCoach } from '../users/useIsCoach'
 import { useOrganizations } from '../teams'
+import { useHistory } from 'react-router-dom'
 const monthNames = [
   'January',
   'February',
@@ -24,6 +25,7 @@ const monthNames = [
 ]
 
 export const SchedulingPage = () => {
+  const history = useHistory()
   const today = new Date()
   const { userInfo: user } = useCurrentUserInfo()
   const [selectedYear, setSelectedYear] = useState(today.getYear() + 1900)
@@ -87,7 +89,8 @@ export const SchedulingPage = () => {
   }
 
   return (
-    <>
+    <Box>
+      <BackButton goBack={history.goBack} />
       {/* WE CAN USE MUI DIALOG HERE INSTED OF MODAL */}
       {selectedDate && (
         <NewEventForm
@@ -153,6 +156,6 @@ export const SchedulingPage = () => {
           />
         </Box>
       </Box>
-    </>
+    </Box>
   )
 }

@@ -74,7 +74,7 @@ export const useStyles = makeStyles((theme) => ({
     transition: 'transform 500ms',
     '&:hover': {
       boxShadow: '0px 0px 10px #2a2344',
-      transform: 'scale(1.02)',
+      transform: 'scale(1.01)',
     },
   },
 

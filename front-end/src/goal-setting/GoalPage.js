@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { get } from '../network'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { useStyles } from './styles'
 import { useRecoilState } from 'recoil'
 import { useCurrentUser } from '../auth'
 import { goalState } from './recoilState'
-import { Box, Divider, Grid, Typography, Fade, Button, Alert } from '../ui'
+import {
+  Box,
+  Divider,
+  Grid,
+  Typography,
+  Fade,
+  Button,
+  Alert,
+  BackButton,
+} from '../ui'
 import { GoalGraph } from './GoalGraph'
 import { useCurrentUserInfo } from '../users'
 import { AddGoalData } from './AddGoalData'
@@ -17,6 +26,7 @@ import { useIsCoach } from '../users/useIsCoach'
 import { DeleteGoal } from './DeleteGoal'
 
 export const GoalPage = () => {
+  const history = useHistory()
   const { goalId } = useParams()
   const classes = useStyles()
   const [goal, setGoal] = useRecoilState(goalState)
@@ -52,7 +62,8 @@ export const GoalPage = () => {
   }
 
   return (
-    <>
+    <Box>
+      <BackButton goBack={history.goBack} />
       {isLoading ? (
         <p>loading</p>
       ) : (
@@ -243,6 +254,6 @@ export const GoalPage = () => {
           </Box>
         )
       )}
-    </>
+    </Box>
   )
 }

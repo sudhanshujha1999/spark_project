@@ -20,17 +20,26 @@ export const OrganizationPage = ({ user, teams, organization }) => {
       <Grid container spacing={2}>
         <Box
           style={{
-            aspectRatio: '1',
-            alignSelf: 'center',
-            margin: 'auto 40px auto 30px',
-            width: 'fit-content',
+            display: 'flex',
+            flexdirection: 'row',
+            margin: 'auto',
+            transform: 'translate(-1.875rem)',
           }}
         >
-          <OrganizationLogo organization={organization} isCoach={isCoach} />
+          <Box
+            style={{
+              aspectRatio: '1',
+              alignSelf: 'center',
+              margin: 'auto 40px auto 30px',
+              width: 'fit-content',
+            }}
+          >
+            <OrganizationLogo organization={organization} isCoach={isCoach} />
+          </Box>
+          <Typography variant='h2' className={classes.orgName}>
+            {organization && (organization.name || '')}
+          </Typography>
         </Box>
-        <Typography variant='h2' className={classes.orgName}>
-          {organization && (organization.name || '')}
-        </Typography>
       </Grid>
       <Box mt={2} mb={3}>
         <Divider />
