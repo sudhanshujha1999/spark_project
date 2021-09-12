@@ -122,25 +122,27 @@ export const LandingPage = () => {
           {/* Log at the back of the bg */}
           {/* <img className={classes.bgBehind} src={SparkLogo} alt='Company-Logo' /> */}
         </Grid>
-        <Box
-          style={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          <Button
-            variant='contained'
-            disableElevation
-            className={classes.btn}
-            style={{ alignSelf: 'center' }}
-            color='secondary'
-            disabled={false}
-            onClick={() => history.push('/create-account')}
+        {!userInfo && (
+          <Box
+            style={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
           >
-            Start for free
-          </Button>
-        </Box>
+            <Button
+              variant='contained'
+              disableElevation
+              className={classes.btn}
+              style={{ alignSelf: 'center' }}
+              color='secondary'
+              disabled={false}
+              onClick={() => history.push('/create-account')}
+            >
+              Start for free
+            </Button>
+          </Box>
+        )}
       </Container>
     </Box>
   )
