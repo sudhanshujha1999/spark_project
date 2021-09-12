@@ -45,6 +45,18 @@ export const HeadingContent = ({ nextStep }) => {
       >
         Request Invite
       </Button> */}
+      <Box>
+        <Button
+          variant='contained'
+          disableElevation
+          className={classes.btn}
+          color='secondary'
+          disabled={false}
+          onClick={() => history.push('/create-account')}
+        >
+          Start for free
+        </Button>
+      </Box>
     </Box>
   )
 }
