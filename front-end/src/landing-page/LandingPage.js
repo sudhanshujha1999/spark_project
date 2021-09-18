@@ -14,8 +14,10 @@ import img2 from '../img/border.svg'
 import { useCurrentUserInfo } from '../users'
 import { HeadingForLoggedInUser } from './HeadingForLoggedInUser'
 import { Container, Hidden } from '@material-ui/core'
+import { useHistory } from 'react-router-dom'
 
 export const LandingPage = () => {
+  const history = useHistory()
   sendEvent('Landing Page Visited')
 
   const classes = useStyles()
@@ -117,16 +119,30 @@ export const LandingPage = () => {
               </Box>
             </Grid>
           ))}
-          <Grid item xs={12}>
-            <Box width='fit-content' mx={'auto'}>
-              <Button variant='contained' color='primary' disabled={true}>
-                Start for free
-              </Button>
-            </Box>
-          </Grid>
           {/* Log at the back of the bg */}
           {/* <img className={classes.bgBehind} src={SparkLogo} alt='Company-Logo' /> */}
         </Grid>
+        {!userInfo && (
+          <Box
+            style={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <Button
+              variant='contained'
+              disableElevation
+              className={classes.btn}
+              style={{ alignSelf: 'center' }}
+              color='secondary'
+              disabled={false}
+              onClick={() => history.push('/create-account')}
+            >
+              Start for free
+            </Button>
+          </Box>
+        )}
       </Container>
     </Box>
   )

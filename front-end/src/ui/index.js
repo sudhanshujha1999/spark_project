@@ -57,6 +57,7 @@ import TimePicker from '@material-ui/lab/TimePicker'
 import YearPicker from '@material-ui/lab/YearPicker'
 
 export { AddableList } from './AddableList'
+export { BackButton } from './BackButton'
 export { CenteredContainer } from './CenteredContainer'
 export { CustomSnackbar } from './CustomSnackbar'
 export { DeletableListItem } from './DeletableListItem'

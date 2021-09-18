@@ -6,6 +6,7 @@ import { Member } from './Member'
 import { useHistory } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useIsCoach } from '../users/useIsCoach'
+import { OrganizationLogo } from './OrganizationLogo'
 
 export const OrganizationPage = ({ user, teams, organization }) => {
   console.log(organization)
@@ -16,29 +17,74 @@ export const OrganizationPage = ({ user, teams, organization }) => {
   const { isCoach } = useIsCoach(organization._id)
   return (
     <Box>
-      <Typography variant='h2' className={classes.orgName}>
-        {organization && (organization.name || '')}
-      </Typography>
-      <Box mt={2} mb={7}>
+      <Grid container spacing={2}>
+        <Box
+          style={{
+            display: 'flex',
+            flexdirection: 'row',
+            margin: 'auto',
+            transform: 'translate(-1.875rem)',
+          }}
+        >
+          <Box
+            style={{
+              aspectRatio: '1',
+              alignSelf: 'center',
+              margin: 'auto 40px auto 30px',
+              width: 'fit-content',
+            }}
+          >
+            <OrganizationLogo organization={organization} isCoach={isCoach} />
+          </Box>
+          <Typography variant='h2' className={classes.orgName}>
+            {organization && (organization.name || '')}
+          </Typography>
+        </Box>
+      </Grid>
+      <Box mt={2} mb={3}>
         <Divider />
       </Box>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={5} container>
-          <Grid item xs={12}>
-            <LeagueRecords
-              teams={teams}
-              organizationId={organization._id}
-              showActions={false}
-            />
+      <Grid container spacing={2} direction='column'>
+        <Grid item xs={12} sm={12}>
+          <TeamsList school={organization} teams={teams} isCoach={isCoach} />
+        </Grid>
+        <Grid item xs={12} sm={12} mt={4} spacing={2} container direction='row'>
+          <Grid item xs={12} sm={12} md={4}>
+            <Box className={classes.teamsContainer}>
+              <LeagueRecords
+                teams={teams}
+                organizationId={organization._id}
+                showActions={false}
+              />
+            </Box>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} sm={12} md={4}>
             <Member teams={teams || []} />
           </Grid>
-        </Grid>
-        <Grid item xs={12} sm={7}>
-          <TeamsList school={organization} teams={teams} isCoach={isCoach} />
+          <Grid item xs={12} sm={12} md={4}>
+            <Box className={classes.teamsContainer}>
+              <Typography className={classes.headingMedium} variant='h5'>
+                Streaming
+              </Typography>
+              <Box my={3}>
+                <Typography>Content coming soon!</Typography>
+              </Box>
+            </Box>
+          </Grid>
         </Grid>
       </Grid>
     </Box>
   )
 }
+//Box Css
+// position: relative;
+// margin: 0px auto 30px;
+// max-width: 600px;
+// height: auto;
+// background: rgb(0, 0, 0);
+// background: rgba(0, 0, 0, .2);
+// box-shadow: 0px 0px 20px rgb(0 0 0 / 50%);
+// border: 1px solid #2a2344;
+// border-radius: 10px;
+// font-size: 12px;
+// padding: 30px 30px 30px 50px;

@@ -8,6 +8,7 @@ import { useQueryParams } from '../routing/useQueryParams'
 import {
   Alert,
   Autocomplete,
+  BackButton,
   Box,
   Button,
   CircularProgress,
@@ -178,209 +179,207 @@ export const TeamInfoForm = () => {
   }
 
   return (
-    <Container maxWidth='lg'>
-      <Grid
-        container
-        style={{
-          minHeight: '80vh',
-        }}
-      >
-        <Grid item xs={12} sm={6}>
-          <Box className={classes.contentContainer}>
-            {
-              // random no. just a quick fix to check if i's a first time team
-              n1x === 'xj67bdsne12sxmlse' ? (
-                <Box my={2}>
-                  <Typography variant='h5' gutterBottom>
-                    Create your first team
+    <Box>
+      <BackButton goBack={history.goBack} />
+      <Container maxWidth='lg'>
+        <Grid
+          container
+          style={{
+            minHeight: '80vh',
+          }}
+        >
+          <Grid item xs={12} sm={6}>
+            <Box className={classes.contentContainer}>
+              {
+                // random no. just a quick fix to check if i's a first time team
+                n1x === 'xj67bdsne12sxmlse' ? (
+                  <Box my={2}>
+                    <Typography variant='h5' gutterBottom>
+                      Create your first team
+                    </Typography>
+                    <Typography variant='subtitle2' gutterBottom>
+                      Enter your team name, choose a game and add a roster..
+                    </Typography>
+                  </Box>
+                ) : (
+                  <Typography className={classes.teamName}>
+                    {name ? name : 'Enter a team name'}
                   </Typography>
-                  <Typography variant='subtitle2' gutterBottom>
-                    Enter your team name, choose a game and add a roster..
-                  </Typography>
-                </Box>
-              ) : (
-                <Typography className={classes.teamName}>
-                  {name ? name : 'Enter a team name'}
-                </Typography>
-              )
-            }
-            <Box className={classes.imageContainer}>
-              <Slide in={show} direction='right'>
-                <Box
-                  style={{
-                    backgroundImage: img
-                      ? `url(${previewRef.current})`
-                      : Object.keys(active).length !== 0
-                      ? `url(${active.img})`
-                      : `url(${defaultImage})`,
-                  }}
-                  className={classes.img}
-                />
-              </Slide>
-            </Box>
-            <img
-              className={classes.controller}
-              src={controller}
-              alt='Controller-ps5'
-            />
-          </Box>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <h1>New Team Info</h1>
-          {validationErrors.map((error) => (
-            <Box mb={2}>
-              <Alert severity='error'>{error}</Alert>
-            </Box>
-          ))}
-          <Box mb={2}>
-            <TextField
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              fullWidth
-              label='Team Name'
-              variant='outlined'
-            />
-          </Box>
-          <Box mb={2}>
-            <Autocomplete
-              id='combo-box-demo'
-              value={game}
-              options={games}
-              onChange={(e, data) => {
-                if (data && Object.keys(data).length > 0) {
-                  onSelectGame(data)
-                }
-              }}
-              getOptionLabel={(option) => {
-                if (typeof option === 'string') {
-                  return option
-                } else {
-                  return option.name
-                }
-              }}
-              style={{ width: '100%' }}
-              renderInput={(params) => {
-                return (
-                  <TextField
-                    {...params}
-                    label='Select Game'
-                    variant='outlined'
-                  />
                 )
-              }}
-            />
-          </Box>
-          <Box mb={2} className={classes.gamesContainer}>
-            {games.map((game) => (
-              <Box
-                key={game.name}
-                className={
-                  active.name === game.name
-                    ? `${classes.game} ${classes.active}`
-                    : `${classes.game}`
-                }
-                onClick={() => {
-                  onSelectGame(game)
-                }}
-              >
-                {game.name}
+              }
+              <Box className={classes.imageContainer}>
+                <Slide in={show} direction='right'>
+                  <Box
+                    style={{
+                      backgroundImage: img
+                        ? `url(${previewRef.current})`
+                        : Object.keys(active).length !== 0
+                        ? `url(${active.img})`
+                        : `url(${defaultImage})`,
+                    }}
+                    className={classes.img}
+                  />
+                </Slide>
+              </Box>
+            </Box>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <h1>New Team Info</h1>
+            {validationErrors.map((error) => (
+              <Box mb={2}>
+                <Alert severity='error'>{error}</Alert>
               </Box>
             ))}
-          </Box>
-          <Divider />
-          <Box my={2}>
-            <Typography variant='h6' gutterBottom>
-              Upload your game picture
-            </Typography>
-            <Button variant='contained' color='primary' component='label'>
-              {img ? 'Change' : 'Upload'}
-              <input type='file' hidden onChange={imgfunction} />
-            </Button>
-          </Box>
-          <Divider />
-          <Box mb={2}>
-            <h3>Team Rosters:</h3>
-          </Box>
-          <Box mb={2}>
-            {rosters.map((roster, i) => (
-              <>
-                <DeletableListItem onRequestDelete={onDeleteRoster} index={i}>
-                  <p key={roster.name}>{roster.name}</p>
-                </DeletableListItem>
-                <Divider />
-              </>
-            ))}
-          </Box>
-          <Box mb={2} style={{ display: 'flex ' }}>
-            {isAddingRoster ? (
-              <>
-                <TextField
-                  value={newRosterName}
-                  onChange={(e) => setNewRosterName(e.target.value)}
-                  style={{ flex: 8, marginRight: 8 }}
-                  label='Roster Name'
-                  variant='outlined'
-                />
-                <Button
-                  style={{ flex: 1, marginRight: 8 }}
-                  onClick={() => setIsAddingRoster(false)}
-                  color='primary'
-                  variant='outlined'
-                >
-                  Cancel
-                </Button>
-                <Button
-                  color='primary'
-                  style={{ flex: 1 }}
+            <Box mb={2}>
+              <TextField
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                fullWidth
+                label='Team Name'
+                variant='outlined'
+              />
+            </Box>
+            <Box mb={2}>
+              <Autocomplete
+                id='combo-box-demo'
+                value={game}
+                options={games}
+                onChange={(e, data) => {
+                  if (data && Object.keys(data).length > 0) {
+                    onSelectGame(data)
+                  }
+                }}
+                getOptionLabel={(option) => {
+                  if (typeof option === 'string') {
+                    return option
+                  } else {
+                    return option.name
+                  }
+                }}
+                style={{ width: '100%' }}
+                renderInput={(params) => {
+                  return (
+                    <TextField
+                      {...params}
+                      label='Select Game'
+                      variant='outlined'
+                    />
+                  )
+                }}
+              />
+            </Box>
+            <Box mb={2} className={classes.gamesContainer}>
+              {games.map((game) => (
+                <Box
+                  key={game.name}
+                  className={
+                    active.name === game.name
+                      ? `${classes.game} ${classes.active}`
+                      : `${classes.game}`
+                  }
                   onClick={() => {
-                    setRosters([...rosters, { name: newRosterName }])
-                    setIsAddingRoster(true)
-                    setNewRosterName('')
+                    onSelectGame(game)
                   }}
-                  variant='contained'
                 >
-                  Add
-                </Button>
-              </>
-            ) : (
-              <Button
-                onClick={() => setIsAddingRoster(true)}
-                color='primary'
-                variant='contained'
-              >
-                + Add Roster
+                  {game.name}
+                </Box>
+              ))}
+            </Box>
+            <Divider />
+            <Box my={2}>
+              <Typography variant='h6' gutterBottom>
+                Upload your game picture
+              </Typography>
+              <Button variant='contained' color='primary' component='label'>
+                {img ? 'Change' : 'Upload'}
+                <input type='file' hidden onChange={imgfunction} />
               </Button>
-            )}
-          </Box>
-          <Divider />
-          <Box py={2}>
-            <Grid container justifyContent='space-between'>
-              {!loading && (
-                <Grid item>
-                  <Button variant='contained' onClick={onCancel}>
+            </Box>
+            <Divider />
+            <Box mb={2}>
+              <h3>Team Rosters:</h3>
+            </Box>
+            <Box mb={2}>
+              {rosters.map((roster, i) => (
+                <>
+                  <DeletableListItem onRequestDelete={onDeleteRoster} index={i}>
+                    <p key={roster.name}>{roster.name}</p>
+                  </DeletableListItem>
+                  <Divider />
+                </>
+              ))}
+            </Box>
+            <Box mb={2} style={{ display: 'flex ' }}>
+              {isAddingRoster ? (
+                <>
+                  <TextField
+                    value={newRosterName}
+                    onChange={(e) => setNewRosterName(e.target.value)}
+                    style={{ flex: 8, marginRight: 8 }}
+                    label='Roster Name'
+                    variant='outlined'
+                  />
+                  <Button
+                    style={{ flex: 1, marginRight: 8 }}
+                    onClick={() => setIsAddingRoster(false)}
+                    color='primary'
+                    variant='outlined'
+                  >
                     Cancel
                   </Button>
-                </Grid>
-              )}
-              <Grid item xs={loading && 12}>
+                  <Button
+                    color='primary'
+                    style={{ flex: 1 }}
+                    onClick={() => {
+                      setRosters([...rosters, { name: newRosterName }])
+                      setIsAddingRoster(true)
+                      setNewRosterName('')
+                    }}
+                    variant='contained'
+                  >
+                    Add
+                  </Button>
+                </>
+              ) : (
                 <Button
+                  onClick={() => setIsAddingRoster(true)}
                   color='primary'
                   variant='contained'
-                  onClick={onFinish}
-                  disabled={loading}
-                  fullWidth={loading}
                 >
-                  {loading ? (
-                    <CircularProgress size='2em' color='primary' />
-                  ) : (
-                    'Create Team'
-                  )}
+                  + Add Roster
                 </Button>
+              )}
+            </Box>
+            <Divider />
+            <Box py={2}>
+              <Grid container justifyContent='space-between'>
+                {!loading && (
+                  <Grid item>
+                    <Button variant='contained' onClick={onCancel}>
+                      Cancel
+                    </Button>
+                  </Grid>
+                )}
+                <Grid item xs={loading && 12}>
+                  <Button
+                    color='primary'
+                    variant='contained'
+                    onClick={onFinish}
+                    disabled={loading}
+                    fullWidth={loading}
+                  >
+                    {loading ? (
+                      <CircularProgress size='2em' color='primary' />
+                    ) : (
+                      'Create Team'
+                    )}
+                  </Button>
+                </Grid>
               </Grid>
-            </Grid>
-          </Box>
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </Box>
   )
 }

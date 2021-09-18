@@ -1,9 +1,11 @@
 import { Box, Typography, Button } from '../ui'
 import SparkLogo from '../img/logo.svg'
 import { useStyles } from './styles'
+import { useHistory } from 'react-router-dom'
 
 export const HeadingContent = ({ nextStep }) => {
   const classes = useStyles()
+  const history = useHistory()
   return (
     <Box className={classes.headingContainer}>
       <Box display='flex' alignItems='center' justifyContent='space-between'>
@@ -34,7 +36,7 @@ export const HeadingContent = ({ nextStep }) => {
         Player developement and team management platform to help you{' '}
         <strong className={classes.nameOrg}> Win.</strong>
       </Typography>
-      <Button
+      {/* <Button
         disableElevation
         className={classes.btn}
         variant='contained'
@@ -42,7 +44,19 @@ export const HeadingContent = ({ nextStep }) => {
         onClick={() => nextStep()}
       >
         Request Invite
-      </Button>
+      </Button> */}
+      <Box>
+        <Button
+          variant='contained'
+          disableElevation
+          className={classes.btn}
+          color='secondary'
+          disabled={false}
+          onClick={() => history.push('/create-account')}
+        >
+          Start for free
+        </Button>
+      </Box>
     </Box>
   )
 }

@@ -9,6 +9,7 @@ import { goalsState } from './recoilState'
 import { useOrganizations } from '../teams'
 import { useIsCoach } from '../users/useIsCoach'
 import { AllGoals } from './AllGoals'
+import { BackButton } from '../ui/BackButton'
 
 export const GoalSettingPage = () => {
   const history = useHistory()
@@ -39,6 +40,7 @@ export const GoalSettingPage = () => {
 
   return (
     <Box>
+      <BackButton goBack={history.goBack} />
       {isLoading ? (
         <Box className={classes.loading}>
           <CircularProgress color='secondary' />
