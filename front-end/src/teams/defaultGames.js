@@ -16,7 +16,7 @@ export const GAMES = [
     },
     {
         name: "Overwatch",
-        img: "https://firebasestorage.googleapis.com/v0/b/spark-esport.appspot.com/o/default%2Foverwatch-default.jpg?alt=media&token=a03c5a61-1458-4db0-be50-7e68a0818dab",
+        img: "https://firebasestorage.googleapis.com/v0/b/spark-esport.appspot.com/o/default%2Foverwatch_default.jpg?alt=media&token=6207a231-b0c7-4eb1-8d3d-7bd944dd9ccc",
         logo: "https://firebasestorage.googleapis.com/v0/b/spark-esport.appspot.com/o/game-logos%2Foverwatch-logo.png?alt=media&token=83674291-e157-44b3-ad15-7a3186912df8",
     },
     {
@@ -31,6 +31,16 @@ export const GAMES = [
     {
         name: "Call of Duty: Cold War",
         img: "https://firebasestorage.googleapis.com/v0/b/spark-esport.appspot.com/o/default%2FCODBO-default-min.png?alt=media&token=edffa012-32a9-45f1-8a28-4612c1eff242",
+        logo: "",
+    },
+    {
+        name: "Call of Duty: Vanguard",
+        img: "https://firebasestorage.googleapis.com/v0/b/spark-esport.appspot.com/o/default%2Fcall-of-duty-vanguard-default.jpg?alt=media&token=ac1ac9bd-058b-4e37-ab58-968ff19d7bd4",
+        logo: "",
+    },
+    {
+        name: "Halo: Infinite",
+        img: "https://firebasestorage.googleapis.com/v0/b/spark-esport.appspot.com/o/default%2Fhalo-default.jpg?alt=media&token=a75da61b-1c8e-4e0a-9047-cd1d510219e6",
         logo: "",
     },
     {

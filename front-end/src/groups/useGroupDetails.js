@@ -21,7 +21,7 @@ export const useGroupDetails = (groupId) => {
 
     useEffect(() => {
         if (groupId) {
-            if (organizations._id) {
+            if (organizations._id && !groupDetails._id) {
                 fetchData(groupId, organizations._id);
             }
         } else {

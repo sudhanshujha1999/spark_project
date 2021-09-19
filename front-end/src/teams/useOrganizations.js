@@ -7,7 +7,7 @@ import { useIsCoach } from "../users/useIsCoach";
 
 export const useOrganizations = () => {
     const { userInfo = {} } = useCurrentUserInfo();
-    const authId = userInfo.auth_id;
+    const authId = userInfo?.auth_id;
     const [isLoading, setIsLoading] = useState(true);
     const [update, setUpdate] = useState(false);
     const organizations = useRecoilValue(getOrganizationsState);
