@@ -40,5 +40,5 @@ export { WarRoom } from "./WarRoomSchema";
 // }
 
 export { VALID_EVENTS, WAR_ROOM, DISCUSSION } from "./validEventTypes";
-export { ORGANIZATION, TEAM, ROSTER } from "./validGroups";
+export { ORGANIZATION, TEAM, ROSTER, TRIAL, PAID } from "./validGroups";
 export { VALID_PERMISSIONS } from "./validPermission";

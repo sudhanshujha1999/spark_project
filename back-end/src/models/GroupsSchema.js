@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { VALID_GROUPS } from "./validGroups";
+import { VALID_GROUPS, VALID_STATUS } from "./validGroups";
 const { Schema } = mongoose;
 
 const GroupsSchema = new Schema(
@@ -42,11 +42,21 @@ const GroupsSchema = new Schema(
         },
         image_url: String,
         // Filled only orgs
+        subscription_status: {
+            type: String,
+            validate: {
+                validator: function (value) {
+                    return VALID_STATUS.includes(value);
+                },
+                message: (props) => `${props.value} is not a valid status!`,
+            },
+        },
+        subscription_endDate: Date,
         organization_code: String,
         orgType: String,
-		city: String,
-		state: String,
-		zipCode: String,
+        city: String,
+        state: String,
+        zipCode: String,
         // TAKEN PLAYERS AND DUPLICATING DATA CAUSE WE WILL NEED TO GET THAT PLAYER EVERY TIME A GROUP IS CALLED, THIS WILL BE POPULATED ONLY FOR TEAMS AND ROSTER
         players: [
             {

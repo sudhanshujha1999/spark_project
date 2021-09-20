@@ -20,7 +20,11 @@ export const AllGroups = ({ groups }) => {
                     {groups.map((group) => (
                         <Grid item xs={12} sm={6} md={3}>
                             <Link to={`/${group._id}/groups/`}>
-                                <Box className={classes.groupCard}> {group.name}</Box>
+                                <Box className={classes.groupCard}>
+                                    <Typography className={classes.groupName}>
+                                        {group.name}
+                                    </Typography>
+                                </Box>
                             </Link>
                         </Grid>
                     ))}
@@ -30,7 +34,6 @@ export const AllGroups = ({ groups }) => {
                                 onClick={() => {
                                     setOpenJoin(true);
                                 }}
-                                className={classes.buttons}
                                 color='secondary'
                                 variant='outlined'>
                                 Join a group
