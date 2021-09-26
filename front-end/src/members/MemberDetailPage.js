@@ -295,22 +295,14 @@ export const MemberDetailPage = ({ currentUserId }) => {
                                             isCoach={isCoach}
                                         />
                                     )}
-                                    <Typography>
-                                        <span
-                                            style={{
-                                                fontSize: "1.5em",
-                                                marginLeft: 5,
-                                                fontWeight: "700",
-                                                letterSpacing: "4px",
-                                                color: "#ff7f50",
-                                                // background:
-                                                //   'linear-gradient( to right, #f32170, #ff6b08, #cf23cf, #eedd44)',
-                                                // WebkitTextFillColor: 'transparent',
-                                                // WebkitBackgroundClip: 'text',
-                                                filter: "drop-shadow(2px 4px 6px black)",
-                                            }}>
-                                            {organizations.name}
-                                        </span>
+                                    <Typography
+                                        style={{
+                                            fontSize: "1.5em",
+                                            fontWeight: "700",
+                                            letterSpacing: "4px",
+                                            filter: "drop-shadow(2px 4px 6px black)",
+                                        }}>
+                                        {organizations.name}
                                     </Typography>
                                 </Box>
                             )}

@@ -14,12 +14,13 @@ export const useStyles = makeStyles((theme) => ({
     organizationLogoContainer: {
         aspectRatio: "1",
         alignSelf: "center",
+        padding: "10px",
         margin: "auto 40px auto 30px",
         width: "fit-content",
     },
     organizationContainer: {
         display: "flex",
-        flexdirection: "row",
+        alignItems: "center",
         margin: "auto",
         transform: "translate(-1.875rem)",
     },
@@ -57,12 +58,14 @@ export const useStyles = makeStyles((theme) => ({
     },
     //Org-Logo
     avatar: {
-        height: 70,
-        width: 70,
+        height: 100,
+        width: 100,
+        boxShadow: "0px 7px 20px rgba(0,0,0, 0.7) ",
+        backgroundColor: "#333",
     },
     icon: {
-        fontSize: 70,
-        fill: theme.palette.background.default,
+        fontSize: 100,
+        padding: "10px",
         borderRadius: "50%",
     },
     savingImage: {
@@ -133,46 +136,9 @@ export const useStyles = makeStyles((theme) => ({
         right: 50,
     },
     addTeamBtn: {
-        boxSizing: "border-box",
-        minWidth: "20px",
-        height: "50px",
-        maxWidth: "60px",
-        width: "100%",
-        fontSize: "16px",
-        fontFamily: `'Bebas Neue', cursive`,
-        background: "linear-gradient(45deg, transparent 5%, #895cf2 5%)",
-        border: 0,
-        color: "#fff",
-        letterSpacing: "3px",
-        lineHeight: "88px",
-        boxShadow: "3px 1px 0px #ffd369",
-        outline: "transparent",
-        position: "relative",
-        // boxShadow:
-        //   'rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset',
-        "&:after": {
-            "--slice-0": "inset(50% 50% 50% 50%)",
-            "--slice-1": "inset(80% -6px 0 0)",
-            "--slice-2": "inset(50% -6px 30% 0)",
-            "--slice-3": "inset(10% -6px 85% 0)",
-            "--slice-4": "inset(40% -6px 43% 0)",
-            "--slice-5": "inset(80% -6px 5% 0)",
-
-            content: "",
-            display: "block",
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: `linear-gradient(45deg, transparent 3%, #00E6F6 3%, #00E6F6 5%, #FF013C 5%)`,
-            textShadow: `-3px -3px 0px #F8F005, 0px 3px 3px #00E6F6`,
-            clipPath: `var(--slice-0)`,
-        },
-        // '& :hover': {
-        //   animation: '0.5s $glitch',
-        //   // animationTimingFunction: `steps(2, end)`,
-        // },
+        height: 30,
+        padding: 5,
+        fontSize: "1.5em",
     },
 
     // '@keyframes glitch': {
