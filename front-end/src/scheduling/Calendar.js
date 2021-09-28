@@ -7,7 +7,7 @@ import {
 } from '../util'
 import { CalendarCell } from './CalendarCell'
 
-const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
 export const Calendar = ({
   year,
