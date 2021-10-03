@@ -1,5 +1,5 @@
-import { Link, useHistory } from "react-router-dom";
-import { Box, Button, Card, Grid, Fab, Typography, IconButton } from "../ui";
+import { useHistory } from "react-router-dom";
+import { Box, Button, Card, Grid, Typography } from "../ui";
 import { AddIcon } from "../icons";
 import { TeamItemCard } from "./TeamItemCard";
 import { useStyles } from "./Styles";

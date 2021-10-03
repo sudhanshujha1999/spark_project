@@ -1,7 +1,7 @@
 import {
     Avatar,
     Box,
-    Badge,
+    // Badge,
     IconButton,
     // SpeedDial,
     // SpeedDialIcon,
@@ -14,13 +14,12 @@ import { post } from "../network";
 import firebase from "firebase";
 import "firebase/storage";
 import { useEffect, useState } from "react";
-import { SchoolIcon, PhotoCameraIcon, DeleteIcon } from "../icons";
+// import { SchoolIcon, PhotoCameraIcon, DeleteIcon } from "../icons";
 import { useStyles } from "./Styles";
 
 const TYPES = ["image/jgp", "image/jpeg", "image/png"];
 
 export const OrganizationLogo = ({ organization, isCoach }) => {
-    const [open, setOpen] = useState(false);
     const [logoUpload, setLogoUpload] = useState(false);
     const [orgLogo, setOrgLogo] = useState(null);
     const [message, setMessage] = useState("");
@@ -88,57 +87,48 @@ export const OrganizationLogo = ({ organization, isCoach }) => {
         } else {
             setMessage("Image format not supported");
         }
-        handleClose();
     };
 
-    const handleRemove = async (e) => {
-        if (orgLogo) {
-            console.log("handleRemove");
-            setLogoUpload(true);
-            try {
-                await deleteLogo(orgLogo);
-                const updates = { image_url: "" };
-                await post(`/api/org/${organization._id}`, { updates });
-            } catch (error) {
-                console.log(error);
-            }
-            console.log("Deleted");
-            setOrgLogo(null);
-        }
-        setLogoUpload(false);
-        console.log("REMOVE");
-        handleClose();
-    };
+    // const handleRemove = async (e) => {
+    //     if (orgLogo) {
+    //         console.log("handleRemove");
+    //         setLogoUpload(true);
+    //         try {
+    //             await deleteLogo(orgLogo);
+    //             const updates = { image_url: "" };
+    //             await post(`/api/org/${organization._id}`, { updates });
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //         console.log("Deleted");
+    //         setOrgLogo(null);
+    //     }
+    //     setLogoUpload(false);
+    //     console.log("REMOVE");
+    //     handleClose();
+    // };
 
     const classes = useStyles();
 
-    const handleOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    const actions = [
-        {
-            icon: (
-                <IconButton component='label'>
-                    <PhotoCameraIcon />
-                    <input
-                        type='file'
-                        hidden
-                        onChange={(e) => {
-                            handleUpload(e);
-                        }}
-                    />
-                </IconButton>
-            ),
-            name: "Upload Logo",
-            handler: () => {},
-        },
-        { icon: <DeleteIcon />, name: "Remove Logo", handler: handleRemove },
-    ];
+    // const actions = [
+    //     {
+    //         icon: (
+    //             <IconButton component='label'>
+    //                 <PhotoCameraIcon />
+    //                 <input
+    //                     type='file'
+    //                     hidden
+    //                     onChange={(e) => {
+    //                         handleUpload(e);
+    //                     }}
+    //                 />
+    //             </IconButton>
+    //         ),
+    //         name: "Upload Logo",
+    //         handler: () => {},
+    //     },
+    //     { icon: <DeleteIcon />, name: "Remove Logo", handler: handleRemove },
+    // ];
 
     return (
         <Box style={{ position: "relative" }}>
@@ -188,7 +178,16 @@ export const OrganizationLogo = ({ organization, isCoach }) => {
                     <CircularProgress color='secondary' />
                 </Box>
             ) : orgLogo ? (
-                <Avatar className={classes.avatar} src={orgLogo} alt='Profile Pic' />
+                <IconButton component='label'>
+                    <Avatar className={classes.avatar} src={orgLogo} alt='Profile Pic' />
+                    <input
+                        type='file'
+                        hidden
+                        onChange={(e) => {
+                            handleUpload(e);
+                        }}
+                    />
+                </IconButton>
             ) : (
                 <Avatar className={classes.avatar}>
                     <IconButton component='label'>
@@ -201,7 +200,6 @@ export const OrganizationLogo = ({ organization, isCoach }) => {
                             }}
                         />
                     </IconButton>
-                    {/* <SchoolIcon onClick={} className={classes.icon} /> */}
                 </Avatar>
             )}
             {/* </Badge> */}

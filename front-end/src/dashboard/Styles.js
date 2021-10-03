@@ -27,34 +27,6 @@ export const useStyles = makeStyles((theme) => ({
     orgName: {
         position: "relative",
         width: "fit-content",
-        "&:before": {
-            position: "absolute",
-            content: '""',
-            width: "110%",
-            height: "110%",
-            top: "-5%",
-            left: "-5%",
-            borderRadius: "1px",
-            border: "2px solid",
-            borderColor: theme.palette.secondary.main,
-            clipPath:
-                "polygon(20% 0%, 100% 0, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0 100%, 0% 20%)",
-            animation: "$animateClipPath 5s linear infinite alternate",
-        },
-    },
-    "@keyframes animateClipPath": {
-        "0%": {
-            borderRadius: "1px",
-            filter: "hue-rotate(0deg)",
-            clipPath:
-                "polygon(100% 0%, 100% 0, 100% 0%, 100% 0%, 0% 100%, 0% 100%, 0 100%, 0% 100%)",
-        },
-        "100%": {
-            filter: "hue-rotate(180deg)",
-            borderRadius: "10px",
-            clipPath:
-                "polygon(20% 0%, 100% 0, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0 100%, 0% 20%)",
-        },
     },
     //Org-Logo
     avatar: {
@@ -77,15 +49,14 @@ export const useStyles = makeStyles((theme) => ({
     speedDial: {
         transform: "translate(45px, -30px)",
     },
-    fab: {
-        position: "absolute",
-        bottom: "0",
-        right: "0",
-    },
+    // fab: {
+    //     position: "absolute",
+    //     bottom: "0",
+    //     right: "0",
+    // },
     // CARD STYLES
 
     teamsContainer: {
-        background: "rgb(0, 0, 0)",
         background: "rgba(0, 0, 0, .2)",
         minHeight: "500px",
         boxShadow: "0px 0px 20px rgb(0 0 0 / 50%)",
@@ -276,7 +247,6 @@ export const useStyles = makeStyles((theme) => ({
         backdropFilter: "blur(15px) saturate(36%)",
         WebkitBackdropFilter: "blur(15px) saturate(36%)",
         borderRadius: "1px",
-        zIndex: "20",
     },
     teamName: {
         position: "relative",
@@ -360,6 +330,7 @@ export const useStyles = makeStyles((theme) => ({
         fontSize: "1.4em",
         fontWeight: 700,
     },
+    // it is removed kept the style cause a lot is written
     teamCardBtn: {
         position: "relative",
         border: "none",
@@ -441,6 +412,7 @@ export const useStyles = makeStyles((theme) => ({
             // boxShadow: '0px 5px 10px rgba(0,0,0,0.4)',
         },
     },
+    // it is removed kept the style cause a lot is written
 
     // NEWS BOX
     newsContainer: {
@@ -538,7 +510,7 @@ export const useStyles = makeStyles((theme) => ({
     },
 
     // SECTION HEADING
-    headingSection: {
+    headingSectionUnderline: {
         position: "relative",
         "&:before": {
             position: "absolute",
@@ -553,7 +525,7 @@ export const useStyles = makeStyles((theme) => ({
                 "linear-gradient(90deg, rgba(213,105,255,1) 0%, rgba(68,161,240,1) 30%, rgba(250,250,250,0) 60%)",
         },
     },
-    headingMedium: {
+    headingMediumUnderline: {
         fontSize: "2.2em",
         width: "fit-content",
         position: "relative",
@@ -569,6 +541,13 @@ export const useStyles = makeStyles((theme) => ({
             background:
                 "linear-gradient(90deg, rgba(213,105,255,1) 0%, rgba(68,161,240,1) 30%, rgba(250,250,250,0) 60%)",
         },
+    },
+    headingSection: {},
+    headingMedium: {
+        color: "#e5e5e5",
+        fontSize: "2.4em",
+        width: "fit-content",
+        filter: "drop-shadow(0px 10px 3px rgba(0,0,0,0.72))",
     },
 
     // ALL PLAYERS
