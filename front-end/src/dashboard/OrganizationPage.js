@@ -3,14 +3,11 @@ import { TeamsList } from "./TeamsList";
 import { LeagueRecords } from "../war-room";
 import { useStyles } from "./Styles";
 import { Member } from "./Member";
-import { useHistory } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { useIsCoach } from "../users/useIsCoach";
 import { OrganizationLogo } from "./OrganizationLogo";
 
 export const OrganizationPage = ({ user, teams, organization }) => {
     const classes = useStyles();
-    const history = useHistory();
     // check if the organization has any teams and the user is the creator then redirect to create teams page
     // otherwise we can show you are not in any team please contact your coach
     const { isCoach } = useIsCoach(organization._id);

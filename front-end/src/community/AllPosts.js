@@ -1,10 +1,10 @@
-import { Box } from "../ui";
+import { Box, Typography } from "../ui";
 import { SelectPostType } from "./SelectPostType";
 
 export const AllPosts = ({ posts, isLoading, updateScrimmages, isCoach }) => {
     return (
         <Box my={2}>
-            {isLoading
+            {/* {isLoading
                 ? "loading..."
                 : posts.map((post) => (
                       <SelectPostType
@@ -12,7 +12,8 @@ export const AllPosts = ({ posts, isLoading, updateScrimmages, isCoach }) => {
                           post={post}
                           updateScrimmages={updateScrimmages}
                       />
-                  ))}
+                  ))} */}
+            <Typography variant='h6'>Coming Soon!!</Typography>
         </Box>
     );
 };
