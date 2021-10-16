@@ -1,5 +1,4 @@
 import { makeStyles } from "@material-ui/styles";
-import { purple } from "@material-ui/core/colors";
 
 export const useStyles = makeStyles((theme) => ({
     heading: {
@@ -10,7 +9,6 @@ export const useStyles = makeStyles((theme) => ({
         flexDirection: "column",
         justifyContent: "center",
         marginLeft: "80px",
-        justifyContent: "center",
     },
     bigHeading: {
         fontSize: "min(6em, 11vw)",

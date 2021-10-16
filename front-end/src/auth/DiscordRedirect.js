@@ -32,7 +32,7 @@ export const DiscordRedirect = () => {
         } else {
             console.log("no-token-redirect-to-fail");
         }
-    }, [token, userInfo, isLoading]);
+    }, [token, userInfo, isLoading, history]);
 
     return (
         <Box className={classes.loading}>
