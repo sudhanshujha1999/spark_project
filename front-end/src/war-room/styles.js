@@ -54,8 +54,7 @@ export const useStyles = makeStyles((theme) => ({
         backgroundPositon: "center",
     },
 
-    // heading in landing page
-    headingMedium: {
+    headingMediumUnderline: {
         fontSize: "2.2em",
         width: "fit-content",
         position: "relative",
@@ -72,7 +71,13 @@ export const useStyles = makeStyles((theme) => ({
                 "linear-gradient(90deg, rgba(213,105,255,1) 0%, rgba(68,161,240,1) 30%, rgba(250,250,250,0) 60%)",
         },
     },
-    headingSmall: {
+    headingMedium: {
+        color: "#e5e5e5",
+        fontSize: "2.2em",
+        width: "fit-content",
+        filter: "drop-shadow(0px 10px 3px rgba(0,0,0,0.72))",
+    },
+    headingSmallUnderline: {
         fontSize: "1.5em",
         width: "fit-content",
         position: "relative",
@@ -88,6 +93,11 @@ export const useStyles = makeStyles((theme) => ({
             background:
                 "linear-gradient(90deg, #ffef2e 0%, rgb(240 100 68) 30%, rgba(250,250,250,0) 60%)",
         },
+    },
+    headingSmall: {
+        fontSize: "1.5em",
+        width: "fit-content",
+        position: "relative",
     },
     // SCRIMMAGE ITEM
     gameImageContainer: {
@@ -236,9 +246,10 @@ export const useStyles = makeStyles((theme) => ({
         padding: "10px 0",
     },
     form: {
-        maxHeight: "80vh",
+        minWidth: 600,
+        maxHeight: "90vh",
         padding: "0px 15px",
-        overflowY: "auto",
+        overflowY: "scroll",
         display: "flex",
         flexDirection: "column",
     },
@@ -278,13 +289,26 @@ export const useStyles = makeStyles((theme) => ({
         width: "170px",
         height: "220px",
         cursor: "pointer",
-        backgroundColor: "rgba(50,50,50, 0.3)",
-        border: `1px solid ${theme.palette.background.paper}`,
         transition: "all 0.2s ease-in",
-        boxShadow: "0px 0px 1px 0px #fff",
         overflow: "hidden",
+        "&:before": {
+            position: "absolute",
+            content: '""',
+            transition: "all 0.2s ease-in",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            zIndex: "-1",
+            backgroundSize: "300% 300%",
+            backgroundPositionY: "30%",
+            backgroundImage:
+                "linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(30,30,30,0.8) 100%)",
+        },
         "&:hover": {
-            backgroundColor: "rgba(50,50,50, 0.4)",
+            "&:before": {
+                backgroundPositionY: "0%",
+            },
             boxShadow: "0px 0px 4px 1px #fff",
             "& $vs": {
                 "&:nth-child(1)": {

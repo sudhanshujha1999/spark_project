@@ -14,55 +14,30 @@ export const useStyles = makeStyles((theme) => ({
     organizationLogoContainer: {
         aspectRatio: "1",
         alignSelf: "center",
+        padding: "10px",
         margin: "auto 40px auto 30px",
         width: "fit-content",
     },
     organizationContainer: {
         display: "flex",
-        flexdirection: "row",
+        alignItems: "center",
         margin: "auto",
         transform: "translate(-1.875rem)",
     },
     orgName: {
         position: "relative",
         width: "fit-content",
-        "&:before": {
-            position: "absolute",
-            content: '""',
-            width: "110%",
-            height: "110%",
-            top: "-5%",
-            left: "-5%",
-            borderRadius: "1px",
-            border: "2px solid",
-            borderColor: theme.palette.secondary.main,
-            clipPath:
-                "polygon(20% 0%, 100% 0, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0 100%, 0% 20%)",
-            animation: "$animateClipPath 5s linear infinite alternate",
-        },
-    },
-    "@keyframes animateClipPath": {
-        "0%": {
-            borderRadius: "1px",
-            filter: "hue-rotate(0deg)",
-            clipPath:
-                "polygon(100% 0%, 100% 0, 100% 0%, 100% 0%, 0% 100%, 0% 100%, 0 100%, 0% 100%)",
-        },
-        "100%": {
-            filter: "hue-rotate(180deg)",
-            borderRadius: "10px",
-            clipPath:
-                "polygon(20% 0%, 100% 0, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0 100%, 0% 20%)",
-        },
     },
     //Org-Logo
     avatar: {
-        height: 70,
-        width: 70,
+        height: 100,
+        width: 100,
+        boxShadow: "0px 7px 20px rgba(0,0,0, 0.7) ",
+        backgroundColor: "#333",
     },
     icon: {
-        fontSize: 70,
-        fill: theme.palette.background.default,
+        fontSize: 100,
+        padding: "10px",
         borderRadius: "50%",
     },
     savingImage: {
@@ -74,15 +49,14 @@ export const useStyles = makeStyles((theme) => ({
     speedDial: {
         transform: "translate(45px, -30px)",
     },
-    fab: {
-        position: "absolute",
-        bottom: "0",
-        right: "0",
-    },
+    // fab: {
+    //     position: "absolute",
+    //     bottom: "0",
+    //     right: "0",
+    // },
     // CARD STYLES
 
     teamsContainer: {
-        background: "rgb(0, 0, 0)",
         background: "rgba(0, 0, 0, .2)",
         minHeight: "500px",
         boxShadow: "0px 0px 20px rgb(0 0 0 / 50%)",
@@ -133,46 +107,9 @@ export const useStyles = makeStyles((theme) => ({
         right: 50,
     },
     addTeamBtn: {
-        boxSizing: "border-box",
-        minWidth: "20px",
-        height: "50px",
-        maxWidth: "60px",
-        width: "100%",
-        fontSize: "16px",
-        fontFamily: `'Bebas Neue', cursive`,
-        background: "linear-gradient(45deg, transparent 5%, #895cf2 5%)",
-        border: 0,
-        color: "#fff",
-        letterSpacing: "3px",
-        lineHeight: "88px",
-        boxShadow: "3px 1px 0px #ffd369",
-        outline: "transparent",
-        position: "relative",
-        // boxShadow:
-        //   'rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset',
-        "&:after": {
-            "--slice-0": "inset(50% 50% 50% 50%)",
-            "--slice-1": "inset(80% -6px 0 0)",
-            "--slice-2": "inset(50% -6px 30% 0)",
-            "--slice-3": "inset(10% -6px 85% 0)",
-            "--slice-4": "inset(40% -6px 43% 0)",
-            "--slice-5": "inset(80% -6px 5% 0)",
-
-            content: "",
-            display: "block",
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: `linear-gradient(45deg, transparent 3%, #00E6F6 3%, #00E6F6 5%, #FF013C 5%)`,
-            textShadow: `-3px -3px 0px #F8F005, 0px 3px 3px #00E6F6`,
-            clipPath: `var(--slice-0)`,
-        },
-        // '& :hover': {
-        //   animation: '0.5s $glitch',
-        //   // animationTimingFunction: `steps(2, end)`,
-        // },
+        height: 30,
+        padding: 5,
+        fontSize: "1.5em",
     },
 
     // '@keyframes glitch': {
@@ -310,7 +247,6 @@ export const useStyles = makeStyles((theme) => ({
         backdropFilter: "blur(15px) saturate(36%)",
         WebkitBackdropFilter: "blur(15px) saturate(36%)",
         borderRadius: "1px",
-        zIndex: "20",
     },
     teamName: {
         position: "relative",
@@ -394,6 +330,7 @@ export const useStyles = makeStyles((theme) => ({
         fontSize: "1.4em",
         fontWeight: 700,
     },
+    // it is removed kept the style cause a lot is written
     teamCardBtn: {
         position: "relative",
         border: "none",
@@ -475,6 +412,7 @@ export const useStyles = makeStyles((theme) => ({
             // boxShadow: '0px 5px 10px rgba(0,0,0,0.4)',
         },
     },
+    // it is removed kept the style cause a lot is written
 
     // NEWS BOX
     newsContainer: {
@@ -572,7 +510,7 @@ export const useStyles = makeStyles((theme) => ({
     },
 
     // SECTION HEADING
-    headingSection: {
+    headingSectionUnderline: {
         position: "relative",
         "&:before": {
             position: "absolute",
@@ -587,7 +525,7 @@ export const useStyles = makeStyles((theme) => ({
                 "linear-gradient(90deg, rgba(213,105,255,1) 0%, rgba(68,161,240,1) 30%, rgba(250,250,250,0) 60%)",
         },
     },
-    headingMedium: {
+    headingMediumUnderline: {
         fontSize: "2.2em",
         width: "fit-content",
         position: "relative",
@@ -603,6 +541,13 @@ export const useStyles = makeStyles((theme) => ({
             background:
                 "linear-gradient(90deg, rgba(213,105,255,1) 0%, rgba(68,161,240,1) 30%, rgba(250,250,250,0) 60%)",
         },
+    },
+    headingSection: {},
+    headingMedium: {
+        color: "#e5e5e5",
+        fontSize: "2.4em",
+        width: "fit-content",
+        filter: "drop-shadow(0px 10px 3px rgba(0,0,0,0.72))",
     },
 
     // ALL PLAYERS
