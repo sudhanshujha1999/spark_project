@@ -1,6 +1,5 @@
 import {
     Box,
-    Button,
     Card,
     Container,
     CustomSnackbar,
@@ -15,6 +14,7 @@ import { useGroupDetails } from "./useGroupDetails";
 import { useStyles } from "./styles";
 import { FileCopyIcon } from "../icons";
 import { useState } from "react";
+import { GroupBulletin } from "./GroupBulletin";
 
 export const GroupDetailPage = () => {
     const { groupId } = useParams();
@@ -55,22 +55,34 @@ export const GroupDetailPage = () => {
                         </Box>
                     </Grid>
                     <Grid item xs={5}>
-                        <Card elevation={5} className={classes.membersBox}>
-                            <Typography className={classes.smallHeading}>Members</Typography>
-                            <Box mt={2}>
-                                {groupDetails.memberOrganizations.length > 0 ? (
-                                    groupDetails.memberOrganizations.map((member) => (
-                                        <Typography variant='subtitle2' gutterBottom>
-                                            {member.name}
-                                        </Typography>
-                                    ))
-                                ) : (
-                                    <Typography variant='subtitle2'>
-                                        No members right now! Invite using your group code.
+                        <Box my={2} display='flex' flexDirection='column'>
+                            <Box mb={2}>
+                                <Card className={classes.membersBox}>
+                                    <Typography className={classes.smallHeading}>
+                                        Members
                                     </Typography>
-                                )}
+                                    <Box mt={2}>
+                                        {groupDetails.memberOrganizations.length > 0 ? (
+                                            groupDetails.memberOrganizations.map((member) => (
+                                                <Typography
+                                                    key={member._id}
+                                                    variant='subtitle2'
+                                                    gutterBottom>
+                                                    {member.name}
+                                                </Typography>
+                                            ))
+                                        ) : (
+                                            <Typography variant='subtitle2'>
+                                                No members right now! Invite using your group code.
+                                            </Typography>
+                                        )}
+                                    </Box>
+                                </Card>
                             </Box>
-                        </Card>
+                            <Box mb={2}>
+                                <GroupBulletin groupId={groupDetails._id} />
+                            </Box>
+                        </Box>
                     </Grid>
                 </Grid>
             ) : (

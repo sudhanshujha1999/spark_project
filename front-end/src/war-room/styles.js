@@ -44,7 +44,7 @@ export const useStyles = makeStyles((theme) => ({
     headingPicture: {
         position: "absolute",
         width: "min(600px, 100vw)",
-        minHeight: "min(100vh, 150%)",
+        minHeight: "min(92vh, 150%)",
         content: "''",
         top: "-32px",
         right: "-40%",
