@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { VALID_GROUPS } from "./validGroups";
 const { Schema } = mongoose;
 
 const CommunityGroupsSchema = new Schema(
@@ -30,6 +29,14 @@ const CommunityGroupsSchema = new Schema(
                 id: { type: Schema.Types.ObjectId, ref: "groups" },
                 name: String,
                 location: String,
+            },
+        ],
+        bulletins: [
+            {
+                value: String,
+                created_by: { type: Schema.Types.ObjectId, ref: "users" },
+                creator_name: String,
+                created_at: Date,
             },
         ],
     },

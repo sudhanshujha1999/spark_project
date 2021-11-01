@@ -2,6 +2,12 @@ export { CommunityGroups } from "./CommunityGroupSchema";
 export { Events } from "./EventsSchema";
 export { Groups } from "./GroupsSchema";
 export { Goal } from "./GoalSchema";
+export {
+    CommunityGroupsActivity,
+    GROUP_CREATED,
+    ORGANIZATION_JOINED,
+    ORGANIZATION_LEFT,
+} from "./GroupActivitySchema";
 export { Invitation } from "./InvitationSchema";
 export { League } from "./LeagueSchema";
 export { Notifications } from "./NotificationsSchema";

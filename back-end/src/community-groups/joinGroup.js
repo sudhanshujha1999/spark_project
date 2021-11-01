@@ -1,34 +1,44 @@
-import { CommunityGroups } from "../models";
+import { CommunityGroups, ORGANIZATION_JOINED } from "../models";
 import { getGroupById } from "../groups";
 import { exceedeGroupsLimit } from "./exceedeGroupsLimit";
+import { addGroupActivity } from "./addGroupActivity";
 
-export const joinGroup = async ({ organizaitonId, groupCode }) => {
-    if (!organizaitonId) {
+export const joinGroup = async ({ organizationId, groupCode }) => {
+    if (!organizationId) {
         throw new Error("no-org-found");
     }
-    const groupExceededLimit = await exceedeGroupsLimit({ organizationId });
-    if (groupExceededLimit) {
-        throw new Error("group-limit-exceeded");
-    }
+    // check if group exist
     const group = await CommunityGroups.findOne({
         group_code: groupCode,
     });
     if (!group) {
         throw new Error("no-group-found");
     }
-    // check if alread a part of group
-    const ifAlreadMember = group.member_organizations.some(({ id }) => id == organizaitonId);
-    if (ifAlreadMember) {
+    // check if already a part of group
+    const ifAlreadyMember = group.member_organizations.some(({ id }) => id == organizationId);
+    if (ifAlreadyMember) {
         // already a member
         console.log("already a member");
         return group._id;
     }
-    const organizationDetails = await getGroupById(organizaitonId);
+
+    const groupExceededLimit = await exceedeGroupsLimit({ organizationId });
+    if (groupExceededLimit) {
+        throw new Error("group-limit-exceeded");
+    }
+    //get the organization
+    const organizationDetails = await getGroupById(organizationId);
     const member = {
         name: organizationDetails.name,
         id: organizationDetails._id,
         location: getLocationFromGroup(organizationDetails),
     };
+    const activityValue = `${organizationDetails.name} has joined`;
+    await addGroupActivity({
+        communityGroupId: group._id,
+        activityName: ORGANIZATION_JOINED,
+        activityValue,
+    });
     console.log("added a member");
     await group.updateOne({ $push: { member_organizations: member } });
     return group._id;

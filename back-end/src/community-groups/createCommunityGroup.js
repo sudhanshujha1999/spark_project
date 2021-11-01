@@ -1,6 +1,7 @@
-import { CommunityGroups } from "../models";
+import { CommunityGroups, GROUP_CREATED } from "../models";
 import { getOrganizationCreatedBy } from "../groups/getGroupCreatedBy";
 import { v4 as uuidv4 } from "uuid";
+import { addGroupActivity } from "./addGroupActivity";
 
 export const createCommunityGroup = async ({
     name,
@@ -33,6 +34,9 @@ export const createCommunityGroup = async ({
     };
     const newGroup = new CommunityGroups(newCommunityGroup);
     await newGroup.save();
+    const activityName = GROUP_CREATED;
+    const activityValue = `Group created`;
+    await addGroupActivity({ communityGroupId: newGroup._id, activityName, activityValue });
     return newGroup._id;
 };
 
