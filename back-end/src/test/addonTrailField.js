@@ -1,4 +1,5 @@
 import { getGroupsWithOrganizationId } from "../community-groups/getGroupsWithOrganizationId";
+import { Groups } from "../models";
 
 export const addonTrailField = {
     path: "/test-trial",

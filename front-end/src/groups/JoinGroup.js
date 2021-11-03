@@ -22,7 +22,7 @@ export const JoinGroup = ({ onClose }) => {
                 return <>Please select a valid method </>;
             }
         }
-    }, [value]);
+    }, [value, onClose]);
 
     return (
         <Box>

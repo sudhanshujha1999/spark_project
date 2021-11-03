@@ -3,11 +3,14 @@ import { useState } from "react";
 import { Box, Button, Card, TextField, Typography } from "../ui";
 import { useStyles } from "./styles";
 
-export const GroupBulletin = ({ bulletins = [], groupId }) => {
+export const GroupBulletin = ({
+    bulletins = [],
+    groupId,
+    updateDetails = () => console.log("update-function"),
+}) => {
     const classes = useStyles();
     const [showAdd, setShowAdd] = useState(false);
     const [value, setValue] = useState("");
-
     const handleAdd = async () => {
         if (!showAdd) {
             setShowAdd(true);
@@ -20,8 +23,10 @@ export const GroupBulletin = ({ bulletins = [], groupId }) => {
             const { data } = await post(`/api/${groupId}/bulletin/`, {
                 bulletinValue: value,
             });
-            console.log(data);
-            // setValue("");
+            if (data.success) {
+                updateDetails();
+            }
+            setValue("");
             setShowAdd(false);
         }
     };
@@ -33,7 +38,7 @@ export const GroupBulletin = ({ bulletins = [], groupId }) => {
                 {bulletins.length > 0 ? (
                     bulletins.map((bulletin) => (
                         <Typography key={bulletin._id} variant='subtitle2' gutterBottom>
-                            {bulletin.name}
+                            {bulletin.value}
                         </Typography>
                     ))
                 ) : (

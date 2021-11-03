@@ -18,7 +18,7 @@ import { GroupBulletin } from "./GroupBulletin";
 
 export const GroupDetailPage = () => {
     const { groupId } = useParams();
-    const { groupDetails, isLoading } = useGroupDetails(groupId);
+    const { groupDetails, isLoading, updateDetails } = useGroupDetails(groupId);
     const [info, setInfo] = useState("");
     const classes = useStyles();
 
@@ -80,7 +80,11 @@ export const GroupDetailPage = () => {
                                 </Card>
                             </Box>
                             <Box mb={2}>
-                                <GroupBulletin groupId={groupDetails._id} />
+                                <GroupBulletin
+                                    updateDetails={updateDetails}
+                                    groupId={groupDetails._id}
+                                    bulletins={groupDetails.bulletins}
+                                />
                             </Box>
                         </Box>
                     </Grid>

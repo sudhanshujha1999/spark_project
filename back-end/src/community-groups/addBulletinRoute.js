@@ -15,7 +15,7 @@ export const addBulletinRoute = {
             const check = await addBulletin({
                 groupId,
                 userId: user._id,
-                user: authUser,
+                user: user,
                 bulletinValue,
             });
             return res.status(200).json({
