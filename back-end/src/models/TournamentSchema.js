@@ -11,28 +11,32 @@ const TournamentSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: "groups",
         },
+        community_group: {
+            type: Schema.Types.ObjectId,
+            ref: "community-groups",
+        },
+        publishable: {
+            type: Boolean,
+            default: false,
+            required: true,
+        },
         name: {
             type: String,
             required: true,
         },
         start_date: {
             type: Date,
-            required: true,
         },
         image_url: String,
         price_pool_description: {
             type: String,
-            required: true,
         },
         entry_fee: {
             type: Number,
-            required: true,
         },
-        games: [
-            {
-                name: String,
-            },
-        ],
+        game: {
+            name: String,
+        },
         registered_organizations: [
             {
                 registration_id: { type: Schema.Types.ObjectId, ref: "registration" },

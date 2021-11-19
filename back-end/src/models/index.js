@@ -14,6 +14,7 @@ export { Notifications } from "./NotificationsSchema";
 export { Notes } from "./NotesSchema";
 export { Permissions } from "./PermissionsSchema";
 export { StatsEntry } from "./PlayerStatsEntrySchema";
+export { Tournament } from "./TournamentSchema";
 export { StatsInformation, VALID_FIELD_TYPES } from "./StatsInformationSchema";
 export { Scrimmage } from "./ScrimmageSchema";
 export { Users } from "./UsersSchema";
