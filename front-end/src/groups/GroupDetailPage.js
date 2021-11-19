@@ -1,5 +1,6 @@
 import {
     Box,
+    Button,
     Card,
     Container,
     CustomSnackbar,
@@ -54,7 +55,8 @@ export const GroupDetailPage = () => {
                             </Box>
                         </Box>
                     </Grid>
-                    <Grid item xs={5}>
+                    {/* Right Section */}
+                    <Grid item xs={12} md={5}>
                         <Box my={2} display='flex' flexDirection='column'>
                             <Box mb={2}>
                                 <Card className={classes.membersBox}>
@@ -88,6 +90,17 @@ export const GroupDetailPage = () => {
                             </Box>
                         </Box>
                     </Grid>
+                    {/* Right Section */}
+                    {/* Left Section */}
+                    <Grid item xs={12} md={7}>
+                        <Button
+                            href={`/${groupId}/groups/events/`}
+                            variant='outlined'
+                            color='secondary'>
+                            Show Events
+                        </Button>
+                    </Grid>
+                    {/* Left Section */}
                 </Grid>
             ) : (
                 <Typography variant='h6'>No Group Found!!!</Typography>

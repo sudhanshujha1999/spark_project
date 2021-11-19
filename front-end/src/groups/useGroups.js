@@ -4,7 +4,7 @@ import { useOrganizations } from "../teams";
 
 export const useGroups = () => {
     const [groups, setGroups] = useState(null);
-    const [update, setUpdate] = useState(false);
+    // const [update, setUpdate] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const { organizations } = useOrganizations();
 
@@ -15,7 +15,7 @@ export const useGroups = () => {
             setGroups(data.groups);
         } catch (error) {
             console.log(error.message);
-            console.log("Erro in Fetching Groups...");
+            console.log("Error in Fetching Groups...");
         }
     }, [organizations]);
 
@@ -28,6 +28,7 @@ export const useGroups = () => {
         } else {
             setIsLoading(false);
         }
+        // eslint-disable-next-line
     }, [organizations, groups]);
 
     return { groups, isLoading };

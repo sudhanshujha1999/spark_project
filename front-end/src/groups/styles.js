@@ -190,4 +190,10 @@ export const useStyles = makeStyles((theme) => ({
         backgroundColor: "#303030",
         boxShadow: theme.shadows[10],
     },
+    // dialog
+    dialog: {
+        backgroundColor: "#303030",
+        padding: "16px",
+        width: "700px",
+    },
 }));

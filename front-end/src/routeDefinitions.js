@@ -17,8 +17,8 @@ import { RostersPage } from "./rosters";
 import { SchedulingPage } from "./scheduling";
 import { TeamInfoForm, EditTeamInfo } from "./teams";
 import { WarRoom, MatchDetails, Scrimmages } from "./war-room";
-import { GroupsPage, GroupDetailPage } from "./groups";
-import { SparksTournamentPage } from "./sparks-tournament";
+import { GroupsPage, GroupDetailPage, EventsPage } from "./groups";
+import { SparksTournamentPage, TournamentSettingsPage } from "./sparks-tournament";
 
 export const createTeamRoute = {
     path: "/new-team/:id",
@@ -61,6 +61,7 @@ export const goalChooseTeamRoute = {
     path: "/goals/chooseteam",
     component: ChooseTeam,
 };
+
 export const goalChoosePlayerRoute = {
     path: "/goals/chooseplayer",
     component: ChoosePlayer,
@@ -80,6 +81,11 @@ export const groupsDetailPage = {
     component: GroupDetailPage,
 };
 
+export const eventsPage = {
+    path: "/:groupId/groups/events/",
+    component: EventsPage,
+};
+
 export const invitationLandingRoute = {
     path: "/invitations/confirm",
     component: InvitationLandingPage,
@@ -92,6 +98,11 @@ export const sparksTournamentPage = {
     component: SparksTournamentPage,
     isPublic: true,
     hideNav: true,
+};
+
+export const tournamentDetailPage = {
+    path: "/:tournamentId/tournament/",
+    component: TournamentSettingsPage,
 };
 
 export const editTeamPageRoute = {
