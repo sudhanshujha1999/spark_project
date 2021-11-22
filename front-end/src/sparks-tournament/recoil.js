@@ -13,6 +13,16 @@ export const basicTournamentInformationState = atom({
     },
 });
 
+export const tournamentState = atom({
+    key: "tournamentState",
+    default: {},
+});
+
+export const tournamentEditState = atom({
+    key: "tournamentEditState",
+    default: {},
+});
+
 export const basicTournamentInformationSelector = selector({
     key: "basicTournamentInformationSelector",
     set: async ({ set, get }, values) => {
@@ -33,5 +43,14 @@ export const getTournamentDetailSelector = selector({
             img,
             tournamentName,
         };
+    },
+});
+
+export const setEditTournamentValuesState = selector({
+    key: "setEditTournamentValuesState",
+    get: ({ set, get }, { name, value }) => {
+        let newState = { ...get(tournamentEditState) };
+        newState[`${name}`] = value;
+        set(tournamentEditState, newState);
     },
 });

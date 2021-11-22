@@ -10,6 +10,8 @@ const basicPseudoElementStyles = {
 };
 
 const sidePanelWidth = 250;
+const sidebarWidthClose = 65;
+const navBarHeight = 65;
 
 export const useStyles = makeStyles((theme) => ({
     gamesContainer: {
@@ -113,7 +115,6 @@ export const useStyles = makeStyles((theme) => ({
         height: "100%",
         width: "100%",
     },
-
     // tournament control panel
     nullifyBasicPadding: {
         marginTop: "-32px",
@@ -126,8 +127,21 @@ export const useStyles = makeStyles((theme) => ({
         paddingTop: "32px",
         paddingLeft: 31,
     },
+    controlDrawer: {
+        width: sidePanelWidth,
+        zIndex: 20,
+        flexShrink: 0,
+        "& .MuiDrawer-paper": {
+            zIndex: 20,
+            width: sidePanelWidth,
+            marginTop: navBarHeight,
+            height: `calc(100% - ${navBarHeight}px)`,
+            boxSizing: "border-box",
+            marginLeft: sidebarWidthClose,
+        },
+    },
     grid: {
         display: "grid",
-        gridTemplateColumns: "250px 1fr",
+        gridTemplateColumns: `${sidePanelWidth}px 1fr`,
     },
 }));

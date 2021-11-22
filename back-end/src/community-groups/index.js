@@ -5,6 +5,7 @@ import { getGroupDetailRoute } from "./getGroupDetailRoute";
 import { addBulletinRoute } from "./addBulletinRoute";
 import { createTournamentRoute } from "./createTournamentRoute";
 import { getTournamentForGroupRoute } from "./getTournamentForGroupRoute";
+import { getTournamentDetailsRoute } from "./getTournamentDetailsRoute";
 
 export const routes = [
     getGroupsRoute,
@@ -13,6 +14,7 @@ export const routes = [
     joinGroupRoute,
     addBulletinRoute,
     getTournamentForGroupRoute,
+    getTournamentDetailsRoute,
     createTournamentRoute,
 ];
 

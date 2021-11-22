@@ -3,6 +3,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import AssignmentIcon from "@material-ui/icons/Assignment";
+import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import BackupIcon from "@material-ui/icons/Backup";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
@@ -36,6 +37,7 @@ import TrendingUpIcon from "@material-ui/icons/TrendingUp";
 export {
     AddIcon,
     AccountCircleIcon,
+    AccessTimeIcon,
     ArrowBackIcon,
     ArrowForwardIcon,
     AssignmentIcon,

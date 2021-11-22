@@ -3,20 +3,32 @@ import { Box } from "../ui";
 import { useTournamentDetails } from "./useTournamentDetails";
 import { SideControl } from "./SideControl";
 import { useStyles } from "./styles";
+import { GeneralSettings } from "./GeneralSettings";
+import { SchedulingSettings } from "./SchedulingSettings";
+import { useMemo, useState } from "react";
 
 export const TournamentSettingsPage = () => {
     const { tournamentId } = useParams();
     const classes = useStyles();
-    const data = useTournamentDetails(tournamentId);
-    console.log(data);
+    const [value, setValue] = useState(0);
+    const { saveNewDetails } = useTournamentDetails(tournamentId);
+
+    const componentsForTab = useMemo(() => {
+        return [
+            <GeneralSettings saveNewDetails={saveNewDetails} />,
+            <SchedulingSettings saveNewDetails={saveNewDetails} />,
+            <GeneralSettings saveNewDetails={saveNewDetails} />,
+        ];
+    }, [saveNewDetails]);
+
     return (
         <Box className={classes.nullifyBasicPadding}>
             <Box className={classes.grid}>
                 <Box className={`${classes.backgroundSideControl} ${classes.defaultPadding}`}>
-                    <SideControl tabs={tabs} />
+                    <SideControl setValue={setValue} value={value} tabs={tabs} />
                 </Box>
                 <Box className={classes.defaultPadding}>
-                    <Box> absdb</Box>
+                    <Box>{componentsForTab[value]}</Box>
                 </Box>
             </Box>
         </Box>
@@ -24,9 +36,7 @@ export const TournamentSettingsPage = () => {
 };
 
 const tabs = [
-    { name: "General" },
-    { name: "Game" },
-    { name: "Scheduling" },
-    { name: "Brackets" },
-    { name: "Prize" },
+    { name: "General", id: 0 },
+    { name: "Scheduling", id: 1 },
+    { name: "Brackets", id: 2 },
 ];
