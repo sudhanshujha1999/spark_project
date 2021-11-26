@@ -2,42 +2,56 @@ import { Box, Button, DatesBoilerPlate, Grid, MenuItem, TextField } from "../ui"
 import { useState } from "react";
 import DatePicker from "@material-ui/lab/DatePicker";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { tournamentEditState, tournamentState } from "./recoil";
+import { setEditTournamentValuesState, tournamentState } from "./recoil";
 import { useEffect } from "react";
+import { useCallback } from "react";
 
 export const SchedulingSettingsInput = ({ saveFunction }) => {
     const { reporting_time: initialReportingTime, start_date: initialStartDate } =
         useRecoilValue(tournamentState);
     const [reportingTime, setReportingTime] = useState(initialReportingTime || new Date());
     const [date, setDate] = useState(initialStartDate);
-    const setEditValues = useSetRecoilState(tournamentEditState);
+    const setEditValues = useSetRecoilState(setEditTournamentValuesState);
 
-    useEffect(() => {
-        setDate(initialStartDate || new Date());
-        setReportingTime(initialReportingTime);
-    }, [initialReportingTime, initialStartDate]);
+    const handleChangeGlobalState = useCallback(
+        (value, fieldName) => {
+            if (!fieldName) {
+                console.log("no-name-for-field");
+            }
+            setEditValues({ name: fieldName, value });
+        },
+        [setEditValues]
+    );
 
-    const handleChangeGlobalState = (value, fieldName) => {
-        if (!fieldName) {
-            console.log("no-name-for-field");
-        }
-        setEditValues({ name: fieldName, value });
-    };
+    const handleReportingTime = useCallback(
+        (value) => {
+            setReportingTime(value);
+            handleChangeGlobalState(value, "reporting_time");
+        },
+        [handleChangeGlobalState]
+    );
 
-    const handleReportingTime = (value) => {
-        setReportingTime(value);
-        handleChangeGlobalState(value, "reporting_time");
-    };
-
-    const handleDateChange = (value) => {
-        setDate(value);
-        handleChangeGlobalState(value, "start_date");
-    };
+    const handleDateChange = useCallback(
+        (value) => {
+            setDate(value);
+            handleChangeGlobalState(value, "start_date");
+        },
+        [handleChangeGlobalState]
+    );
 
     const handleSave = () => {
-        console.log("start");
-        // saveFunction();
+        console.log("scheduling");
+        saveFunction();
     };
+
+    useEffect(() => {
+        if (!initialStartDate) {
+            handleDateChange(new Date());
+        } else {
+            setDate(initialStartDate || new Date());
+        }
+        setReportingTime(initialReportingTime);
+    }, [initialReportingTime, initialStartDate, handleDateChange]);
 
     return (
         <Box maxWidth='500px'>

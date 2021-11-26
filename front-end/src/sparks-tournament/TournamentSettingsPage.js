@@ -4,6 +4,7 @@ import { useTournamentDetails } from "./useTournamentDetails";
 import { SideControl } from "./SideControl";
 import { useStyles } from "./styles";
 import { GeneralSettings } from "./GeneralSettings";
+import { BracketSettings } from "./BracketSettings";
 import { SchedulingSettings } from "./SchedulingSettings";
 import { useMemo, useState } from "react";
 
@@ -17,7 +18,7 @@ export const TournamentSettingsPage = () => {
         return [
             <GeneralSettings saveNewDetails={saveNewDetails} />,
             <SchedulingSettings saveNewDetails={saveNewDetails} />,
-            <GeneralSettings saveNewDetails={saveNewDetails} />,
+            <BracketSettings saveNewDetails={saveNewDetails} />,
         ];
     }, [saveNewDetails]);
 

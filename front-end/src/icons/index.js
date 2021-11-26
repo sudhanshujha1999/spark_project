@@ -1,5 +1,6 @@
 import AddIcon from "@material-ui/icons/Add";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import AccountTreeIcon from "@material-ui/icons/AccountTree";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import AssignmentIcon from "@material-ui/icons/Assignment";
@@ -37,6 +38,7 @@ import TrendingUpIcon from "@material-ui/icons/TrendingUp";
 export {
     AddIcon,
     AccountCircleIcon,
+    AccountTreeIcon,
     AccessTimeIcon,
     ArrowBackIcon,
     ArrowForwardIcon,

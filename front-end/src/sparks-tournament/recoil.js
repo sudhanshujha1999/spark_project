@@ -48,7 +48,7 @@ export const getTournamentDetailSelector = selector({
 
 export const setEditTournamentValuesState = selector({
     key: "setEditTournamentValuesState",
-    get: ({ set, get }, { name, value }) => {
+    set: ({ set, get }, { name, value }) => {
         let newState = { ...get(tournamentEditState) };
         newState[`${name}`] = value;
         set(tournamentEditState, newState);
