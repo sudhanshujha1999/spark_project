@@ -6,6 +6,7 @@ import { addBulletinRoute } from "./addBulletinRoute";
 import { createTournamentRoute } from "./createTournamentRoute";
 import { getTournamentForGroupRoute } from "./getTournamentForGroupRoute";
 import { getTournamentDetailsRoute } from "./getTournamentDetailsRoute";
+import { updateTournamentRoute } from "./updateTournamentRoute";
 
 export const routes = [
     getGroupsRoute,
@@ -16,6 +17,7 @@ export const routes = [
     getTournamentForGroupRoute,
     getTournamentDetailsRoute,
     createTournamentRoute,
+    updateTournamentRoute,
 ];
 
 export { addGroupActivity } from "./addGroupActivity";

@@ -37,6 +37,10 @@ const TournamentSchema = new Schema(
         game: {
             name: String,
         },
+        description: String,
+        reporting_time: String,
+        max_teams: Number,
+        min_teams: Number,
         registered_organizations: [
             {
                 registration_id: { type: Schema.Types.ObjectId, ref: "registration" },
