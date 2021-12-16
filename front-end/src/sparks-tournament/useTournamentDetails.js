@@ -15,7 +15,6 @@ export const useTournamentDetails = (id) => {
         setIsLoading(true);
         try {
             const { data } = await get(`/api/${id}/details/tournament`);
-            console.log(data);
             setTournament(data.tournament);
         } catch (error) {
             console.log(error);

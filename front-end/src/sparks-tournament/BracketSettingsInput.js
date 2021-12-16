@@ -59,7 +59,8 @@ export const BracketSettingsInput = ({ saveFunction }) => {
         } else {
             handleMaxTeams(4);
         }
-    }, [initialMaxTeams, initialMinTeams, handleMinTeams, handleMaxTeams]);
+        // eslint-disable-next-line
+    }, [initialMinTeams, initialMaxTeams]);
 
     return (
         <Box maxWidth='500px'>

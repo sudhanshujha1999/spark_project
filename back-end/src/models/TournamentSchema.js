@@ -34,9 +34,8 @@ const TournamentSchema = new Schema(
         entry_fee: {
             type: Number,
         },
-        game: {
-            name: String,
-        },
+        game: String,
+
         description: String,
         reporting_time: String,
         max_teams: Number,

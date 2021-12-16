@@ -115,6 +115,19 @@ export const useStyles = makeStyles((theme) => ({
         height: "100%",
         width: "100%",
     },
+    // tournament background image
+    tournamentGameImage: {
+        backgroundPosition: "0 12%",
+        backgroundSize: "cover",
+        position: "relative",
+        zIndex: 1,
+        width: "104%",
+        minHeight: 300,
+        "&:before": {
+            ...basicPseudoElementStyles,
+            zIndex: 2,
+        },
+    },
     // tournament control panel
     nullifyBasicPadding: {
         marginTop: "-32px",

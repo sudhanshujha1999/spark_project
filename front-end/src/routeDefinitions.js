@@ -18,7 +18,11 @@ import { SchedulingPage } from "./scheduling";
 import { TeamInfoForm, EditTeamInfo } from "./teams";
 import { WarRoom, MatchDetails, Scrimmages } from "./war-room";
 import { GroupsPage, GroupDetailPage, EventsPage } from "./groups";
-import { SparksTournamentPage, TournamentSettingsPage } from "./sparks-tournament";
+import {
+    SparksTournamentPage,
+    TournamentSettingsPage,
+    TournamentDetailPage,
+} from "./sparks-tournament";
 
 export const createTeamRoute = {
     path: "/new-team/:id",
@@ -102,6 +106,11 @@ export const sparksTournamentPage = {
 
 export const tournamentDetailPage = {
     path: "/:tournamentId/tournament/",
+    component: TournamentDetailPage,
+};
+
+export const tournamentSettingsPage = {
+    path: "/:tournamentId/tournament/settings/",
     component: TournamentSettingsPage,
 };
 
