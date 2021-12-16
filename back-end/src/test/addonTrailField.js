@@ -1,33 +1,16 @@
-import { Groups, ORGANIZATION, TRIAL } from "../models";
-import { addGroupTrialDate } from "../groups";
+import { getGroupsWithOrganizationId } from "../community-groups/getGroupsWithOrganizationId";
+import { Groups } from "../models";
 
 export const addonTrailField = {
     path: "/test-trial",
     method: "post",
     handler: async (req, res) => {
         try {
-            const groups = await Groups.find({ group_type: ORGANIZATION });
-            // const groupsTrialResponse = await Promise.allSettled(
-            //     groups.map((group) => addGroupTrialDate(group._id))
-            // );
-            // const response = groupsTrialResponse.map((result, index) => {
-            //     console.log(result);
-            //     if (result.status === "fulfilled") {
-            //         return {
-            //             name: groups[index].name,
-            //             ...result.value,
-            //         };
-            //     } else {
-            //         return {
-            //             name: groups[index].name,
-            //             success: false,
-            //             ...result.value,
-            //         };
-            //     }
-            // });
+            const organizationId = "61740a7d7649f7a9baa4d959";
+            const data = await getGroupsWithOrganizationId(organizationId);
             return res.status(200).json({
                 msg: "trail for groups added",
-                // response,
+                data,
             });
         } catch (error) {
             console.log(error.message);

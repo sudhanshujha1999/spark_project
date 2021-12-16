@@ -1,8 +1,8 @@
 import { Box, Button, Dialog, Grid, Typography } from "../ui";
 import { useStyles } from "./styles";
-import { Link } from "react-router-dom";
 import { useState } from "react";
 import { JoinGroup } from "./JoinGroup";
+import { GroupItem } from "./GroupItem";
 
 export const AllGroups = ({ groups }) => {
     const classes = useStyles();
@@ -18,14 +18,12 @@ export const AllGroups = ({ groups }) => {
             <Box my={2}>
                 <Grid container>
                     {groups.map((group) => (
-                        <Grid item xs={12} sm={6} md={3}>
-                            <Link to={`/${group._id}/groups/`}>
-                                <Box className={classes.groupCard}>
-                                    <Typography className={classes.groupName}>
-                                        {group.name}
-                                    </Typography>
-                                </Box>
-                            </Link>
+                        <Grid item xs={12}>
+                            <GroupItem
+                                groupId={group._id}
+                                groupName={group.name}
+                                activity={group.activities}
+                            />
                         </Grid>
                     ))}
                     <Grid item xs={12}>

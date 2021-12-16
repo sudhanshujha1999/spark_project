@@ -234,7 +234,7 @@ const useStyles = makeStyles((theme) => ({
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
-        zIndex: "1000",
+        zIndex: theme.zIndex.drawer + 1,
     },
     active: {
         backgroundColor: theme.palette.background.default,
@@ -249,10 +249,10 @@ const useStyles = makeStyles((theme) => ({
         opacity: 0,
     },
     drawerClose: {
-        zIndex: "1000",
         overflowX: "hidden",
     },
     drawerPaper: {
+        zIndex: theme.zIndex.drawer + 1,
         width: drawerWidth,
         transition: "all 0.2s ease-in",
         overflowX: "hidden",
@@ -268,6 +268,7 @@ const useStyles = makeStyles((theme) => ({
         width: drawerWidth - 175,
         overflowX: "hidden !important",
         transition: "all 0.2s ease-in",
+        zIndex: theme.zIndex.drawer + 1,
     },
     content: {
         flexGrow: 1,
@@ -277,5 +278,6 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         flexFlow: "column",
         alignItems: "flex-start",
+        zIndex: theme.zIndex.drawer + 1,
     },
 }));

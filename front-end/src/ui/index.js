@@ -48,6 +48,7 @@ import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
 import Slide from "@material-ui/core/Slide";
 import Select from "@material-ui/core/Select";
 import Snackbar from "@material-ui/core/Snackbar";
+import Switch from "@material-ui/core/Switch";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import TextField from "@material-ui/core/TextField";
@@ -62,6 +63,7 @@ export { CenteredContainer } from "./CenteredContainer";
 export { CustomSnackbar } from "./CustomSnackbar";
 export { DeletableListItem } from "./DeletableListItem";
 export { EditableTextField } from "./EditableTextField";
+export { DatesBoilerPlate } from "./DatesBoilerPlate";
 export { Footer } from "./Footer";
 export { Loading } from "./Loading";
 export { Modal } from "./Modal";
@@ -122,6 +124,7 @@ export {
     SpeedDial,
     SpeedDialIcon,
     SpeedDialAction,
+    Switch,
     TextField,
     Typography,
     TimePicker,

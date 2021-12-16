@@ -27,7 +27,12 @@ export const useGroupDetails = (groupId) => {
         } else {
             setIsLoading(false);
         }
-    }, [groupId, organizations]);
+        // eslint-disable-next-line
+    }, [groupId, organizations, fetchData]);
 
-    return { groupDetails, isLoading };
+    const updateDetails = useCallback(async () => {
+        await fetchData(groupId, organizations._id);
+    }, [groupId, organizations, fetchData]);
+
+    return { groupDetails, isLoading, updateDetails };
 };

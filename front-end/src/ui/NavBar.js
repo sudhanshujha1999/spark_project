@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
     appBar: {
-        zIndex: 500,
+        zIndex: theme.zIndex.drawer + 1,
         opacity: 0.4,
         position: "relative",
         transition: "all 0.2s ease-out",

@@ -14,6 +14,7 @@ export const CopyrightFooter = ({ footerRef }) => {
 
 const useStyles = makeStyles((theme) => ({
     footerContainer: {
+        zIndex: theme.zIndex.drawer + 1,
         marginTop: "40px",
         width: "100%",
         padding: "20px 200px",

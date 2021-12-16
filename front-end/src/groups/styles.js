@@ -1,5 +1,16 @@
 import { makeStyles } from "@material-ui/styles";
-import { purple } from "@material-ui/core/colors";
+import { green } from "@material-ui/core/colors";
+const cardHeight = "80px";
+const groupRadius = "20px";
+const basicPseudoElementStyles = {
+    top: 0,
+    left: 0,
+    position: "absolute",
+    content: '""',
+    width: "100%",
+    height: "100%",
+    zIndex: "0",
+};
 
 export const useStyles = makeStyles((theme) => ({
     heading: {
@@ -10,30 +21,19 @@ export const useStyles = makeStyles((theme) => ({
         flexDirection: "column",
         justifyContent: "center",
         marginLeft: "80px",
-        justifyContent: "center",
     },
     bigHeading: {
         fontSize: "min(6em, 11vw)",
     },
     medHeading: {
+        filter: "drop-shadow(0px 10px 3px rgba(0,0,0,0.72))",
         fontSize: "min(4em, 8vw)",
     },
     smallHeading: {
         fontSize: "1.5em",
         width: "fit-content",
         position: "relative",
-        "&:before": {
-            position: "absolute",
-            content: '""',
-            width: "150%",
-            height: "3px",
-            bottom: "-6px",
-            left: 0,
-            borderRadius: "0px 5px 5px 15px",
-            zIndex: "2",
-            background:
-                "linear-gradient(90deg, #ffef2e 0%, rgb(240 100 68) 30%, rgba(250,250,250,0) 60%)",
-        },
+        filter: "drop-shadow(0px 10px 3px rgba(0,0,0,0.72))",
     },
     subHeading: {
         fontSize: "min(1.5em, 2.5vw)",
@@ -59,34 +59,85 @@ export const useStyles = makeStyles((theme) => ({
         backgroundSize: "cover",
         backgroundPositon: "center",
     },
-    // do redesig on groups card
-    groupCard: {
-        padding: "10px 20px",
-        width: "95%",
-        overflow: "hidden",
-        position: "relative",
-        fontSize: "1em",
-        textAlign: "center",
-        backgroundColor: "#272731",
-        isolation: "isolate",
+    customScroll: {
+        "&::-webkit-scrollbar": {
+            width: "8px",
+            backgroundColor: "rgba(0,0,0,0.5)",
+            borderRadius: 10,
+        },
+        "&::-webkit-scrollbar-thumb": {
+            borderRadius: 10,
+            opacity: "0.8",
+            backgroundColor: "#895cf2",
+        },
+    },
+    // do redesign on groups card
+    groupCardContainer: {
         cursor: "pointer",
-        transition: "all 0.2s ease-out",
-        boxShadow: "0px 1px 5px rgba(20,20,20,0.4) inset",
-        zIndex: "1",
+        margin: "10px 0",
+        backgroundColor: "#303030",
+        boxShadow: "-7px 7px 22px #0c0c0c , 7px -7px 22px #343434",
+        borderRadius: groupRadius,
+        overflow: "hidden",
+        padding: "8px 16px",
         "&:hover": {
-            boxShadow: "0px 5px 10px rgba(0,0,0,0.2)",
-            "& $groupName": {
+            "& $groupCard": {
+                boxShadow: "0px 5px 10px rgba(0,0,0,0.2)",
+                "& $groupName": {
+                    "&:before": {
+                        transform: "translateX(0%)",
+                    },
+                },
+            },
+            "& $avatar": {
+                boxShadow: "none",
                 "&:before": {
-                    transform: "translateX(0%)",
+                    opacity: 1,
                 },
             },
         },
     },
-    groupName: {
-        zIndex: "2",
-        color: "#895cf2",
+
+    avatar: {
+        height: cardHeight,
+        width: cardHeight,
         fontSize: "1.5em",
-        fontWeight: 700,
+        zIndex: "5",
+        borderRadius: groupRadius,
+        color: "#fafafa",
+        transition: "all 0.2s ease-in-out",
+        boxShadow: "-7px 7px 22px #0c0c0c , 7px -7px 22px #343434",
+        backgroundColor: "#000000",
+        backgroundImage: "linear-gradient(315deg, #202020 0%, #303030 74%)",
+        "&::before": {
+            ...basicPseudoElementStyles,
+            boxShadow: "-7px 7px 22px #0c0c0c inset, 7px -7px 22px #343434 inset",
+            opacity: 0,
+            transition: "all 0.2s ease-in-out",
+        },
+    },
+    groupCard: {
+        padding: "6px 30px",
+        marginLeft: "-20px",
+        textOverflow: "ellipsis",
+        overflow: "hidden",
+        position: "relative",
+        fontSize: "1em",
+        textAlign: "center",
+        // backgroundColor: "#272731",
+        backgroundColor: "#222",
+        isolation: "isolate",
+        transition: "all 0.2s ease-in-out",
+        zIndex: "1",
+        clipPath: " polygon(0 0, 100% 0%, 85% 100%, 0% 100%)",
+        boxShadow: "0px 1px 10px rgba(0,0,0,0.2)",
+    },
+    groupName: {
+        textOverflow: "ellipsis",
+        zIndex: "2",
+        // color: "#895cf2",
+        color: "#FFF",
+        fontWeight: "600",
         "&:before": {
             position: "absolute",
             mixBlendMode: "difference",
@@ -98,8 +149,31 @@ export const useStyles = makeStyles((theme) => ({
             height: "100%",
             backgroundColor: "currentColor",
             transform: "translateX(-110%)",
-            transition: "all 0.5s cubic-bezier(0, 0.4, 0.57, 1.44)",
+            // transform: "translateX(0%)",
+            transition: "all 0.25s cubic-bezier(0.49, 0.19, 0.59, 0.99)",
         },
+    },
+    contentGroupBoxContainer: {
+        position: "relative",
+    },
+    lastActivity: {
+        position: "relative",
+        zIndex: "1",
+        "&::before": {
+            ...basicPseudoElementStyles,
+            width: "6px",
+            height: "6px",
+            backgroundColor: green[500],
+            borderRadius: "50%",
+            zIndex: "5",
+            top: "34%",
+            left: "-10px",
+        },
+    },
+    lastActivityContainer: {
+        position: "absolute",
+        bottom: "10%",
+        left: "10%",
     },
     groupCode: {
         padding: "5px 10px",
@@ -108,11 +182,18 @@ export const useStyles = makeStyles((theme) => ({
         margin: "10px 0",
         cursor: "pointer",
     },
-    // all Memebrs Box
+    // all Members Box
     membersBox: {
         width: "70%",
         padding: "10px ",
         backdropFilter: "blur(2px)",
-        backgroundColor: "#18161a",
+        backgroundColor: "#303030",
+        boxShadow: theme.shadows[10],
+    },
+    // dialog
+    dialog: {
+        backgroundColor: "#303030",
+        padding: "16px",
+        width: "700px",
     },
 }));

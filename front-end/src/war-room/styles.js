@@ -14,6 +14,46 @@ export const useStyles = makeStyles((theme) => ({
         fontSize: "3em",
     },
     // headings
+    // heading in landing page
+    heading: {
+        position: "relative",
+        minHeight: "50vh",
+        width: "min(800px, 72vw)",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        marginLeft: "80px",
+    },
+    bigHeading: {
+        fontSize: "min(6em, 11vw)",
+        fontWeight: 700,
+        letterSpacing: "3px",
+    },
+    subHeading: {
+        fontSize: "min(1.5em, 2.5vw)",
+        padding: "10px 20px",
+        backdropFilter: "blur(15px)",
+        backgroundImage: "linear-gradient(45deg, rgba(51,51,51,0) 0%, rgb(48 123 131 / 40%) 100%)",
+        // border: "1px solid rgba(255, 255, 255, 0.125)",
+    },
+    buttons: {
+        fontSize: "1.15em",
+        texAlign: "center",
+        width: "250px",
+    },
+    headingPicture: {
+        position: "absolute",
+        width: "min(600px, 100vw)",
+        minHeight: "min(92vh, 150%)",
+        content: "''",
+        top: "-32px",
+        right: "-40%",
+        backgroundImage: "url(https://source.unsplash.com/NG_a-z0ScM0)",
+        zIndex: "-3",
+        backgroundSize: "cover",
+        backgroundPositon: "center",
+    },
+
     headingMediumUnderline: {
         fontSize: "2.2em",
         width: "fit-content",

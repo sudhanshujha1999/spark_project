@@ -1,5 +1,6 @@
-import { CommunityGroups, Groups, ORGANIZATION } from "../models";
+import { CommunityGroups, CommunityGroupsActivity, Groups, ORGANIZATION } from "../models";
 export const getGroupDetails = async (groupId, organizationId) => {
+    // can use populate to populate the organizations here
     const group = await CommunityGroups.findOne({
         _id: groupId,
         "member_organizations.id": organizationId,
@@ -7,6 +8,7 @@ export const getGroupDetails = async (groupId, organizationId) => {
     if (!group) {
         throw new Error("no-group-found");
     }
+    const groupActivity = await CommunityGroupsActivity.find({ community_group: groupId }).lean();
     const { member_organizations, ...rest } = group;
     const membersId = member_organizations.map(({ id }) => id);
     const memberOrganizations = await Groups.find({
@@ -14,5 +16,5 @@ export const getGroupDetails = async (groupId, organizationId) => {
         _id: { $in: membersId },
     }).lean();
 
-    return { ...rest, memberOrganizations };
+    return { ...rest, memberOrganizations, groupActivity };
 };
